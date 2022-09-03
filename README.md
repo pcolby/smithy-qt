@@ -16,7 +16,7 @@ graph LR
   smithy-qt --Grantlee--> output(["Rendered Files"])
 ```
 
-```
+```mermaid
 graph LR
   model(["Amazon's<br/>AWS Models"]) --> smithy-qt("smithy-qt")
   templates(["qt-aws-sdk<br/>Templates"]) --> smithy-qt
