@@ -8,7 +8,22 @@
 #include <QFileInfo>
 #include <QLoggingCategory>
 
-#include "generator.h"
+#if defined(Q_OS_UNIX)
+#include <unistd.h>
+#elif defined(Q_OS_WIN)
+#include <Windows.h>
+#endif
+
+inline bool haveConsole()
+{
+    #if defined(Q_OS_UNIX)
+    return isatty(STDERR_FILENO);
+    #elif defined(Q_OS_WIN)
+    return GetConsoleWindow();
+    #else
+    return false;
+    #endif
+}
 
 void configureLogging(const QCommandLineParser &parser)
 {
@@ -20,14 +35,15 @@ void configureLogging(const QCommandLineParser &parser)
         QLoggingCategory::defaultCategory()->setEnabled(QtDebugMsg, true);
     }
 
-    if (!parser.isSet(QStringLiteral("no-color"))) {
+    const QString color = parser.value(QStringLiteral("color"));
+    if ((color == QStringLiteral("yes")) || (color == QStringLiteral("auto") && haveConsole())) {
         messagePattern.prepend(QStringLiteral(
-      //"%{if-debug}D%{endif}"
-      //"%{if-info}\x1b[32m%{endif}"
-        "%{if-warning}\x1b[35m%{endif}" // Magenta
-        "%{if-critical}\x1b31m%{endif}" // Red
-        "%{if-fatal}31;1%{endif}"));    // Red and bold
-        messagePattern.append(QStringLiteral("\x1b[0m"));
+        "%{if-debug}\x1b[37m%{endif}"      // White
+        "%{if-info}\x1b[32m%{endif}"       // Green
+        "%{if-warning}\x1b[35m%{endif}"    // Magenta
+        "%{if-critical}\x1b[31m%{endif}"   // Red
+        "%{if-fatal}\x1b[31;1m%{endif}")); // Red and bold
+        messagePattern.append(QStringLiteral("\x1b[0m")); // Reset.
     }
 
     qSetMessagePattern(messagePattern);
@@ -36,86 +52,91 @@ void configureLogging(const QCommandLineParser &parser)
 int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
+    app.setApplicationName(QStringLiteral(PROJECT_NAME));
+    app.setApplicationVersion(QStringLiteral(PROJECT_VERSION));
 
     // Parse the command line options.
     QCommandLineParser parser;
-    parser.setApplicationDescription(QStringLiteral("Generate code for the QtAws project."));
-    parser.addHelpOption();
     parser.addOptions({
-        {{QStringLiteral("a"), QStringLiteral("apis")},
-          QStringLiteral("Read API descriptions from dir"), QStringLiteral("dir")},
-        {{QStringLiteral("d"), QStringLiteral("debug")}, QStringLiteral("Enable debug output")},
-        {{QStringLiteral("f"), QStringLiteral("force")},
-          QStringLiteral("Dont prompt before generating files")},
-        { QStringLiteral("no-color"), QStringLiteral("Do not color the output")},
+        {{QStringLiteral("m"), QStringLiteral("models")},
+          QCoreApplication::translate("main", "Read Smithy models from dir"),
+          QStringLiteral("dir")},
+        {{QStringLiteral("t"), QStringLiteral("templates")},
+          QCoreApplication::translate("main", "Read Grantlee templates from dir"),
+          QStringLiteral("dir")},
         {{QStringLiteral("o"), QStringLiteral("output")},
-          QStringLiteral("Write output to dir"), QStringLiteral("dir")},
+          QCoreApplication::translate("main", "Write output files to dir"), QStringLiteral("dir")},
+        {{QStringLiteral("f"), QStringLiteral("force")},
+          QCoreApplication::translate("main", "Overwrite existing files")},
+        { {QStringLiteral("c"), QStringLiteral("color")},
+          QCoreApplication::translate("main", "Color the console output (default auto)"),
+          QStringLiteral("yes|no|auto"), QStringLiteral("auto")},
+        {{QStringLiteral("d"), QStringLiteral("debug")},
+          QCoreApplication::translate("main", "Enable debug output")},
     });
-    parser.addPositionalArgument(
-        QStringLiteral("services"),
-        QStringLiteral("Services to generate, such as 'alexaforbusiness'; omit for all services"),
-        QStringLiteral("[services...]"));
+    parser.addHelpOption();
+    parser.addVersionOption();
     parser.process(app);
     configureLogging(parser);
 
-    // Verify that the output directory exists.
-    const QFileInfo outputDir(QDir::cleanPath(parser.value(QStringLiteral("output"))));
-    if ((!outputDir.exists()) || (!outputDir.isDir()) || (!outputDir.isWritable())) {
-        qWarning() << "output directory does not exist, is not a directory, or is not writeable"
-                   << outputDir.absoluteFilePath();
+    // Check for any missing (but required) command line options.
+    QStringList missingOptions {
+        QStringLiteral("models"),
+        QStringLiteral("templates"),
+        QStringLiteral("output"),
+    };
+    for (auto iter = missingOptions.begin(); iter != missingOptions.end();) {
+        if (parser.isSet(*iter)) iter=missingOptions.erase(iter); else ++iter;
+    }
+    if (!missingOptions.empty()) {
+        qWarning().noquote() << QCoreApplication::translate("main", "Missing required option(s): %1")
+            .arg(missingOptions.join(QLatin1Char(' ')));
         return 2;
     }
 
-    // Build a list of API descriptions to generate code from.
-    const QStringList serviceNames = parser.positionalArguments();
-    QFileInfoList descriptions = QDir(
-        parser.value(QStringLiteral("apis")), QLatin1String("*-???\?-?\?-??.normal.json"),
-        QDir::Name|QDir::IgnoreCase, QDir::Files|QDir::Readable).entryInfoList();
-    for (int i = 0; i < descriptions.size(); ++i) {
-        const QString serviceName = descriptions.at(i).fileName().chopped(23);
-        if ((!serviceNames.isEmpty()) && (!serviceNames.contains(serviceName))) {
-            qDebug() << "skipping" << descriptions.at(i).fileName();
-            descriptions.removeAt(i--);
-        } else if ((i > 0) && (serviceName == descriptions.at(i-1).fileName().chopped(23))) {
-            qDebug() << descriptions.at(i).fileName() << "supersedes" << descriptions.at(i-1).fileName();
-            descriptions.removeAt(--i);
-        }
+    // Verify that the directories exist.
+    const QFileInfo modelsDir (QDir::cleanPath(parser.value(QStringLiteral("models"))));
+    const QFileInfo templatesDir (QDir::cleanPath(parser.value(QStringLiteral("templates"))));
+    const QFileInfo outputDir(QDir::cleanPath(parser.value(QStringLiteral("output-dir"))));
+
+    if ((!modelsDir.exists()) || (!modelsDir.isDir()) || (!modelsDir.isReadable())) {
+        qWarning().noquote() << QCoreApplication::translate("main",
+            "Models directory does not exist, is not a directory, or is not readable: %1")
+            .arg(modelsDir.absoluteFilePath());
+        return 2;
+    }
+    if ((!templatesDir.exists()) || (!templatesDir.isDir()) || (!templatesDir.isReadable())) {
+        qWarning().noquote() << QCoreApplication::translate("main",
+            "Theme directory does not exist, is not a directory, or is not readable: %1")
+            .arg(templatesDir.absoluteFilePath());
+        return 2;
+    }
+    if ((!outputDir.exists()) || (!outputDir.isDir()) || (!outputDir.isWritable())) {
+        qWarning().noquote() << QCoreApplication::translate("main",
+            "Output directory does not exist, is not a directory, or is not writable: %1")
+            .arg(outputDir.absoluteFilePath());
+        return 2;
     }
 
-    // If services were specified on the command line, make sure they were all known services.
-    foreach (const QString &serviceName, serviceNames) {
-        bool found = false;
-        for (int i = 0; (!found) && (i < descriptions.size()); ++i) {
-            if (descriptions.at(i).fileName().chopped(23) == serviceName) {
-                found = true;
-            }
-        }
-        if (!found) {
-            qWarning() << "no API description found for service" << serviceName
-                       << "in" << outputDir.absoluteFilePath();
-            return 3;
-        }
-    }
+    // Setup the renderer.
+//    Renderer renderer(inputDir.absoluteFilePath());
+//    if (!renderer.loadTemplates(templatesDir.absoluteFilePath())) {
+//        return 3;
+//    }
 
-    // Verify that we found services to generate code for.
-    if (descriptions.isEmpty()) {
-        qWarning() << "no API descriptions found in" << outputDir.absoluteFilePath();
-        return 3;
-    }
-
-    // Let the user know we're about to generate a lot of files.
-    if (!parser.isSet(QStringLiteral("force"))) {
-        qWarning() << "About to generate a lot of files in" << outputDir.absoluteFilePath();
-        qInfo() << "Press Enter to contine";
-        QTextStream stream(stdin);
-        stream.readLine();
-    }
-
-    // Generate code.
-    Generator generator(outputDir.absoluteFilePath());
-    const int count = generator.generate(descriptions);
-    if (count >= 0) {
-        qInfo() << "Generated" << count << "files in" << outputDir.absoluteFilePath();
-    }
-    return (count > 0) ? 0 : 4;
+    // Let the user know we're about to generate a lot of files, then do it!
+//    qWarning().noquote() << QCoreApplication::translate("main",
+//        "About to generate approximately %1 file(s) in: %2")
+//        .arg(renderer.expectedFileCount()).arg(outputDir.absoluteFilePath());
+//    if (!parser.isSet(QStringLiteral("force"))) {
+//        qInfo().noquote() << QCoreApplication::translate("main", "Press Enter to contine");
+//        QTextStream stream(stdin);
+//        stream.readLine();
+//    }
+//    if (!renderer.render(outputDir.absoluteFilePath(), clobberMode)) {
+//        return 4;
+//    }
+//    qInfo().noquote() << QCoreApplication::translate("main",
+//        "Rendered %1 file(s) in %2").arg(renderer.outputFileCount()).arg(outputDir.absoluteFilePath());
+    return 0;
 }
