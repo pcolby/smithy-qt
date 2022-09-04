@@ -28,4 +28,5 @@ endif()
 target_link_libraries(
   smithy-qt
   #PRIVATE QtSmithy
-  PRIVATE Qt${QT_VERSION_MAJOR}::Core)
+  PRIVATE Qt${QT_VERSION_MAJOR}::Core
+  PRIVATE Grantlee${QT_VERSION_MAJOR}::Templates)

@@ -37,28 +37,19 @@ int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
 
-    // Set default paths relative to the codegen project's directory.
-    const QDir projectcDir(QStringLiteral(CODEGEN_PROJECT_DIR));
-    const QString defaultTemplatesPath = QDir::cleanPath(projectcDir.absoluteFilePath(
-        QStringLiteral("aws-sdk-cpp/code-generation/api-descriptions")));
-    const QString defaultOutputPath = QDir::cleanPath(projectcDir.absoluteFilePath(
-        QStringLiteral("../src")));
-
     // Parse the command line options.
     QCommandLineParser parser;
     parser.setApplicationDescription(QStringLiteral("Generate code for the QtAws project."));
     parser.addHelpOption();
     parser.addOptions({
         {{QStringLiteral("a"), QStringLiteral("apis")},
-          QStringLiteral("Read API descriptions from dir (default is %1)").arg(defaultTemplatesPath),
-          QStringLiteral("dir"), defaultTemplatesPath},
+          QStringLiteral("Read API descriptions from dir"), QStringLiteral("dir")},
         {{QStringLiteral("d"), QStringLiteral("debug")}, QStringLiteral("Enable debug output")},
         {{QStringLiteral("f"), QStringLiteral("force")},
           QStringLiteral("Dont prompt before generating files")},
         { QStringLiteral("no-color"), QStringLiteral("Do not color the output")},
         {{QStringLiteral("o"), QStringLiteral("output")},
-          QStringLiteral("Write output to dir (default is %1)").arg(defaultOutputPath),
-          QStringLiteral("dir"), defaultOutputPath},
+          QStringLiteral("Write output to dir"), QStringLiteral("dir")},
     });
     parser.addPositionalArgument(
         QStringLiteral("services"),
