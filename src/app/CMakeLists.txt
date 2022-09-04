@@ -17,7 +17,7 @@ else()
 
   target_link_libraries(
     SmithyQtApp
-    #PRIVATE QtSmithy
+    PRIVATE QtSmithy
     PRIVATE Qt${QT_VERSION_MAJOR}::Core)
 
   add_executable(smithy-qt main.cpp)
@@ -27,6 +27,6 @@ endif()
 
 target_link_libraries(
   smithy-qt
-  #PRIVATE QtSmithy
+  PRIVATE QtSmithy
   PRIVATE Qt${QT_VERSION_MAJOR}::Core
   PRIVATE Grantlee${QT_VERSION_MAJOR}::Templates)
