@@ -54,6 +54,12 @@ find_package(QT REQUIRED COMPONENTS Core NAMES Qt6 Qt5)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core)
 message(STATUS "Found Qt ${Qt${QT_VERSION_MAJOR}_VERSION}")
 
+# Set a default (but optional and overridable) library namespace.
+set(QTSMITHY_NAMESPACE "smithy" CACHE STRING "Optional SmithyQt library namespace")
+if (QTSMITHY_NAMESPACE)
+  add_definitions(-DQTSMITHY_NAMESPACE=${QTSMITHY_NAMESPACE})
+endif()
+
 include(CTest)
 add_subdirectory(doc)
 add_subdirectory(src)

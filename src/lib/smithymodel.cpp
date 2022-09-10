@@ -9,6 +9,8 @@
 #include <qtsmithy/smithymodel.h>
 #include "smithymodel_p.h"
 
+QTSMITHY_BEGIN_NAMESPACE
+
 /*!
  * \class SmithyModel
  *
@@ -61,3 +63,5 @@ SmithyModelPrivate::SmithyModelPrivate(SmithyModel * const q) : q_ptr(q)
 }
 
 /// \endcond
+
+QTSMITHY_END_NAMESPACE
