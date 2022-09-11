@@ -9,6 +9,7 @@
 #ifndef QTSMITHY_SMITHYMODEL_H
 #define QTSMITHY_SMITHYMODEL_H
 
+#include <QHash>
 #include <QObject>
 
 #include "shapeid.h"

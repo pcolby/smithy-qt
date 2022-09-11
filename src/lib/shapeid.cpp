@@ -52,14 +52,12 @@ ShapeId::ShapeId(const ShapeId &other) : d_ptr(new ShapeIdPrivate(this))
 }
 
 /*!
- * Constructs a ShapeId object by parsing a Smithy Shape ID given by \a shapeId.
+ * Constructs a ShapeId object by parsing the Smithy Shape ID given by \a shapeId.
  *
- * (?:(?<ns>_*[a-zA-Z]\w*\.?)+(?<!\.)#)?(?<shape>_*[a-zA-Z]\w*)(?:\$(?<member>_*[a-zA-Z]\w*))?$
+ * To be considered valid, \a shapeId must contain at least a valid shape name, but may also contain
+ * optional namespace and member name components. Use isValid() to verify \a shapeId's validity.
  *
- * namepspace: ^(_*[a-zA-Z]\w*\.?)+(?<!\.)$
- * shape name:  ^_*[a-zA-Z]\w*$
- * member name: ^_*[a-zA-Z]\w*$
- *
+ * \see isValid
  * \see https://awslabs.github.io/smithy/2.0/spec/model.html#shape-id
  */
 ShapeId::ShapeId(const QString &shapeId) : d_ptr(new ShapeIdPrivate(this))
@@ -107,25 +105,7 @@ ShapeId& ShapeId::operator=(const QString &shapeId)
  */
 ShapeId::~ShapeId()
 {
-
-}
-
-/*!
- * Returns the last error.
- */
-ShapeId::Error ShapeId::error() const
-{
-    Q_D(const ShapeId);
-    return d->error;
-}
-
-/*!
- * Returns a human-readable description of the last error.
- */
-QString ShapeId::errorString() const
-{
-    Q_D(const ShapeId);
-    return d->errorString();
+    delete d_ptr;
 }
 
 /*!
@@ -159,94 +139,169 @@ QString ShapeId::shapeName() const
     return d->shapeName;
 }
 
+/*!
+ * Set the Shape ID's member name to \a name, which may be an empty or null string.
+ */
 void ShapeId::setMemberName(const QString &name)
 {
     Q_D(ShapeId);
-    static QRegularExpression regex(QStringLiteral("^_*[a-zA-Z]\\w*$"));
-    if ((!name.isEmpty()) && (!regex.match(name).hasMatch())) {
-        d->error = Error::InvalidMemberName;
-        return;
-    }
     d->memberName = name;
 }
 
+/*!
+ * Set the Shape ID's namespace to \a name, which may be an empty or null string.
+ */
 void ShapeId::setNameSpace(const QString &name)
 {
     Q_D(ShapeId);
-    static QRegularExpression regex(QStringLiteral("^(_*[a-zA-Z]\\w*\\.?)+(?<!\\.)$"));
-    if ((!name.isEmpty()) && (!regex.match(name).hasMatch())) {
-        d->error = Error::InvalidNamespace;
-        return;
-    }
     d->nameSpace = name;
 }
 
+/*!
+ * Set the Shape ID's shape name to \a name.
+ *
+ * Note, a Shape ID is considered invalid if it has no shape name, so \a name should typically be
+ * non-empty.
+ */
 void ShapeId::setShapeName(const QString &name)
 {
     Q_D(ShapeId);
-    if (name.isEmpty()) {
-        d->error = Error::EmptyShapeName;
-        return;
-    }
-    static QRegularExpression regex(QStringLiteral("^_*[a-zA-Z]\\w*$"));
-    if (!regex.match(name).hasMatch()) {
-        d->error = Error::InvalidShapeName;
-        return;
-    }
     d->shapeName = name;
 }
 
+/*!
+ * Returns this object as an absolute Smithy Shape ID if this object has a namespace, otherwise a
+ * null string.
+ *
+ * \Note, Smithy defines an absolute Shape ID as one that begins with a namespace, therefore it is
+ * not possible to return an absolute Shape ID if no namespace has been set.
+ *
+ * \Note, if the Shape ID is invalid (ie isValid() returns \c false) it still safe to invoke this
+ * method, but the result is undefined.
+ *
+ * \see setNameSpace
+ * \see isValid
+ */
 QString ShapeId::absoluteShapeId() const
 {
-    Q_D(const ShapeId);
-    return (isValid() && hasNameSpace())
-        ? QStringLiteral("%1#%2").arg(d->nameSpace, relativeShapeId())
-        : QString();
+    return hasNameSpace() ? QStringLiteral("%1#%2").arg(nameSpace(), relativeShapeId()) : QString();
 }
 
+/*!
+ * Returns this object as a relative Smithy Shape ID, that one without a leading namespace.
+ *
+ * \Note, if the Shape ID is invalid (ie isValid() returns \c false) it still safe to invoke this
+ * method, but the result is undefined.
+ *
+ * \see isValid
+ */
 QString ShapeId::relativeShapeId() const
 {
-    Q_D(const ShapeId);
-    return isValid()
-        ? (hasMemberName())
-            ? QStringLiteral("%1$%2").arg(d->shapeName, d->memberName)
-            : d->shapeName
-        : QString();
+    return hasMemberName() ? QStringLiteral("%1$%2").arg(shapeName(), memberName()) : shapeName();
 }
 
+/*!
+ * Returns this object as an *absolute* Smithy Shape ID if this object has a namespace, otherwise a
+ * *relative* Smithy Shape ID.
+ *
+ * \Note, if the Shape ID is invalid (ie isValid() returns \c false) it still safe to invoke this
+ * method, but the result is undefined.
+ *
+ * \see absoluteShapeId
+ * \see relativeShapeId
+ * \see isValid
+ */
 QString ShapeId::toString() const
 {
     return hasNameSpace() ? absoluteShapeId() : relativeShapeId();
 }
 
+/*!
+ * Returns \c true if this Shape ID has a non-empty namespace, otherwise \c false otherwise.
+ *
+ * \see nameSpace.
+ * \see setNameSpace.
+ */
 bool ShapeId::hasNameSpace() const
 {
     return !nameSpace().isEmpty();
 }
 
+/*!
+ * Returns \c true if this Shape ID has a non-empty member name, otherwise \c false otherwise.
+ *
+ * \see memberName.
+ * \see setMemberName.
+ */
 bool ShapeId::hasMemberName() const
 {
     return !memberName().isEmpty();
 }
 
+/*!
+ * Returns \c true if this Shape ID is a *root* Shape ID, and has a namespace, \c false otherwise.
+ *
+ * \see isRootShapeId.
+ * \see hasNameSpace.
+ */
 bool ShapeId::isAbsoluteRootShapeId() const
 {
     return isRootShapeId() && hasNameSpace();
 }
 
+/*!
+ * Returns \c true if this Shape ID is a *root* Shape ID, \c false otherwise.
+ *
+ * \Note, Smithy defines a root Shape ID as one that does not have a member name.
+ *
+ * \see hasMemberName.
+ */
 bool ShapeId::isRootShapeId() const
 {
     return !hasMemberName();
 }
 
+/*!
+ * Returns \c true if this Shape ID is a *relative* Shape ID, \c false otherwise.
+ *
+ * \Note, Smithy defines a relative Shape ID as one that does not have a namespace.
+ *
+ * \see hasNameSpace.
+ */
 bool ShapeId::isRelativeShapeId() const
 {
     return !hasNameSpace();
 }
 
+/*!
+ * Returns true if this object represents a valid, non-empty Smithy Shape ID.
+ *
+ * \see https://awslabs.github.io/smithy/2.0/spec/model.html#shape-id
+ */
 bool ShapeId::isValid() const
 {
-    return (error() == Error::NoError) && (!shapeName().isEmpty());
+    Q_D(const ShapeId);
+    // Validate the (optional) namespace.
+    if (!d->nameSpace.isEmpty()) {
+        static QRegularExpression namespacePattern(QStringLiteral("^(_*[a-zA-Z]\\w*\\.?)+(?<!\\.)$"));
+        Q_ASSERT(namespacePattern.isValid());
+        if (!namespacePattern.match(d->nameSpace).hasMatch()) {
+            return false;
+        }
+    }
+
+    // Validate the (required) shape name.
+    static QRegularExpression identifierPattern(QStringLiteral("^_*[a-zA-Z]\\w*$"));
+    Q_ASSERT(identifierPattern.isValid());
+    if ((d->shapeName.isEmpty()) || (!identifierPattern.match(d->shapeName).hasMatch())) {
+        return false;
+    }
+
+    // Validate the (optional) member name.
+    if ((!d->memberName.isEmpty()) && (!identifierPattern.match(d->memberName).hasMatch())) {
+        return false;
+    }
+    return true; // Valid.
 }
 
 /*!
@@ -263,6 +318,22 @@ bool ShapeId::isValid() const
 ShapeIdPrivate::ShapeIdPrivate(ShapeId * const q) : q_ptr(q)
 {
 
+}
+
+/*!
+ * Splits \a shapeId into its components (namespace, shape name and member name) and assigns them
+ * to the equivalent object members.
+ *
+ * Both the namespace and member name are optional; their equivalent object members will be set to
+ * empty strings if not present in \a shapeId.
+ */
+void ShapeIdPrivate::setShapeId(const QString &shapeId)
+{
+    const int sep1 = shapeId.indexOf(QLatin1Char('#'));
+    const int sep2 = shapeId.lastIndexOf(QLatin1Char('$'));
+    if (sep1 > 0) nameSpace = shapeId.mid(0, sep1);
+    if (sep2 > 0) memberName = shapeId.mid(sep2+1);
+    shapeName = shapeId.mid(sep1+1, sep2-sep1-1);
 }
 
 /// \endcond

@@ -17,17 +17,13 @@ class QTSMITHY_EXPORT ShapeIdPrivate
 {
 public:
     explicit ShapeIdPrivate(ShapeId * const q);
-    ShapeIdPrivate(ShapeId * const q, const QString &shapeId);
 
-    bool setShapeId(const QString &shapeId);
-
-    QString errorString() const;
+    void setShapeId(const QString &shapeId);
 
 protected:
     ShapeId * q_ptr; ///< Internal q-pointer.
 
 private:
-    ShapeId::Error error;
     QString memberName;
     QString nameSpace;
     QString shapeName;
