@@ -9,9 +9,9 @@
 #ifndef QTSMITHY_SMITHYMODEL_H
 #define QTSMITHY_SMITHYMODEL_H
 
-#include "qtsmithy_global.h"
-
 #include <QObject>
+
+#include "shapeid.h"
 
 QTSMITHY_BEGIN_NAMESPACE
 
@@ -24,6 +24,14 @@ class QTSMITHY_EXPORT SmithyModel : public QObject
 public:
     SmithyModel(QObject * parent = nullptr);
     ~SmithyModel() override;
+
+    int/*Metadata*/ metadata() const;
+    int/*Prelude*/ prelude() const;
+    QHash<ShapeId, int/*Shape*/> shapes() const;
+
+    static SmithyModel fromJson(const QJsonDocument &json);
+    static SmithyModel fromIdl(const QByteArray &idl);  ///< Not sure if makes sense to have both
+    static SmithyModel fromIdl(const QDataStream &idl); ///< overloads here.
 
 signals:
 

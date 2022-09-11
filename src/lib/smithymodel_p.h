@@ -10,6 +10,7 @@
 #define QTSMITHY_SMITHYMODEL_P_H
 
 #include <qtsmithy/smithymodel.h>
+#include <qtsmithy/shapeid.h>
 
 QTSMITHY_BEGIN_NAMESPACE
 
@@ -24,6 +25,8 @@ protected:
     SmithyModel * q_ptr; ///< Internal q-pointer.
 
 private:
+    QHash<ShapeId, int/*Shape*/> shapes;
+
     Q_DECLARE_PUBLIC(SmithyModel)
     Q_DISABLE_COPY(SmithyModelPrivate)
     friend class TestSmithyModel;
