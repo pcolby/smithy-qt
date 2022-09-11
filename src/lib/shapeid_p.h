@@ -9,11 +9,9 @@
 #ifndef QTSMITHY_SHAPEID_P_H
 #define QTSMITHY_SHAPEID_P_H
 
-#include <qtsmithy/smithymodel.h>
+#include <qtsmithy/shapeid.h>
 
 QTSMITHY_BEGIN_NAMESPACE
-
-class ShapeId;
 
 class QTSMITHY_EXPORT ShapeIdPrivate
 {
@@ -23,11 +21,14 @@ public:
 
     bool setShapeId(const QString &shapeId);
 
+    QString errorString() const;
+
 protected:
     ShapeId * q_ptr; ///< Internal q-pointer.
 
 private:
-    QString membeName;
+    ShapeId::Error error;
+    QString memberName;
     QString nameSpace;
     QString shapeName;
 

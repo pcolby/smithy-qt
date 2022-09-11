@@ -9,6 +9,8 @@
 #include <qtsmithy/shapeid.h>
 #include "shapeid_p.h"
 
+#include <QRegularExpression>
+
 QTSMITHY_BEGIN_NAMESPACE
 
 /*!
@@ -33,7 +35,7 @@ ShapeId::ShapeId()
 ShapeId::ShapeId(ShapeId &&other) : d_ptr(new ShapeIdPrivate(this))
 {
     Q_D(ShapeId);
-    d->membeName = std::move(other.d_ptr->membeName);
+    d->memberName = std::move(other.d_ptr->memberName);
     d->nameSpace = std::move(other.d_ptr->nameSpace);
     d->shapeName = std::move(other.d_ptr->shapeName);
 }
@@ -44,13 +46,19 @@ ShapeId::ShapeId(ShapeId &&other) : d_ptr(new ShapeIdPrivate(this))
 ShapeId::ShapeId(const ShapeId &other) : d_ptr(new ShapeIdPrivate(this))
 {
     Q_D(ShapeId);
-    d->membeName = other.d_ptr->membeName;
+    d->memberName = other.d_ptr->memberName;
     d->nameSpace = other.d_ptr->nameSpace;
     d->shapeName = other.d_ptr->shapeName;
 }
 
 /*!
  * Constructs a ShapeId object by parsing a Smithy Shape ID given by \a shapeId.
+ *
+ * (?:(?<ns>_*[a-zA-Z]\w*\.?)+(?<!\.)#)?(?<shape>_*[a-zA-Z]\w*)(?:\$(?<member>_*[a-zA-Z]\w*))?$
+ *
+ * namepspace: ^(_*[a-zA-Z]\w*\.?)+(?<!\.)$
+ * shape name:  ^_*[a-zA-Z]\w*$
+ * member name: ^_*[a-zA-Z]\w*$
  *
  * \see https://awslabs.github.io/smithy/2.0/spec/model.html#shape-id
  */
@@ -66,7 +74,7 @@ ShapeId::ShapeId(const QString &shapeId) : d_ptr(new ShapeIdPrivate(this))
 ShapeId& ShapeId::operator=(const ShapeId &shapeId)
 {
     Q_D(ShapeId);
-    d->membeName = shapeId.d_ptr->membeName;
+    d->memberName = shapeId.d_ptr->memberName;
     d->nameSpace = shapeId.d_ptr->nameSpace;
     d->shapeName = shapeId.d_ptr->shapeName;
     return *this;
@@ -78,7 +86,7 @@ ShapeId& ShapeId::operator=(const ShapeId &shapeId)
 ShapeId& ShapeId::operator=(const ShapeId &&shapeId)
 {
     Q_D(ShapeId);
-    d->membeName = std::move(shapeId.d_ptr->membeName);
+    d->memberName = std::move(shapeId.d_ptr->memberName);
     d->nameSpace = std::move(shapeId.d_ptr->nameSpace);
     d->shapeName = std::move(shapeId.d_ptr->shapeName);
     return *this;
@@ -103,12 +111,30 @@ ShapeId::~ShapeId()
 }
 
 /*!
+ * Returns the last error.
+ */
+ShapeId::Error ShapeId::error() const
+{
+    Q_D(const ShapeId);
+    return d->error;
+}
+
+/*!
+ * Returns a human-readable description of the last error.
+ */
+QString ShapeId::errorString() const
+{
+    Q_D(const ShapeId);
+    return d->errorString();
+}
+
+/*!
  * Returns the Shape ID's member name, if it has one, otherwise a null string.
  */
 QString ShapeId::memberName() const
 {
     Q_D(const ShapeId);
-    return d->membeName;
+    return d->memberName;
 }
 
 /*!
@@ -133,22 +159,41 @@ QString ShapeId::shapeName() const
     return d->shapeName;
 }
 
-bool ShapeId::setMemberName(const QString &name)
+void ShapeId::setMemberName(const QString &name)
 {
     Q_D(ShapeId);
-    /// \todo validate.
+    static QRegularExpression regex(QStringLiteral("^_*[a-zA-Z]\\w*$"));
+    if ((!name.isEmpty()) && (!regex.match(name).hasMatch())) {
+        d->error = Error::InvalidMemberName;
+        return;
+    }
+    d->memberName = name;
 }
 
-bool ShapeId::setNameSpace(const QString &name)
+void ShapeId::setNameSpace(const QString &name)
 {
     Q_D(ShapeId);
-    /// \todo validate.
+    static QRegularExpression regex(QStringLiteral("^(_*[a-zA-Z]\\w*\\.?)+(?<!\\.)$"));
+    if ((!name.isEmpty()) && (!regex.match(name).hasMatch())) {
+        d->error = Error::InvalidNamespace;
+        return;
+    }
+    d->nameSpace = name;
 }
 
-bool ShapeId::setShapeName(const QString &name)
+void ShapeId::setShapeName(const QString &name)
 {
     Q_D(ShapeId);
-    /// \todo validate.
+    if (name.isEmpty()) {
+        d->error = Error::EmptyShapeName;
+        return;
+    }
+    static QRegularExpression regex(QStringLiteral("^_*[a-zA-Z]\\w*$"));
+    if (!regex.match(name).hasMatch()) {
+        d->error = Error::InvalidShapeName;
+        return;
+    }
+    d->shapeName = name;
 }
 
 QString ShapeId::absoluteShapeId() const
@@ -164,7 +209,7 @@ QString ShapeId::relativeShapeId() const
     Q_D(const ShapeId);
     return isValid()
         ? (hasMemberName())
-            ? QStringLiteral("%1$%2").arg(d->shapeName, d->membeName)
+            ? QStringLiteral("%1$%2").arg(d->shapeName, d->memberName)
             : d->shapeName
         : QString();
 }
@@ -174,13 +219,35 @@ QString ShapeId::toString() const
     return hasNameSpace() ? absoluteShapeId() : relativeShapeId();
 }
 
-// Various categorisations of Smithy Shape IDs.
-bool hasNameSpace() const;
-bool hasMemberName() const;
-bool isAbsoluteRootShapeId() const; ///< ie hasNameSpace and isRootShapeId.
-bool isRootShapeId() const; ///< Has no $memmber.
-bool isRelativeShapeId() const; ///< !hasNameSpace.
-bool isValid() const;
+bool ShapeId::hasNameSpace() const
+{
+    return !nameSpace().isEmpty();
+}
+
+bool ShapeId::hasMemberName() const
+{
+    return !memberName().isEmpty();
+}
+
+bool ShapeId::isAbsoluteRootShapeId() const
+{
+    return isRootShapeId() && hasNameSpace();
+}
+
+bool ShapeId::isRootShapeId() const
+{
+    return !hasMemberName();
+}
+
+bool ShapeId::isRelativeShapeId() const
+{
+    return !hasNameSpace();
+}
+
+bool ShapeId::isValid() const
+{
+    return (error() == Error::NoError) && (!shapeName().isEmpty());
+}
 
 /*!
  * \cond internal

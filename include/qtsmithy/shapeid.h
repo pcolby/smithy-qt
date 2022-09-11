@@ -20,6 +20,15 @@ class ShapeIdPrivate;
 class QTSMITHY_EXPORT ShapeId
 {
 public:
+    enum class Error {
+        NoError = 0,
+        EmptyShapeName = 1,
+        InvalidShapeId = 2,
+        InvalidNamespace = 3,
+        InvalidShapeName = 4,
+        InvalidMemberName = 5,
+    };
+
     ShapeId();
     ShapeId(ShapeId &&other);
     ShapeId(const ShapeId &other);
@@ -29,13 +38,16 @@ public:
     ShapeId& operator=(const QString &shapeId);
     ~ShapeId();
 
+    Error error() const;
+    QString errorString() const;
+
     QString memberName() const;
     QString nameSpace() const;
     QString shapeName() const;
 
-    bool setMemberName(const QString &name);
-    bool setNameSpace(const QString &name);
-    bool setShapeName(const QString &name);
+    void setMemberName(const QString &name);
+    void setNameSpace(const QString &name);
+    void setShapeName(const QString &name);
 
     QString absoluteShapeId() const;
     QString relativeShapeId() const;
