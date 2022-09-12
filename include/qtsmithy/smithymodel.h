@@ -14,6 +14,8 @@
 
 #include "shapeid.h"
 
+QTSMITHY_DECLARE_TEST(SmithyModel)
+
 QTSMITHY_BEGIN_NAMESPACE
 
 class SmithyModelPrivate;
@@ -45,7 +47,7 @@ protected:
 private:
     Q_DECLARE_PRIVATE(SmithyModel)
     Q_DISABLE_COPY(SmithyModel)
-    friend class TestSmithyModel;
+    QTSMITHY_BEFRIEND_TEST(SmithyModel)
 };
 
 QTSMITHY_END_NAMESPACE

@@ -10,55 +10,49 @@ class TestShapeId : public QObject
 private slots:
     void initTestCase_data();
 
-//    void nullConstruction();
+    void nullConstruction();
 
-//    void copyConstruction_data();
-//    void copyConstruction();
+    void copyConstruction();
 
-//    void moveConstruction_data();
-//    void moveConstruction();
+    void moveConstruction();
 
-//    void stringConstruction_data();
-//    void stringConstruction();
+    void stringConstruction();
 
-//    void copyAssignment();
-//    void moveAssignment();
-//    void stringAssignment();
+    void copyAssignment();
 
-//    void memberName();
-//    void nameSpace();
-//    void shapeName();
+    void moveAssignment();
 
-//    void setMemberName();
-//    void setNameSpace();
-//    void setShapeName();
+    void stringAssignment();
 
-//    void dabsoluteShapeId_data();
-//    void dabsoluteShapeId();
+    void memberName();
 
-//    void relativeShapeId_data();
-//    void relativeShapeId();
+    void nameSpace();
 
-//    void toString_data();
-//    void toString();
+    void shapeName();
 
-//    void hasNameSpace_data();
-//    void hasNameSpace();
+    void setMemberName();
 
-//    void hasMemberName_data();
-//    void hasMemberName();
+    void setNameSpace();
 
-//    void isAbsoluteRootShapeId_data();
-//    void isAbsoluteRootShapeId();
+    void setShapeName();
 
-//    void isRootShapeId_data();
-//    void isRootShapeId();
+    void absoluteShapeId();
 
-//    void isRelativeShapeId_data();
-//    void isRelativeShapeId();
+    void relativeShapeId();
+
+    void toString();
+
+    void hasNameSpace();
+
+    void hasMemberName();
+
+    void isAbsoluteRootShapeId();
+
+    void isRootShapeId();
+
+    void isRelativeShapeId();
 
     void isValid();
 
-//    void setShapeId_data();
-//    void setShapeId();
+    void setShapeId();
 };

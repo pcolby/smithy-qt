@@ -55,6 +55,30 @@
   #define QTSMITHY_END_NAMESPACE
 #endif
 
+/*!
+ * \def QTSMITHY_DECLARE_TEST
+ *
+ * Macro for forward-delcaring a related unit test class, but only when QT_TESTLIB_LIB is defined.
+ *
+ * \sa QTSMITHY_BEFRIEND_TEST
+ */
+
+/*!
+ * \def QTSMITHY_BEFRIEND_TEST
+ *
+ * Macro for befriending a related unit test class, but only when QT_TESTLIB_LIB is defined.
+ *
+ * \sa QTSMITHY_DECLARE_TEST
+ */
+
+#ifdef QT_TESTLIB_LIB
+  #define QTSMITHY_DECLARE_TEST(Class) class Test##Class;
+  #define QTSMITHY_BEFRIEND_TEST(Class) friend class ::Test##Class;
+#else
+  #define QTSMITHY_DECLARE_TEST(Class)
+  #define QTSMITHY_BEFRIEND_TEST(Class)
+#endif
+
 /// \endcond
 
 #endif // QTSMITHY_GLOBAL_H

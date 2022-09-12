@@ -28,8 +28,7 @@ private:
     QHash<ShapeId, int/*Shape*/> shapes;
 
     Q_DECLARE_PUBLIC(SmithyModel)
-    Q_DISABLE_COPY(SmithyModelPrivate)
-    friend class TestSmithyModel;
+    QTSMITHY_BEFRIEND_TEST(SmithyModel)
 };
 
 QTSMITHY_END_NAMESPACE

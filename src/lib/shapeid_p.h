@@ -29,7 +29,7 @@ private:
     QString shapeName;
 
     Q_DECLARE_PUBLIC(ShapeId)
-    friend class TestShapeId;
+    QTSMITHY_BEFRIEND_TEST(ShapeId)
 };
 
 QTSMITHY_END_NAMESPACE

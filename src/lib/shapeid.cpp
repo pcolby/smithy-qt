@@ -24,7 +24,7 @@ QTSMITHY_BEGIN_NAMESPACE
 /*!
  * Constructs an empty ShapeId object.
  */
-ShapeId::ShapeId()
+ShapeId::ShapeId() : d_ptr(new ShapeIdPrivate(this))
 {
 
 }

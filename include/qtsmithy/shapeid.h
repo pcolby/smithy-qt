@@ -13,6 +13,8 @@
 
 #include <QObject>
 
+QTSMITHY_DECLARE_TEST(ShapeId)
+
 QTSMITHY_BEGIN_NAMESPACE
 
 class ShapeIdPrivate;
@@ -54,7 +56,7 @@ private:
     /// \endcond
 
     Q_DECLARE_PRIVATE(ShapeId)
-    friend class TestShapeId;
+    QTSMITHY_BEFRIEND_TEST(ShapeId)
 };
 
 QTSMITHY_END_NAMESPACE
