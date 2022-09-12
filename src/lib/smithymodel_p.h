@@ -14,10 +14,8 @@
 
 QTSMITHY_BEGIN_NAMESPACE
 
-class QTSMITHY_EXPORT SmithyModelPrivate : public QObject
+class QTSMITHY_EXPORT SmithyModelPrivate
 {
-    Q_OBJECT
-
 public:
     explicit SmithyModelPrivate(SmithyModel * const q);
 
@@ -25,7 +23,9 @@ protected:
     SmithyModel * q_ptr; ///< Internal q-pointer.
 
 private:
-    QHash<ShapeId, int/*Shape*/> shapes;
+    QJsonObject metadata;
+    QStringList nameSpaces;
+    QHash<ShapeId, SmithyModel::Shape> shapes;
 
     Q_DECLARE_PUBLIC(SmithyModel)
     QTSMITHY_BEFRIEND_TEST(SmithyModel)

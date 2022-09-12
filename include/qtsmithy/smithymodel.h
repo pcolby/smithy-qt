@@ -10,6 +10,7 @@
 #define QTSMITHY_SMITHYMODEL_H
 
 #include <QHash>
+#include <QJsonObject>
 #include <QObject>
 
 #include "shapeid.h"
@@ -20,33 +21,33 @@ QTSMITHY_BEGIN_NAMESPACE
 
 class SmithyModelPrivate;
 
-class QTSMITHY_EXPORT SmithyModel : public QObject
+class QTSMITHY_EXPORT SmithyModel
 {
-    Q_OBJECT
-
 public:
-    SmithyModel(QObject * parent = nullptr);
-    ~SmithyModel() override;
+    typedef int Shape; ///< Just temporary, until we define the real (class) type.
 
-    int/*Metadata*/ metadata() const;
-    int/*Prelude*/ prelude() const;
-    QHash<ShapeId, int/*Shape*/> shapes() const;
+    SmithyModel();
+    SmithyModel(SmithyModel &&other);
+    SmithyModel(const SmithyModel &other);
+    SmithyModel& operator=(const SmithyModel &model);
+    SmithyModel& operator=(const SmithyModel &&model);
+    ~SmithyModel();
 
-    static SmithyModel fromJson(const QJsonDocument &json);
-    static SmithyModel fromIdl(const QByteArray &idl);  ///< Not sure if makes sense to have both
-    static SmithyModel fromIdl(const QDataStream &idl); ///< overloads here.
+    bool addModelFile(const QJsonObject &json);
 
-signals:
+    bool isValid() const;
+
+    QJsonObject /*or QMultiHash<QString, QJsonValue>*/ metadata() const;
+    QStringList nameSpaces() const;
+    QHash<ShapeId, Shape> shapes(const QString &nameSpace = QString()) const;
 
 protected:
     /// \cond internal
     SmithyModelPrivate * d_ptr; ///< Internal d-pointer.
-    SmithyModel(SmithyModelPrivate * const d, QObject * const parent);
     /// \endcond
 
 private:
     Q_DECLARE_PRIVATE(SmithyModel)
-    Q_DISABLE_COPY(SmithyModel)
     QTSMITHY_BEFRIEND_TEST(SmithyModel)
 };
 
