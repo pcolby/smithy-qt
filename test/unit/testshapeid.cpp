@@ -42,7 +42,7 @@ void TestShapeId::initTestCase_data()
         << QStringLiteral("ExampleShapeName")
         << QStringLiteral("memberName");
 
-    // Invalid cases.
+    // Invalid separators.
 
     QTest::addRow("ns#$member")
         << QStringLiteral("smithy.example.foo#$memberName") << false
@@ -67,6 +67,26 @@ void TestShapeId::initTestCase_data()
         << QStringLiteral("ns$shape")
         << QStringLiteral("member")
         << QStringLiteral("shape#member");
+
+    // Invalid characters.
+
+    QTest::addRow("invalidNamespace")
+        << QStringLiteral("smithy.exa!mple.foo#ExampleShapeName$memberName") << false
+        << QStringLiteral("smithy.exa!mple.foo")
+        << QStringLiteral("ExampleShapeName")
+        << QStringLiteral("memberName");
+
+    QTest::addRow("invalidShapeName")
+        << QStringLiteral("smithy.example.foo#ExampleSh!peName$memberName") << false
+        << QStringLiteral("smithy.example.foo")
+        << QStringLiteral("ExampleSh!peName")
+        << QStringLiteral("memberName");
+
+    QTest::addRow("invalidMemberName")
+        << QStringLiteral("smithy.example.foo#ExampleShapeName$mem!erName") << false
+        << QStringLiteral("smithy.example.foo")
+        << QStringLiteral("ExampleShapeName")
+        << QStringLiteral("mem!erName");
 }
 
 
@@ -81,12 +101,44 @@ void TestShapeId::nullConstruction()
 
 void TestShapeId::copyConstruction()
 {
+    QFETCH_GLOBAL(QString, shapeId);
+    QFETCH_GLOBAL(bool, isValid);
+    QFETCH_GLOBAL(QString, nameSpace);
+    QFETCH_GLOBAL(QString, shapeName);
+    QFETCH_GLOBAL(QString, memberName);
 
+    const smithy::ShapeId src{shapeId};
+    QCOMPARE(src.isValid(), isValid);
+    QCOMPARE(src.nameSpace(), nameSpace);
+    QCOMPARE(src.shapeName(), shapeName);
+    QCOMPARE(src.memberName(), memberName);
+
+    smithy::ShapeId dst{src}; // Will copy, not move, since src is const.
+    QCOMPARE(dst.isValid(), isValid);
+    QCOMPARE(dst.nameSpace(), nameSpace);
+    QCOMPARE(dst.shapeName(), shapeName);
+    QCOMPARE(dst.memberName(), memberName);
 }
 
 void TestShapeId::moveConstruction()
 {
+    QFETCH_GLOBAL(QString, shapeId);
+    QFETCH_GLOBAL(bool, isValid);
+    QFETCH_GLOBAL(QString, nameSpace);
+    QFETCH_GLOBAL(QString, shapeName);
+    QFETCH_GLOBAL(QString, memberName);
 
+    smithy::ShapeId src{shapeId};
+    QCOMPARE(src.isValid(), isValid);
+    QCOMPARE(src.nameSpace(), nameSpace);
+    QCOMPARE(src.shapeName(), shapeName);
+    QCOMPARE(src.memberName(), memberName);
+
+    smithy::ShapeId dst{std::move(src)};
+    QCOMPARE(dst.isValid(), isValid);
+    QCOMPARE(dst.nameSpace(), nameSpace);
+    QCOMPARE(dst.shapeName(), shapeName);
+    QCOMPARE(dst.memberName(), memberName);
 }
 
 void TestShapeId::stringConstruction()
@@ -112,17 +164,23 @@ void TestShapeId::copyAssignment()
     QFETCH_GLOBAL(QString, shapeName);
     QFETCH_GLOBAL(QString, memberName);
 
-    smithy::ShapeId sid;
-    QVERIFY(!sid.isValid());
-    QVERIFY(sid.nameSpace().isNull());
-    QVERIFY(sid.shapeName().isNull());
-    QVERIFY(sid.memberName().isNull());
+    const smithy::ShapeId src{shapeId};
+    QCOMPARE(src.isValid(), isValid);
+    QCOMPARE(src.nameSpace(), nameSpace);
+    QCOMPARE(src.shapeName(), shapeName);
+    QCOMPARE(src.memberName(), memberName);
 
-    sid = smithy::ShapeId{shapeId};
-    QCOMPARE(sid.isValid(), isValid);
-    QCOMPARE(sid.nameSpace(), nameSpace);
-    QCOMPARE(sid.shapeName(), shapeName);
-    QCOMPARE(sid.memberName(), memberName);
+    smithy::ShapeId dst;
+    QVERIFY(!dst.isValid());
+    QVERIFY(dst.nameSpace().isNull());
+    QVERIFY(dst.shapeName().isNull());
+    QVERIFY(dst.memberName().isNull());
+
+    dst = src; // Will copy, not move, since src is const.
+    QCOMPARE(dst.isValid(), isValid);
+    QCOMPARE(dst.nameSpace(), nameSpace);
+    QCOMPARE(dst.shapeName(), shapeName);
+    QCOMPARE(dst.memberName(), memberName);
 }
 
 void TestShapeId::moveAssignment()
