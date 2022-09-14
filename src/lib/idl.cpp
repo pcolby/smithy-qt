@@ -3,7 +3,7 @@
 
 /*!
  * \file
- * Defines the Idl and IdlPrivate classes.
+ * Implements the Smithy IDL parsing functions.
  */
 
 #include <qtsmithy/idl.h>
@@ -26,9 +26,13 @@ QTSMITHY_BEGIN_NAMESPACE
  */
 QJsonObject idlToAst(const QByteArray &idl, IdlParseError *error)
 {
+    QJsonObject ast{};
+
+    /// \todo Parse the thing.
+
     Q_UNUSED(idl); /// \todo
     Q_UNUSED(error); /// \todo
-    return QJsonObject{}; /// \todo
+    return ast;
 }
 
 QTSMITHY_END_NAMESPACE

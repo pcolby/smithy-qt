@@ -89,7 +89,6 @@ void TestShapeId::initTestCase_data()
         << QStringLiteral("mem!erName");
 }
 
-
 void TestShapeId::nullConstruction()
 {
     smithy::ShapeId sid;

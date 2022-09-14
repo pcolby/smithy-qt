@@ -25,3 +25,8 @@ add_unit_test(
   ShapeId
   testshapeid.cpp
   testshapeid.h)
+
+add_unit_test(
+  IdlToAst
+  testidl.cpp
+  testidl.h)

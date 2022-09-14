@@ -19,7 +19,7 @@ QTSMITHY_BEGIN_NAMESPACE
 
 struct QTSMITHY_EXPORT IdlParseError
 {
-    enum class ParseError {
+    enum ParseError {
         NoError = 0,
     } error;
 
