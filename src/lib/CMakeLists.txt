@@ -5,11 +5,16 @@ cmake_minimum_required(VERSION 3.0)
 
 add_library(
   QtSmithy SHARED
+  ${CMAKE_SOURCE_DIR}/include/qtsmithy/idl.h
   ${CMAKE_SOURCE_DIR}/include/qtsmithy/model.h
+  ${CMAKE_SOURCE_DIR}/include/qtsmithy/shape.h
   ${CMAKE_SOURCE_DIR}/include/qtsmithy/shapeid.h
   ${CMAKE_SOURCE_DIR}/include/qtsmithy/qtsmithy_global.h
+  idl.cpp
   model.cpp
   model_p.h
+  shape.cpp
+  shape_p.h
   shapeid.cpp
   shapeid_p.h
 )
