@@ -3,11 +3,11 @@
 
 /*!
  * \file
- * Declares the SmithyModel class.
+ * Declares the Model class.
  */
 
-#ifndef QTSMITHY_SMITHYMODEL_H
-#define QTSMITHY_SMITHYMODEL_H
+#ifndef QTSMITHY_MODEL_H
+#define QTSMITHY_MODEL_H
 
 #include <QHash>
 #include <QJsonObject>
@@ -15,23 +15,23 @@
 
 #include "shapeid.h"
 
-QTSMITHY_DECLARE_TEST(SmithyModel)
+QTSMITHY_DECLARE_TEST(Model)
 
 QTSMITHY_BEGIN_NAMESPACE
 
-class SmithyModelPrivate;
+class ModelPrivate;
 
-class QTSMITHY_EXPORT SmithyModel
+class QTSMITHY_EXPORT Model
 {
 public:
     typedef int Shape; ///< Just temporary, until we define the real (class) type.
 
-    SmithyModel();
-    SmithyModel(SmithyModel &&other);
-    SmithyModel(const SmithyModel &other);
-    SmithyModel& operator=(const SmithyModel &model);
-    SmithyModel& operator=(const SmithyModel &&model);
-    ~SmithyModel();
+    Model();
+    Model(Model &&other);
+    Model(const Model &other);
+    Model& operator=(const Model &model);
+    Model& operator=(const Model &&model);
+    ~Model();
 
     bool addModelFile(const QJsonObject &json);
 
@@ -43,14 +43,14 @@ public:
 
 protected:
     /// \cond internal
-    SmithyModelPrivate * d_ptr; ///< Internal d-pointer.
+    ModelPrivate * d_ptr; ///< Internal d-pointer.
     /// \endcond
 
 private:
-    Q_DECLARE_PRIVATE(SmithyModel)
-    QTSMITHY_BEFRIEND_TEST(SmithyModel)
+    Q_DECLARE_PRIVATE(Model)
+    QTSMITHY_BEFRIEND_TEST(Model)
 };
 
 QTSMITHY_END_NAMESPACE
 
-#endif // QTSMITHY_SMITHYMODEL_H
+#endif // QTSMITHY_MODEL_H
