@@ -7,19 +7,25 @@
 
 #include <QJsonDocument>
 
-#ifndef QT_TESTCASE_SOURCEDIR
-#define QT_TESTCASE_SOURCEDIR // Just to make QtCreator happy for now.
-#endif
+#define PATH_TO_AWS_SMITHY_SRC "../testdata/aws-labs-smithy"
+#define PATH_TO_AWS_SMITHY_MODEL_TESTS \
+    PATH_TO_AWS_SMITHY_SRC "/smithy-model/src/test/resources/software/amazon/smithy/model"
 
 void TestIdl::idlToAst_data()
 {
     QTest::addColumn<QString>("idlFileName");
     QTest::addColumn<QString>("astFileName");
 
-    QDir dir(QStringLiteral(QT_TESTCASE_SOURCEDIR "/../testdata/aws-labs-smithy/smithy-model/src/"
-                            "test/resources/software/amazon/smithy/model/loader/valid/"));
+    const QString dataBasePath = QStringLiteral(PATH_TO_AWS_SMITHY_MODEL_TESTS "/loader/valid");
+    const QString dataPathName = QFINDTESTDATA(dataBasePath);
+    QVERIFY2(!dataPathName.isEmpty(),
+             qUtf8Printable(QStringLiteral("failed to locate test data: %1").arg(dataBasePath)));
+    QDir dir(dataPathName);
+    QVERIFY2(dir.exists(),
+             qUtf8Printable(QStringLiteral("found data does not exist: %1").arg(dataPathName)));
+    qDebug() << "Loading test data from" << dir.canonicalPath();
 
-    qDebug() << dir.canonicalPath();
+    /// \todo load data.
 
     QTest::addRow("null") << QString{} << QString{};
 }
