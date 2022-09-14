@@ -109,7 +109,7 @@ QStringList Model::nameSpaces() const
     return d->nameSpaces;
 }
 
-QHash<ShapeId, Model::Shape> Model::shapes(const QString &nameSpace) const
+QHash<ShapeId, Shape> Model::shapes(const QString &nameSpace) const
 {
     Q_D(const Model);
     Q_UNUSED(nameSpace); ///< \todo

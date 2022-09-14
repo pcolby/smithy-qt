@@ -13,6 +13,7 @@
 #include <QJsonObject>
 #include <QObject>
 
+#include "shape.h"
 #include "shapeid.h"
 
 QTSMITHY_DECLARE_TEST(Model)
@@ -24,8 +25,6 @@ class ModelPrivate;
 class QTSMITHY_EXPORT Model
 {
 public:
-    typedef int Shape; ///< Just temporary, until we define the real (class) type.
-
     Model();
     Model(Model &&other);
     Model(const Model &other);

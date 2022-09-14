@@ -25,7 +25,7 @@ protected:
 private:
     QJsonObject metadata;
     QStringList nameSpaces;
-    QHash<ShapeId, Model::Shape> shapes;
+    QHash<ShapeId, Shape> shapes;
 
     Q_DECLARE_PUBLIC(Model)
     QTSMITHY_BEFRIEND_TEST(Model)

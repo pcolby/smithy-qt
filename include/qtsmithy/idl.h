@@ -17,12 +17,16 @@ QTSMITHY_DECLARE_TEST(Idl)
 
 QTSMITHY_BEGIN_NAMESPACE
 
-class IdlParseError
+struct QTSMITHY_EXPORT IdlParseError
 {
+    enum class ParseError {
+        NoError = 0,
+    } error;
 
+    QString errorString();
 };
 
-QJsonObject smithyIdlToJsonAst(const QByteArray &idl, IdlParseError *error = nullptr);
+QTSMITHY_EXPORT QJsonObject idlToAst(const QByteArray &idl, IdlParseError *error = nullptr);
 
 QTSMITHY_END_NAMESPACE
 

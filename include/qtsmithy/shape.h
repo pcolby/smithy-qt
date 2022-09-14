@@ -24,6 +24,37 @@ class ShapePrivate;
 class QTSMITHY_EXPORT Shape
 {
 public:
+    // https://awslabs.github.io/smithy/2.0/spec/model.html#shape-types
+    enum class Type {
+        // Simply Types
+        Blob       = 0x101,
+        Boolean    = 0x102,
+        String     = 0x103,
+        Enum       = 0x104,
+        Byte       = 0x105,
+        Short      = 0x106,
+        Integer    = 0x107,
+        IntEnum    = 0x108,
+        Long       = 0x109,
+        Float      = 0x10A,
+        Double     = 0x10B,
+        BigInteger = 0x10C,
+        BigDecimal = 0x10D,
+        Timestamp  = 0x10E,
+        Document   = 0x10F,
+
+        // Aggregate Types
+        List      = 0x201,
+        Map       = 0x202,
+        Structure = 0x203,
+        Union     = 0x204,
+
+        // Service Types
+        Service   = 0x301,
+        Operation = 0x302,
+        Resource  = 0x303,
+    };
+
     Shape();
     Shape(Shape &&other);
     Shape(const Shape &other);
@@ -32,6 +63,8 @@ public:
     ~Shape();
 
     bool isValid() const;
+
+    Type type() const;
 
 protected:
     /// \cond internal
