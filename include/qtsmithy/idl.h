@@ -3,7 +3,7 @@
 
 /*!
  * \file
- * Declares the Idl class.
+ * Declares the Smithy IDL parsing functions.
  */
 
 #ifndef QTSMITHY_IDL_H
