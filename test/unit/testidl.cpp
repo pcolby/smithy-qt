@@ -5,6 +5,7 @@
 
 #include "qtsmithy/idl.h"
 
+#include <QDirIterator>
 #include <QJsonDocument>
 
 #define PATH_TO_AWS_SMITHY_SRC "../testdata/aws-labs-smithy"
@@ -20,14 +21,21 @@ void TestIdl::idlToAst_data()
     const QString dataPathName = QFINDTESTDATA(dataBasePath);
     QVERIFY2(!dataPathName.isEmpty(),
              qUtf8Printable(QStringLiteral("failed to locate test data: %1").arg(dataBasePath)));
-    QDir dir(dataPathName);
-    QVERIFY2(dir.exists(),
-             qUtf8Printable(QStringLiteral("found data does not exist: %1").arg(dataPathName)));
-    qDebug() << "Loading test data from" << dir.canonicalPath();
 
-    /// \todo load data.
-
-    QTest::addRow("null") << QString{} << QString{};
+    QDirIterator iter{QDir::cleanPath(dataPathName), {QStringLiteral("*.json")},
+                      QDir::AllDirs|QDir::Files|QDir::NoDotAndDotDot|QDir::Readable,
+                      QDirIterator::Subdirectories};
+    while (iter.hasNext()) {
+        const QString jsonFilePath = iter.next();
+        if (iter.fileInfo().isDir()) continue;
+        Q_ASSERT(jsonFilePath.endsWith(QStringLiteral(".json")));
+        const QString smithyFilePath = jsonFilePath.left(jsonFilePath.size() - 5) +
+                                       QStringLiteral(".smithy");
+        if (QFile::exists(smithyFilePath)) {
+            QTest::addRow("%s", qUtf8Printable(iter.fileInfo().completeBaseName()))
+                << smithyFilePath << jsonFilePath;
+        }
+    }
 }
 
 void TestIdl::idlToAst()
@@ -35,16 +43,21 @@ void TestIdl::idlToAst()
     QFETCH(const QString, idlFileName);
     QFETCH(const QString, astFileName);
 
-    QSKIP("Not yet implemented.");
-
-    QFile idlFile(idlFileName), astFile(astFileName);
-    QVERIFY(idlFile.open(QFile::ReadOnly));
+    QFile astFile(astFileName);
     QVERIFY(astFile.open(QFile::ReadOnly));
+    QJsonParseError jsonError{};
+    const QJsonDocument expectedAst = QJsonDocument::fromJson(astFile.readAll(), &jsonError);
+    QEXPECT_FAIL("traits", "Qt fails to handle big decimal 1.7976931348623157E+309", Abort);
+    QCOMPARE(jsonError.error, QJsonParseError::NoError);
+    QVERIFY(expectedAst.isObject());
 
-    smithy::IdlParseError error{};
-    const QJsonObject ast = smithy::idlToAst(idlFile.readAll(), &error);
-    QCOMPARE(error.error, smithy::IdlParseError::NoError);
-    QCOMPARE(ast, QJsonDocument::fromJson(astFile.readAll()).object());
+    QFile idlFile(idlFileName);
+    QVERIFY(idlFile.open(QFile::ReadOnly));
+    smithy::IdlParseError idlError{};
+    const QJsonObject actualAst = smithy::idlToAst(idlFile.readAll(), &idlError);
+    QCOMPARE(idlError.error, smithy::IdlParseError::NoError);
+    QEXPECT_FAIL("", "Not implemented yet", Continue);
+    QCOMPARE(actualAst, expectedAst.object());
 }
 
 QTEST_MAIN(TestIdl)
