@@ -99,7 +99,7 @@ int main(int argc, char *argv[])
         if (parser.isSet(*iter)) iter=missingOptions.erase(iter); else ++iter;
     }
     if (!missingOptions.empty()) {
-        qCWarning(lc).noquote() << QCoreApplication::translate("main", "Missing required option(s): %1")
+        qCCritical(lc).noquote() << QCoreApplication::translate("main", "Missing required option(s): %1")
             .arg(missingOptions.join(QLatin1Char(' ')));
         return 2;
     }
@@ -110,19 +110,19 @@ int main(int argc, char *argv[])
     const QFileInfo outputDir(QDir::cleanPath(parser.value(QStringLiteral("output"))));
 
     if ((!modelsDir.exists()) || (!modelsDir.isDir()) || (!modelsDir.isReadable())) {
-        qCWarning(lc).noquote() << QCoreApplication::translate("main",
+        qCCritical(lc).noquote() << QCoreApplication::translate("main",
             "Models directory does not exist, is not a directory, or is not readable: %1")
             .arg(modelsDir.absoluteFilePath());
         return 2;
     }
     if ((!templatesDir.exists()) || (!templatesDir.isDir()) || (!templatesDir.isReadable())) {
-        qCWarning(lc).noquote() << QCoreApplication::translate("main",
+        qCCritical(lc).noquote() << QCoreApplication::translate("main",
             "Theme directory does not exist, is not a directory, or is not readable: %1")
             .arg(templatesDir.absoluteFilePath());
         return 2;
     }
     if ((!outputDir.exists()) || (!outputDir.isDir()) || (!outputDir.isWritable())) {
-        qCWarning(lc).noquote() << QCoreApplication::translate("main",
+        qCCritical(lc).noquote() << QCoreApplication::translate("main",
             "Output directory does not exist, is not a directory, or is not writable: %1")
             .arg(outputDir.absoluteFilePath());
         return 2;
@@ -142,23 +142,23 @@ int main(int argc, char *argv[])
         QJsonParseError error{};
         QJsonDocument json = QJsonDocument::fromJson(file.readAll(), &error);
         if (error.error != QJsonParseError::NoError) {
-            qCWarning(lc).noquote() << QCoreApplication::translate("main",
+            qCCritical(lc).noquote() << QCoreApplication::translate("main",
                 "Failed to parse JSON file: %1").arg(file.fileName());
             return 3;
         }
         if (!json.isObject()) {
-            qCWarning(lc).noquote() << QCoreApplication::translate("main",
+            qCCritical(lc).noquote() << QCoreApplication::translate("main",
                 "File is not a JSON object: %1").arg(file.fileName());
             return 3;
         }
-        if (!model.addModelFile(json.object())) {
-            qCWarning(lc).noquote() << QCoreApplication::translate("main",
+        if (!model.insert(json.object(), file.fileName())) {
+            qCCritical(lc).noquote() << QCoreApplication::translate("main",
                 "Failed to parse Smithy JSON AST: %1").arg(file.fileName());
             return 3;
         }
     }
     if (!model.isValid()) {
-        qCWarning(lc).noquote() << QCoreApplication::translate("main",
+        qCCritical(lc).noquote() << QCoreApplication::translate("main",
             "Failed to load valid Smithy model");
         /// \todo Maybe get an error code / string from the Model instance?
         return 3;

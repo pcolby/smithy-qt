@@ -70,20 +70,24 @@ Model::~Model()
 }
 
 /*!
- * Add the logical content of the JSON AST model file \a json into this semantic model.
+ * Add the logical content of the JSON AST model file given by \a ast into this semantic model.
  *
  * A Smithy semantic model is split into one or more model files. Use this method to add all model
  * files that comprise this semantic model.
  *
+ * If \a name is non-empty, it will be used in diagnostic logging, but it otherwise opaque to this
+ * function.
+ *
  * \see https://awslabs.github.io/smithy/2.0/spec/model.html
  */
-bool Model::addModelFile(const QJsonObject &json)
+bool Model::insert(const QJsonObject &ast, const QString &name)
 {
+    Q_UNUSED(name); ///< \todo
+
     Q_D(const Model);
-    const QString version = json.value(QLatin1String("smithy")).toString();
-    qCDebug(d->lc) << "Smithy version:" << version;
-    if (!(version == QLatin1String("2") || version.startsWith(QLatin1String("2.")))) {
-        qCWarning(d->lc) << "Unsupported Smithy version:" << version; // Non-fatal.
+    const QVersionNumber version = d->smithyVersion(ast);
+    if (version.majorVersion() > 1) {
+        qCWarning(d->lc) << "Unknown Smithy version:" << version;
     }
 
     /// \todo Lots more here.
@@ -131,6 +135,21 @@ QHash<ShapeId, Shape> Model::shapes(const QString &nameSpace) const
 ModelPrivate::ModelPrivate(Model * const q) : q_ptr(q)
 {
 
+}
+
+QVersionNumber ModelPrivate::smithyVersion(const QJsonObject &ast)
+{
+    const QString versionString = ast.value(QLatin1String("smithy")).toString();
+    qCDebug(lc) << "Smithy version string:" << versionString;
+    int suffixIndex = -1; // Initial value is ignored.
+    const QVersionNumber versionNumber = QVersionNumber::fromString(versionString, &suffixIndex);
+    qCDebug(lc) << "Smithy version number:" << versionNumber;
+    if (versionNumber.isNull()) {
+        qCWarning(lc) << "Failed to parse Smithy version:" << versionString;
+    } else if (suffixIndex < versionString.length()) {
+        qCWarning(lc) << "Ignoring Smithy version suffix:" << versionString.mid(suffixIndex);
+    }
+    return versionNumber;
 }
 
 /// \endcond

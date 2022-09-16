@@ -13,6 +13,7 @@
 #include <qtsmithy/shapeid.h>
 
 #include <QLoggingCategory>
+#include <QVersionNumber>
 
 QTSMITHY_BEGIN_NAMESPACE
 
@@ -20,6 +21,8 @@ class QTSMITHY_EXPORT ModelPrivate
 {
 public:
     explicit ModelPrivate(Model * const q);
+
+    static QVersionNumber smithyVersion(const QJsonObject &ast);
 
 protected:
     Model * q_ptr; ///< Internal q-pointer.
