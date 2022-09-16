@@ -12,6 +12,8 @@
 #include <qtsmithy/model.h>
 #include <qtsmithy/shapeid.h>
 
+#include <QLoggingCategory>
+
 QTSMITHY_BEGIN_NAMESPACE
 
 class QTSMITHY_EXPORT ModelPrivate
@@ -21,6 +23,7 @@ public:
 
 protected:
     Model * q_ptr; ///< Internal q-pointer.
+    static Q_LOGGING_CATEGORY(lc, "smithy.Model", QtInfoMsg); ///< Logging category for UI commands.
 
 private:
     QJsonObject metadata;

@@ -12,6 +12,8 @@
 #include <qtsmithy/shape.h>
 #include <qtsmithy/shapeid.h>
 
+#include <QLoggingCategory>
+
 QTSMITHY_BEGIN_NAMESPACE
 
 class QTSMITHY_EXPORT ShapePrivate
@@ -21,6 +23,7 @@ public:
 
 protected:
     Shape * q_ptr; ///< Internal q-pointer.
+    static Q_LOGGING_CATEGORY(lc, "smithy.Shape", QtInfoMsg); ///< Logging category for UI commands.
 
 private:
     Q_DECLARE_PUBLIC(Shape)

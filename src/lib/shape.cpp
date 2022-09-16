@@ -14,7 +14,8 @@ QTSMITHY_BEGIN_NAMESPACE
 /*!
  * \class Shape
  *
- * The Shape class provides a Qt representation of a Smithy semantic shape.
+ * The Shape class provides a Qt representation of a Smithy semantic shape. That is, essentially a
+ * tagged union or variant class, with some specialised conversions for native Qt types.
  *
  * \see https://awslabs.github.io/smithy/2.0/spec/shape.html#semantic-shape
  */

@@ -75,19 +75,20 @@ Model::~Model()
  * A Smithy semantic model is split into one or more model files. Use this method to add all model
  * files that comprise this semantic model.
  *
- * Note, Smithy model files may be in JSON AST or Smithy IDL formats. This method expects the
- * former, however, a method will be provided (outside of this class) for converting Smithy IDL
- * model file data to JSON objects.
- *
- * \todo Implement static QJsonObject smithy::smithyIdlToJsonAst(const QByteArray &idl,
- *                                                           IdlParseError *error = nullptr);
- *
  * \see https://awslabs.github.io/smithy/2.0/spec/model.html
  */
 bool Model::addModelFile(const QJsonObject &json)
 {
-    Q_UNUSED(json); /// \todo Implement.
-    return false;
+    Q_D(const Model);
+    const QString version = json.value(QLatin1String("smithy")).toString();
+    qCDebug(d->lc) << "Smithy version:" << version;
+    if (!(version == QLatin1String("2") || version.startsWith(QLatin1String("2.")))) {
+        qCWarning(d->lc) << "Unsupported Smithy version:" << version; // Non-fatal.
+    }
+
+    /// \todo Lots more here.
+
+    return true;
 }
 
 bool Model::isValid() const

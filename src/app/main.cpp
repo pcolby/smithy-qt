@@ -1,11 +1,15 @@
 // SPDX-FileCopyrightText: 2013-2022 Paul Colby <git@colby.id.au>
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
+#include <qtsmithy/model.h>
+
 #include <QCommandLineParser>
 #include <QCoreApplication>
 #include <QDebug>
 #include <QDir>
+#include <QDirIterator>
 #include <QFileInfo>
+#include <QJsonDocument>
 #include <QLoggingCategory>
 
 #if defined(Q_OS_UNIX)
@@ -13,6 +17,8 @@
 #elif defined(Q_OS_WIN)
 #include <Windows.h>
 #endif
+
+Q_LOGGING_CATEGORY(lc, "smithy.app", QtInfoMsg); ///< Logging category for UI commands.
 
 inline bool haveConsole()
 {
@@ -31,8 +37,12 @@ void configureLogging(const QCommandLineParser &parser)
     QString messagePattern = QStringLiteral("%{if-category}%{category}: %{endif}%{message}");
 
     if (parser.isSet(QStringLiteral("debug"))) {
-        messagePattern.prepend(QStringLiteral("%{time process} %{type} %{function} "));
-        QLoggingCategory::defaultCategory()->setEnabled(QtDebugMsg, true);
+        #ifdef QT_MESSAGELOGCONTEXT
+        // %{file}, %{line} and %{function} are only available when QT_MESSAGELOGCONTEXT is set.
+        messagePattern.prepend(QStringLiteral("%{function} "));
+        #endif
+        messagePattern.prepend(QStringLiteral("%{time process} %{type} "));
+        QLoggingCategory::setFilterRules(QStringLiteral("smithy.*.debug=true"));
     }
 
     const QString color = parser.value(QStringLiteral("color"));
@@ -89,7 +99,7 @@ int main(int argc, char *argv[])
         if (parser.isSet(*iter)) iter=missingOptions.erase(iter); else ++iter;
     }
     if (!missingOptions.empty()) {
-        qWarning().noquote() << QCoreApplication::translate("main", "Missing required option(s): %1")
+        qCWarning(lc).noquote() << QCoreApplication::translate("main", "Missing required option(s): %1")
             .arg(missingOptions.join(QLatin1Char(' ')));
         return 2;
     }
@@ -97,25 +107,61 @@ int main(int argc, char *argv[])
     // Verify that the directories exist.
     const QFileInfo modelsDir (QDir::cleanPath(parser.value(QStringLiteral("models"))));
     const QFileInfo templatesDir (QDir::cleanPath(parser.value(QStringLiteral("templates"))));
-    const QFileInfo outputDir(QDir::cleanPath(parser.value(QStringLiteral("output-dir"))));
+    const QFileInfo outputDir(QDir::cleanPath(parser.value(QStringLiteral("output"))));
 
     if ((!modelsDir.exists()) || (!modelsDir.isDir()) || (!modelsDir.isReadable())) {
-        qWarning().noquote() << QCoreApplication::translate("main",
+        qCWarning(lc).noquote() << QCoreApplication::translate("main",
             "Models directory does not exist, is not a directory, or is not readable: %1")
             .arg(modelsDir.absoluteFilePath());
         return 2;
     }
     if ((!templatesDir.exists()) || (!templatesDir.isDir()) || (!templatesDir.isReadable())) {
-        qWarning().noquote() << QCoreApplication::translate("main",
+        qCWarning(lc).noquote() << QCoreApplication::translate("main",
             "Theme directory does not exist, is not a directory, or is not readable: %1")
             .arg(templatesDir.absoluteFilePath());
         return 2;
     }
     if ((!outputDir.exists()) || (!outputDir.isDir()) || (!outputDir.isWritable())) {
-        qWarning().noquote() << QCoreApplication::translate("main",
+        qCWarning(lc).noquote() << QCoreApplication::translate("main",
             "Output directory does not exist, is not a directory, or is not writable: %1")
             .arg(outputDir.absoluteFilePath());
         return 2;
+    }
+
+    // Load all of the model files.
+    qCInfo(lc).noquote() << QCoreApplication::translate("main", "Loading Smithy models: %1")
+                            .arg(modelsDir.absoluteFilePath());
+    smithy::Model model;
+    QDirIterator iter{modelsDir.absoluteFilePath(), {QStringLiteral("*.json")},
+                      QDir::Files|QDir::Readable, QDirIterator::Subdirectories};
+    while (iter.hasNext()) {
+        QFile file{iter.next()};
+        qCDebug(lc).noquote() << QCoreApplication::translate("main", "Loading Smithy JSON: %1")
+                                 .arg(file.fileName());
+        file.open(QFile::ReadOnly);
+        QJsonParseError error{};
+        QJsonDocument json = QJsonDocument::fromJson(file.readAll(), &error);
+        if (error.error != QJsonParseError::NoError) {
+            qCWarning(lc).noquote() << QCoreApplication::translate("main",
+                "Failed to parse JSON file: %1").arg(file.fileName());
+            return 3;
+        }
+        if (!json.isObject()) {
+            qCWarning(lc).noquote() << QCoreApplication::translate("main",
+                "File is not a JSON object: %1").arg(file.fileName());
+            return 3;
+        }
+        if (!model.addModelFile(json.object())) {
+            qCWarning(lc).noquote() << QCoreApplication::translate("main",
+                "Failed to parse Smithy JSON AST: %1").arg(file.fileName());
+            return 3;
+        }
+    }
+    if (!model.isValid()) {
+        qCWarning(lc).noquote() << QCoreApplication::translate("main",
+            "Failed to load valid Smithy model");
+        /// \todo Maybe get an error code / string from the Model instance?
+        return 3;
     }
 
     // Setup the renderer.
@@ -125,18 +171,18 @@ int main(int argc, char *argv[])
 //    }
 
     // Let the user know we're about to generate a lot of files, then do it!
-//    qWarning().noquote() << QCoreApplication::translate("main",
+//    qCWarning(lc).noquote() << QCoreApplication::translate("main",
 //        "About to generate approximately %1 file(s) in: %2")
 //        .arg(renderer.expectedFileCount()).arg(outputDir.absoluteFilePath());
 //    if (!parser.isSet(QStringLiteral("force"))) {
-//        qInfo().noquote() << QCoreApplication::translate("main", "Press Enter to contine");
+//        qCInfo(lc).noquote() << QCoreApplication::translate("main", "Press Enter to contine");
 //        QTextStream stream(stdin);
 //        stream.readLine();
 //    }
 //    if (!renderer.render(outputDir.absoluteFilePath(), clobberMode)) {
 //        return 4;
 //    }
-//    qInfo().noquote() << QCoreApplication::translate("main",
+//    qCInfo(lc).noquote() << QCoreApplication::translate("main",
 //        "Rendered %1 file(s) in %2").arg(renderer.outputFileCount()).arg(outputDir.absoluteFilePath());
     return 0;
 }
