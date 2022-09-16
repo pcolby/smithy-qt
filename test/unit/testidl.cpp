@@ -12,6 +12,12 @@
 #define PATH_TO_AWS_SMITHY_MODEL_TESTS \
     PATH_TO_AWS_SMITHY_SRC "/smithy-model/src/test/resources/software/amazon/smithy/model"
 
+// Serialiser for QCOMPARE to output QJsonObject objects on test failures.
+char *toString(const QJsonObject &object)
+{
+    return qstrdup(("QJsonObject(" + QJsonDocument(object).toJson(QJsonDocument::Compact) + ")").constData());
+}
+
 void TestIdl::idlToAst_data()
 {
     QTest::addColumn<QString>("idlFileName");
