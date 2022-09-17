@@ -25,7 +25,7 @@ QTSMITHY_BEGIN_NAMESPACE
  */
 Shape::Shape() : d_ptr(new ShapePrivate(this))
 {
-    /// \todo Load the Smithy prelude here?
+
 }
 
 Shape::Shape(const ShapeId &id, const QJsonObject &ast) : d_ptr(new ShapePrivate(this))
