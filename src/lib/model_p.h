@@ -25,6 +25,7 @@ Q_DECLARE_TR_FUNCTIONS(Model);
 public:
     explicit ModelPrivate(Model * const q);
 
+    static QJsonObject mergeMetadata(const QMultiHash<QString, QJsonValue> &metadata);
     static QVersionNumber smithyVersion(const QJsonObject &ast);
 
 protected:
@@ -32,7 +33,7 @@ protected:
     static Q_LOGGING_CATEGORY(lc, "smithy.Model", QtInfoMsg); ///< Logging category for UI commands.
 
 private:
-    QJsonObject metadata;
+    QMultiHash<QString, QJsonValue> metadata;
     QStringList nameSpaces;
     QHash<ShapeId, Shape> shapes;
 

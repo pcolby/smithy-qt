@@ -9,6 +9,8 @@
 #include <qtsmithy/model.h>
 #include "model_p.h"
 
+#include <QJsonArray>
+
 QTSMITHY_BEGIN_NAMESPACE
 
 /*!
@@ -106,9 +108,11 @@ bool Model::insert(const QJsonObject &ast)
             qDebug().noquote() << metadata;
             return false;
         }
-        qCDebug(d->lc).noquote() << tr("Processing %n metadata entry(s)", nullptr,
-                                       metadata.toObject().length());
-        /// \todo
+        const QJsonObject object = metadata.toObject();
+        qCDebug(d->lc).noquote() << tr("Processing %n metadata entry(s)", nullptr, object.length());
+        for (auto iter = object.constBegin(); iter != object.constEnd(); ++iter) {
+            d->metadata.insert(iter.key(), iter.value());
+        }
     }
 
     // Process the (optional) shapes.
@@ -127,7 +131,10 @@ bool Model::insert(const QJsonObject &ast)
 
 bool Model::isValid() const
 {
-    /// \todo Check for any metadata clashes?
+    Q_D(const Model);
+    if ((!d->metadata.isEmpty()) && (ModelPrivate::mergeMetadata(d->metadata).isEmpty())) {
+        return false; // Metadata is invalid.
+    }
     /// \todo Check for any unknown Shape ID references.
     return false;
 }
@@ -135,7 +142,7 @@ bool Model::isValid() const
 QJsonObject Model::metadata() const
 {
     Q_D(const Model);
-    return d->metadata;
+    return ModelPrivate::mergeMetadata(d->metadata);
 }
 
 QStringList Model::nameSpaces() const
@@ -165,6 +172,46 @@ QHash<ShapeId, Shape> Model::shapes(const QString &nameSpace) const
 ModelPrivate::ModelPrivate(Model * const q) : q_ptr(q)
 {
 
+}
+
+// https://awslabs.github.io/smithy/2.0/spec/model.html#merging-metadata
+QJsonObject ModelPrivate::mergeMetadata(const QMultiHash<QString, QJsonValue> &metadata)
+{
+    qCDebug(lc).noquote() << tr("Merging %n metedata entry(s)", nullptr, metadata.size());
+    QJsonObject merged;
+    const QStringList keys = metadata.keys();
+    for (const QString &key: keys) {
+        // If values are arrays, concatenate them.
+        const auto values = metadata.values(key);
+        if (values.first().isArray()) {
+            QJsonArray concatenatedArray;
+            for (const QJsonValue &value: values) {
+                if (!value.isArray()) {
+                    qCCritical(lc).noquote() << tr("Metadata %1 has conflicting types").arg(key);
+                    return QJsonObject{};
+                }
+                const QJsonArray thisArray = value.toArray();
+                for (const QJsonValue &item: thisArray) {
+                    concatenatedArray.append(item);
+                }
+            }
+            merged.insert(key, concatenatedArray);
+            continue;
+        }
+
+        // Otherwise all values must be identical.
+        for (const QJsonValue &value: values) {
+            qDebug() << values.first() << value;
+            if (value != values.first()) {
+                qCDebug(lc).noquote() << tr("Metatadata %1 has conflicting values").arg(key);
+                return QJsonObject{};
+            }
+        }
+        merged.insert(key, values.first());
+    }
+    qCDebug(lc).noquote() << tr("Merged %n metedata entry(s) to %1", nullptr, metadata.size())
+                             .arg(merged.size());
+    return merged;
 }
 
 QVersionNumber ModelPrivate::smithyVersion(const QJsonObject &ast)
