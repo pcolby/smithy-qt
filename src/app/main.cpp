@@ -92,7 +92,7 @@ int loadModels(const QString &dir, smithy::Model &model)
     qCDebug(lc).noquote() << QCoreApplication::translate("loadModels", "Loaded %n model(s) from %1",
                                                          nullptr, count).arg(dir);
     if (count == 0) {
-        qCWarning(lc).noquote() << QCoreApplication::translate("loadModels",
+        qCCritical(lc).noquote() << QCoreApplication::translate("loadModels",
             "Failed to find any JSON AST models in %1").arg(dir);
     }
     return count;
@@ -160,16 +160,9 @@ int main(int argc, char *argv[])
     }
 
     // Verify that the directories exist.
-    const QFileInfo modelsDir (QDir::cleanPath(parser.value(QStringLiteral("models"))));
     const QFileInfo templatesDir (QDir::cleanPath(parser.value(QStringLiteral("templates"))));
     const QFileInfo outputDir(QDir::cleanPath(parser.value(QStringLiteral("output"))));
 
-    if ((!modelsDir.exists()) || (!modelsDir.isDir()) || (!modelsDir.isReadable())) {
-        qCCritical(lc).noquote() << QCoreApplication::translate("main",
-            "Models directory does not exist, is not a directory, or is not readable: %1")
-            .arg(modelsDir.absoluteFilePath());
-        return 2;
-    }
     if ((!templatesDir.exists()) || (!templatesDir.isDir()) || (!templatesDir.isReadable())) {
         qCCritical(lc).noquote() << QCoreApplication::translate("main",
             "Theme directory does not exist, is not a directory, or is not readable: %1")
@@ -186,12 +179,8 @@ int main(int argc, char *argv[])
     // Load all the Smithy model files.
     smithy::Model model;
     const int modelsCount = loadModels(parser.values(QStringLiteral("models")), model);
-    if (modelsCount < 0) {
+    if (modelsCount <= 0) {
         // loadModels() will have already logged the (criticial) error.
-        return 3;
-    } else if (modelsCount == 0) {
-        qCCritical(lc).noquote() << QCoreApplication::translate("main",
-            "Failed to find any JSON AST models");
         return 3;
     } else if (!model.isValid()) {
         qCCritical(lc).noquote() << QCoreApplication::translate("main",
