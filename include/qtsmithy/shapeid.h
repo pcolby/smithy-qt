@@ -11,7 +11,7 @@
 
 #include "qtsmithy_global.h"
 
-#include <QObject>
+#include <QCoreApplication>
 
 QTSMITHY_DECLARE_TEST(ShapeId)
 
@@ -21,6 +21,8 @@ class ShapeIdPrivate;
 
 class QTSMITHY_EXPORT ShapeId
 {
+Q_DECLARE_TR_FUNCTIONS(ShapeId);
+
 public:
     ShapeId();
     ShapeId(ShapeId &&other);

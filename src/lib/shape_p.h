@@ -18,6 +18,8 @@ QTSMITHY_BEGIN_NAMESPACE
 
 class QTSMITHY_EXPORT ShapePrivate
 {
+Q_DECLARE_TR_FUNCTIONS(Shape);
+
 public:
     explicit ShapePrivate(Shape * const q);
 

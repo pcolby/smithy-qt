@@ -11,12 +11,15 @@
 
 #include <qtsmithy/shapeid.h>
 
+#include <QCoreApplication>
 #include <QLoggingCategory>
 
 QTSMITHY_BEGIN_NAMESPACE
 
 class QTSMITHY_EXPORT ShapeIdPrivate
 {
+Q_DECLARE_TR_FUNCTIONS(ShapeId);
+
 public:
     explicit ShapeIdPrivate(ShapeId * const q);
 

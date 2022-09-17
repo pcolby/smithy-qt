@@ -88,7 +88,8 @@ bool Model::insert(const QJsonObject &ast, const QString &name)
     Q_D(const Model);
     const QVersionNumber version = d->smithyVersion(ast);
     if (version.majorVersion() > 2) {
-        qCWarning(d->lc) << "Unknown Smithy version:" << version;
+        qCWarning(d->lc).noquote() << tr("Unknown Smithy version %1 in %2")
+                                      .arg(version.toString(), name);
     }
 
     // Warn on any unrecognised top-level Smithy AST properties.
@@ -98,7 +99,8 @@ bool Model::insert(const QJsonObject &ast, const QString &name)
         const QStringList knownKeys{
             QStringLiteral("smithy"),QStringLiteral("metadata"), QStringLiteral("shapes") };
         if (!knownKeys.contains(key)) {
-            qCWarning(d->lc) << "Ignoring unknown Smithy AST key:" << key;
+            qCWarning(d->lc).noquote() << tr("Ignoring unknown Smithy AST key \"%1\" in %2")
+                                          .arg(key, name);
         }
     }
 
@@ -106,10 +108,12 @@ bool Model::insert(const QJsonObject &ast, const QString &name)
     const QJsonValue metadata = ast.value(QStringLiteral("metadata"));
     if (metadata != QJsonValue::Undefined) {
         if (!metadata.isObject()) {
-            qCCritical(d->lc) << "Smithy metadata has invalid type" << metadata;
+            qCCritical(d->lc).noquote() << tr("Smithy AST metadata is not an object");
+            qDebug().noquote() << metadata;
             return false;
         }
-        qCDebug(d->lc) << "Processing" << metadata.toObject().length() << "metadata entries";
+        qCDebug(d->lc).noquote() << tr("Processing %n metadata entry(s)", nullptr,
+                                       metadata.toObject().length());
         /// \todo
     }
 
@@ -117,10 +121,11 @@ bool Model::insert(const QJsonObject &ast, const QString &name)
     const QJsonValue shapes = ast.value(QStringLiteral("shapes"));
     if (shapes != QJsonValue::Undefined) {
         if (!shapes.isObject()) {
-            qCCritical(d->lc) << "Smithy shapes has invalid type";
+            qCCritical(d->lc).noquote() << tr("Smithy AST shapes is not an object");
             return false;
         }
-        qCDebug(d->lc) << "Processing" << shapes.toObject().length() << "shape/s";
+        qCDebug(d->lc).noquote() << tr("Processing %n shape(s)", nullptr,
+                                       shapes.toObject().length());
         /// \todo
     }
     return true;
@@ -171,14 +176,14 @@ ModelPrivate::ModelPrivate(Model * const q) : q_ptr(q)
 QVersionNumber ModelPrivate::smithyVersion(const QJsonObject &ast)
 {
     const QString versionString = ast.value(QLatin1String("smithy")).toString();
-    qCDebug(lc) << "Smithy version string:" << versionString;
+    qCDebug(lc).noquote() << tr("Smithy version string:") << versionString;
     int suffixIndex = -1; // Initial value is ignored.
     const QVersionNumber versionNumber = QVersionNumber::fromString(versionString, &suffixIndex);
-    qCDebug(lc) << "Smithy version number:" << versionNumber;
+    qCDebug(lc).noquote() << tr("Smithy version number:") << versionNumber;
     if (versionNumber.isNull()) {
-        qCWarning(lc) << "Failed to parse Smithy version:" << versionString;
+        qCWarning(lc).noquote() << tr("Failed to parse Smithy version:") << versionString;
     } else if (suffixIndex < versionString.length()) {
-        qCWarning(lc) << "Ignoring Smithy version suffix:" << versionString.mid(suffixIndex);
+        qCWarning(lc).noquote() << tr("Ignoring Smithy version suffix:") << versionString.mid(suffixIndex);
     }
     return versionNumber;
 }

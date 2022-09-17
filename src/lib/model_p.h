@@ -12,6 +12,7 @@
 #include <qtsmithy/model.h>
 #include <qtsmithy/shapeid.h>
 
+#include <QCoreApplication>
 #include <QLoggingCategory>
 #include <QVersionNumber>
 
@@ -19,6 +20,8 @@ QTSMITHY_BEGIN_NAMESPACE
 
 class QTSMITHY_EXPORT ModelPrivate
 {
+Q_DECLARE_TR_FUNCTIONS(Model);
+
 public:
     explicit ModelPrivate(Model * const q);
 

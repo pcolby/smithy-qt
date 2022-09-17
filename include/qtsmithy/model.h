@@ -9,6 +9,7 @@
 #ifndef QTSMITHY_MODEL_H
 #define QTSMITHY_MODEL_H
 
+#include <QCoreApplication>
 #include <QHash>
 #include <QJsonObject>
 #include <QObject>
@@ -24,6 +25,8 @@ class ModelPrivate;
 
 class QTSMITHY_EXPORT Model
 {
+Q_DECLARE_TR_FUNCTIONS(Model);
+
 public:
     Model();
     Model(Model &&other);

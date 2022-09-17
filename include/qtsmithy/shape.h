@@ -9,11 +9,12 @@
 #ifndef QTSMITHY_SHAPE_H
 #define QTSMITHY_SHAPE_H
 
+#include <QCoreApplication>
 #include <QHash>
 #include <QJsonObject>
 #include <QObject>
 
-#include "shapeid.h"
+#include "qtsmithy_global.h"
 
 QTSMITHY_DECLARE_TEST(Shape)
 
@@ -23,6 +24,8 @@ class ShapePrivate;
 
 class QTSMITHY_EXPORT Shape
 {
+Q_DECLARE_TR_FUNCTIONS(Shape);
+
 public:
     // https://awslabs.github.io/smithy/2.0/spec/model.html#shape-types
     enum class Type {
