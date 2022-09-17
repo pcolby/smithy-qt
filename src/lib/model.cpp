@@ -84,11 +84,33 @@ bool Model::insert(const QJsonObject &ast, const QString &name)
 {
     Q_UNUSED(name); ///< \todo
 
+    // Fetch the Smithy version.
     Q_D(const Model);
     const QVersionNumber version = d->smithyVersion(ast);
-    if (version.majorVersion() > 1) {
+    if (version.majorVersion() > 2) {
         qCWarning(d->lc) << "Unknown Smithy version:" << version;
     }
+
+    // Warn on any unrecognised top-level Smithy AST properties.
+    // https://awslabs.github.io/smithy/2.0/spec/json-ast.html#top-level-properties
+    const QStringList keys = ast.keys();
+    for (const QString &key: keys) {
+        const QStringList knownKeys{
+            QStringLiteral("smithy"),QStringLiteral("metadata"), QStringLiteral("shapes") };
+        if (!knownKeys.contains(key)) {
+            qCWarning(d->lc) << "Ignoring unknown Smithy AST key:" << key;
+        }
+    }
+
+//    ast.keys().removeOne(QStringLiteral("smithy")).removeOne(QStringLiteral("smithy"))
+
+//    for (const auto iter = ast.constBegin(); iter != ast.constEnd(); ++iter)
+//    {
+//        if (iter.key() == QString("smithy")) {
+//            continue; // The top-level "smithy" field is the Smithy version we already parsed.
+//        }
+
+//    }
 
     /// \todo Lots more here.
 

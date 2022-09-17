@@ -159,7 +159,7 @@ int main(int argc, char *argv[])
     }
     if (!model.isValid()) {
         qCCritical(lc).noquote() << QCoreApplication::translate("main",
-            "Failed to load valid Smithy model");
+            "Failed to merge Smithy JSON AST files to a valid Smithy semantic model.");
         /// \todo Maybe get an error code / string from the Model instance?
         return 3;
     }
