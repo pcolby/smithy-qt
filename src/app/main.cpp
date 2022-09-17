@@ -129,7 +129,7 @@ int main(int argc, char *argv[])
     }
 
     // Load all of the model files.
-    qCInfo(lc).noquote() << QCoreApplication::translate("main", "Loading Smithy models: %1")
+    qCInfo(lc).noquote() << QCoreApplication::translate("main", "Loading Smithy models from %1")
                             .arg(modelsDir.absoluteFilePath());
     smithy::Model model;
     QDirIterator iter{modelsDir.absoluteFilePath(), {QStringLiteral("*.json")},

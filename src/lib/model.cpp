@@ -75,17 +75,17 @@ Model::~Model()
  * A Smithy semantic model is split into one or more model files. Use this method to add all model
  * files that comprise this semantic model.
  *
- * If \a name is non-empty, it will be used in diagnostic logging, but it otherwise opaque to this
- * function.
+ * The opaque \a name will be used in diagnostic logging only.
  *
  * \see https://awslabs.github.io/smithy/2.0/spec/model.html
  */
 bool Model::insert(const QJsonObject &ast, const QString &name)
 {
-    Q_UNUSED(name); ///< \todo
+    Q_D(Model);
+    d->currentAstFileName = name;
+    qCDebug(d->lc).noquote() << tr("Processing %1").arg(name);
 
     // Fetch the Smithy version.
-    Q_D(const Model);
     const QVersionNumber version = d->smithyVersion(ast);
     if (version.majorVersion() > 2) {
         qCWarning(d->lc).noquote() << tr("Unknown Smithy version %1 in %2")
@@ -181,9 +181,11 @@ QVersionNumber ModelPrivate::smithyVersion(const QJsonObject &ast)
     const QVersionNumber versionNumber = QVersionNumber::fromString(versionString, &suffixIndex);
     qCDebug(lc).noquote() << tr("Smithy version number:") << versionNumber;
     if (versionNumber.isNull()) {
-        qCWarning(lc).noquote() << tr("Failed to parse Smithy version:") << versionString;
+        qCWarning(lc).noquote() << tr("Failed to parse Smithy version \"%1\" in \"%2\".")
+                                   .arg(versionString, currentAstFileName);
     } else if (suffixIndex < versionString.length()) {
-        qCWarning(lc).noquote() << tr("Ignoring Smithy version suffix:") << versionString.mid(suffixIndex);
+        qCWarning(lc).noquote() << tr("Ignoring Smithy version suffix \"%1\" in \"%2\".")
+                                   .arg(versionString.mid(suffixIndex), currentAstFileName);
     }
     return versionNumber;
 }

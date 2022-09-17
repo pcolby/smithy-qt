@@ -25,13 +25,14 @@ Q_DECLARE_TR_FUNCTIONS(Model);
 public:
     explicit ModelPrivate(Model * const q);
 
-    static QVersionNumber smithyVersion(const QJsonObject &ast);
+    QVersionNumber smithyVersion(const QJsonObject &ast);
 
 protected:
     Model * q_ptr; ///< Internal q-pointer.
     static Q_LOGGING_CATEGORY(lc, "smithy.Model", QtInfoMsg); ///< Logging category for UI commands.
 
 private:
+    QString currentAstFileName;
     QJsonObject metadata;
     QStringList nameSpaces;
     QHash<ShapeId, Shape> shapes;

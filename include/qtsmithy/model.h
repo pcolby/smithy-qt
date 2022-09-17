@@ -35,7 +35,7 @@ public:
     Model& operator=(const Model &&model);
     ~Model();
 
-    bool insert(const QJsonObject &ast, const QString &name = QString{});
+    bool insert(const QJsonObject &ast, const QString &name);
 
     bool isValid() const;
 
