@@ -224,13 +224,11 @@ int main(int argc, char *argv[])
     if (!checkRequiredOptions(parser)) return 1;
     if (!checkRequiredDirs(parser))    return 2;
 
-    // Load all the Smithy model files.
+    // Load the Smithy model files.
     smithy::Model model;
     const int modelsCount = loadModels(parser.values(QStringLiteral("models")), model);
-    if (modelsCount <= 0) {
-        // loadModels() will have already logged the (criticial) error.
-        return 3;
-    } else if (!model.isValid()) {
+    if (modelsCount <= 0) return 3; // loadModels() will have already logged the (criticial) error.
+    if (!model.isValid()) {
         qCCritical(lc).noquote() << QCoreApplication::translate("main",
             "Failed to merge Smithy JSON AST files to a valid Smithy semantic model.");
         /// \todo Maybe get an error code / string from the Model instance?
