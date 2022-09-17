@@ -59,6 +59,103 @@ void configureLogging(const QCommandLineParser &parser)
     qSetMessagePattern(messagePattern);
 }
 
+void parseCommandLineOptions(QCoreApplication &app, QCommandLineParser &parser)
+{
+    parser.addOptions({
+        {{QStringLiteral("m"), QStringLiteral("models")},
+          QCoreApplication::translate("main", "Read Smithy models from dir"),
+          QStringLiteral("dir")},
+        {{QStringLiteral("t"), QStringLiteral("templates")},
+          QCoreApplication::translate("main", "Read Grantlee templates from dir"),
+          QStringLiteral("dir")},
+        {{QStringLiteral("o"), QStringLiteral("output")},
+          QCoreApplication::translate("main", "Write output files to dir"), QStringLiteral("dir")},
+        {{QStringLiteral("f"), QStringLiteral("force")},
+          QCoreApplication::translate("main", "Overwrite existing files")},
+        { {QStringLiteral("c"), QStringLiteral("color")},
+          QCoreApplication::translate("main", "Color the console output (default auto)"),
+          QStringLiteral("yes|no|auto"), QStringLiteral("auto")},
+        {{QStringLiteral("d"), QStringLiteral("debug")},
+          QCoreApplication::translate("main", "Enable debug output")},
+    });
+    parser.addHelpOption();
+    parser.addVersionOption();
+    parser.process(app);
+}
+
+bool requireOptions(const QStringList &requiredOtions, const QCommandLineParser &parser)
+{
+    QStringList missingOptions;
+    for (const QString &requiredOption: requiredOtions) {
+        if (!parser.isSet(requiredOption)) {
+            missingOptions.append(requiredOption);
+        }
+    }
+    if (!missingOptions.empty()) {
+        qCCritical(lc).noquote() << QCoreApplication::translate("requireOptions",
+            "Missing required option(s): %1").arg(missingOptions.join(QLatin1Char(' ')));
+        return false;
+    }
+    return true;
+}
+
+inline bool checkRequiredOptions(const QCommandLineParser &parser)
+{
+    const QStringList requiredOptions{
+        QStringLiteral("models"),
+        QStringLiteral("templates"),
+        QStringLiteral("output"),
+    };
+    return requireOptions(requiredOptions, parser);
+}
+
+bool requireDirs(const QCommandLineParser &parser, const QString &option, const QDir::Filters &rw)
+{
+    bool success = true;
+    const QStringList dirs = parser.values(option);
+    for (const QString &dir: dirs) {
+        const QFileInfo info(dir);
+        const QString label = option.at(0).toUpper() + option.mid(1);
+        if (!info.exists()) {
+            qCCritical(lc).noquote() << QCoreApplication::translate("requireDirs",
+                "%1 directory does not exist: %2").arg(label, dir);
+            success = false;
+        } else if (!info.isDir()) {
+            qCCritical(lc).noquote() << QCoreApplication::translate("requireDirs",
+                "%1 directory is not a directory: %2").arg(label, dir);
+            success = false;
+        } else {
+            if ((rw.testFlag(QDir::Readable)) && (!info.isReadable())) {
+                qCCritical(lc).noquote() << QCoreApplication::translate("requireDirs",
+                    "%1 directory is not readable: %2").arg(label, dir);
+                success = false;
+            }
+            if ((rw.testFlag(QDir::Writable)) && (!info.isWritable())) {
+                qCCritical(lc).noquote() << QCoreApplication::translate("requireDirs",
+                    "%1 directory is not writable: %2").arg(label, dir);
+                success = false;
+            }
+        }
+    }
+    return success;
+}
+
+inline bool checkRequiredDirs(const QCommandLineParser &parser)
+{
+    bool success = true;
+    const QMap<QString,QDir::Filters> options{
+        { QLatin1String("models"),    QDir::Readable },
+        { QLatin1String("templates"), QDir::Readable },
+        { QLatin1String("output"),    QDir::Writable },
+    };
+    for (auto iter = options.constBegin(); iter != options.constEnd(); ++iter) {
+        if (!requireDirs(parser, iter.key(), iter.value())) {
+            success = false;
+        }
+    }
+    return success;
+}
+
 int loadModels(const QString &dir, smithy::Model &model)
 {
     int count = 0;
@@ -122,59 +219,10 @@ int main(int argc, char *argv[])
 
     // Parse the command line options.
     QCommandLineParser parser;
-    parser.addOptions({
-        {{QStringLiteral("m"), QStringLiteral("models")},
-          QCoreApplication::translate("main", "Read Smithy models from dir"),
-          QStringLiteral("dir")},
-        {{QStringLiteral("t"), QStringLiteral("templates")},
-          QCoreApplication::translate("main", "Read Grantlee templates from dir"),
-          QStringLiteral("dir")},
-        {{QStringLiteral("o"), QStringLiteral("output")},
-          QCoreApplication::translate("main", "Write output files to dir"), QStringLiteral("dir")},
-        {{QStringLiteral("f"), QStringLiteral("force")},
-          QCoreApplication::translate("main", "Overwrite existing files")},
-        { {QStringLiteral("c"), QStringLiteral("color")},
-          QCoreApplication::translate("main", "Color the console output (default auto)"),
-          QStringLiteral("yes|no|auto"), QStringLiteral("auto")},
-        {{QStringLiteral("d"), QStringLiteral("debug")},
-          QCoreApplication::translate("main", "Enable debug output")},
-    });
-    parser.addHelpOption();
-    parser.addVersionOption();
-    parser.process(app);
+    parseCommandLineOptions(app, parser);
     configureLogging(parser);
-
-    // Check for any missing (but required) command line options.
-    QStringList missingOptions {
-        QStringLiteral("models"),
-        QStringLiteral("templates"),
-        QStringLiteral("output"),
-    };
-    for (auto iter = missingOptions.begin(); iter != missingOptions.end();) {
-        if (parser.isSet(*iter)) iter=missingOptions.erase(iter); else ++iter;
-    }
-    if (!missingOptions.empty()) {
-        qCCritical(lc).noquote() << QCoreApplication::translate("main", "Missing required option(s): %1")
-            .arg(missingOptions.join(QLatin1Char(' ')));
-        return 2;
-    }
-
-    // Verify that the directories exist.
-    const QFileInfo templatesDir (QDir::cleanPath(parser.value(QStringLiteral("templates"))));
-    const QFileInfo outputDir(QDir::cleanPath(parser.value(QStringLiteral("output"))));
-
-    if ((!templatesDir.exists()) || (!templatesDir.isDir()) || (!templatesDir.isReadable())) {
-        qCCritical(lc).noquote() << QCoreApplication::translate("main",
-            "Theme directory does not exist, is not a directory, or is not readable: %1")
-            .arg(templatesDir.absoluteFilePath());
-        return 2;
-    }
-    if ((!outputDir.exists()) || (!outputDir.isDir()) || (!outputDir.isWritable())) {
-        qCCritical(lc).noquote() << QCoreApplication::translate("main",
-            "Output directory does not exist, is not a directory, or is not writable: %1")
-            .arg(outputDir.absoluteFilePath());
-        return 2;
-    }
+    if (!checkRequiredOptions(parser)) return 1;
+    if (!checkRequiredDirs(parser))    return 2;
 
     // Load all the Smithy model files.
     smithy::Model model;
@@ -186,7 +234,7 @@ int main(int argc, char *argv[])
         qCCritical(lc).noquote() << QCoreApplication::translate("main",
             "Failed to merge Smithy JSON AST files to a valid Smithy semantic model.");
         /// \todo Maybe get an error code / string from the Model instance?
-        return 3;
+        return 4;
     }
 
     // Setup the renderer.
