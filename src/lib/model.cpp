@@ -138,7 +138,7 @@ bool Model::insert(const QJsonObject &ast)
                 qCCritical(d->lc).noquote() << tr("Shape %1 is not a JSON object").arg(iter.key());
                 return false;
             }
-            const Shape shape{iter.value().toObject()};
+            const Shape shape{shapeId, iter.value().toObject()};
             if (!shape.isValid()) {
                 qCCritical(d->lc).noquote() << tr("Failed to process shape %1").arg(iter.key());
                 return false;

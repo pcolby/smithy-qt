@@ -28,6 +28,8 @@ protected:
     static Q_LOGGING_CATEGORY(lc, "smithy.Shape", QtInfoMsg); ///< Logging category for UI commands.
 
 private:
+    ShapeId id;
+
     Q_DECLARE_PUBLIC(Shape)
     QTSMITHY_BEFRIEND_TEST(Shape)
 };

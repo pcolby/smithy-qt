@@ -14,7 +14,7 @@
 #include <QJsonObject>
 #include <QObject>
 
-#include "qtsmithy_global.h"
+#include "shapeid.h"
 
 QTSMITHY_DECLARE_TEST(Shape)
 
@@ -60,12 +60,14 @@ public:
     };
 
     Shape();
-    Shape(const QJsonObject &ast);
+    Shape(const ShapeId &id, const QJsonObject &ast);
     Shape(Shape &&other);
     Shape(const Shape &other);
     Shape& operator=(const Shape &shape);
     Shape& operator=(const Shape &&shape);
     ~Shape();
+
+    ShapeId id() const;
 
     bool isValid() const;
 

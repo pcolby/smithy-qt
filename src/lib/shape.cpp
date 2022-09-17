@@ -28,8 +28,10 @@ Shape::Shape() : d_ptr(new ShapePrivate(this))
     /// \todo Load the Smithy prelude here?
 }
 
-Shape::Shape(const QJsonObject &ast)
+Shape::Shape(const ShapeId &id, const QJsonObject &ast) : d_ptr(new ShapePrivate(this))
 {
+    Q_D(Shape);
+    d->id = id;
     Q_UNUSED(ast); /// \todo
 }
 
@@ -67,10 +69,19 @@ Shape::~Shape()
 
 }
 
+ShapeId Shape::id() const
+{
+    Q_D(const Shape);
+    return d->id;
+}
+
 bool Shape::isValid() const
 {
-    /// \todo
-    return false;
+    Q_D(const Shape);
+    if (!d->id.isValid()) {
+        return false;
+    }
+    return false; /// \todo
 }
 
 /*!
