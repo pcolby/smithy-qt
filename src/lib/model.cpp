@@ -102,18 +102,27 @@ bool Model::insert(const QJsonObject &ast, const QString &name)
         }
     }
 
-//    ast.keys().removeOne(QStringLiteral("smithy")).removeOne(QStringLiteral("smithy"))
+    // Process the (optional) metadata.
+    const QJsonValue metadata = ast.value(QStringLiteral("metadata"));
+    if (metadata != QJsonValue::Undefined) {
+        if (!metadata.isObject()) {
+            qCCritical(d->lc) << "Smithy metadata has invalid type" << metadata;
+            return false;
+        }
+        qCDebug(d->lc) << "Processing" << metadata.toObject().length() << "metadata entries";
+        /// \todo
+    }
 
-//    for (const auto iter = ast.constBegin(); iter != ast.constEnd(); ++iter)
-//    {
-//        if (iter.key() == QString("smithy")) {
-//            continue; // The top-level "smithy" field is the Smithy version we already parsed.
-//        }
-
-//    }
-
-    /// \todo Lots more here.
-
+    // Process the (optional) shapes.
+    const QJsonValue shapes = ast.value(QStringLiteral("shapes"));
+    if (shapes != QJsonValue::Undefined) {
+        if (!shapes.isObject()) {
+            qCCritical(d->lc) << "Smithy shapes has invalid type";
+            return false;
+        }
+        qCDebug(d->lc) << "Processing" << shapes.toObject().length() << "shape/s";
+        /// \todo
+    }
     return true;
 }
 
