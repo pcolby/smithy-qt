@@ -59,6 +59,61 @@ void configureLogging(const QCommandLineParser &parser)
     qSetMessagePattern(messagePattern);
 }
 
+int loadModels(const QString &dir, smithy::Model &model)
+{
+    int count = 0;
+    qCInfo(lc).noquote()
+        << QCoreApplication::translate("loadModels", "Loading Smithy models from %1").arg(dir);
+    QDirIterator iter{dir, {QStringLiteral("*.json")}, QDir::Files, QDirIterator::Subdirectories};
+    while (iter.hasNext()) {
+        QFile file{iter.next()};
+        qCDebug(lc).noquote() << QCoreApplication::translate("loadModels", "Loading Smithy JSON: %1")
+                                 .arg(file.fileName());
+        file.open(QFile::ReadOnly);
+        QJsonParseError error{};
+        QJsonDocument json = QJsonDocument::fromJson(file.readAll(), &error);
+        if (error.error != QJsonParseError::NoError) {
+            qCCritical(lc).noquote() << QCoreApplication::translate("loadModels",
+                "Failed to parse JSON file: %1").arg(file.fileName());
+            return -count;
+        }
+        if (!json.isObject()) {
+            qCCritical(lc).noquote() << QCoreApplication::translate("loadModels",
+                "File is not a JSON object: %1").arg(file.fileName());
+            return -count;
+        }
+        if (!model.insert(json.object(), file.fileName())) {
+            qCCritical(lc).noquote() << QCoreApplication::translate("loadModels",
+                "Failed to parse Smithy JSON AST: %1").arg(file.fileName());
+            return -count;
+        }
+        ++count;
+    }
+    qCDebug(lc).noquote() << QCoreApplication::translate("loadModels", "Loaded %n model(s) from %1",
+                                                         nullptr, count).arg(dir);
+    if (count == 0) {
+        qCWarning(lc).noquote() << QCoreApplication::translate("loadModels",
+            "Failed to find any JSON AST models in %1").arg(dir);
+    }
+    return count;
+}
+
+int loadModels(const QStringList &dirs, smithy::Model &model)
+{
+    int count = 0;
+    for (const QString &dir: dirs) {
+        const int thisCount = loadModels(dir, model);
+        if (thisCount <= 0) {
+            return thisCount - count;
+        } else {
+            count += thisCount;
+        }
+    }
+    qCDebug(lc).noquote() << QCoreApplication::translate("loadModels", "Loaded %n model(s)",
+                                                         nullptr, count);
+    return count;
+}
+
 int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
@@ -128,36 +183,17 @@ int main(int argc, char *argv[])
         return 2;
     }
 
-    // Load all of the model files.
-    qCInfo(lc).noquote() << QCoreApplication::translate("main", "Loading Smithy models from %1")
-                            .arg(modelsDir.absoluteFilePath());
+    // Load all the Smithy model files.
     smithy::Model model;
-    QDirIterator iter{modelsDir.absoluteFilePath(), {QStringLiteral("*.json")},
-                      QDir::Files|QDir::Readable, QDirIterator::Subdirectories};
-    while (iter.hasNext()) {
-        QFile file{iter.next()};
-        qCDebug(lc).noquote() << QCoreApplication::translate("main", "Loading Smithy JSON: %1")
-                                 .arg(file.fileName());
-        file.open(QFile::ReadOnly);
-        QJsonParseError error{};
-        QJsonDocument json = QJsonDocument::fromJson(file.readAll(), &error);
-        if (error.error != QJsonParseError::NoError) {
-            qCCritical(lc).noquote() << QCoreApplication::translate("main",
-                "Failed to parse JSON file: %1").arg(file.fileName());
-            return 3;
-        }
-        if (!json.isObject()) {
-            qCCritical(lc).noquote() << QCoreApplication::translate("main",
-                "File is not a JSON object: %1").arg(file.fileName());
-            return 3;
-        }
-        if (!model.insert(json.object(), file.fileName())) {
-            qCCritical(lc).noquote() << QCoreApplication::translate("main",
-                "Failed to parse Smithy JSON AST: %1").arg(file.fileName());
-            return 3;
-        }
-    }
-    if (!model.isValid()) {
+    const int modelsCount = loadModels(parser.values(QStringLiteral("models")), model);
+    if (modelsCount < 0) {
+        // loadModels() will have already logged the (criticial) error.
+        return 3;
+    } else if (modelsCount == 0) {
+        qCCritical(lc).noquote() << QCoreApplication::translate("main",
+            "Failed to find any JSON AST models");
+        return 3;
+    } else if (!model.isValid()) {
         qCCritical(lc).noquote() << QCoreApplication::translate("main",
             "Failed to merge Smithy JSON AST files to a valid Smithy semantic model.");
         /// \todo Maybe get an error code / string from the Model instance?
