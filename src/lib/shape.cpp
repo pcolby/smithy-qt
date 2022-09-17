@@ -28,6 +28,11 @@ Shape::Shape() : d_ptr(new ShapePrivate(this))
     /// \todo Load the Smithy prelude here?
 }
 
+Shape::Shape(const QJsonObject &ast)
+{
+    Q_UNUSED(ast); /// \todo
+}
+
 Shape::Shape(Shape &&other) : d_ptr(new ShapePrivate(this))
 {
     Q_D(Shape);

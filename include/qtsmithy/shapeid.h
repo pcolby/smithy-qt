@@ -52,6 +52,8 @@ public:
     bool isRelativeShapeId() const;
     bool isValid() const;
 
+    bool operator==(const ShapeId &other) const;
+
 private:
     /// \cond internal
     ShapeIdPrivate * d_ptr; ///< Internal d-pointer.
@@ -60,6 +62,8 @@ private:
     Q_DECLARE_PRIVATE(ShapeId)
     QTSMITHY_BEFRIEND_TEST(ShapeId)
 };
+
+QTSMITHY_EXPORT size_t qHash(const ShapeId &key, size_t seed = 0);
 
 QTSMITHY_END_NAMESPACE
 

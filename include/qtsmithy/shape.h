@@ -60,6 +60,7 @@ public:
     };
 
     Shape();
+    Shape(const QJsonObject &ast);
     Shape(Shape &&other);
     Shape(const Shape &other);
     Shape& operator=(const Shape &shape);

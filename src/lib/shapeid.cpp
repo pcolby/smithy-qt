@@ -304,6 +304,19 @@ bool ShapeId::isValid() const
     return true; // Valid.
 }
 
+bool ShapeId::operator==(const ShapeId &other) const
+{
+    Q_D(const ShapeId);
+    return (d->memberName == other.d_ptr->memberName) &&
+           (d->nameSpace == other.d_ptr->nameSpace)   &&
+           (d->shapeName == other.d_ptr->shapeName);
+}
+
+size_t qHash(const ShapeId &key, size_t seed)
+{
+    return ::qHash(key.toString(), seed);
+}
+
 /*!
  * \cond internal
  * \class ShapeIdPrivate

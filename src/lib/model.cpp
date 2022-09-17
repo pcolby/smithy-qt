@@ -122,9 +122,29 @@ bool Model::insert(const QJsonObject &ast)
             qCCritical(d->lc).noquote() << tr("Smithy AST shapes is not an object");
             return false;
         }
-        qCDebug(d->lc).noquote() << tr("Processing %n shape(s)", nullptr,
-                                       shapes.toObject().length());
-        /// \todo
+        const QJsonObject object = shapes.toObject();
+        qCDebug(d->lc).noquote() << tr("Processing %n shape(s)", nullptr, object.length());
+        for (auto iter = object.constBegin(); iter != object.constEnd(); ++iter) {
+            const ShapeId shapeId(iter.key());
+            if (!shapeId.isValid()) {
+                qCCritical(d->lc).noquote() << tr("Failed to parse shape ID %1").arg(iter.key());
+                return false;
+            }
+            if (!shapeId.hasNameSpace()) {
+                qCCritical(d->lc).noquote() << tr("Shape ID %1 has no namespace").arg(iter.key());
+                return false;
+            }
+            if (!iter.value().isObject()) {
+                qCCritical(d->lc).noquote() << tr("Shape %1 is not a JSON object").arg(iter.key());
+                return false;
+            }
+            const Shape shape{iter.value().toObject()};
+            if (!shape.isValid()) {
+                qCCritical(d->lc).noquote() << tr("Failed to process shape %1").arg(iter.key());
+                return false;
+            }
+            d->shapes.insert(iter.key(), shape);
+        }
     }
     return true;
 }
