@@ -179,7 +179,7 @@ int loadModels(const QString &dir, smithy::Model &model)
                 "File is not a JSON object: %1").arg(file.fileName());
             return -count;
         }
-        if (!model.insert(json.object(), file.fileName())) {
+        if (!model.insert(json.object())) {
             qCCritical(lc).noquote() << QCoreApplication::translate("loadModels",
                 "Failed to parse Smithy JSON AST: %1").arg(file.fileName());
             return -count;

@@ -75,21 +75,16 @@ Model::~Model()
  * A Smithy semantic model is split into one or more model files. Use this method to add all model
  * files that comprise this semantic model.
  *
- * The opaque \a name will be used in diagnostic logging only.
- *
  * \see https://awslabs.github.io/smithy/2.0/spec/model.html
  */
-bool Model::insert(const QJsonObject &ast, const QString &name)
+bool Model::insert(const QJsonObject &ast)
 {
     Q_D(Model);
-    d->currentAstFileName = name;
-    qCDebug(d->lc).noquote() << tr("Processing %1").arg(name);
 
     // Fetch the Smithy version.
     const QVersionNumber version = d->smithyVersion(ast);
     if (version.majorVersion() > 2) {
-        qCWarning(d->lc).noquote() << tr("Unknown Smithy version %1 in %2")
-                                      .arg(version.toString(), name);
+        qCWarning(d->lc).noquote() << tr("Unknown Smithy version %1").arg(version.toString());
     }
 
     // Warn on any unrecognised top-level Smithy AST properties.
@@ -99,8 +94,7 @@ bool Model::insert(const QJsonObject &ast, const QString &name)
         const QStringList knownKeys{
             QStringLiteral("smithy"),QStringLiteral("metadata"), QStringLiteral("shapes") };
         if (!knownKeys.contains(key)) {
-            qCWarning(d->lc).noquote() << tr("Ignoring unknown Smithy AST key \"%1\" in %2")
-                                          .arg(key, name);
+            qCWarning(d->lc).noquote() << tr("Ignoring unknown Smithy AST property %1").arg(key);
         }
     }
 
@@ -181,11 +175,10 @@ QVersionNumber ModelPrivate::smithyVersion(const QJsonObject &ast)
     const QVersionNumber versionNumber = QVersionNumber::fromString(versionString, &suffixIndex);
     qCDebug(lc).noquote() << tr("Smithy version number:") << versionNumber;
     if (versionNumber.isNull()) {
-        qCWarning(lc).noquote() << tr("Failed to parse Smithy version \"%1\" in \"%2\".")
-                                   .arg(versionString, currentAstFileName);
+        qCWarning(lc).noquote() << tr("Failed to parse Smithy version \"%1\"").arg(versionString);
     } else if (suffixIndex < versionString.length()) {
-        qCWarning(lc).noquote() << tr("Ignoring Smithy version suffix \"%1\" in \"%2\".")
-                                   .arg(versionString.mid(suffixIndex), currentAstFileName);
+        qCWarning(lc).noquote() << tr("Ignoring Smithy version suffix \"%1\"")
+                                   .arg(versionString.mid(suffixIndex));
     }
     return versionNumber;
 }
