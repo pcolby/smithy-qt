@@ -23,12 +23,16 @@ Q_DECLARE_TR_FUNCTIONS(Shape);
 public:
     explicit ShapePrivate(Shape * const q);
 
+    static Shape::Type getType(const QJsonObject &ast);
+    static Shape::Type getType(const QString &type);
+
 protected:
     Shape * q_ptr; ///< Internal q-pointer.
     static Q_LOGGING_CATEGORY(lc, "smithy.Shape", QtInfoMsg); ///< Logging category for UI commands.
 
 private:
     ShapeId id;
+    Shape::Type type;
 
     Q_DECLARE_PUBLIC(Shape)
     QTSMITHY_BEFRIEND_TEST(Shape)

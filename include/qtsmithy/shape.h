@@ -29,7 +29,9 @@ Q_DECLARE_TR_FUNCTIONS(Shape);
 public:
     // https://awslabs.github.io/smithy/2.0/spec/model.html#shape-types
     enum class Type {
-        // Simply Types
+        Undefined  = 0x000,
+
+        // Simple Types
         Blob       = 0x101, ///< Uninterpreted binary data.
         Boolean    = 0x102, ///< Boolean value type.
         String     = 0x103, ///< UTF-8 encoded string.
@@ -48,9 +50,10 @@ public:
 
         // Aggregate Types
         List      = 0x201, ///< Ordered collection of homogeneous values.
-        Map       = 0x202, ///< Map data structure that maps string keys to homogeneous values.
-        Structure = 0x203, ///< Fixed set of named heterogeneous members.
-        Union     = 0x204, ///< Tagged union data structure that can take on one of several
+        Set       = 0x202, ///< Deprecated; use a list with the uniqueItems trait instead.
+        Map       = 0x203, ///< Map data structure that maps string keys to homogeneous values.
+        Structure = 0x204, ///< Fixed set of named heterogeneous members.
+        Union     = 0x205, ///< Tagged union data structure that can take on one of several
                            ///< different, but fixed, types
 
         // Service Types

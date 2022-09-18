@@ -32,6 +32,7 @@ Shape::Shape(const ShapeId &id, const QJsonObject &ast) : d_ptr(new ShapePrivate
 {
     Q_D(Shape);
     d->id = id;
+    d->type = ShapePrivate::getType(ast);
     Q_UNUSED(ast); /// \todo
 }
 
@@ -84,6 +85,12 @@ bool Shape::isValid() const
     return false; /// \todo
 }
 
+Shape::Type Shape::type() const
+{
+    Q_D(const Shape);
+    return d->type;
+}
+
 /*!
  * \cond internal
  * \class ShapePrivate
@@ -98,6 +105,56 @@ bool Shape::isValid() const
 ShapePrivate::ShapePrivate(Shape * const q) : q_ptr(q)
 {
 
+}
+
+Shape::Type ShapePrivate::getType(const QJsonObject &ast)
+{
+    const QJsonValue value = ast.value(QLatin1String("type"));
+    if (value.isUndefined()) {
+        qCCritical(lc).noquote() << tr("Shape has no type property");
+        return Shape::Type::Undefined;
+    }
+    if (value.type() != QJsonValue::String) {
+        qCCritical(lc).noquote() << tr("Shape type property is not a JSON string:") << value;
+        return Shape::Type::Undefined;
+    }
+    return getType(value.toString());
+}
+
+Shape::Type ShapePrivate::getType(const QString &type)
+{
+    // Simple Types
+    if (type == QLatin1String("blob"))       return Shape::Type::Blob;
+    if (type == QLatin1String("boolean"))    return Shape::Type::Boolean;
+    if (type == QLatin1String("string"))     return Shape::Type::String;
+    if (type == QLatin1String("enum"))       return Shape::Type::Enum;
+    if (type == QLatin1String("byte"))       return Shape::Type::Byte;
+    if (type == QLatin1String("short"))      return Shape::Type::Short;
+    if (type == QLatin1String("integer"))    return Shape::Type::Integer;
+    if (type == QLatin1String("intEnum"))    return Shape::Type::IntEnum;
+    if (type == QLatin1String("long"))       return Shape::Type::Long;
+    if (type == QLatin1String("float"))      return Shape::Type::Float;
+    if (type == QLatin1String("double"))     return Shape::Type::Double;
+    if (type == QLatin1String("bigInteger")) return Shape::Type::BigInteger;
+    if (type == QLatin1String("bigDecimal")) return Shape::Type::BigDecimal;
+    if (type == QLatin1String("timestamp"))  return Shape::Type::Timestamp;
+    if (type == QLatin1String("document"))   return Shape::Type::Document;
+
+    // Aggregate Types
+    if (type == QLatin1String("list"))       return Shape::Type::List;
+    if (type == QLatin1String("set"))        return Shape::Type::Set;
+    if (type == QLatin1String("map"))        return Shape::Type::Map;
+    if (type == QLatin1String("structure"))  return Shape::Type::Structure;
+    if (type == QLatin1String("union"))      return Shape::Type::Union;
+
+
+    // Service Types
+    if (type == QLatin1String("service"))    return Shape::Type::Service;
+    if (type == QLatin1String("operation"))  return Shape::Type::Operation;
+    if (type == QLatin1String("resource"))   return Shape::Type::Resource;
+
+    qCWarning(lc).noquote() << tr("Unknown shape type: %1").arg(type);
+    return Shape::Type::Undefined;
 }
 
 /// \endcond
