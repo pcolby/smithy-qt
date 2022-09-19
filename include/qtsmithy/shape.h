@@ -64,6 +64,17 @@ public:
 
     typedef QHash<ShapeId, QJsonValue> TraitIdValueHash;
 
+    // https://awslabs.github.io/smithy/2.0/spec/json-ast.html#ast-shape-reference
+    struct ShapeReference {
+        ShapeId target;
+    };
+    typedef QSet<ShapeReference> ShapeReferenceSet;
+
+    // https://awslabs.github.io/smithy/2.0/spec/json-ast.html#ast-member
+    struct Member : public ShapeReference {
+        TraitIdValueHash traits;
+    };
+
     Shape();
     Shape(const ShapeId &id, const QJsonObject &ast);
     Shape(Shape &&other);
@@ -75,17 +86,6 @@ public:
     ShapeId id() const;
     Type type() const;
     TraitIdValueHash traits() const;
-
-    // https://awslabs.github.io/smithy/2.0/spec/json-ast.html#ast-shape-reference
-    struct ShapeReference {
-        ShapeId target;
-    };
-    typedef QSet<ShapeReference> ShapeReferenceSet;
-
-    // https://awslabs.github.io/smithy/2.0/spec/json-ast.html#ast-member
-    struct Member : public ShapeReference {
-        TraitIdValueHash traits;
-    };
 
     // Agg types.
     ShapeId memberTarget() const; // List, set.
