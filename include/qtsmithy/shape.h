@@ -78,6 +78,7 @@ public:
     struct ShapeReference {
         ShapeId target;
     };
+    typedef QSet<ShapeReference> ShapeReferenceSet;
 
     // https://awslabs.github.io/smithy/2.0/spec/json-ast.html#ast-member
     struct Member : public ShapeReference {
@@ -94,31 +95,31 @@ public:
 
     // Service
     QString version() const;
-    QSet<ShapeReference> operatons() const;
-    QSet<ShapeReference> resources() const;
-    QSet<ShapeReference> errors() const;
+    ShapeReferenceSet operations() const;
+    ShapeReferenceSet resources() const;
+    ShapeReferenceSet errors() const;
     QHash<ShapeId, QString> rename() const;
 
     // Resource Shape https://awslabs.github.io/smithy/2.0/spec/json-ast.html#resource-shape
     QHash<QString, ShapeReference> identifiers() const;
-    QSet<ShapeReference> properties() const; /// \todo AWS docs are inconsistent about what type this is.
+    ShapeReferenceSet properties() const; /// \todo AWS docs are inconsistent about what type this is.
     ShapeReference create() const;
     ShapeReference put() const;
     ShapeReference read() const;
     ShapeReference update() const;
     ShapeReference Delete() const;
     ShapeReference list() const;
-  //QSet<ShapeReference> operations() const;
-    QSet<ShapeReference> collectionOperations() const;
-  //QSet<ShapeReference> resources() const;
+  //ShapeReferenceSet operations() const;
+    ShapeReferenceSet collectionOperations() const;
+  //ShapeReferenceSet resources() const;
 
     // Operation Shape https://awslabs.github.io/smithy/2.0/spec/json-ast.html#operation-shape
     ShapeReference input() const;
     ShapeReference output() const;
-  //QSet<ShapeReference> errors() const;
+  //ShapeReferenceSet errors() const;
 
     // Mixins https://awslabs.github.io/smithy/2.0/spec/json-ast.html#mixins
-    QSet<ShapeReference> mixins();
+    ShapeReferenceSet mixins();
 
     /// \todo Handle the "apply" type too; probably by keep a list of apply's and applying them
     /// at the end. See https://awslabs.github.io/smithy/2.0/spec/json-ast.html#ast-apply-type
