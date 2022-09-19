@@ -65,6 +65,9 @@ private:
 
 QTSMITHY_EXPORT size_t qHash(const ShapeId &key, size_t seed = 0);
 
+typedef QHash<ShapeId, QString> ShapeIdStringMap;
+typedef QHash<QString, ShapeId> StringShapeIdMap;
+
 QTSMITHY_END_NAMESPACE
 
 #endif // QTSMITHY_SHAPEID_H

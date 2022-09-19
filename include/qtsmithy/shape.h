@@ -69,12 +69,14 @@ public:
     struct ShapeReference {
         ShapeId target;
     };
+    typedef QHash<QString, ShapeReference> StringShapeRefMap;
     typedef QSet<ShapeReference> ShapeReferences;
 
     // https://awslabs.github.io/smithy/2.0/spec/json-ast.html#ast-member
     struct Member : public ShapeReference {
         TraitsMap traits;
     };
+    typedef QHash<QString, Member> StringMemberMap;
 
     Shape();
     Shape(const ShapeId &id, const QJsonObject &ast);
@@ -84,7 +86,7 @@ public:
     Shape& operator=(const Shape &&shape);
     ~Shape();
 
-    ShapeId id() const;
+    ShapeId id() const; ///< \todo Not sure if we should embed the ShapeId in the Shape itself.
     Type type() const;
     TraitsMap traits() const;
 
@@ -94,18 +96,18 @@ public:
     Member member() const; // List, set.
     Member key() const; // Map
     Member value() const; // Map
-    QHash<QString, Member> members() const; // Struct, union, enum, intEnum,
+    StringMemberMap members() const; // Struct, union, enum, intEnum,
 
     // Service
     QString version() const;
     ShapeReferences operations() const;
     ShapeReferences resources() const;
     ShapeReferences errors() const;
-    QHash<ShapeId, QString> rename() const;
+    ShapeIdStringMap rename() const;
 
     // Resource Shape https://awslabs.github.io/smithy/2.0/spec/json-ast.html#resource-shape
-    QHash<QString, ShapeReference> identifiers() const;
-    ShapeReferences properties() const; /// \todo AWS docs are inconsistent about what type this is.
+    StringShapeRefMap identifiers() const;
+    StringShapeIdMap properties() const;
     ShapeReference create() const;
     ShapeReference put() const;
     ShapeReference read() const;
