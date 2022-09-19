@@ -62,6 +62,8 @@ public:
         Resource  = 0x303, ///< Entity with an identity that has a set of operations
     };
 
+    typedef QHash<ShapeId, QJsonValue> TraitIdValueHash;
+
     Shape();
     Shape(const ShapeId &id, const QJsonObject &ast);
     Shape(Shape &&other);
@@ -72,7 +74,7 @@ public:
 
     ShapeId id() const;
     Type type() const;
-    QHash<ShapeId, QJsonValue> traits() const;
+    TraitIdValueHash traits() const;
 
     // https://awslabs.github.io/smithy/2.0/spec/json-ast.html#ast-shape-reference
     struct ShapeReference {
@@ -82,7 +84,7 @@ public:
 
     // https://awslabs.github.io/smithy/2.0/spec/json-ast.html#ast-member
     struct Member : public ShapeReference {
-        QHash<ShapeId, QJsonValue> traits;
+        TraitIdValueHash traits;
     };
 
     // Agg types.
