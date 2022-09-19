@@ -76,6 +76,12 @@ ShapeId Shape::id() const
     return d->id;
 }
 
+Shape::Type Shape::type() const
+{
+    Q_D(const Shape);
+    return d->type;
+}
+
 bool Shape::isValid() const
 {
     Q_D(const Shape);
@@ -83,12 +89,6 @@ bool Shape::isValid() const
         return false;
     }
     return false; /// \todo
-}
-
-Shape::Type Shape::type() const
-{
-    Q_D(const Shape);
-    return d->type;
 }
 
 /*!

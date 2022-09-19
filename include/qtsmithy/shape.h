@@ -50,10 +50,10 @@ public:
 
         // Aggregate Types
         List      = 0x201, ///< Ordered collection of homogeneous values.
-        Set       = 0x202, ///< Deprecated; use a list with the uniqueItems trait instead.
-        Map       = 0x203, ///< Map data structure that maps string keys to homogeneous values.
-        Structure = 0x204, ///< Fixed set of named heterogeneous members.
-        Union     = 0x205, ///< Tagged union data structure that can take on one of several
+        Set       = 0x201, ///< Deprecated; use a list with the uniqueItems trait instead.
+        Map       = 0x202, ///< Map data structure that maps string keys to homogeneous values.
+        Structure = 0x203, ///< Fixed set of named heterogeneous members.
+        Union     = 0x204, ///< Tagged union data structure that can take on one of several
                            ///< different, but fixed, types
 
         // Service Types
@@ -71,10 +71,47 @@ public:
     ~Shape();
 
     ShapeId id() const;
+    Type type() const;
+    QHash<ShapeId, QJsonValue> traits() const;
+
+    // Agg types.
+    void member() const; // List, set.
+    void key(); // Map
+    void value(); // Map
+    void members(); // Struct, union, enum, intEnum,
+
+    // Service
+    QString version() const;
+    QSet<ShapeId> operatons() const;
+    QSet<ShapeId> resources() const;
+    QSet<ShapeId> errors() const;
+    QHash<ShapeId, QString> rename() const;
+
+    // Resource Shape https://awslabs.github.io/smithy/2.0/spec/json-ast.html#resource-shape
+    QHash<QString, ShapeId> identifiers() const;
+    QSet<ShapeId> properties() const;
+    ShapeId create() const;
+    ShapeId put() const;
+    ShapeId read() const;
+    ShapeId update() const;
+    ShapeId Delete() const;
+    ShapeId list() const;
+  //QSet<ShapeId> operations() const;
+    QSet<ShapeId> collectionOperations() const;
+  //QSet<ShapeId> resources() const;
+
+    // Operation Shape https://awslabs.github.io/smithy/2.0/spec/json-ast.html#operation-shape
+    ShapeId input() const;
+    ShapeId output() const;
+  //QSet<ShapeId> errors() const;
+
+    // Mixins https://awslabs.github.io/smithy/2.0/spec/json-ast.html#mixins
+    QSet<ShapeId> mixins();
+
+    /// \todo Handle the "apply" type too; probably by keep a list of apply's and applying them
+    /// at the end. See https://awslabs.github.io/smithy/2.0/spec/json-ast.html#ast-apply-type
 
     bool isValid() const;
-
-    Type type() const;
 
 protected:
     /// \cond internal
