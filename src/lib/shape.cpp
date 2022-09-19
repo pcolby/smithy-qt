@@ -28,7 +28,7 @@ Shape::Shape() : d_ptr(new ShapePrivate(this))
 
 }
 
-Shape::Shape(const ShapeId &id, const QJsonObject &ast) : d_ptr(new ShapePrivate(this))
+Shape::Shape(const QJsonObject &ast, const ShapeId &id) : d_ptr(new ShapePrivate(this))
 {
     Q_D(Shape);
     d->id = id;
@@ -84,10 +84,7 @@ Shape::Type Shape::type() const
 
 bool Shape::isValid() const
 {
-    Q_D(const Shape);
-    if (!d->id.isValid()) {
-        return false;
-    }
+    //Q_D(const Shape);
     return false; /// \todo
 }
 

@@ -34,7 +34,7 @@ protected:
 
 private:
     QMultiHash<QString, QJsonValue> metadata;
-    QStringList nameSpaces;
+    QStringList namespaces;
     QHash<ShapeId, Shape> shapes;
 
     Q_DECLARE_PUBLIC(Model)

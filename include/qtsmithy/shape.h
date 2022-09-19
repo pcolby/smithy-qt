@@ -78,14 +78,14 @@ public:
     typedef QHash<QString, Member> StringMemberMap;
 
     Shape();
-    Shape(const ShapeId &id, const QJsonObject &ast);
+    Shape(const QJsonObject &ast, const ShapeId &id = ShapeId{});
     Shape(Shape &&other);
     Shape(const Shape &other);
     Shape& operator=(const Shape &shape);
     Shape& operator=(const Shape &&shape);
     ~Shape();
 
-    ShapeId id() const; ///< \todo Not sure if we should embed the ShapeId in the Shape itself.
+    ShapeId id() const;
     Type type() const;
     TraitsMap traits() const;
 

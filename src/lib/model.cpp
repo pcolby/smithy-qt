@@ -33,7 +33,7 @@ Model::Model(Model &&other) : d_ptr(new ModelPrivate(this))
 {
     Q_D(Model);
     d->metadata = std::move(other.d_ptr->metadata);
-    d->nameSpaces = std::move(other.d_ptr->nameSpaces);
+    d->namespaces = std::move(other.d_ptr->namespaces);
     d->shapes = std::move(other.d_ptr->shapes);
 }
 
@@ -41,7 +41,7 @@ Model::Model(const Model &other) : d_ptr(new ModelPrivate(this))
 {
     Q_D(Model);
     d->metadata = other.d_ptr->metadata;
-    d->nameSpaces = other.d_ptr->nameSpaces;
+    d->namespaces = other.d_ptr->namespaces;
     d->shapes = other.d_ptr->shapes;
 }
 
@@ -49,7 +49,7 @@ Model& Model::operator=(const Model &model)
 {
     Q_D(Model);
     d->metadata = model.d_ptr->metadata;
-    d->nameSpaces = model.d_ptr->nameSpaces;
+    d->namespaces = model.d_ptr->namespaces;
     d->shapes = model.d_ptr->shapes;
     return *this;
 }
@@ -58,7 +58,7 @@ Model& Model::operator=(const Model &&model)
 {
     Q_D(Model);
     d->metadata = std::move(model.d_ptr->metadata);
-    d->nameSpaces = std::move(model.d_ptr->nameSpaces);
+    d->namespaces = std::move(model.d_ptr->namespaces);
     d->shapes = std::move(model.d_ptr->shapes);
     return *this;
 }
@@ -138,7 +138,7 @@ bool Model::insert(const QJsonObject &ast)
                 qCCritical(d->lc).noquote() << tr("Shape %1 is not a JSON object").arg(iter.key());
                 return false;
             }
-            const Shape shape{shapeId, iter.value().toObject()};
+            const Shape shape{iter.value().toObject(), shapeId};
             if (!shape.isValid()) {
                 qCCritical(d->lc).noquote() << tr("Failed to process shape %1").arg(iter.key());
                 return false;
@@ -165,10 +165,10 @@ QJsonObject Model::metadata() const
     return ModelPrivate::mergeMetadata(d->metadata);
 }
 
-QStringList Model::nameSpaces() const
+QStringList Model::namespaces() const
 {
     Q_D(const Model);
-    return d->nameSpaces;
+    return d->namespaces;
 }
 
 QHash<ShapeId, Shape> Model::shapes(const QString &nameSpace) const
