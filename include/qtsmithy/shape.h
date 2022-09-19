@@ -62,17 +62,18 @@ public:
         Resource  = 0x303, ///< Entity with an identity that has a set of operations
     };
 
-    typedef QHash<ShapeId, QJsonValue> TraitIdValueHash;
+    // Map of absolute shape ID of a trait shape to the value to assign to the trait.
+    typedef QHash<ShapeId, QJsonValue> TraitsMap;
 
     // https://awslabs.github.io/smithy/2.0/spec/json-ast.html#ast-shape-reference
     struct ShapeReference {
         ShapeId target;
     };
-    typedef QSet<ShapeReference> ShapeReferenceSet;
+    typedef QSet<ShapeReference> ShapeReferences;
 
     // https://awslabs.github.io/smithy/2.0/spec/json-ast.html#ast-member
     struct Member : public ShapeReference {
-        TraitIdValueHash traits;
+        TraitsMap traits;
     };
 
     Shape();
@@ -85,7 +86,7 @@ public:
 
     ShapeId id() const;
     Type type() const;
-    TraitIdValueHash traits() const;
+    TraitsMap traits() const;
 
     // Agg types.
     ShapeId memberTarget() const; // List, set.
@@ -97,31 +98,31 @@ public:
 
     // Service
     QString version() const;
-    ShapeReferenceSet operations() const;
-    ShapeReferenceSet resources() const;
-    ShapeReferenceSet errors() const;
+    ShapeReferences operations() const;
+    ShapeReferences resources() const;
+    ShapeReferences errors() const;
     QHash<ShapeId, QString> rename() const;
 
     // Resource Shape https://awslabs.github.io/smithy/2.0/spec/json-ast.html#resource-shape
     QHash<QString, ShapeReference> identifiers() const;
-    ShapeReferenceSet properties() const; /// \todo AWS docs are inconsistent about what type this is.
+    ShapeReferences properties() const; /// \todo AWS docs are inconsistent about what type this is.
     ShapeReference create() const;
     ShapeReference put() const;
     ShapeReference read() const;
     ShapeReference update() const;
     ShapeReference Delete() const;
     ShapeReference list() const;
-  //ShapeReferenceSet operations() const;
-    ShapeReferenceSet collectionOperations() const;
-  //ShapeReferenceSet resources() const;
+  //ShapeReferences operations() const;
+    ShapeReferences collectionOperations() const;
+  //ShapeReferences resources() const;
 
     // Operation Shape https://awslabs.github.io/smithy/2.0/spec/json-ast.html#operation-shape
     ShapeReference input() const;
     ShapeReference output() const;
-  //ShapeReferenceSet errors() const;
+  //ShapeReferences errors() const;
 
     // Mixins https://awslabs.github.io/smithy/2.0/spec/json-ast.html#mixins
-    ShapeReferenceSet mixins();
+    ShapeReferences mixins();
 
     /// \todo Handle the "apply" type too; probably by keep a list of apply's and applying them
     /// at the end. See https://awslabs.github.io/smithy/2.0/spec/json-ast.html#ast-apply-type
