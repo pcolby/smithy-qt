@@ -10,9 +10,8 @@
 #define QTSMITHY_SHAPE_H
 
 #include <QCoreApplication>
-#include <QHash>
 #include <QJsonObject>
-#include <QObject>
+#include <QJsonValue>
 
 #include "shapeid.h"
 

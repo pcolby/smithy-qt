@@ -12,6 +12,7 @@
 #include "qtsmithy_global.h"
 
 #include <QCoreApplication>
+#include <QHash>
 
 QTSMITHY_DECLARE_TEST(ShapeId)
 
