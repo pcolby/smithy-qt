@@ -90,7 +90,7 @@ Shape::Type Shape::type() const
 bool Shape::isValid() const
 {
     //Q_D(const Shape);
-    return false; /// \todo
+    return true; /// \todo
 }
 
 /*!
