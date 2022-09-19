@@ -123,7 +123,7 @@ public:
   //ShapeReferences errors() const;
 
     // Mixins https://awslabs.github.io/smithy/2.0/spec/json-ast.html#mixins
-    ShapeReferences mixins();
+    ShapeReferences mixins() const;
 
     /// \todo Handle the "apply" type too; probably by keep a list of apply's and applying them
     /// at the end. See https://awslabs.github.io/smithy/2.0/spec/json-ast.html#ast-apply-type

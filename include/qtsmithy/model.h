@@ -36,11 +36,12 @@ public:
     ~Model();
 
     bool insert(const QJsonObject &ast);
+    bool finalise() const; //? apply "apply" and
 
     bool isValid() const;
 
-    QJsonObject /*or QMultiHash<QString, QJsonValue>*/ metadata() const;
-    QStringList nameSpaces() const;
+    QJsonObject metadata() const;
+    QStringList namespaces() const;
     QHash<ShapeId, Shape> shapes(const QString &nameSpace = QString()) const;
 
 protected:
