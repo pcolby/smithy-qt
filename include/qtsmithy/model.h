@@ -35,14 +35,14 @@ public:
     Model& operator=(const Model &&model);
     ~Model();
 
+    void clear();
     bool insert(const QJsonObject &ast);
-    bool finalise() const; //? apply "apply" and
+    bool finish();
 
     bool isValid() const;
 
     QJsonObject metadata() const;
-    QStringList namespaces() const;
-    QHash<ShapeId, Shape> shapes(const QString &nameSpace = QString()) const;
+    QHash<ShapeId, Shape> shapes() const;
 
 protected:
     /// \cond internal

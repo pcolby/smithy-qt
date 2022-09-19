@@ -33,9 +33,10 @@ protected:
     static Q_LOGGING_CATEGORY(lc, "smithy.Model", QtInfoMsg); ///< Logging category for UI commands.
 
 private:
-    QMultiHash<QString, QJsonValue> metadata;
-    QStringList namespaces;
-    QHash<ShapeId, Shape> shapes;
+    QMultiHash<QString, QJsonValue> allMetadata;
+    QMultiHash<ShapeId, Shape> allShapes;
+    QJsonObject mergedMetadata;
+    QHash<ShapeId, Shape> mergedShapes;
 
     Q_DECLARE_PUBLIC(Model)
     QTSMITHY_BEFRIEND_TEST(Model)

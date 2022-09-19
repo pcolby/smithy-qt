@@ -32,34 +32,38 @@ Model::Model() : d_ptr(new ModelPrivate(this))
 Model::Model(Model &&other) : d_ptr(new ModelPrivate(this))
 {
     Q_D(Model);
-    d->metadata = std::move(other.d_ptr->metadata);
-    d->namespaces = std::move(other.d_ptr->namespaces);
-    d->shapes = std::move(other.d_ptr->shapes);
+    d->mergedMetadata = std::move(other.d_ptr->mergedMetadata);
+    d->mergedShapes = std::move(other.d_ptr->mergedShapes);
+    d->allMetadata = std::move(other.d_ptr->allMetadata);
+    d->allShapes = std::move(other.d_ptr->allShapes);
 }
 
 Model::Model(const Model &other) : d_ptr(new ModelPrivate(this))
 {
     Q_D(Model);
-    d->metadata = other.d_ptr->metadata;
-    d->namespaces = other.d_ptr->namespaces;
-    d->shapes = other.d_ptr->shapes;
+    d->mergedMetadata = other.d_ptr->mergedMetadata;
+    d->mergedShapes = other.d_ptr->mergedShapes;
+    d->allMetadata = other.d_ptr->allMetadata;
+    d->allShapes = other.d_ptr->allShapes;
 }
 
 Model& Model::operator=(const Model &model)
 {
     Q_D(Model);
-    d->metadata = model.d_ptr->metadata;
-    d->namespaces = model.d_ptr->namespaces;
-    d->shapes = model.d_ptr->shapes;
+    d->mergedMetadata = model.d_ptr->mergedMetadata;
+    d->mergedShapes = model.d_ptr->mergedShapes;
+    d->allMetadata = model.d_ptr->allMetadata;
+    d->allShapes = model.d_ptr->allShapes;
     return *this;
 }
 
 Model& Model::operator=(const Model &&model)
 {
     Q_D(Model);
-    d->metadata = std::move(model.d_ptr->metadata);
-    d->namespaces = std::move(model.d_ptr->namespaces);
-    d->shapes = std::move(model.d_ptr->shapes);
+    d->mergedMetadata = std::move(model.d_ptr->mergedMetadata);
+    d->mergedShapes = std::move(model.d_ptr->mergedShapes);
+    d->allMetadata = std::move(model.d_ptr->allMetadata);
+    d->allShapes = std::move(model.d_ptr->allShapes);
     return *this;
 }
 
@@ -69,6 +73,15 @@ Model& Model::operator=(const Model &&model)
 Model::~Model()
 {
 
+}
+
+void Model::clear()
+{
+    Q_D(Model);
+    d->mergedMetadata = QJsonObject{};
+    d->mergedShapes.clear();
+    d->allMetadata.clear();
+    d->allShapes.clear();
 }
 
 /*!
@@ -81,7 +94,10 @@ Model::~Model()
  */
 bool Model::insert(const QJsonObject &ast)
 {
+    // Clear any previously-merged data; we'll need to re-merge later.
     Q_D(Model);
+    d->mergedMetadata = QJsonObject{};
+    d->mergedShapes.clear();
 
     // Fetch the Smithy version.
     const QVersionNumber version = d->smithyVersion(ast);
@@ -111,7 +127,7 @@ bool Model::insert(const QJsonObject &ast)
         const QJsonObject object = metadata.toObject();
         qCDebug(d->lc).noquote() << tr("Processing %n metadata entry(s)", nullptr, object.length());
         for (auto iter = object.constBegin(); iter != object.constEnd(); ++iter) {
-            d->metadata.insert(iter.key(), iter.value());
+            d->allMetadata.insert(iter.key(), iter.value());
         }
     }
 
@@ -148,43 +164,45 @@ bool Model::insert(const QJsonObject &ast)
                 /// \todo insert shape into an 'applies' map for processing later.
                 continue;
             }
-            if (d->shapes.contains(shapeId)) {
+            if (d->allShapes.contains(shapeId)) {
                 qCCritical(d->lc).noquote() << tr("Duplicate definition for shape %1").arg(iter.key());
                 return false;
             }
-            d->shapes.insert(iter.key(), shape);
+            d->allShapes.insert(iter.key(), shape);
         }
     }
     return true;
 }
 
+bool Model::finish()
+{
+    Q_D(Model);
+    d->mergedMetadata = ModelPrivate::mergeMetadata(d->allMetadata);
+    // resolve shape conflicts.
+    // resolve trait conflicts; include 'apply' statements.
+    return isValid();
+}
+
 bool Model::isValid() const
 {
     Q_D(const Model);
-    if ((!d->metadata.isEmpty()) && (ModelPrivate::mergeMetadata(d->metadata).isEmpty())) {
-        return false; // Metadata is invalid.
+    if (d->allMetadata.isEmpty() != d->mergedMetadata.isEmpty()) {
+        return false;
     }
-    /// \todo Check for any unknown Shape ID references.
-    return false;
+    /// \todo Check for other errors and merges.
+    return true;
 }
 
 QJsonObject Model::metadata() const
 {
     Q_D(const Model);
-    return ModelPrivate::mergeMetadata(d->metadata);
+    return d->mergedMetadata;
 }
 
-QStringList Model::namespaces() const
+QHash<ShapeId, Shape> Model::shapes() const
 {
     Q_D(const Model);
-    return d->namespaces;
-}
-
-QHash<ShapeId, Shape> Model::shapes(const QString &nameSpace) const
-{
-    Q_D(const Model);
-    Q_UNUSED(nameSpace); ///< \todo
-    return d->shapes;
+    return d->mergedShapes;
 }
 
 /*!
