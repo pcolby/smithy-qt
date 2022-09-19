@@ -28,7 +28,7 @@ Q_DECLARE_TR_FUNCTIONS(Shape);
 public:
     // https://awslabs.github.io/smithy/2.0/spec/model.html#shape-types
     enum class Type {
-        Undefined  = 0x000,
+        Undefined  = 0x000, ///< The shape is undefined, usually the result of an error condition.
 
         // Simple Types
         Blob       = 0x101, ///< Uninterpreted binary data.
@@ -59,6 +59,9 @@ public:
         Service   = 0x301, ///< Entry point of an API that aggregates resources and operations together.
         Operation = 0x302, ///< Represents the input, output, and errors of an API operation.
         Resource  = 0x303, ///< Entity with an identity that has a set of operations
+
+        // Special Types
+        Apply     = 0x401, ///< Traits to be applied to shapes outside of their definition.
     };
 
     // Map of absolute shape ID of a trait shape to the value to assign to the trait.
@@ -89,22 +92,25 @@ public:
     Type type() const;
     TraitsMap traits() const;
 
-    // Agg types.
-    ShapeId memberTarget() const; // List, set.
-    void memberTraits() const; // List, set.
-    Member member() const; // List, set.
-    Member key() const; // Map
-    Member value() const; // Map
-    StringMemberMap members() const; // Struct, union, enum, intEnum,
+    // List (and set) shape https://awslabs.github.io/smithy/2.0/spec/json-ast.html#list-shapes
+    Member member() const;
 
-    // Service
+    // Map shape https://awslabs.github.io/smithy/2.0/spec/json-ast.html#map-shape
+    Member key() const;
+    Member value() const;
+
+    // Structure, union, enum, and intEnum shapes
+    // https://awslabs.github.io/smithy/2.0/spec/json-ast.html#structure-union-enum-and-intenum-shapes
+    StringMemberMap members() const;
+
+    // Service shape https://awslabs.github.io/smithy/2.0/spec/json-ast.html#service-shape
     QString version() const;
-    ShapeReferences operations() const;
-    ShapeReferences resources() const;
-    ShapeReferences errors() const;
+    ShapeReferences operations() const; // And resource shape.
+    ShapeReferences resources() const;  // And resource shape.
+    ShapeReferences errors() const;     // And operation shape.
     ShapeIdStringMap rename() const;
 
-    // Resource Shape https://awslabs.github.io/smithy/2.0/spec/json-ast.html#resource-shape
+    // Resource shape https://awslabs.github.io/smithy/2.0/spec/json-ast.html#resource-shape
     StringShapeRefMap identifiers() const;
     StringShapeIdMap properties() const;
     ShapeReference create() const;
@@ -113,14 +119,14 @@ public:
     ShapeReference update() const;
     ShapeReference Delete() const;
     ShapeReference list() const;
-  //ShapeReferences operations() const;
+  //ShapeReferences operations() const; // And service shape.
     ShapeReferences collectionOperations() const;
-  //ShapeReferences resources() const;
+  //ShapeReferences resources() const;  // And service shape.
 
-    // Operation Shape https://awslabs.github.io/smithy/2.0/spec/json-ast.html#operation-shape
+    // Operation shape https://awslabs.github.io/smithy/2.0/spec/json-ast.html#operation-shape
     ShapeReference input() const;
     ShapeReference output() const;
-  //ShapeReferences errors() const;
+  //ShapeReferences errors() const; // And service shape.
 
     // Mixins https://awslabs.github.io/smithy/2.0/spec/json-ast.html#mixins
     ShapeReferences mixins() const;

@@ -25,7 +25,8 @@ QTSMITHY_BEGIN_NAMESPACE
  */
 Shape::Shape() : d_ptr(new ShapePrivate(this))
 {
-
+    Q_D(Shape);
+    d->type = Type::Undefined;
 }
 
 Shape::Shape(const QJsonObject &ast, const ShapeId &id) : d_ptr(new ShapePrivate(this))
@@ -33,32 +34,36 @@ Shape::Shape(const QJsonObject &ast, const ShapeId &id) : d_ptr(new ShapePrivate
     Q_D(Shape);
     d->id = id;
     d->type = ShapePrivate::getType(ast);
-    Q_UNUSED(ast); /// \todo
+    /// \todo More with \a ast.
 }
 
 Shape::Shape(Shape &&other) : d_ptr(new ShapePrivate(this))
 {
     Q_D(Shape);
-    Q_UNUSED(other); /// \todo
+    d->id = std::move(other.d_ptr->id);
+    d->type = std::move(other.d_ptr->type);
 }
 
 Shape::Shape(const Shape &other) : d_ptr(new ShapePrivate(this))
 {
     Q_D(Shape);
-    Q_UNUSED(other); /// \todo
+    d->id = other.d_ptr->id;
+    d->type = other.d_ptr->type;
 }
 
 Shape& Shape::operator=(const Shape &shape)
 {
     Q_D(Shape);
-    Q_UNUSED(shape); /// \todo
+    d->id = shape.d_ptr->id;
+    d->type = shape.d_ptr->type;
     return *this;
 }
 
 Shape& Shape::operator=(const Shape &&shape)
 {
     Q_D(Shape);
-    Q_UNUSED(shape); /// \todo
+    d->id = std::move(shape.d_ptr->id);
+    d->type = std::move(shape.d_ptr->type);
     return *this;
 }
 
@@ -149,6 +154,9 @@ Shape::Type ShapePrivate::getType(const QString &type)
     if (type == QLatin1String("service"))    return Shape::Type::Service;
     if (type == QLatin1String("operation"))  return Shape::Type::Operation;
     if (type == QLatin1String("resource"))   return Shape::Type::Resource;
+
+    // Special Types
+    if (type == QLatin1String("apply"))      return Shape::Type::Apply;
 
     qCWarning(lc).noquote() << tr("Unknown shape type: %1").arg(type);
     return Shape::Type::Undefined;
