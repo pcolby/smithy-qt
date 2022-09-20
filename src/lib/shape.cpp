@@ -350,6 +350,7 @@ QStringList ShapePrivate::requiredProperties(const Shape::Type &type)
 
 bool ShapePrivate::validateIdentifier(const QString &id)
 {
+    // Lazily relying on the fact that ShapeId will validate the idenitifer regex pattern for now.
     const ShapeId shapeId(id);
     return ((shapeId.isValid()) && (!shapeId.hasNameSpace()) && (!shapeId.hasMemberName()));
 }
@@ -533,12 +534,57 @@ bool ShapePrivate::validateProperty(const QString &name, const QJsonValue &value
 
     // StringShapeRefMap
     else if (name == QLatin1String("identifiers")) {
-        /// \todo Validate StringShapeRefMap
+        if (!value.isObject()) {
+            qCCritical(lc).noquote() << tr("%1 property is not a JSON object").arg(name);
+            return false;
+        }
+        const QJsonObject identifiers = value.toObject();
+        for (auto iter = identifiers.constBegin(); iter != identifiers.constEnd(); ++iter) {
+            if (!validateIdentifier(iter.key())) {
+                qCCritical(lc).noquote() << tr("%1 property has invalid member name %2")
+                                            .arg(name, iter.key());
+                return false;
+            }
+            if (!validateProperty(QLatin1String("ShapeReference"), iter.value())) {
+                qCCritical(lc).noquote() << tr("%1 property has invalid value for %2 property")
+                                            .arg(name, iter.key());
+                return false;
+            }
+        }
     }
 
     // StringShapeIdMap
     else if (name == QLatin1String("properties")) {
-        /// \todo Validate StringShapeIdMap
+        if (!value.isObject()) {
+            qCCritical(lc).noquote() << tr("%1 property is not a JSON object").arg(name);
+            return false;
+        }
+        const QJsonObject identifiers = value.toObject();
+        for (auto iter = identifiers.constBegin(); iter != identifiers.constEnd(); ++iter) {
+            // Smithy appears to documentN no constraints on the string ie iter->key().
+            if (!validateProperty(QLatin1String("ShapeReference"), iter.value())) {
+                qCCritical(lc).noquote() << tr("%1 property has invalid value for %2 property")
+                                            .arg(name, iter.key());
+                return false;
+            }
+            if (!iter.value().isString()) {
+                qCCritical(lc).noquote() << tr("%1 property has name %2 with invalid value")
+                                            .arg(name, iter.key());
+                return false;
+            }
+            const QString shapeIdString = iter.value().toString();
+            const ShapeId shapeId(shapeIdString);
+            if (!shapeId.isValid()) {
+                qCCritical(lc).noquote() << tr("%1 property has name %2 with invalid shape ID %2")
+                                            .arg(name, iter.key(), shapeIdString);
+                return false;
+            }
+            if (shapeId.isRelativeShapeId()) {
+                qCCritical(lc).noquote() << tr("%1 property has name %2 with relative shape ID %2")
+                                            .arg(name, iter.key(), shapeIdString);
+                return false;
+            }
+        }
     }
 
     else {
