@@ -397,17 +397,14 @@ bool ShapePrivate::validateProperty(const QString &name, const QJsonValue &value
             qCCritical(lc).noquote() << tr("%1 property is not a JSON object").arg(name);
             return false;
         }
+        if (!validateProperty(QStringLiteral("ShapeReference"), value)) {
+            qCCritical(lc).noquote() << tr("%1 property is not valid ShapeReference").arg(name);
+            return false;
+        }
         const QJsonObject member = value.toObject();
-        const auto target = member.constFind(QLatin1String("target")); // Required.
-        if (target == member.constEnd()) {
-            qCCritical(lc).noquote() << tr("%1 property has no target property").arg(name);
-            return false;
-        }
-        if (!validateProperty(target.key(), target.value())) {
-            return false;
-        }
         const auto traits = member.constFind(QLatin1String("traits")); // Optional.
         if ((traits != member.constEnd()) && (!validateProperty(traits.key(), traits.value()))) {
+            qCCritical(lc).noquote() << tr("%1 property has invalid traits property").arg(name);
             return false;
         }
     }
@@ -506,7 +503,17 @@ bool ShapePrivate::validateProperty(const QString &name, const QJsonValue &value
              (name == QLatin1String("input")) ||
              (name == QLatin1String("output")) ||
              (name == QLatin1String("target"))) {
-        /// \todo Validate ShapeReference
+        if (!value.isObject()) {
+            qCCritical(lc).noquote() << tr("%1 property is not a JSON object").arg(name);
+            return false;
+        }
+        const QJsonObject shapeRef = value.toObject();
+        const auto target = shapeRef.constFind(QLatin1String("target")); // Required.
+        if (target == shapeRef.constEnd()) {
+            qCCritical(lc).noquote() << tr("%1 property has no target property").arg(name);
+            return false;
+        }
+        /// \todo more.
     }
 
     // StringShapeRefMap
