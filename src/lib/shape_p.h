@@ -29,6 +29,7 @@ public:
     static QStringList supportedProperties(const Shape::Type &type);
     static QStringList requiredProperties(const Shape::Type &type);
 
+    static bool validateIdentifier(const QString &id);
     static bool validateProperty(const QString &name, const QJsonValue &value);
 
 protected:

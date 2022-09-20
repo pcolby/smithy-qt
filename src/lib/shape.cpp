@@ -346,6 +346,12 @@ QStringList ShapePrivate::requiredProperties(const Shape::Type &type)
     }
 }
 
+bool ShapePrivate::validateIdentifier(const QString &id)
+{
+    const ShapeId shapeId(id);
+    return ((shapeId.isValid()) && (!shapeId.hasNameSpace()) && (!shapeId.hasMemberName()));
+}
+
 bool ShapePrivate::validateProperty(const QString &name, const QJsonValue &value)
 {
     qCDebug(lc) << "validing" << name << value;
@@ -403,11 +409,38 @@ bool ShapePrivate::validateProperty(const QString &name, const QJsonValue &value
     }
 
     else if (name == QLatin1String("members")) {
-        /// \todo Validate StringMemberMap
+        if (!value.isObject()) {
+            qCCritical(lc).noquote() << tr("%1 property is not a JSON object").arg(name);
+            return false;
+        }
+        QStringList names;
+        const QJsonObject members = value.toObject();
+        for (auto iter = members.constBegin(); iter != members.constEnd(); ++iter) {
+            if (!validateIdentifier(iter.key())) {
+                qCCritical(lc).noquote() << tr("%1 property has invalid member name %2")
+                                            .arg(name, iter.key());
+                return false;
+            }
+            if (names.contains(iter.key().toLower())) {
+                qCCritical(lc).noquote() << tr("%1 property has non-unique member name %2")
+                                            .arg(name, iter.key().toLower());
+                return false;
+            }
+            names.append(iter.key().toLower());
+            if (!validateProperty(QLatin1String("member"), iter.value())) {
+                qCCritical(lc).noquote() << tr("%1 property has invalid value for %2 property")
+                                            .arg(name, iter.key());
+                return false;
+            }
+        }
     }
 
     else if (name == QLatin1String("version")) {
-        /// \todo Validate QString
+        if (!value.isString()) {
+            qCCritical(lc).noquote() << tr("%1 property is not a JSON string").arg(name);
+            return false;
+        }
+        // No further validation required; the string is free-form.
     }
 
     else if ((name == QLatin1String("operations")) ||
