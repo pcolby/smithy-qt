@@ -29,6 +29,8 @@ public:
     static QStringList supportedProperties(const Shape::Type &type);
     static QStringList requiredProperties(const Shape::Type &type);
 
+    static bool validateProperty(const QString &name, const QJsonValue &value);
+
 protected:
     Shape * q_ptr; ///< Internal q-pointer.
     static Q_LOGGING_CATEGORY(lc, "smithy.Shape", QtInfoMsg); ///< Logging category for UI commands.

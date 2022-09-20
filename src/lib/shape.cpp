@@ -53,7 +53,15 @@ Shape::Shape(const QJsonObject &ast, const ShapeId &id) : d_ptr(new ShapePrivate
         }
     }
 
-    /// \todo More with \a ast.
+    // Validate all present properties.
+    for (auto iter = ast.constBegin(); iter != ast.constEnd(); ++iter) {
+        if (!supportedProperties.contains(iter.key())) {
+            continue;
+        }
+        if (!ShapePrivate::validateProperty(iter.key(), iter.value())) {
+            /// \todo Set an error flag.
+        }
+    }
 }
 
 Shape::Shape(Shape &&other) : d_ptr(new ShapePrivate(this))
@@ -336,6 +344,70 @@ QStringList ShapePrivate::requiredProperties(const Shape::Type &type)
             QLatin1String("type"),
         };
     }
+}
+
+bool ShapePrivate::validateProperty(const QString &name, const QJsonValue &value)
+{
+    qCDebug(lc) << "validing" << name << value;
+    if (name == QLatin1String("type")) {
+        /// \todo Validate Type
+    }
+
+    else if (name == QLatin1String("traits")) {
+        /// \todo Validate TraitsMap
+    }
+
+    else if ((name == QLatin1String("member")) ||
+             (name == QLatin1String("key")) ||
+             (name == QLatin1String("value")))
+    {
+        /// \todo Validate Member
+    }
+
+    else if (name == QLatin1String("members")) {
+        /// \todo Validate StringMemberMap
+    }
+
+    else if (name == QLatin1String("version")) {
+        /// \todo Validate QString
+    }
+
+    else if ((name == QLatin1String("operations")) ||
+             (name == QLatin1String("collectionOperations")) ||
+             (name == QLatin1String("resources")) ||
+             (name == QLatin1String("errors")) ||
+             (name == QLatin1String("mixins"))) {
+        /// \todo Validate ShapeReferences
+    }
+
+    else if (name == QLatin1String("rename")) {
+        /// \todo Validate ShapeIdStringMap
+    }
+
+    else if ((name == QLatin1String("create")) ||
+             (name == QLatin1String("put")) ||
+             (name == QLatin1String("read")) ||
+             (name == QLatin1String("update")) ||
+             (name == QLatin1String("delete")) ||
+             (name == QLatin1String("list")) ||
+             (name == QLatin1String("input")) ||
+             (name == QLatin1String("output"))) {
+        /// \todo Validate ShapeReference
+    }
+
+    else if (name == QLatin1String("identifiers")) {
+        /// \todo Validate StringShapeRefMap
+    }
+
+    else if (name == QLatin1String("properties")) {
+        /// \todo Validate StringShapeIdMap
+    }
+
+    else {
+        qCWarning(lc).noquote() << tr("Validation of %1 property not yet implemented").arg(name);
+        return false;
+    }
+    return true;
 }
 
 /// \endcond
