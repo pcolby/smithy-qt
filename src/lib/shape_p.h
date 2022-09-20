@@ -27,6 +27,7 @@ public:
     static Shape::Type getType(const QString &type);
 
     static QStringList supportedProperties(const Shape::Type &type);
+    static QStringList requiredProperties(const Shape::Type &type);
 
 protected:
     Shape * q_ptr; ///< Internal q-pointer.

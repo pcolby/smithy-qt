@@ -35,11 +35,21 @@ Shape::Shape(const QJsonObject &ast, const ShapeId &id) : d_ptr(new ShapePrivate
     d->id = id;
     d->type = ShapePrivate::getType(ast);
 
+    // Warn on any unsupported properties.
     const QStringList supportedProperties = ShapePrivate::supportedProperties(d->type);
     const QStringList keys = ast.keys();
     for (const QString &key: keys) {
         if (!supportedProperties.contains(key)) {
-            qCWarning(d->lc).noquote() << tr("Ignoring unsupported property: %1").arg(key);
+            qCWarning(d->lc).noquote() << tr("Ignoring unsupported Shape property: %1").arg(key);
+        }
+    }
+
+    // Error on any missing required properties.
+    const QStringList requiredProperties = ShapePrivate::requiredProperties(d->type);
+    for (const QString &key: requiredProperties) {
+        if (!keys.contains(key)) {
+            qCritical(d->lc).noquote() << tr("Missing required Shape property: %1").arg(key);
+            /// \todo Set an error flag.
         }
     }
 
@@ -279,6 +289,53 @@ QStringList ShapePrivate::supportedProperties(const Shape::Type &type)
     }
     qCWarning(lc).noquote() << tr("Unknown shape type: 0x%1").arg((int)type, 0, 16);
     return QStringList{};
+}
+
+QStringList ShapePrivate::requiredProperties(const Shape::Type &type)
+{
+    switch (type) {
+    case Shape::Type::List:
+  //case Shape::Type::Set: <- Set is synonym for List.
+        return QStringList{
+            QLatin1String("type"),
+            QLatin1String("member"),
+        };
+        break;
+
+    case Shape::Type::Map:
+        return QStringList{
+            QLatin1String("type"),
+            QLatin1String("key"),
+            QLatin1String("value"),
+        };
+        break;
+
+    case Shape::Type::Union:
+    case Shape::Type::Enum:
+    case Shape::Type::IntEnum:
+        return QStringList{
+            QLatin1String("type"),
+            QLatin1String("members"),
+        };
+
+    case Shape::Type::Service:
+        return QStringList{
+            QLatin1String("type"),
+            QLatin1String("version"),
+        };
+
+    case Shape::Type::Apply:
+        return QStringList{
+            QLatin1String("type"),
+            QLatin1String("traits"),
+        };
+        break;
+
+    default:
+        return QStringList{
+            QLatin1String("type"),
+        };
+    }
 }
 
 /// \endcond
