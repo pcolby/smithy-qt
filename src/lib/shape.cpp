@@ -501,8 +501,7 @@ bool ShapePrivate::validateProperty(const QString &name, const QJsonValue &value
              (name == QLatin1String("delete")) ||
              (name == QLatin1String("list")) ||
              (name == QLatin1String("input")) ||
-             (name == QLatin1String("output")) ||
-             (name == QLatin1String("target"))) {
+             (name == QLatin1String("output"))) {
         if (!value.isObject()) {
             qCCritical(lc).noquote() << tr("%1 property is not a JSON object").arg(name);
             return false;
