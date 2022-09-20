@@ -159,15 +159,6 @@ bool Model::insert(const QJsonObject &ast)
                 qCCritical(d->lc).noquote() << tr("Failed to process shape %1").arg(iter.key());
                 return false;
             }
-            if (shape.type() == Shape::Type::Apply) {
-                qCWarning(d->lc).noquote() << "Todo: record 'apply' shapes for later processing";
-                /// \todo insert shape into an 'applies' map for processing later.
-                continue;
-            }
-            if (d->allShapes.contains(shapeId)) {
-                qCCritical(d->lc).noquote() << tr("Duplicate definition for shape %1").arg(iter.key());
-                return false;
-            }
             d->allShapes.insert(iter.key(), shape);
         }
     }
