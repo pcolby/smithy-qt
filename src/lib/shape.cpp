@@ -350,18 +350,56 @@ bool ShapePrivate::validateProperty(const QString &name, const QJsonValue &value
 {
     qCDebug(lc) << "validing" << name << value;
     if (name == QLatin1String("type")) {
-        /// \todo Validate Type
+        if (!value.isString()) {
+            qCCritical(lc).noquote() << tr("%1 property is not a JSON string").arg(name);
+            return false;
+        }
+        return (getType(value.toString()) != Shape::Type::Undefined);
     }
 
     else if (name == QLatin1String("traits")) {
-        /// \todo Validate TraitsMap
+        if (!value.isObject()) {
+            qCCritical(lc).noquote() << tr("%1 property is not a JSON object").arg(name);
+            return false;
+        }
+        const QJsonObject traits = value.toObject();
+        for (auto iter = traits.constBegin(); iter != traits.constEnd(); ++iter) {
+            const ShapeId id(iter.key());
+            if (!id.isValid()) {
+                qCCritical(lc).noquote() << tr("%1 property has trait invalid shape ID %2")
+                                            .arg(name, iter.key());
+                return false;
+            }
+            if (id.isRelativeShapeId()) {
+                qCCritical(lc).noquote() << tr("%1 property has trait relative shape ID %2")
+                                            .arg(name, iter.key());
+                return false;
+            }
+            // It doesn't matter (at this point) what type iter->value() is.
+        }
     }
 
     else if ((name == QLatin1String("member")) ||
              (name == QLatin1String("key")) ||
              (name == QLatin1String("value")))
     {
-        /// \todo Validate Member
+        if (!value.isObject()) {
+            qCCritical(lc).noquote() << tr("%1 property is not a JSON object").arg(name);
+            return false;
+        }
+        const QJsonObject member = value.toObject();
+        const auto target = member.constFind(QLatin1String("target")); // Required.
+        if (target == member.constEnd()) {
+            qCCritical(lc).noquote() << tr("%1 property has no target property").arg(name);
+            return false;
+        }
+        if (!validateProperty(target.key(), target.value())) {
+            return false;
+        }
+        const auto traits = member.constFind(QLatin1String("traits")); // Optional.
+        if ((traits != member.constEnd()) && (!validateProperty(traits.key(), traits.value()))) {
+            return false;
+        }
     }
 
     else if (name == QLatin1String("members")) {
@@ -376,7 +414,8 @@ bool ShapePrivate::validateProperty(const QString &name, const QJsonValue &value
              (name == QLatin1String("collectionOperations")) ||
              (name == QLatin1String("resources")) ||
              (name == QLatin1String("errors")) ||
-             (name == QLatin1String("mixins"))) {
+             (name == QLatin1String("mixins")) ||
+             (name == QLatin1String("target"))) {
         /// \todo Validate ShapeReferences
     }
 
