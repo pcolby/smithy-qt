@@ -33,6 +33,7 @@ protected:
     static Q_LOGGING_CATEGORY(lc, "smithy.Model", QtInfoMsg); ///< Logging category for UI commands.
 
 private:
+    Model::Error error;
     QMultiHash<QString, QJsonValue> allMetadata;
     QMultiHash<ShapeId, Shape> allShapes;
     QJsonObject mergedMetadata;

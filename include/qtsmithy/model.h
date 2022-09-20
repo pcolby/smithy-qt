@@ -28,6 +28,16 @@ class QTSMITHY_EXPORT Model
 Q_DECLARE_TR_FUNCTIONS(Model);
 
 public:
+    enum class Error {
+        NoError             = 0,
+        NoData              = 1,
+        InvalidMetadata     = 2,
+        InvalidShapes       = 3,
+        InvalidShapeId      = 4,
+        InvalidShape        = 5,
+        ConflictingMetadata = 6,
+    };
+
     Model();
     Model(Model &&other);
     Model(const Model &other);
@@ -39,10 +49,12 @@ public:
     bool insert(const QJsonObject &ast);
     bool finish();
 
+    Error error() const;
     bool isValid() const;
 
     QJsonObject metadata() const;
-    QHash<ShapeId, Shape> shapes() const;
+    QHash<ShapeId, Shape> shapes() const; /// or maybe:
+    QSet<Shape> shapes(const Shape::Type &type = Shape::Type::Undefined) const; /// \todo :shrug:
 
 protected:
     /// \cond internal

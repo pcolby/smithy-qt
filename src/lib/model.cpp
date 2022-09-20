@@ -26,12 +26,15 @@ QTSMITHY_BEGIN_NAMESPACE
  */
 Model::Model() : d_ptr(new ModelPrivate(this))
 {
+    Q_D(Model);
+    d->error = Error::NoData;
     /// \todo Load the Smithy prelude here?
 }
 
 Model::Model(Model &&other) : d_ptr(new ModelPrivate(this))
 {
     Q_D(Model);
+    d->error = std::move(other.d_ptr->error);
     d->mergedMetadata = std::move(other.d_ptr->mergedMetadata);
     d->mergedShapes = std::move(other.d_ptr->mergedShapes);
     d->allMetadata = std::move(other.d_ptr->allMetadata);
@@ -41,6 +44,7 @@ Model::Model(Model &&other) : d_ptr(new ModelPrivate(this))
 Model::Model(const Model &other) : d_ptr(new ModelPrivate(this))
 {
     Q_D(Model);
+    d->error = other.d_ptr->error;
     d->mergedMetadata = other.d_ptr->mergedMetadata;
     d->mergedShapes = other.d_ptr->mergedShapes;
     d->allMetadata = other.d_ptr->allMetadata;
@@ -50,6 +54,7 @@ Model::Model(const Model &other) : d_ptr(new ModelPrivate(this))
 Model& Model::operator=(const Model &model)
 {
     Q_D(Model);
+    d->error = model.d_ptr->error;
     d->mergedMetadata = model.d_ptr->mergedMetadata;
     d->mergedShapes = model.d_ptr->mergedShapes;
     d->allMetadata = model.d_ptr->allMetadata;
@@ -60,6 +65,7 @@ Model& Model::operator=(const Model &model)
 Model& Model::operator=(const Model &&model)
 {
     Q_D(Model);
+    d->error = std::move(model.d_ptr->error);
     d->mergedMetadata = std::move(model.d_ptr->mergedMetadata);
     d->mergedShapes = std::move(model.d_ptr->mergedShapes);
     d->allMetadata = std::move(model.d_ptr->allMetadata);
@@ -72,12 +78,13 @@ Model& Model::operator=(const Model &&model)
  */
 Model::~Model()
 {
-
+    delete d_ptr;
 }
 
 void Model::clear()
 {
     Q_D(Model);
+    d->error = Error::NoData;
     d->mergedMetadata = QJsonObject{};
     d->mergedShapes.clear();
     d->allMetadata.clear();
@@ -94,8 +101,12 @@ void Model::clear()
  */
 bool Model::insert(const QJsonObject &ast)
 {
-    // Clear any previously-merged data; we'll need to re-merge later.
     Q_D(Model);
+    if (d->error == Error::NoData) {
+        d->error = Error::NoError;
+    }
+
+    // Clear any previously-merged data; we'll need to re-merge later.
     d->mergedMetadata = QJsonObject{};
     d->mergedShapes.clear();
 
@@ -122,6 +133,7 @@ bool Model::insert(const QJsonObject &ast)
         if (!metadata.isObject()) {
             qCCritical(d->lc).noquote() << tr("Smithy AST metadata is not an object");
             qDebug().noquote() << metadata;
+            if (d->error == Error::NoError) d->error = Error::InvalidMetadata;
             return false;
         }
         const QJsonObject object = metadata.toObject();
@@ -136,6 +148,7 @@ bool Model::insert(const QJsonObject &ast)
     if (shapes != QJsonValue::Undefined) {
         if (!shapes.isObject()) {
             qCCritical(d->lc).noquote() << tr("Smithy AST shapes is not an object");
+            if (d->error == Error::NoError) d->error = Error::InvalidShapes;
             return false;
         }
         const QJsonObject object = shapes.toObject();
@@ -144,20 +157,24 @@ bool Model::insert(const QJsonObject &ast)
             const ShapeId shapeId(iter.key());
             if (!shapeId.isValid()) {
                 qCCritical(d->lc).noquote() << tr("Failed to parse shape ID %1").arg(iter.key());
+                if (d->error == Error::NoError) d->error = Error::InvalidShapeId;
                 return false;
             }
             if (!shapeId.hasNameSpace()) {
                 qCCritical(d->lc).noquote() << tr("Shape ID %1 has no namespace").arg(iter.key());
+                if (d->error == Error::NoError) d->error = Error::InvalidShapeId;
                 return false;
             }
             if (!iter.value().isObject()) {
                 qCCritical(d->lc).noquote() << tr("Shape %1 is not a JSON object").arg(iter.key());
+                if (d->error == Error::NoError) d->error = Error::InvalidShape;
                 return false;
             }
             qCDebug(d->lc).noquote() << tr("Processing shape %1").arg(shapeId.toString());
             const Shape shape{iter.value().toObject(), shapeId};
             if (!shape.isValid()) {
                 qCCritical(d->lc).noquote() << tr("Failed to process shape %1").arg(iter.key());
+                if (d->error == Error::NoError) d->error = Error::InvalidShape;
                 return false;
             }
             d->allShapes.insert(iter.key(), shape);
@@ -169,20 +186,31 @@ bool Model::insert(const QJsonObject &ast)
 bool Model::finish()
 {
     Q_D(Model);
+    if (d->error != Error::NoError) {
+        qCWarning(d->lc).noquote() << tr("Model::finish() called with Model errors present");
+        return false;
+    }
+
     d->mergedMetadata = ModelPrivate::mergeMetadata(d->allMetadata);
+    if (d->allMetadata.isEmpty() != d->mergedMetadata.isEmpty()) {
+        if (d->error == Error::NoError) d->error = Error::ConflictingMetadata;
+    }
+
     /// \todo resolve shape conflicts.
     /// \todo resolve trait conflicts; include 'apply' statements.
     return isValid();
 }
 
+Model::Error Model::error() const
+{
+    Q_D(const Model);
+    return d->error;
+}
+
 bool Model::isValid() const
 {
     Q_D(const Model);
-    if (d->allMetadata.isEmpty() != d->mergedMetadata.isEmpty()) {
-        return false;
-    }
-    /// \todo Check for other errors and merges.
-    return true;
+    return (d->error == Error::NoError);
 }
 
 QJsonObject Model::metadata() const
