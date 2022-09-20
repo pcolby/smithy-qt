@@ -37,6 +37,7 @@ protected:
     static Q_LOGGING_CATEGORY(lc, "smithy.Shape", QtInfoMsg); ///< Logging category for UI commands.
 
 private:
+    Shape::Error error;
     ShapeId id;
     Shape::Type type;
 

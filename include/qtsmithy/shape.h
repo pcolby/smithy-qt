@@ -26,6 +26,13 @@ class QTSMITHY_EXPORT Shape
 Q_DECLARE_TR_FUNCTIONS(Shape);
 
 public:
+    enum class Error {
+        NoError                 = 0,
+        UndefinedShapeType      = 1,
+        MissingRequiredProperty = 2,
+        InvalidPropertyValue    = 3,
+    };
+
     // https://awslabs.github.io/smithy/2.0/spec/model.html#shape-types
     enum class Type {
         Undefined  = 0x000, ///< The shape is undefined, usually the result of an error condition.
@@ -88,6 +95,9 @@ public:
     Shape& operator=(const Shape &&shape);
     ~Shape();
 
+    Error error() const;
+    bool isValid() const;
+
     ShapeId id() const;
     Type type() const;
     TraitsMap traits() const;
@@ -130,8 +140,6 @@ public:
 
     // Mixins https://awslabs.github.io/smithy/2.0/spec/json-ast.html#mixins
     ShapeReferences mixins() const;
-
-    bool isValid() const;
 
 protected:
     /// \cond internal

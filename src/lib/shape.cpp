@@ -28,14 +28,19 @@ QTSMITHY_BEGIN_NAMESPACE
 Shape::Shape() : d_ptr(new ShapePrivate(this))
 {
     Q_D(Shape);
+    d->error = Error::NoError;
     d->type = Type::Undefined;
 }
 
 Shape::Shape(const QJsonObject &ast, const ShapeId &id) : d_ptr(new ShapePrivate(this))
 {
     Q_D(Shape);
+    d->error = Error::NoError;
     d->id = id;
     d->type = ShapePrivate::getType(ast);
+    if (d->type == Type::Undefined) {
+        d->error = Error::UndefinedShapeType;
+    }
 
     // Warn on any unsupported properties.
     const QStringList supportedProperties = ShapePrivate::supportedProperties(d->type);
@@ -51,7 +56,7 @@ Shape::Shape(const QJsonObject &ast, const ShapeId &id) : d_ptr(new ShapePrivate
     for (const QString &key: requiredProperties) {
         if (!keys.contains(key)) {
             qCritical(d->lc).noquote() << tr("Missing required Shape property: %1").arg(key);
-            /// \todo Set an error flag.
+            d->error = Error::MissingRequiredProperty;
         }
     }
 
@@ -61,7 +66,9 @@ Shape::Shape(const QJsonObject &ast, const ShapeId &id) : d_ptr(new ShapePrivate
             continue;
         }
         if (!ShapePrivate::validateProperty(iter.key(), iter.value())) {
-            /// \todo Set an error flag.
+            if (d->error == Error::NoError) {
+                d->error = Error::InvalidPropertyValue;
+            }
         }
     }
 }
@@ -69,6 +76,7 @@ Shape::Shape(const QJsonObject &ast, const ShapeId &id) : d_ptr(new ShapePrivate
 Shape::Shape(Shape &&other) : d_ptr(new ShapePrivate(this))
 {
     Q_D(Shape);
+    d->error = std::move(other.d_ptr->error);
     d->id = std::move(other.d_ptr->id);
     d->type = std::move(other.d_ptr->type);
 }
@@ -76,6 +84,7 @@ Shape::Shape(Shape &&other) : d_ptr(new ShapePrivate(this))
 Shape::Shape(const Shape &other) : d_ptr(new ShapePrivate(this))
 {
     Q_D(Shape);
+    d->error = other.d_ptr->error;
     d->id = other.d_ptr->id;
     d->type = other.d_ptr->type;
 }
@@ -83,6 +92,7 @@ Shape::Shape(const Shape &other) : d_ptr(new ShapePrivate(this))
 Shape& Shape::operator=(const Shape &shape)
 {
     Q_D(Shape);
+    d->error = shape.d_ptr->error;
     d->id = shape.d_ptr->id;
     d->type = shape.d_ptr->type;
     return *this;
@@ -91,6 +101,7 @@ Shape& Shape::operator=(const Shape &shape)
 Shape& Shape::operator=(const Shape &&shape)
 {
     Q_D(Shape);
+    d->error = std::move(shape.d_ptr->error);
     d->id = std::move(shape.d_ptr->id);
     d->type = std::move(shape.d_ptr->type);
     return *this;
@@ -101,8 +112,21 @@ Shape& Shape::operator=(const Shape &&shape)
  */
 Shape::~Shape()
 {
-
+    delete d_ptr;
 }
+
+Shape::Error Shape::error() const
+{
+    Q_D(const Shape);
+    return d->error;
+}
+
+bool Shape::isValid() const
+{
+    Q_D(const Shape);
+    return ((d->error == Error::NoError) && (d->type != Type::Undefined));
+}
+
 
 ShapeId Shape::id() const
 {
@@ -116,11 +140,29 @@ Shape::Type Shape::type() const
     return d->type;
 }
 
-bool Shape::isValid() const
-{
-    //Q_D(const Shape);
-    return true; /// \todo
-}
+/// \todo Shape::TraitsMap Shape::traits() const { }
+
+/// \todo Shape::Member Shape::member() const { }
+/// \todo Shape::Member Shape::key() const { }
+/// \todo Shape::Member Shape::value() const { }
+/// \todo Shape::StringMemberMap Shape::members() const { }
+/// \todo QString Shape::version() const { }
+/// \todo Shape::ShapeReferences Shape::operations() const { }
+/// \todo Shape::ShapeReferences Shape::resources() const { }
+/// \todo Shape::ShapeReferences Shape::errors() const { }
+/// \todo Shape::ShapeIdStringMap Shape::rename() const { }
+/// \todo Shape::StringShapeRefMap Shape::identifiers() const { }
+/// \todo Shape::StringShapeIdMap Shape::properties() const { }
+/// \todo Shape::ShapeReference Shape::create() const { }
+/// \todo Shape::ShapeReference Shape::put() const { }
+/// \todo Shape::ShapeReference Shape::read() const { }
+/// \todo Shape::ShapeReference Shape::update() const { }
+/// \todo Shape::ShapeReference Shape::Delete() const { }
+/// \todo Shape::ShapeReference Shape::list() const { }
+/// \todo Shape::ShapeReferences Shape::collectionOperations() const { }
+/// \todo Shape::ShapeReference Shape::input() const { }
+/// \todo Shape::ShapeReference Shape::output() const { }
+/// \todo Shape::ShapeReferences Shape::mixins() const { }
 
 /*!
  * \cond internal
