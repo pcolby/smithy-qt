@@ -512,7 +512,23 @@ bool ShapePrivate::validateProperty(const QString &name, const QJsonValue &value
             qCCritical(lc).noquote() << tr("%1 property has no target property").arg(name);
             return false;
         }
-        /// \todo more.
+        if (!target.value().isString()) {
+            qCCritical(lc).noquote() << tr("%1 property has target value that not a JSON string")
+                                        .arg(name);
+            return false;
+        }
+        const QString shapeIdString = target.value().toString();
+        const ShapeId shapeId(shapeIdString);
+        if (!shapeId.isValid()) {
+            qCCritical(lc).noquote() << tr("%1 property has target with invalid shape ID %2")
+                                        .arg(name, shapeIdString);
+            return false;
+        }
+        if (shapeId.isRelativeShapeId()) {
+            qCCritical(lc).noquote() << tr("%1 property has target with relative shape ID %2")
+                                        .arg(name, shapeIdString);
+            return false;
+        }
     }
 
     // StringShapeRefMap
