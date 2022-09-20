@@ -34,6 +34,15 @@ Shape::Shape(const QJsonObject &ast, const ShapeId &id) : d_ptr(new ShapePrivate
     Q_D(Shape);
     d->id = id;
     d->type = ShapePrivate::getType(ast);
+
+    const QStringList supportedProperties = ShapePrivate::supportedProperties(d->type);
+    const QStringList keys = ast.keys();
+    for (const QString &key: keys) {
+        if (!supportedProperties.contains(key)) {
+            qCWarning(d->lc).noquote() << tr("Ignoring unsupported property: %1").arg(key);
+        }
+    }
+
     /// \todo More with \a ast.
 }
 
@@ -160,6 +169,116 @@ Shape::Type ShapePrivate::getType(const QString &type)
 
     qCWarning(lc).noquote() << tr("Unknown shape type: %1").arg(type);
     return Shape::Type::Undefined;
+}
+
+QStringList ShapePrivate::supportedProperties(const Shape::Type &type)
+{
+    switch (type) {
+    case Shape::Type::Undefined:
+        return QStringList{};
+
+    // Simple Types:
+    case Shape::Type::Blob:
+    case Shape::Type::Boolean:
+    case Shape::Type::String:
+  //case Shape::Type::Enum: <- Same as strucutre and union below.
+    case Shape::Type::Byte:
+    case Shape::Type::Short:
+    case Shape::Type::Integer:
+  //case Shape::Type::IntEnum: <- Same as strucutre and union below.
+    case Shape::Type::Long:
+    case Shape::Type::Float:
+    case Shape::Type::Double:
+    case Shape::Type::BigInteger:
+    case Shape::Type::BigDecimal:
+    case Shape::Type::Timestamp:
+    case Shape::Type::Document:
+        return QStringList{
+            QLatin1String("type"),
+            QLatin1String("traits"),
+            QLatin1String("mixins"),
+        };
+        break;
+
+    // Aggregate Types
+    case Shape::Type::List:
+  //case Shape::Type::Set:  <- Set is synonym for List.
+        return QStringList{
+            QLatin1String("type"),
+            QLatin1String("traits"),
+            QLatin1String("member"),
+            QLatin1String("mixins"),
+        };
+        break;
+    case Shape::Type::Map:
+        return QStringList{
+            QLatin1String("type"),
+            QLatin1String("traits"),
+            QLatin1String("key"),
+            QLatin1String("value"),
+            QLatin1String("mixins"),
+        };
+        break;
+    case Shape::Type::Structure:
+    case Shape::Type::Union:
+    case Shape::Type::Enum:
+    case Shape::Type::IntEnum:
+        return QStringList{
+            QLatin1String("type"),
+            QLatin1String("traits"),
+            QLatin1String("members"),
+            QLatin1String("mixins"),
+        };
+
+    // Service Types
+    case Shape::Type::Service:
+        return QStringList{
+            QLatin1String("type"),
+            QLatin1String("traits"),
+            QLatin1String("version"),
+            QLatin1String("operations"),
+            QLatin1String("resources"),
+            QLatin1String("errors"),
+            QLatin1String("rename"),
+            QLatin1String("mixins"),
+        };
+    case Shape::Type::Operation:
+        return QStringList{
+            QLatin1String("type"),
+            QLatin1String("traits"),
+            QLatin1String("input"),
+            QLatin1String("output"),
+            QLatin1String("errors"),
+            QLatin1String("mixins"),
+        };
+    case Shape::Type::Resource:
+        return QStringList{
+            QLatin1String("type"),
+            QLatin1String("traits"),
+            QLatin1String("identifiers"),
+            QLatin1String("properties"),
+            QLatin1String("create"),
+            QLatin1String("put"),
+            QLatin1String("read"),
+            QLatin1String("update"),
+            QLatin1String("delete"),
+            QLatin1String("list"),
+            QLatin1String("operations"),
+            QLatin1String("collectionOperations"),
+            QLatin1String("resources"),
+            QLatin1String("mixins"),
+        };
+
+    // Special Types
+    case Shape::Type::Apply:
+        return QStringList{
+            QLatin1String("type"),
+            QLatin1String("traits"),
+        };
+        break;
+    }
+    qCWarning(lc).noquote() << tr("Unknown shape type: 0x%1").arg((int)type, 0, 16);
+    return QStringList{};
 }
 
 /// \endcond

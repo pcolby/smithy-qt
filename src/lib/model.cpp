@@ -154,6 +154,7 @@ bool Model::insert(const QJsonObject &ast)
                 qCCritical(d->lc).noquote() << tr("Shape %1 is not a JSON object").arg(iter.key());
                 return false;
             }
+            qCDebug(d->lc).noquote() << tr("Processing shape %1").arg(shapeId.toString());
             const Shape shape{iter.value().toObject(), shapeId};
             if (!shape.isValid()) {
                 qCCritical(d->lc).noquote() << tr("Failed to process shape %1").arg(iter.key());
@@ -169,8 +170,8 @@ bool Model::finish()
 {
     Q_D(Model);
     d->mergedMetadata = ModelPrivate::mergeMetadata(d->allMetadata);
-    // resolve shape conflicts.
-    // resolve trait conflicts; include 'apply' statements.
+    /// \todo resolve shape conflicts.
+    /// \todo resolve trait conflicts; include 'apply' statements.
     return isValid();
 }
 
