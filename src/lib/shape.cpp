@@ -9,6 +9,8 @@
 #include <qtsmithy/shape.h>
 #include "shape_p.h"
 
+#include <QJsonArray>
+
 QTSMITHY_BEGIN_NAMESPACE
 
 /*!
@@ -354,7 +356,7 @@ bool ShapePrivate::validateIdentifier(const QString &id)
 
 bool ShapePrivate::validateProperty(const QString &name, const QJsonValue &value)
 {
-    qCDebug(lc) << "validing" << name << value;
+    // Type string
     if (name == QLatin1String("type")) {
         if (!value.isString()) {
             qCCritical(lc).noquote() << tr("%1 property is not a JSON string").arg(name);
@@ -363,6 +365,7 @@ bool ShapePrivate::validateProperty(const QString &name, const QJsonValue &value
         return (getType(value.toString()) != Shape::Type::Undefined);
     }
 
+    // TraitsMap
     else if (name == QLatin1String("traits")) {
         if (!value.isObject()) {
             qCCritical(lc).noquote() << tr("%1 property is not a JSON object").arg(name);
@@ -372,12 +375,12 @@ bool ShapePrivate::validateProperty(const QString &name, const QJsonValue &value
         for (auto iter = traits.constBegin(); iter != traits.constEnd(); ++iter) {
             const ShapeId id(iter.key());
             if (!id.isValid()) {
-                qCCritical(lc).noquote() << tr("%1 property has trait invalid shape ID %2")
+                qCCritical(lc).noquote() << tr("%1 property has trait with invalid shape ID %2")
                                             .arg(name, iter.key());
                 return false;
             }
             if (id.isRelativeShapeId()) {
-                qCCritical(lc).noquote() << tr("%1 property has trait relative shape ID %2")
+                qCCritical(lc).noquote() << tr("%1 property has trait with relative shape ID %2")
                                             .arg(name, iter.key());
                 return false;
             }
@@ -385,6 +388,7 @@ bool ShapePrivate::validateProperty(const QString &name, const QJsonValue &value
         }
     }
 
+    // Member (aka ShapeReference plus optional TraitsMap)
     else if ((name == QLatin1String("member")) ||
              (name == QLatin1String("key")) ||
              (name == QLatin1String("value")))
@@ -408,6 +412,7 @@ bool ShapePrivate::validateProperty(const QString &name, const QJsonValue &value
         }
     }
 
+    // Members (ie Set of Member instances)
     else if (name == QLatin1String("members")) {
         if (!value.isObject()) {
             qCCritical(lc).noquote() << tr("%1 property is not a JSON object").arg(name);
@@ -435,6 +440,7 @@ bool ShapePrivate::validateProperty(const QString &name, const QJsonValue &value
         }
     }
 
+    // Plain string
     else if (name == QLatin1String("version")) {
         if (!value.isString()) {
             qCCritical(lc).noquote() << tr("%1 property is not a JSON string").arg(name);
@@ -443,34 +449,72 @@ bool ShapePrivate::validateProperty(const QString &name, const QJsonValue &value
         // No further validation required; the string is free-form.
     }
 
+    // ShapeReferences
     else if ((name == QLatin1String("operations")) ||
              (name == QLatin1String("collectionOperations")) ||
              (name == QLatin1String("resources")) ||
              (name == QLatin1String("errors")) ||
-             (name == QLatin1String("mixins")) ||
-             (name == QLatin1String("target"))) {
-        /// \todo Validate ShapeReferences
+             (name == QLatin1String("mixins"))) {
+        if (!value.isArray()) {
+            qCCritical(lc).noquote() << tr("%1 property is not a JSON array").arg(name);
+            return false;
+        }
+        const QJsonArray shapeRefs = value.toArray();
+        for (const QJsonValue &shapeRef: shapeRefs) {
+            if (!validateProperty(QLatin1String("ShapeReference"), shapeRef)) {
+                qCCritical(lc).noquote() << tr("%1 property has invalid entry").arg(name);
+            }
+        }
     }
 
+    // ShapeIdStringMap
     else if (name == QLatin1String("rename")) {
-        /// \todo Validate ShapeIdStringMap
+        if (!value.isObject()) {
+            qCCritical(lc).noquote() << tr("%1 property is not a JSON object").arg(name);
+            return false;
+        }
+        const QJsonObject rename = value.toObject();
+        for (auto iter = rename.constBegin(); iter != rename.constEnd(); ++iter) {
+            const ShapeId shapeId(iter.key());
+            if (!shapeId.isValid()) {
+                qCCritical(lc).noquote() << tr("%1 property has invalid shape ID %2")
+                                            .arg(name, iter.key());
+                return false;
+            }
+            if (!iter.value().isString()) {
+                qCCritical(lc).noquote() << tr("%1 property has shape ID %2 with invalid value")
+                                            .arg(name, iter.key());
+                return false;
+            }
+            const QString indentifier = iter.value().toString();
+            if (validateIdentifier(indentifier)) {
+                qCCritical(lc).noquote() << tr("%1 property has shape ID %2 with invalid identifier %3")
+                                            .arg(name, iter.key(), indentifier);
+                return false;
+            }
+        }
     }
 
-    else if ((name == QLatin1String("create")) ||
+    // ShapeReference
+    else if ((name == QLatin1String("ShapeReference")) ||
+             (name == QLatin1String("create")) ||
              (name == QLatin1String("put")) ||
              (name == QLatin1String("read")) ||
              (name == QLatin1String("update")) ||
              (name == QLatin1String("delete")) ||
              (name == QLatin1String("list")) ||
              (name == QLatin1String("input")) ||
-             (name == QLatin1String("output"))) {
+             (name == QLatin1String("output")) ||
+             (name == QLatin1String("target"))) {
         /// \todo Validate ShapeReference
     }
 
+    // StringShapeRefMap
     else if (name == QLatin1String("identifiers")) {
         /// \todo Validate StringShapeRefMap
     }
 
+    // StringShapeIdMap
     else if (name == QLatin1String("properties")) {
         /// \todo Validate StringShapeIdMap
     }
