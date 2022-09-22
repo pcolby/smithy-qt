@@ -6,7 +6,12 @@
 
 #include <grantlee/engine.h>
 
-class Generator {
+#include <QCoreApplication>
+#include <QLoggingCategory>
+
+class Generator
+{
+Q_DECLARE_TR_FUNCTIONS(Generator);
 
 public:
     explicit Generator(const QDir &outputDir);
@@ -36,4 +41,6 @@ private:
     Grantlee::Engine engine;
     QMap<QString, Grantlee::Template> templates;
     QStringList headers, modules, sources;
+
+    static Q_LOGGING_CATEGORY(lc, "smithy.Generator", QtInfoMsg); ///< Logging category for Generator.
 };

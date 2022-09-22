@@ -1,6 +1,9 @@
 // SPDX-FileCopyrightText: 2013-2022 Paul Colby <git@colby.id.au>
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
+#include "generator.h"
+#include "renderer.h"
+
 #include <qtsmithy/model.h>
 
 #include <QCommandLineParser>
@@ -206,7 +209,7 @@ int loadModels(const QStringList &dirs, smithy::Model &model)
             count += thisCount;
         }
     }
-    qCDebug(lc).noquote() << QCoreApplication::translate("loadModels", "Loaded %n model(s)",
+    qCDebug(lc).noquote() << QCoreApplication::translate("loadModels", "Loaded %n model(s) in total",
                                                          nullptr, count);
     return count;
 }
@@ -235,10 +238,10 @@ int main(int argc, char *argv[])
     }
 
     // Setup the renderer.
-//    Renderer renderer(inputDir.absoluteFilePath());
-//    if (!renderer.loadTemplates(templatesDir.absoluteFilePath())) {
-//        return 3;
-//    }
+    Renderer renderer;
+    if (!renderer.loadTemplates(parser.value(QStringLiteral("templates")))) {
+        return 5;
+    }
 
     // Let the user know we're about to generate a lot of files, then do it!
 //    qCWarning(lc).noquote() << QCoreApplication::translate("main",
