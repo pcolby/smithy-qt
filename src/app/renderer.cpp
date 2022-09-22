@@ -30,7 +30,7 @@ bool Renderer::loadTemplates(const QString &dir)
     engine.addTemplateLoader(cachedLoader);
 
     // Load the templates.
-    QDirIterator iter{dir, QDir::Files, QDirIterator::Subdirectories};
+    QDirIterator iter{QDir::cleanPath(dir), QDir::Files, QDirIterator::Subdirectories};
     while (iter.hasNext()) {
         const QString name = iter.next().mid(iter.path().size()+1);
         qCDebug(lc).noquote() << tr("Loading template: %1").arg(name);
