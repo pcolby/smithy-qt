@@ -26,6 +26,16 @@ public:
     static Shape::Type getType(const QJsonObject &ast);
     static Shape::Type getType(const QString &type);
 
+    static Shape::Member getMember(const QJsonObject &ast, const QString &name);
+    static ShapeIdStringMap getShapeIdStrMap(const QJsonObject &ast, const QString &name);
+    static Shape::ShapeReference getShapeRef(const QJsonObject &ast, const QString &name);
+    static Shape::ShapeReferences getShapeRefs(const QJsonObject &ast, const QString &name);
+    static Shape::StringMemberMap getStrMemberMap(const QJsonObject &ast, const QString &name);
+    static StringShapeIdMap getStrShapeIdMap(const QJsonObject &ast, const QString &name);
+    static Shape::StringShapeRefMap getStrShapeRefMap(const QJsonObject &ast, const QString &name);
+    static Shape::TraitsMap getTraitsMap(const QJsonObject &ast, const QString &name);
+    static QString getString(const QJsonObject &ast, const QString &name);
+
     static QStringList supportedProperties(const Shape::Type &type);
     static QStringList requiredProperties(const Shape::Type &type);
 
@@ -37,6 +47,7 @@ protected:
     static Q_LOGGING_CATEGORY(lc, "smithy.Shape", QtInfoMsg); ///< Logging category for Shape.
 
 private:
+    QJsonObject ast;
     Shape::Error error;
     ShapeId id;
     Shape::Type type;

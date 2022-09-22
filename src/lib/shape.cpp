@@ -35,6 +35,7 @@ Shape::Shape() : d_ptr(new ShapePrivate(this))
 Shape::Shape(const QJsonObject &ast, const ShapeId &id) : d_ptr(new ShapePrivate(this))
 {
     Q_D(Shape);
+    d->ast = ast;
     d->error = Error::NoError;
     d->id = id;
     d->type = ShapePrivate::getType(ast);
@@ -76,6 +77,7 @@ Shape::Shape(const QJsonObject &ast, const ShapeId &id) : d_ptr(new ShapePrivate
 Shape::Shape(Shape &&other) : d_ptr(new ShapePrivate(this))
 {
     Q_D(Shape);
+    d->ast = std::move(other.d_ptr->ast);
     d->error = std::move(other.d_ptr->error);
     d->id = std::move(other.d_ptr->id);
     d->type = std::move(other.d_ptr->type);
@@ -84,6 +86,7 @@ Shape::Shape(Shape &&other) : d_ptr(new ShapePrivate(this))
 Shape::Shape(const Shape &other) : d_ptr(new ShapePrivate(this))
 {
     Q_D(Shape);
+    d->ast = other.d_ptr->ast;
     d->error = other.d_ptr->error;
     d->id = other.d_ptr->id;
     d->type = other.d_ptr->type;
@@ -92,6 +95,7 @@ Shape::Shape(const Shape &other) : d_ptr(new ShapePrivate(this))
 Shape& Shape::operator=(const Shape &shape)
 {
     Q_D(Shape);
+    d->ast = shape.d_ptr->ast;
     d->error = shape.d_ptr->error;
     d->id = shape.d_ptr->id;
     d->type = shape.d_ptr->type;
@@ -101,6 +105,7 @@ Shape& Shape::operator=(const Shape &shape)
 Shape& Shape::operator=(const Shape &&shape)
 {
     Q_D(Shape);
+    d->ast = std::move(shape.d_ptr->ast);
     d->error = std::move(shape.d_ptr->error);
     d->id = std::move(shape.d_ptr->id);
     d->type = std::move(shape.d_ptr->type);
@@ -140,29 +145,135 @@ Shape::Type Shape::type() const
     return d->type;
 }
 
-/// \todo Shape::TraitsMap Shape::traits() const { }
+Shape::TraitsMap Shape::traits() const
+{
+    Q_D(const Shape);
+    return ShapePrivate::getTraitsMap(d->ast, QStringLiteral("traits"));
+}
 
-/// \todo Shape::Member Shape::member() const { }
-/// \todo Shape::Member Shape::key() const { }
-/// \todo Shape::Member Shape::value() const { }
-/// \todo Shape::StringMemberMap Shape::members() const { }
-/// \todo QString Shape::version() const { }
-/// \todo Shape::ShapeReferences Shape::operations() const { }
-/// \todo Shape::ShapeReferences Shape::resources() const { }
-/// \todo Shape::ShapeReferences Shape::errors() const { }
-/// \todo Shape::ShapeIdStringMap Shape::rename() const { }
-/// \todo Shape::StringShapeRefMap Shape::identifiers() const { }
-/// \todo Shape::StringShapeIdMap Shape::properties() const { }
-/// \todo Shape::ShapeReference Shape::create() const { }
-/// \todo Shape::ShapeReference Shape::put() const { }
-/// \todo Shape::ShapeReference Shape::read() const { }
-/// \todo Shape::ShapeReference Shape::update() const { }
-/// \todo Shape::ShapeReference Shape::Delete() const { }
-/// \todo Shape::ShapeReference Shape::list() const { }
-/// \todo Shape::ShapeReferences Shape::collectionOperations() const { }
-/// \todo Shape::ShapeReference Shape::input() const { }
-/// \todo Shape::ShapeReference Shape::output() const { }
-/// \todo Shape::ShapeReferences Shape::mixins() const { }
+Shape::Member Shape::member() const
+{
+    Q_D(const Shape);
+    return ShapePrivate::getMember(d->ast, QStringLiteral("member"));
+}
+
+Shape::Member Shape::key() const
+{
+    Q_D(const Shape);
+    return ShapePrivate::getMember(d->ast, QStringLiteral("key"));
+}
+
+Shape::Member Shape::value() const
+{
+    Q_D(const Shape);
+    return ShapePrivate::getMember(d->ast, QStringLiteral("value"));
+}
+
+Shape::StringMemberMap Shape::members() const
+{
+    Q_D(const Shape);
+    return ShapePrivate::getStrMemberMap(d->ast, QStringLiteral("members"));
+}
+
+QString Shape::version() const
+{
+    Q_D(const Shape);
+    return ShapePrivate::getString(d->ast, QStringLiteral("version"));
+}
+
+Shape::ShapeReferences Shape::operations() const
+{
+    Q_D(const Shape);
+    return ShapePrivate::getShapeRefs(d->ast, QStringLiteral("operations"));
+}
+
+Shape::ShapeReferences Shape::resources() const {
+    Q_D(const Shape);
+    return ShapePrivate::getShapeRefs(d->ast, QStringLiteral("resources"));
+}
+
+Shape::ShapeReferences Shape::errors() const {
+    Q_D(const Shape);
+    return ShapePrivate::getShapeRefs(d->ast, QStringLiteral("errors"));
+}
+
+ShapeIdStringMap Shape::rename() const
+{
+    Q_D(const Shape);
+    return ShapePrivate::getShapeIdStrMap(d->ast, QStringLiteral("rename"));
+}
+
+Shape::StringShapeRefMap Shape::identifiers() const
+{
+    Q_D(const Shape);
+    return ShapePrivate::getStrShapeRefMap(d->ast, QStringLiteral("identifiers"));
+}
+
+StringShapeIdMap Shape::properties() const
+{
+    Q_D(const Shape);
+    return ShapePrivate::getStrShapeIdMap(d->ast, QStringLiteral("properties"));
+}
+
+Shape::ShapeReference Shape::create() const
+{
+    Q_D(const Shape);
+    return ShapePrivate::getShapeRef(d->ast, QStringLiteral("create"));
+}
+
+Shape::ShapeReference Shape::put() const
+{
+    Q_D(const Shape);
+    return ShapePrivate::getShapeRef(d->ast, QStringLiteral("put"));
+}
+
+Shape::ShapeReference Shape::read() const
+{
+    Q_D(const Shape);
+    return ShapePrivate::getShapeRef(d->ast, QStringLiteral("read"));
+}
+
+Shape::ShapeReference Shape::update() const
+{
+    Q_D(const Shape);
+    return ShapePrivate::getShapeRef(d->ast, QStringLiteral("update"));
+}
+
+Shape::ShapeReference Shape::Delete() const
+{
+    Q_D(const Shape);
+    return ShapePrivate::getShapeRef(d->ast, QStringLiteral("delete"));
+}
+
+Shape::ShapeReference Shape::list() const
+{
+    Q_D(const Shape);
+    return ShapePrivate::getShapeRef(d->ast, QStringLiteral("list"));
+}
+
+Shape::ShapeReferences Shape::collectionOperations() const
+{
+    Q_D(const Shape);
+    return ShapePrivate::getShapeRefs(d->ast, QStringLiteral("collectionOperations"));
+}
+
+Shape::ShapeReference Shape::input() const
+{
+    Q_D(const Shape);
+    return ShapePrivate::getShapeRef(d->ast, QStringLiteral("input"));
+}
+
+Shape::ShapeReference Shape::output() const
+{
+    Q_D(const Shape);
+    return ShapePrivate::getShapeRef(d->ast, QStringLiteral("output"));
+}
+
+Shape::ShapeReferences Shape::mixins() const
+{
+    Q_D(const Shape);
+    return ShapePrivate::getShapeRefs(d->ast, QStringLiteral("mixins"));
+}
 
 /*!
  * \cond internal
@@ -231,6 +342,87 @@ Shape::Type ShapePrivate::getType(const QString &type)
 
     qCWarning(lc).noquote() << tr("Unknown shape type: %1").arg(type);
     return Shape::Type::Undefined;
+}
+
+Shape::Member ShapePrivate::getMember(const QJsonObject &ast, const QString &name)
+{
+    Shape::Member member;
+    Q_UNUSED(ast);
+    Q_UNUSED(name);
+    Q_UNIMPLEMENTED();
+    return member;
+}
+
+ShapeIdStringMap ShapePrivate::getShapeIdStrMap(const QJsonObject &ast, const QString &name)
+{
+    ShapeIdStringMap shapeIdMap;
+    Q_UNUSED(ast);
+    Q_UNUSED(name);
+    Q_UNIMPLEMENTED();
+    return shapeIdMap;
+}
+
+Shape::ShapeReference ShapePrivate::getShapeRef(const QJsonObject &ast, const QString &name)
+{
+    Shape::ShapeReference shapeRef;
+    Q_UNUSED(ast);
+    Q_UNUSED(name);
+    Q_UNIMPLEMENTED();
+    return shapeRef;
+}
+
+Shape::ShapeReferences ShapePrivate::getShapeRefs(const QJsonObject &ast, const QString &name)
+{
+    Shape::ShapeReferences shapeRefs;
+    Q_UNUSED(ast);
+    Q_UNUSED(name);
+    Q_UNIMPLEMENTED();
+    return shapeRefs;
+}
+
+Shape::StringMemberMap ShapePrivate::getStrMemberMap(const QJsonObject &ast, const QString &name)
+{
+    Shape::StringMemberMap memberMap;
+    Q_UNUSED(ast);
+    Q_UNUSED(name);
+    Q_UNIMPLEMENTED();
+    return memberMap;
+}
+
+StringShapeIdMap ShapePrivate::getStrShapeIdMap(const QJsonObject &ast, const QString &name)
+{
+    StringShapeIdMap shapeIdMap;
+    Q_UNUSED(ast);
+    Q_UNUSED(name);
+    Q_UNIMPLEMENTED();
+    return shapeIdMap;
+}
+
+Shape::StringShapeRefMap ShapePrivate::getStrShapeRefMap(const QJsonObject &ast, const QString &name)
+{
+    Shape::StringShapeRefMap shapeRefMap;
+    Q_UNUSED(ast);
+    Q_UNUSED(name);
+    Q_UNIMPLEMENTED();
+    return shapeRefMap;
+}
+
+Shape::TraitsMap ShapePrivate::getTraitsMap(const QJsonObject &ast, const QString &name)
+{
+    Shape::TraitsMap traitsMap;
+    Q_UNUSED(ast);
+    Q_UNUSED(name);
+    Q_UNIMPLEMENTED();
+    return traitsMap;
+}
+
+QString ShapePrivate::getString(const QJsonObject &ast, const QString &name)
+{
+    QString string;
+    Q_UNUSED(ast);
+    Q_UNUSED(name);
+    Q_UNIMPLEMENTED();
+    return string;
 }
 
 QStringList ShapePrivate::supportedProperties(const Shape::Type &type)
