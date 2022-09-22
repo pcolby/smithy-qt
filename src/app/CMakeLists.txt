@@ -6,6 +6,8 @@ cmake_minimum_required(VERSION 3.0)
 set(SmithyQtAppSources
   generator.cpp
   generator.h
+  renderer.cpp
+  renderer.h
 )
 
 if(${CMAKE_VERSION} VERSION_LESS "3.12.0")
