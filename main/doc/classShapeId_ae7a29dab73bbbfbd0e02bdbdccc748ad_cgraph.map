@@ -1,0 +1,9 @@
+<map id="ShapeId::isAbsoluteRootShapeId" name="ShapeId::isAbsoluteRootShapeId">
+<area shape="rect" id="node1" title="Returns true if this Shape ID is a root Shape ID, and has a namespace, false otherwise." alt="" coords="5,56,237,81"/>
+<area shape="rect" id="node2" href="$classShapeId.html#ad0bbf397b25b50a3fc9c145cea67ce11" title="Returns true if this Shape ID has a non&#45;empty namespace, otherwise false otherwise." alt="" coords="285,31,468,56"/>
+<area shape="rect" id="node5" href="$classShapeId.html#a6b207fdb20ccc922e4e2bbbfb9608bbc" title="Returns true if this Shape ID is a root Shape ID, false otherwise." alt="" coords="289,80,464,105"/>
+<area shape="rect" id="node3" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qstring.html#isEmpty" title=" " alt="" coords="785,5,916,31"/>
+<area shape="rect" id="node4" href="$classShapeId.html#a0d88184bccd8dc5b22b67800aeccf092" title="Returns the Shape ID&#39;s namespace, if it has one, otherwise a null string." alt="" coords="536,31,695,56"/>
+<area shape="rect" id="node6" href="$classShapeId.html#a6f1fc0aab99d0108fc3f1eeb5a4d2687" title="Returns true if this Shape ID has a non&#45;empty member name, otherwise false otherwise." alt="" coords="516,80,715,105"/>
+<area shape="rect" id="node7" href="$classShapeId.html#a9b1580e3aa193c99d000aa084def3a70" title="Returns the Shape ID&#39;s member name, if it has one, otherwise a null string." alt="" coords="763,80,939,105"/>
+</map>

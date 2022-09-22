@@ -1,0 +1,8 @@
+<map id="Shape::Member" name="Shape::Member">
+<area shape="rect" id="node1" title=" " alt="" coords="217,211,341,236"/>
+<area shape="rect" id="node2" href="$structShape_1_1ShapeReference.html" title=" " alt="" coords="5,123,181,148"/>
+<area shape="rect" id="node3" href="$classShapeId.html" title="The ShapeId class provides a Qt representation of a Smithy Shape ID." alt="" coords="152,5,227,31"/>
+<area shape="rect" id="node4" href="$classShapeIdPrivate.html" title="The ShapeIdPrivate class provides private implementation for ShapeId." alt="" coords="205,123,325,148"/>
+<area shape="rect" id="node5" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qstring.html" title=" " alt="" coords="290,5,361,31"/>
+<area shape="rect" id="node6" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qhash.html" title=" " alt="" coords="350,123,578,148"/>
+</map>

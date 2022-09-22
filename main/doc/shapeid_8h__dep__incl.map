@@ -1,0 +1,8 @@
+<map id="shapeid.h" name="shapeid.h">
+<area shape="rect" id="node1" title="Declares the ShapeId class." alt="" coords="83,5,168,31"/>
+<area shape="rect" id="node2" href="$model_8h.html" title="Declares the Model class." alt="" coords="13,152,88,177"/>
+<area shape="rect" id="node4" href="$shape_8h.html" title="Declares the Shape class." alt="" coords="89,79,162,104"/>
+<area shape="rect" id="node6" href="$shapeid_8cpp.html" title="Defines the ShapeId and ShapeIdPrivate classes." alt="" coords="186,79,286,104"/>
+<area shape="rect" id="node3" href="$model_8cpp.html" title="Defines the Model and ModelPrivate classes." alt="" coords="5,225,96,251"/>
+<area shape="rect" id="node5" href="$shape_8cpp.html" title="Defines the Shape and ShapePrivate classes." alt="" coords="112,152,200,177"/>
+</map>

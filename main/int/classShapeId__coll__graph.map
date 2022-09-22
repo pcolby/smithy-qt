@@ -1,0 +1,5 @@
+<map id="ShapeId" name="ShapeId">
+<area shape="rect" id="node1" title="The ShapeId class provides a Qt representation of a Smithy Shape ID." alt="" coords="5,5,80,31"/>
+<area shape="rect" id="node2" href="$classShapeIdPrivate.html" title="The ShapeIdPrivate class provides private implementation for ShapeId." alt="" coords="31,123,151,148"/>
+<area shape="rect" id="node3" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qstring.html" title=" " alt="" coords="123,5,194,31"/>
+</map>

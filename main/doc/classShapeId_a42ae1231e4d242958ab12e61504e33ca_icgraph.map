@@ -1,0 +1,5 @@
+<map id="ShapeId::absoluteShapeId" name="ShapeId::absoluteShapeId">
+<area shape="rect" id="node1" title="Returns this object as an absolute Smithy Shape ID if this object has a namespace,..." alt="" coords="341,5,532,31"/>
+<area shape="rect" id="node2" href="$classShapeId.html#a564f14952b394af6b38f748417a7e48a" title="Returns this object as an absolute Smithy Shape ID if this object has a namespace,..." alt="" coords="160,5,293,31"/>
+<area shape="rect" id="node3" href="$classModel.html#a5296da875545acf527ce42c707d1ead1" title="Add the logical content of the JSON AST model file given by ast into this semantic model." alt="" coords="5,5,112,31"/>
+</map>

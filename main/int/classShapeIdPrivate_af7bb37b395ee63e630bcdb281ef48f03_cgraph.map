@@ -1,0 +1,6 @@
+<map id="ShapeIdPrivate::setShapeId" name="ShapeIdPrivate::setShapeId">
+<area shape="rect" id="node1" title="Splits shapeId into its components (namespace, shape name and member name) and assigns them to the eq..." alt="" coords="5,55,205,80"/>
+<area shape="rect" id="node2" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qstring.html#indexOf-1" title=" " alt="" coords="265,5,395,31"/>
+<area shape="rect" id="node3" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qstring.html#lastIndexOf-1" title=" " alt="" coords="253,55,407,80"/>
+<area shape="rect" id="node4" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qstring.html#mid" title=" " alt="" coords="279,104,381,129"/>
+</map>

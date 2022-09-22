@@ -1,0 +1,5 @@
+<map id="ShapeId::hasNameSpace" name="ShapeId::hasNameSpace">
+<area shape="rect" id="node1" title="Returns true if this Shape ID has a non&#45;empty namespace, otherwise false otherwise." alt="" coords="5,31,188,56"/>
+<area shape="rect" id="node2" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qstring.html#isEmpty" title=" " alt="" coords="250,5,381,31"/>
+<area shape="rect" id="node3" href="$classShapeId.html#a0d88184bccd8dc5b22b67800aeccf092" title="Returns the Shape ID&#39;s namespace, if it has one, otherwise a null string." alt="" coords="236,55,395,80"/>
+</map>

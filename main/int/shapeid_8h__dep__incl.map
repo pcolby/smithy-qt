@@ -1,0 +1,13 @@
+<map id="shapeid.h" name="shapeid.h">
+<area shape="rect" id="node1" title="Declares the ShapeId class." alt="" coords="296,5,381,31"/>
+<area shape="rect" id="node2" href="$model_8h.html" title="Declares the Model class." alt="" coords="189,152,264,177"/>
+<area shape="rect" id="node6" href="$model__p_8h.html" title="Declares the ModelPrivate class." alt="" coords="5,225,96,251"/>
+<area shape="rect" id="node7" href="$shape_8h.html" title="Declares the Shape class." alt="" coords="265,79,338,104"/>
+<area shape="rect" id="node9" href="$shape__p_8h.html" title="Declares the ShapePrivate class." alt="" coords="339,152,427,177"/>
+<area shape="rect" id="node10" href="$shapeid_8cpp.html" title="Defines the ShapeId and ShapeIdPrivate classes." alt="" coords="458,152,558,177"/>
+<area shape="rect" id="node11" href="$shapeid__p_8h.html" title="Declares the ShapeIdPrivate class." alt="" coords="465,79,565,104"/>
+<area shape="rect" id="node3" href="$generator_8cpp_source.html" title=" " alt="" coords="171,225,282,251"/>
+<area shape="rect" id="node4" href="$main_8cpp_source.html" title=" " alt="" coords="307,225,389,251"/>
+<area shape="rect" id="node5" href="$model_8cpp.html" title="Defines the Model and ModelPrivate classes." alt="" coords="47,299,137,324"/>
+<area shape="rect" id="node8" href="$shape_8cpp.html" title="Defines the Shape and ShapePrivate classes." alt="" coords="413,225,501,251"/>
+</map>

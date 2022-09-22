@@ -1,0 +1,11 @@
+<map id="ShapeId::toString" name="ShapeId::toString">
+<area shape="rect" id="node1" title="Returns this object as an absolute Smithy Shape ID if this object has a namespace,..." alt="" coords="5,56,139,81"/>
+<area shape="rect" id="node2" href="$classShapeId.html#a42ae1231e4d242958ab12e61504e33ca" title="Returns this object as an absolute Smithy Shape ID if this object has a namespace,..." alt="" coords="187,56,377,81"/>
+<area shape="rect" id="node3" href="$classShapeId.html#ad0bbf397b25b50a3fc9c145cea67ce11" title="Returns true if this Shape ID has a non&#45;empty namespace, otherwise false otherwise." alt="" coords="426,5,609,31"/>
+<area shape="rect" id="node6" href="$classShapeId.html#aad508460b545930c3aeb82021e79de5a" title="Returns this object as a relative Smithy Shape ID, that one without a leading namespace." alt="" coords="425,107,609,132"/>
+<area shape="rect" id="node5" href="$classShapeId.html#a0d88184bccd8dc5b22b67800aeccf092" title="Returns the Shape ID&#39;s namespace, if it has one, otherwise a null string." alt="" coords="677,31,836,56"/>
+<area shape="rect" id="node4" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qstring.html#isEmpty" title=" " alt="" coords="927,56,1057,81"/>
+<area shape="rect" id="node7" href="$classShapeId.html#a6f1fc0aab99d0108fc3f1eeb5a4d2687" title="Returns true if this Shape ID has a non&#45;empty member name, otherwise false otherwise." alt="" coords="657,80,856,105"/>
+<area shape="rect" id="node8" href="$classShapeId.html#a9b1580e3aa193c99d000aa084def3a70" title="Returns the Shape ID&#39;s member name, if it has one, otherwise a null string." alt="" coords="904,105,1080,131"/>
+<area shape="rect" id="node9" href="$classShapeId.html#a8aad9a1383c03aee2f33b1568e89f688" title="Returns the Shape ID&#39;s shape name, if it has one, otherwise a null string." alt="" coords="677,181,837,207"/>
+</map>

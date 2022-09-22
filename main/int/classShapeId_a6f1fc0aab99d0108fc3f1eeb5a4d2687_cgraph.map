@@ -1,0 +1,5 @@
+<map id="ShapeId::hasMemberName" name="ShapeId::hasMemberName">
+<area shape="rect" id="node1" title="Returns true if this Shape ID has a non&#45;empty member name, otherwise false otherwise." alt="" coords="5,31,204,56"/>
+<area shape="rect" id="node2" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qstring.html#isEmpty" title=" " alt="" coords="275,5,405,31"/>
+<area shape="rect" id="node3" href="$classShapeId.html#a9b1580e3aa193c99d000aa084def3a70" title="Returns the Shape ID&#39;s member name, if it has one, otherwise a null string." alt="" coords="252,55,428,80"/>
+</map>

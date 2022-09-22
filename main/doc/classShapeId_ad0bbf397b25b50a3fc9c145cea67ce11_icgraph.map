@@ -1,0 +1,8 @@
+<map id="ShapeId::hasNameSpace" name="ShapeId::hasNameSpace">
+<area shape="rect" id="node1" title="Returns true if this Shape ID has a non&#45;empty namespace, otherwise false otherwise." alt="" coords="621,107,804,132"/>
+<area shape="rect" id="node2" href="$classShapeId.html#a42ae1231e4d242958ab12e61504e33ca" title="Returns this object as an absolute Smithy Shape ID if this object has a namespace,..." alt="" coords="362,5,553,31"/>
+<area shape="rect" id="node3" href="$classShapeId.html#a564f14952b394af6b38f748417a7e48a" title="Returns this object as an absolute Smithy Shape ID if this object has a namespace,..." alt="" coords="160,56,293,81"/>
+<area shape="rect" id="node4" href="$classModel.html#a5296da875545acf527ce42c707d1ead1" title="Add the logical content of the JSON AST model file given by ast into this semantic model." alt="" coords="5,81,112,107"/>
+<area shape="rect" id="node5" href="$classShapeId.html#ae7a29dab73bbbfbd0e02bdbdccc748ad" title="Returns true if this Shape ID is a root Shape ID, and has a namespace, false otherwise." alt="" coords="341,157,573,183"/>
+<area shape="rect" id="node6" href="$classShapeId.html#af929aaedb6df234458a445eabac27a1a" title="Returns true if this Shape ID is a relative Shape ID, false otherwise." alt="" coords="358,207,557,232"/>
+</map>

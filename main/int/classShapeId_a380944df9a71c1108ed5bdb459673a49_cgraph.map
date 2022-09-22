@@ -1,0 +1,6 @@
+<map id="ShapeId::isValid" name="ShapeId::isValid">
+<area shape="rect" id="node1" title="Returns true if this object represents a valid, non&#45;empty Smithy Shape ID." alt="" coords="5,77,131,102"/>
+<area shape="rect" id="node2" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qregularexpressionmatch.html#hasMatch" title=" " alt="" coords="179,5,372,45"/>
+<area shape="rect" id="node3" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qregularexpression.html#isValid" title=" " alt="" coords="199,69,352,109"/>
+<area shape="rect" id="node4" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qregularexpression.html#match" title=" " alt="" coords="199,133,352,173"/>
+</map>

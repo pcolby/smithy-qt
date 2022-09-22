@@ -1,0 +1,4 @@
+<map id="ShapeId::isRootShapeId" name="ShapeId::isRootShapeId">
+<area shape="rect" id="node1" title="Returns true if this Shape ID is a root Shape ID, false otherwise." alt="" coords="285,5,460,31"/>
+<area shape="rect" id="node2" href="$classShapeId.html#ae7a29dab73bbbfbd0e02bdbdccc748ad" title="Returns true if this Shape ID is a root Shape ID, and has a namespace, false otherwise." alt="" coords="5,5,237,31"/>
+</map>

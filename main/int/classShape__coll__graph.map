@@ -1,0 +1,8 @@
+<map id="Shape" name="Shape">
+<area shape="rect" id="node1" title="The Shape class provides a Qt representation of a Smithy semantic shape." alt="" coords="5,5,68,31"/>
+<area shape="rect" id="node2" href="$classShapePrivate.html" title="The ShapePrivate class provides private implementation for Shape." alt="" coords="71,123,179,148"/>
+<area shape="rect" id="node3" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qjsonobject.html" title=" " alt="" coords="107,5,209,31"/>
+<area shape="rect" id="node4" href="$classShapeId.html" title="The ShapeId class provides a Qt representation of a Smithy Shape ID." alt="" coords="233,5,307,31"/>
+<area shape="rect" id="node5" href="$classShapeIdPrivate.html" title="The ShapeIdPrivate class provides private implementation for ShapeId." alt="" coords="275,123,395,148"/>
+<area shape="rect" id="node6" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qstring.html" title=" " alt="" coords="368,5,439,31"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="ShapeId::isRelativeShapeId" name="ShapeId::isRelativeShapeId">
+<area shape="rect" id="node1" title="Returns true if this Shape ID is a relative Shape ID, false otherwise." alt="" coords="5,31,204,56"/>
+<area shape="rect" id="node2" href="$classShapeId.html#ad0bbf397b25b50a3fc9c145cea67ce11" title="Returns true if this Shape ID has a non&#45;empty namespace, otherwise false otherwise." alt="" coords="252,31,435,56"/>
+<area shape="rect" id="node3" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qstring.html#isEmpty" title=" " alt="" coords="497,5,627,31"/>
+<area shape="rect" id="node4" href="$classShapeId.html#a0d88184bccd8dc5b22b67800aeccf092" title="Returns the Shape ID&#39;s namespace, if it has one, otherwise a null string." alt="" coords="483,55,641,80"/>
+</map>

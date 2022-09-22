@@ -1,0 +1,8 @@
+<map id="Model" name="Model">
+<area shape="rect" id="node1" title="The Model class provides a Qt representation of a Smithy semantic model." alt="" coords="71,11,134,37"/>
+<area shape="rect" id="node2" href="$classModelPrivate.html" title="The ModelPrivate class provides private implementation for Model." alt="" coords="365,118,473,143"/>
+<area shape="rect" id="node3" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qmultihash.html" title=" " alt="" coords="20,69,185,109"/>
+<area shape="rect" id="node4" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qmultihash.html" title=" " alt="" coords="18,133,187,173"/>
+<area shape="rect" id="node5" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qjsonobject.html" title=" " alt="" coords="52,198,153,223"/>
+<area shape="rect" id="node6" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qhash.html" title=" " alt="" coords="5,247,200,273"/>
+</map>

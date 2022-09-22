@@ -1,0 +1,9 @@
+<map id="ShapeId::shapeName" name="ShapeId::shapeName">
+<area shape="rect" id="node1" title="Returns the Shape ID&#39;s shape name, if it has one, otherwise a null string." alt="" coords="812,55,972,80"/>
+<area shape="rect" id="node2" href="$classShapeId.html#a6a2ff71df1eecb9717df15134d37e2c6" title="Assigns the specified shapeId to this object." alt="" coords="598,5,746,31"/>
+<area shape="rect" id="node3" href="$classShapeId.html#aad508460b545930c3aeb82021e79de5a" title="Returns this object as a relative Smithy Shape ID, that one without a leading namespace." alt="" coords="580,55,764,80"/>
+<area shape="rect" id="node7" href="$classShapeId.html#a5f5e09c87aee5ebf482a6b6c12646c87" title="Constructs a ShapeId object by copying other." alt="" coords="605,104,739,129"/>
+<area shape="rect" id="node4" href="$classShapeId.html#a42ae1231e4d242958ab12e61504e33ca" title="Returns this object as an absolute Smithy Shape ID if this object has a namespace,..." alt="" coords="341,29,532,55"/>
+<area shape="rect" id="node5" href="$classShapeId.html#a564f14952b394af6b38f748417a7e48a" title="Returns this object as an absolute Smithy Shape ID if this object has a namespace,..." alt="" coords="160,55,293,80"/>
+<area shape="rect" id="node6" href="$classModel.html#a5296da875545acf527ce42c707d1ead1" title="Add the logical content of the JSON AST model file given by ast into this semantic model." alt="" coords="5,55,112,80"/>
+</map>
