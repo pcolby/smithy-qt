@@ -25,16 +25,24 @@ int Generator::expectedFileCount() const
     const QHash<smithy::ShapeId, smithy::Shape> services = model->shapes(smithy::Shape::Type::Service);
     int operations=0;
     for (const smithy::Shape &service: services) {
-        qCDebug(lc).noquote() << service.operations().size();
         operations += service.operations().size();
     }
-    qCDebug(lc).noquote() << "total operations" << operations;
-
-//    const QStringList templates = renderer->templatesNames();
-
-    /// \todo Multiple template names by either services or operations counts, then sum and return.
-    Q_UNIMPLEMENTED();
-    return services.size();
+    int expected = 0;
+    const QStringList templates = renderer->templatesNames();
+    for (const QString &name: templates) {
+        if (name.contains(QSL("ServiceName"), Qt::CaseInsensitive)||
+            name.contains(QSL("Service_Name"), Qt::CaseInsensitive)) {
+            if (name.contains(QSL("OperationName"), Qt::CaseInsensitive)||
+                name.contains(QSL("Operation_Name"), Qt::CaseInsensitive)) {
+                expected += operations;
+            } else {
+                expected += services.size();
+            }
+        } else {
+            expected += 1;
+        }
+    }
+    return expected;
 }
 
 int Generator::generate(const QDir &outputDir, ClobberMode clobberMode)
