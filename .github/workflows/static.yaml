@@ -24,7 +24,7 @@ jobs:
       uses: github/codeql-action/analyze@v2
 
   Cppcheck:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
     - name: Install Cppcheck
       run: sudo apt update && sudo apt upgrade && sudo apt install cppcheck
