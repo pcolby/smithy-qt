@@ -51,7 +51,6 @@ QStringList Renderer::templatesNames() const
     return templates;
 }
 
-
 // Grantlee output stream that does *no* content escaping.
 //class NoEscapeStream : public Grantlee::OutputStream {
 //public:

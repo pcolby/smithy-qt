@@ -198,6 +198,7 @@ bool Model::finish()
 
     /// \todo resolve shape conflicts.
     /// \todo resolve trait conflicts; include 'apply' statements.
+    Q_UNIMPLEMENTED();
     return isValid();
 }
 
@@ -219,10 +220,20 @@ QJsonObject Model::metadata() const
     return d->mergedMetadata;
 }
 
-QHash<ShapeId, Shape> Model::shapes() const
+QHash<ShapeId, Shape> Model::shapes(const Shape::Type &type) const
 {
     Q_D(const Model);
-    return d->mergedShapes;
+    if (type == Shape::Type::Undefined) {
+        return d->mergedShapes;
+    }
+    QHash<ShapeId, Shape> shapes;
+    /// \todo this should be d->mergedShapes, but using allShapes while finish() is incomplete.
+    for (auto iter = d->allShapes.constBegin(); iter != d->allShapes.constEnd(); ++iter) {
+        if (iter.value().type() == type) {
+            shapes.insert(iter.key(), iter.value());
+        }
+    }
+    return shapes;
 }
 
 /*!

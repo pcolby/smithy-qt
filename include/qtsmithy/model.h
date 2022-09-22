@@ -53,8 +53,7 @@ public:
     bool isValid() const;
 
     QJsonObject metadata() const;
-    QHash<ShapeId, Shape> shapes() const; /// or maybe:
-    QSet<Shape> shapes(const Shape::Type &type = Shape::Type::Undefined) const; /// \todo :shrug:
+    QHash<ShapeId, Shape> shapes(const Shape::Type &type = Shape::Type::Undefined) const;
 
 protected:
     /// \cond internal
