@@ -302,17 +302,21 @@ Private Attributes</h2></td></tr>
 <div class="fragment"><div class="line"><span class="lineno">  296</span>{</div>
 <div class="line"><span class="lineno">  297</span>    <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> versionString = ast.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qjsonobject.html#value">value</a>(<a class="code hl_classRef" href="https://doc.qt.io/qt-5/qlatin1string.html">QLatin1String</a>(<span class="stringliteral">&quot;smithy&quot;</span>)).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qjsonvalue.html#toString">toString</a>();</div>
 <div class="line"><span class="lineno">  298</span>    qCDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Smithy version string:&quot;</span>) &lt;&lt; versionString;</div>
-<div class="line"><span class="lineno">  299</span>    <span class="keywordtype">int</span> suffixIndex = -1; <span class="comment">// Initial value is ignored.</span></div>
-<div class="line"><span class="lineno">  300</span>    <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qversionnumber.html">QVersionNumber</a> versionNumber = <a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qversionnumber.html#fromString">QVersionNumber::fromString</a>(versionString, &amp;suffixIndex);</div>
-<div class="line"><span class="lineno">  301</span>    qCDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Smithy version number:&quot;</span>) &lt;&lt; versionNumber;</div>
-<div class="line"><span class="lineno">  302</span>    <span class="keywordflow">if</span> (versionNumber.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qversionnumber.html#isNull">isNull</a>()) {</div>
-<div class="line"><span class="lineno">  303</span>        qCWarning(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Failed to parse Smithy version \&quot;%1\&quot;&quot;</span>).arg(versionString);</div>
-<div class="line"><span class="lineno">  304</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (suffixIndex &lt; versionString.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#length">length</a>()) {</div>
-<div class="line"><span class="lineno">  305</span>        qCWarning(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Ignoring Smithy version suffix \&quot;%1\&quot;&quot;</span>)</div>
-<div class="line"><span class="lineno">  306</span>                                   .arg(versionString.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#mid">mid</a>(suffixIndex));</div>
-<div class="line"><span class="lineno">  307</span>    }</div>
-<div class="line"><span class="lineno">  308</span>    <span class="keywordflow">return</span> versionNumber;</div>
-<div class="line"><span class="lineno">  309</span>}</div>
+<div class="line"><span class="lineno">  299</span><span class="preprocessor">    #if (QT_VERSION &lt; QT_VERSION_CHECK(6, 4, 0))</span></div>
+<div class="line"><span class="lineno">  300</span>    <span class="keywordtype">int</span> suffixIndex = -1; <span class="comment">// Initial value is ignored.</span></div>
+<div class="line"><span class="lineno">  301</span><span class="preprocessor">    #else</span></div>
+<div class="line"><span class="lineno">  302</span>    qsizetype suffixIndex = -1; <span class="comment">// Initial value is ignored.</span></div>
+<div class="line"><span class="lineno">  303</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><span class="lineno">  304</span>    <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qversionnumber.html">QVersionNumber</a> versionNumber = <a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qversionnumber.html#fromString">QVersionNumber::fromString</a>(versionString, &amp;suffixIndex);</div>
+<div class="line"><span class="lineno">  305</span>    qCDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Smithy version number:&quot;</span>) &lt;&lt; versionNumber;</div>
+<div class="line"><span class="lineno">  306</span>    <span class="keywordflow">if</span> (versionNumber.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qversionnumber.html#isNull">isNull</a>()) {</div>
+<div class="line"><span class="lineno">  307</span>        qCWarning(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Failed to parse Smithy version \&quot;%1\&quot;&quot;</span>).arg(versionString);</div>
+<div class="line"><span class="lineno">  308</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (suffixIndex &lt; versionString.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#length">length</a>()) {</div>
+<div class="line"><span class="lineno">  309</span>        qCWarning(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Ignoring Smithy version suffix \&quot;%1\&quot;&quot;</span>)</div>
+<div class="line"><span class="lineno">  310</span>                                   .arg(versionString.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#mid">mid</a>(suffixIndex));</div>
+<div class="line"><span class="lineno">  311</span>    }</div>
+<div class="line"><span class="lineno">  312</span>    <span class="keywordflow">return</span> versionNumber;</div>
+<div class="line"><span class="lineno">  313</span>}</div>
 <div class="ttc" id="aqjsonobject_html_value"><div class="ttname"><a href="https://doc.qt.io/qt-5/qjsonobject.html#value">QJsonObject::value</a></div><div class="ttdeci">QJsonValue value(const QString &amp;key) const const</div></div>
 <div class="ttc" id="aqjsonvalue_html_toString"><div class="ttname"><a href="https://doc.qt.io/qt-5/qjsonvalue.html#toString">QJsonValue::toString</a></div><div class="ttdeci">QString toString() const const</div></div>
 <div class="ttc" id="aqlatin1string_html"><div class="ttname"><a href="https://doc.qt.io/qt-5/qlatin1string.html">QLatin1String</a></div></div>
