@@ -275,6 +275,16 @@ Shape::ShapeReferences Shape::mixins() const
     return ShapePrivate::getShapeRefs(d->ast, QStringLiteral("mixins"));
 }
 
+size_t qHash(const Shape::ShapeReference &key, size_t seed)
+{
+    return ::qHash(key.target, seed);
+}
+
+bool operator==(const Shape::ShapeReference &lhs, const Shape::ShapeReference &rhs)
+{
+    return lhs.target == rhs.target;
+}
+
 /*!
  * \cond internal
  * \class ShapePrivate
@@ -364,19 +374,27 @@ ShapeIdStringMap ShapePrivate::getShapeIdStrMap(const QJsonObject &ast, const QS
 
 Shape::ShapeReference ShapePrivate::getShapeRef(const QJsonObject &ast, const QString &name)
 {
-    Shape::ShapeReference shapeRef;
-    Q_UNUSED(ast);
-    Q_UNUSED(name);
-    Q_UNIMPLEMENTED();
-    return shapeRef;
+    const auto iter = ast.constFind(name);
+    if (iter == ast.constEnd()) {
+        return Shape::ShapeReference{};
+    }
+    const QJsonObject shapeRefObj = iter->toObject();
+    return Shape::ShapeReference{ shapeRefObj.value(QLatin1String("target")).toString() };
 }
 
 Shape::ShapeReferences ShapePrivate::getShapeRefs(const QJsonObject &ast, const QString &name)
 {
+    const auto iter = ast.constFind(name);
+    if (iter == ast.constEnd()) {
+        return Shape::ShapeReferences{};
+    }
+    const QJsonArray shapeRefsArray = iter->toArray();
     Shape::ShapeReferences shapeRefs;
-    Q_UNUSED(ast);
-    Q_UNUSED(name);
-    Q_UNIMPLEMENTED();
+    for (const QJsonValue &shapeRef: shapeRefsArray) {
+        shapeRefs.insert(Shape::ShapeReference{
+            shapeRef.toObject().value(QLatin1String("target")).toString()
+        });
+    }
     return shapeRefs;
 }
 

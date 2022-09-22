@@ -151,6 +151,10 @@ private:
     QTSMITHY_BEFRIEND_TEST(Shape)
 };
 
+QTSMITHY_EXPORT size_t qHash(const Shape::ShapeReference &key, size_t seed = 0);
+
+QTSMITHY_EXPORT bool operator==(const Shape::ShapeReference &lhs, const Shape::ShapeReference& rhs);
+
 QTSMITHY_END_NAMESPACE
 
 #endif // QTSMITHY_SHAPE_H
