@@ -64,7 +64,11 @@ private:
     QTSMITHY_BEFRIEND_TEST(ShapeId)
 };
 
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+QTSMITHY_EXPORT uint qHash(const ShapeId &key, uint seed = 0);
+#else
 QTSMITHY_EXPORT size_t qHash(const ShapeId &key, size_t seed = 0);
+#endif
 
 typedef QHash<ShapeId, QString> ShapeIdStringMap;
 typedef QHash<QString, ShapeId> StringShapeIdMap;

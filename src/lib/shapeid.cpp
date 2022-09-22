@@ -312,7 +312,11 @@ bool ShapeId::operator==(const ShapeId &other) const
            (d->shapeName == other.d_ptr->shapeName);
 }
 
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+uint qHash(const ShapeId &key, uint seed)
+#else
 size_t qHash(const ShapeId &key, size_t seed)
+#endif
 {
     return ::qHash(key.toString(), seed);
 }

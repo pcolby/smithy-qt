@@ -151,7 +151,11 @@ private:
     QTSMITHY_BEFRIEND_TEST(Shape)
 };
 
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+QTSMITHY_EXPORT uint qHash(const Shape::ShapeReference &key, uint seed = 0);
+#else
 QTSMITHY_EXPORT size_t qHash(const Shape::ShapeReference &key, size_t seed = 0);
+#endif
 
 QTSMITHY_EXPORT bool operator==(const Shape::ShapeReference &lhs, const Shape::ShapeReference& rhs);
 

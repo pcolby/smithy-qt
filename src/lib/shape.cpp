@@ -275,7 +275,11 @@ Shape::ShapeReferences Shape::mixins() const
     return ShapePrivate::getShapeRefs(d->ast, QStringLiteral("mixins"));
 }
 
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+uint qHash(const Shape::ShapeReference &key, uint seed)
+#else
 size_t qHash(const Shape::ShapeReference &key, size_t seed)
+#endif
 {
     return ::qHash(key.target, seed);
 }
