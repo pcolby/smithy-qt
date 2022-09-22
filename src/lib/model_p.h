@@ -30,7 +30,7 @@ public:
 
 protected:
     Model * q_ptr; ///< Internal q-pointer.
-    static Q_LOGGING_CATEGORY(lc, "smithy.Model", QtInfoMsg); ///< Logging category for UI commands.
+    static Q_LOGGING_CATEGORY(lc, "smithy.Model", QtInfoMsg); ///< Logging category for Model.
 
 private:
     Model::Error error;

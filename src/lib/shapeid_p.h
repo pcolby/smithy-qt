@@ -27,7 +27,7 @@ public:
 
 protected:
     ShapeId * q_ptr; ///< Internal q-pointer.
-    static Q_LOGGING_CATEGORY(lc, "smithy.ShapeId", QtInfoMsg); ///< Logging category for UI commands.
+    static Q_LOGGING_CATEGORY(lc, "smithy.ShapeId", QtInfoMsg); ///< Logging category for ShapeID.
 
 private:
     QString memberName;

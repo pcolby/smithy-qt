@@ -18,7 +18,7 @@
 #include <Windows.h>
 #endif
 
-Q_LOGGING_CATEGORY(lc, "smithy.app", QtInfoMsg); ///< Logging category for UI commands.
+Q_LOGGING_CATEGORY(lc, "smithy.app", QtInfoMsg); ///< Logging category for main application.
 
 inline bool haveConsole()
 {
