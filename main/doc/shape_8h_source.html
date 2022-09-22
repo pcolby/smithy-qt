@@ -252,13 +252,17 @@ $(document).ready(function(){initNavTree('shape_8h_source.html',''); initResizab
 <div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    QTSMITHY_BEFRIEND_TEST(<a class="code hl_class" href="classShape.html">Shape</a>)</div>
 <div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>};</div>
 <div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>QTSMITHY_EXPORT <span class="keywordtype">size_t</span> qHash(<span class="keyword">const</span> <a class="code hl_struct" href="structShape_1_1ShapeReference.html">Shape::ShapeReference</a> &amp;key, <span class="keywordtype">size_t</span> seed = 0);</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>QTSMITHY_EXPORT <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code hl_struct" href="structShape_1_1ShapeReference.html">Shape::ShapeReference</a> &amp;lhs, <span class="keyword">const</span> <a class="code hl_struct" href="structShape_1_1ShapeReference.html">Shape::ShapeReference</a>&amp; rhs);</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>QTSMITHY_END_NAMESPACE</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span><span class="preprocessor">#if (QT_VERSION &lt; QT_VERSION_CHECK(6, 0, 0))</span></div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>QTSMITHY_EXPORT uint qHash(<span class="keyword">const</span> <a class="code hl_struct" href="structShape_1_1ShapeReference.html">Shape::ShapeReference</a> &amp;key, uint seed = 0);</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>QTSMITHY_EXPORT <span class="keywordtype">size_t</span> qHash(<span class="keyword">const</span> <a class="code hl_struct" href="structShape_1_1ShapeReference.html">Shape::ShapeReference</a> &amp;key, <span class="keywordtype">size_t</span> seed = 0);</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span><span class="preprocessor">#endif </span><span class="comment">// QTSMITHY_SHAPE_H</span></div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>QTSMITHY_EXPORT <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code hl_struct" href="structShape_1_1ShapeReference.html">Shape::ShapeReference</a> &amp;lhs, <span class="keyword">const</span> <a class="code hl_struct" href="structShape_1_1ShapeReference.html">Shape::ShapeReference</a>&amp; rhs);</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span> </div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>QTSMITHY_END_NAMESPACE</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span><span class="preprocessor">#endif </span><span class="comment">// QTSMITHY_SHAPE_H</span></div>
 <div class="ttc" id="aclassShapeId_html"><div class="ttname"><a href="classShapeId.html">ShapeId</a></div><div class="ttdoc">The ShapeId class provides a Qt representation of a Smithy Shape ID.</div><div class="ttdef"><b>Definition:</b> shapeid.h:24</div></div>
 <div class="ttc" id="aclassShape_html"><div class="ttname"><a href="classShape.html">Shape</a></div><div class="ttdoc">The Shape class provides a Qt representation of a Smithy semantic shape.</div><div class="ttdef"><b>Definition:</b> shape.h:25</div></div>
 <div class="ttc" id="aclassShape_html_a359229718ec54cfac5980b883e3e4ea8"><div class="ttname"><a href="classShape.html#a359229718ec54cfac5980b883e3e4ea8">Shape::Type</a></div><div class="ttdeci">Type</div><div class="ttdef"><b>Definition:</b> shape.h:37</div></div>
