@@ -118,7 +118,7 @@ jobs:
         env:
         - { cc: clang, cxx: clang++ }
         - { cc: gcc-11, cxx: g++-11 }
-        exclude:
+        #exclude:
           # Exclude Qt 5.10 with GCC on macOS. See https://bugreports.qt.io/browse/QTBUG-66585
           #- qt: '5.10.1'
           #  env: { cc: gcc-11, cxx: g++-11 }
