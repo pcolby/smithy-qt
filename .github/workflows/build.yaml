@@ -212,7 +212,7 @@ jobs:
         - { arch: x86, generator: 'MinGW Makefiles' }
         # Exclude x86 (32-bit) builds for Qt 5.10.1 with MSVC, for QTBUG-67259.
         # See https://bugreports.qt.io/browse/QTBUG-67259
-        #- { arch: x86, qt: '5.10.1', generator: 'NMake Makefiles' }
+        - { arch: x86, qt: '5.10.1', generator: 'NMake Makefiles' }
         # Exclude x86 (32-bit) builds for Qt 6.x, since the Qt online installer doesn't provide
         # those binaries for Qt6.
         - { arch: x86, qt: '6.2.4' }
