@@ -9,7 +9,7 @@ endif()
 
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-project("Smithy Qt" VERSION 0.2.0 LANGUAGES CXX)
+project("Smithy Qt" VERSION 0.1.0 LANGUAGES CXX)
 
 set(PROJECT_PRE_RELEASE pre)
 #set(PROJECT_PRE_RELEASE rc1)

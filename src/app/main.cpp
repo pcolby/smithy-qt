@@ -216,9 +216,14 @@ int loadModels(const QStringList &dirs, smithy::Model &model)
 
 int main(int argc, char *argv[])
 {
+    // Setup the core application.
     QCoreApplication app(argc, argv);
     app.setApplicationName(QStringLiteral(PROJECT_NAME));
+    #ifdef PROJECT_PRE_RELEASE
+    app.setApplicationVersion(QStringLiteral(PROJECT_VERSION "-" PROJECT_PRE_RELEASE));
+    #else
     app.setApplicationVersion(QStringLiteral(PROJECT_VERSION));
+    #endif
 
     // Parse the command line options.
     QCommandLineParser parser;
