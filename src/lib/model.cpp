@@ -296,7 +296,11 @@ QVersionNumber ModelPrivate::smithyVersion(const QJsonObject &ast)
 {
     const QString versionString = ast.value(QLatin1String("smithy")).toString();
     qCDebug(lc).noquote() << tr("Smithy version string:") << versionString;
+    #if (QT_VERSION < QT_VERSION_CHECK(6, 4, 0))
     int suffixIndex = -1; // Initial value is ignored.
+    #else
+    qsizetype suffixIndex = -1; // Initial value is ignored.
+    #endif
     const QVersionNumber versionNumber = QVersionNumber::fromString(versionString, &suffixIndex);
     qCDebug(lc).noquote() << tr("Smithy version number:") << versionNumber;
     if (versionNumber.isNull()) {
