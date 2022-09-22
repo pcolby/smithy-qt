@@ -173,10 +173,10 @@ void ShapeId::setShapeName(const QString &name)
  * Returns this object as an absolute Smithy Shape ID if this object has a namespace, otherwise a
  * null string.
  *
- * \Note, Smithy defines an absolute Shape ID as one that begins with a namespace, therefore it is
+ * \note, Smithy defines an absolute Shape ID as one that begins with a namespace, therefore it is
  * not possible to return an absolute Shape ID if no namespace has been set.
  *
- * \Note, if the Shape ID is invalid (ie isValid() returns \c false) it still safe to invoke this
+ * \note, if the Shape ID is invalid (ie isValid() returns \c false) it still safe to invoke this
  * method, but the result is undefined.
  *
  * \see setNameSpace
@@ -190,7 +190,7 @@ QString ShapeId::absoluteShapeId() const
 /*!
  * Returns this object as a relative Smithy Shape ID, that one without a leading namespace.
  *
- * \Note, if the Shape ID is invalid (ie isValid() returns \c false) it still safe to invoke this
+ * \note, if the Shape ID is invalid (ie isValid() returns \c false) it still safe to invoke this
  * method, but the result is undefined.
  *
  * \see isValid
@@ -204,7 +204,7 @@ QString ShapeId::relativeShapeId() const
  * Returns this object as an *absolute* Smithy Shape ID if this object has a namespace, otherwise a
  * *relative* Smithy Shape ID.
  *
- * \Note, if the Shape ID is invalid (ie isValid() returns \c false) it still safe to invoke this
+ * \note, if the Shape ID is invalid (ie isValid() returns \c false) it still safe to invoke this
  * method, but the result is undefined.
  *
  * \see absoluteShapeId
@@ -252,7 +252,7 @@ bool ShapeId::isAbsoluteRootShapeId() const
 /*!
  * Returns \c true if this Shape ID is a *root* Shape ID, \c false otherwise.
  *
- * \Note, Smithy defines a root Shape ID as one that does not have a member name.
+ * \note, Smithy defines a root Shape ID as one that does not have a member name.
  *
  * \see hasMemberName.
  */
@@ -264,7 +264,7 @@ bool ShapeId::isRootShapeId() const
 /*!
  * Returns \c true if this Shape ID is a *relative* Shape ID, \c false otherwise.
  *
- * \Note, Smithy defines a relative Shape ID as one that does not have a namespace.
+ * \note, Smithy defines a relative Shape ID as one that does not have a namespace.
  *
  * \see hasNameSpace.
  */
