@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['offsetdata_0',['OffsetData',['https://doc.qt.io/qt-5/qtimezone-offsetdata.html',1,'QTimeZone']]]
+  ['private_0',['Private',['https://doc.qt.io/qt-5/qvariant-private.html',1,'QVariant']]],
+  ['privateshared_1',['PrivateShared',['https://doc.qt.io/qt-5/qvariant-privateshared.html',1,'QVariant']]]
 ];
