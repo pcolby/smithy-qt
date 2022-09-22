@@ -20,29 +20,29 @@ Generator::Generator(const smithy::Model * const model, const Renderer * const r
     Q_ASSERT(renderer);
 }
 
-int Generator::generate(const QDir &outputDir, ClobberMode clobberMode)
-{
-    Q_UNUSED(outputDir);
-    Q_UNUSED(clobberMode);
-    Q_UNIMPLEMENTED();
-    return -1; /// \todo
-}
-
 int Generator::expectedFileCount() const
 {
     const QHash<smithy::ShapeId, smithy::Shape> services = model->shapes(smithy::Shape::Type::Service);
-//    int operations=0;
-//    for (const smithy::Shape &service: services) {
-//        qCDebug(lc).noquote() << service.operations().size();
-//        operations += service.operations().size();
-//    }
-//    qCDebug(lc).noquote() << "total operations" << operations;
+    int operations=0;
+    for (const smithy::Shape &service: services) {
+        qCDebug(lc).noquote() << service.operations().size();
+        operations += service.operations().size();
+    }
+    qCDebug(lc).noquote() << "total operations" << operations;
 
 //    const QStringList templates = renderer->templatesNames();
 
     /// \todo Multiple template names by either services or operations counts, then sum and return.
     Q_UNIMPLEMENTED();
     return services.size();
+}
+
+int Generator::generate(const QDir &outputDir, ClobberMode clobberMode)
+{
+    Q_UNUSED(outputDir);
+    Q_UNUSED(clobberMode);
+    Q_UNIMPLEMENTED();
+    return -1; /// \todo
 }
 
 //int Generator::generate(const QString &serviceFileName,
