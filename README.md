@@ -1,7 +1,13 @@
 <!-- SPDX-FileCopyrightText: 2013-2022 Paul Colby <git@colby.id.au> -->
 <!-- SPDX-License-Identifier: LGPL-3.0-or-later -->
-
 # Smithy Qt
+
+[![Build Status](https://github.com/pcolby/smithy-qt/actions/workflows/build.yaml/badge.svg?branch=main)](
+  https://github.com/pcolby/smithy-qt/actions/workflows/build.yaml?query=branch%3Amain)
+[![Static Analysis](https://github.com/pcolby/smithy-qt/actions/workflows/static.yaml/badge.svg?branch=main)](
+  https://github.com/pcolby/smithy-qt/actions/workflows/static.yaml?query=branch%3Amain)
+[![Documentation](https://github.com/pcolby/smithy-qt/actions/workflows/docs.yaml/badge.svg?branch=main)](
+  https://github.com/pcolby/smithy-qt/actions/workflows/docs.yaml?query=branch%3Amain)
 
 Smithy Qt is (or will be, eventually) two things:
 
