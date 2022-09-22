@@ -359,13 +359,14 @@ $(document).ready(function(){initNavTree('main_8cpp_source.html',''); initResiza
 <div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>        <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qtextstream.html">QTextStream</a> stream(stdin);</div>
 <div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>        stream.readLine();</div>
 <div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>    }</div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span><span class="comment">//    if (!renderer.render(outputDir.absoluteFilePath(), clobberMode)) {</span></div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span><span class="comment">//        return 4;</span></div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span><span class="comment">//    }</span></div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span><span class="comment">//    qCInfo(lc).noquote() &lt;&lt; QCoreApplication::translate(&quot;main&quot;,</span></div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span><span class="comment">//        &quot;Rendered %1 file(s) in %2&quot;).arg(renderer.outputFileCount()).arg(outputDir.absoluteFilePath());</span></div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>}</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>    <span class="keywordflow">if</span> (!generator.generate(outputDir, parser.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qcommandlineparser.html#isSet">isSet</a>(QStringLiteral(<span class="stringliteral">&quot;force&quot;</span>))</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>            ? Generator::ClobberMode::Overwrite : Generator::ClobberMode::Prompt)) {</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>        <span class="keywordflow">return</span> 6;</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    }</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>    qCInfo(lc).noquote() &lt;&lt; <a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qcoreapplication.html#translate">QCoreApplication::translate</a>(<span class="stringliteral">&quot;main&quot;</span>,</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>        <span class="stringliteral">&quot;Rendered %n file/s in %2&quot;</span>, <span class="keyword">nullptr</span>, -1).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#arg-11">arg</a>(outputDir);</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>}</div>
 <div class="ttc" id="aclassGenerator_html"><div class="ttname"><a href="classGenerator.html">Generator</a></div><div class="ttdef"><b>Definition:</b> <a href="generator_8h_source.html#l00017">generator.h:18</a></div></div>
 <div class="ttc" id="aclassRenderer_html"><div class="ttname"><a href="classRenderer.html">Renderer</a></div><div class="ttdef"><b>Definition:</b> <a href="renderer_8h_source.html#l00010">renderer.h:11</a></div></div>
 <div class="ttc" id="amodel_8h_html"><div class="ttname"><a href="model_8h.html">model.h</a></div><div class="ttdoc">Declares the Model class.</div></div>
