@@ -258,10 +258,11 @@ int main(int argc, char *argv[])
         QTextStream stream(stdin);
         stream.readLine();
     }
-//    if (!renderer.render(outputDir.absoluteFilePath(), clobberMode)) {
-//        return 4;
-//    }
-//    qCInfo(lc).noquote() << QCoreApplication::translate("main",
-//        "Rendered %1 file(s) in %2").arg(renderer.outputFileCount()).arg(outputDir.absoluteFilePath());
+    if (!generator.generate(outputDir, parser.isSet(QStringLiteral("force"))
+            ? Generator::ClobberMode::Overwrite : Generator::ClobberMode::Prompt)) {
+        return 6;
+    }
+    qCInfo(lc).noquote() << QCoreApplication::translate("main",
+        "Rendered %n file/s in %2", nullptr, -1).arg(outputDir);
     return 0;
 }
