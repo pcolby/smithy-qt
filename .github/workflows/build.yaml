@@ -121,18 +121,18 @@ jobs:
         exclude:
           # Exclude Qt 5.10 with GCC on macOS. See https://bugreports.qt.io/browse/QTBUG-66585
           - qt: '5.10.1'
-          #  env: { cc: gcc-11, cxx: g++-11 }
+            env: { cc: gcc-11, cxx: g++-11 }
           # Exclude Qt 6.2 and 6.3 with GCC on macOS for now, as GCC (only) fails to find the
           # QJsonObject initialiser list constructor. This is probably a GCC, or Qt binary bug.
           # \todo Report this upstream sometime, and/or check if its been fixed yet.
-          #- qt: '6.2.4'
-          #  env: { cc: gcc-11, cxx: g++-11 }
-          #- qt: '6.3.2'
-          #  env: { cc: gcc-11, cxx: g++-11 }
+          - qt: '6.2.4'
+            env: { cc: gcc-11, cxx: g++-11 }
+          - qt: '6.3.2'
+            env: { cc: gcc-11, cxx: g++-11 }
           # Exclude 6.4 with GCC on macOS for now, as GCC (only) failed with internal QMetaType
           # symbol errors when linking.
-          #- qt: '6.4.0'
-          #  env: { cc: gcc-11, cxx: g++-11 }
+          - qt: '6.4.0'
+            env: { cc: gcc-11, cxx: g++-11 }
           # Note, for Qt6 we build "universal" binaries (arm64 + x86_64), which gcc-11 does not
           # yet support. So if we didn't happen to exclude all 6.x GCC builds above, then we'd
           # need to selectively enable/disable universal builds for clang/gcc-11 respectively
