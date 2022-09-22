@@ -23,10 +23,9 @@ Generator::Generator(const smithy::Model * const model, const Renderer * const r
 int Generator::expectedFileCount() const
 {
     const QHash<smithy::ShapeId, smithy::Shape> services = model->shapes(smithy::Shape::Type::Service);
-    int operations=0;
-    for (const smithy::Shape &service: services) {
-        operations += service.operations().size();
-    }
+    const int operations = std::accumulate(services.constBegin(), services.constEnd(), 0,
+        [](const int a, const smithy::Shape &shape) { return a + shape.operations().size();
+    });
     int expected = 0;
     const QStringList templates = renderer->templatesNames();
     for (const QString &name: templates) {
