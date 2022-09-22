@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2013-2022 Paul Colby <git@colby.id.au>
+# SPDX-License-Identifier: LGPL-3.0-or-later
+
 name: Static Analysis
 
 on: [push, pull_request]
@@ -27,12 +30,7 @@ jobs:
       run: sudo apt update && sudo apt upgrade && sudo apt install cppcheck
     - uses: actions/checkout@v3
     - name: Perform Cppcheck Analysis
-      run: |
-        cppcheck \
-           --enable=all --error-exitcode=1 -Isrc \
-           --suppress={missingInclude,unknownMacro} \
-           --suppress=unusedFunction:test/unit/*.cpp \
-           --xml --xml-version=2 src test 2> "$RUNNER_TEMP/cppcheck.xml"
+      run: ./.cppcheck --xml --xml-version=2 2> "$RUNNER_TEMP/cppcheck.xml"
     - name: Generate Report
       if: ${{ failure() }}
       run: |
