@@ -24,7 +24,7 @@ const QRegularExpression Generator::operationPattern{
 };
 
 Generator::Generator(const smithy::Model * const model, const Renderer * const renderer)
-    : model(model), renderer(renderer)
+    : renderedFileCount(0), model(model), renderer(renderer)
 {
     Q_ASSERT(model->isValid());
     Q_ASSERT(renderer);
@@ -47,7 +47,7 @@ int Generator::expectedFileCount() const
 
 int Generator::generate(const QString &outputDir, ClobberMode clobberMode)
 {
-    this->renderedFileCount = 0;
+    renderedFileCount = 0;
 
     /// \todo build a list of services to add to context.
     QVariantMap context;
@@ -107,7 +107,7 @@ bool Generator::renderService(const smithy::Shape &service,  const QStringList &
     const QString sdkId = service.traits().value(QSL("aws.api#service")).toObject().value(QSL("sdkId")).toString();
     if (sdkId.isEmpty()) {
         qCCritical(lc).noquote() << tr("Service %1 has no SDK ID").arg(service.id().toString());
-        return -1;
+        return false;
     }
     qCDebug(lc).noquote() << tr("SDK ID: %1").arg(sdkId);
 
