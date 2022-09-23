@@ -47,18 +47,44 @@ int Generator::expectedFileCount() const
 
 int Generator::generate(const QDir &outputDir, ClobberMode clobberMode)
 {
+    /// \todo build a list of services to add to context.
+
+    // Build the list of template names.
+    const QStringList templatesNames = renderer->templatesNames();
+    QStringList serviceTemplateNames, operationTemplateNames, plainTemplateNames;
     const QHash<smithy::ShapeId, smithy::Shape> services = model->shapes(smithy::Shape::Type::Service);
+    for (const QString &name: templatesNames) {
+        if (servicePattern.match(name).hasMatch()) {
+            if (operationPattern.match(name).hasMatch()) {
+                operationTemplateNames.append(name);
+            } else {
+                serviceTemplateNames.append(name);
+            }
+        } else {
+            plainTemplateNames.append(name);
+        }
+    }
+    Q_ASSERT(serviceTemplateNames.size() + operationTemplateNames.size()
+             + plainTemplateNames.size() == templatesNames.size());
+
+    // Render all of the services.
     for (const smithy::Shape &service: services) {
         qCDebug(lc).noquote() << tr("Generating code for service %1").arg(service.id().toString());
         const QString sdkId = service.traits().value(QSL("aws.api#service")).toObject().value(QSL("sdkId")).toString();
         if (sdkId.isEmpty()) {
             qCCritical(lc).noquote() << tr("Service %1 has no SDK ID").arg(service.id().toString());
             return -1;
-
         }
         qCDebug(lc).noquote() << tr("SDK ID: %1").arg(sdkId);
-        qCDebug(lc).noquote() << QJsonDocument(service.rawAst()).toJson();
-        /// \todo Sanitise sdkId (eg remove spaces).
+        /// \todo build context
+        /// \todo render each of serviceTemplateNames, with sanitised service id.
+        /// \todo for each opteration, render each of operationTemplateNames, with sanitised op ids.
+        //qCDebug(lc).noquote() << QJsonDocument(service.rawAst()).toJson();
+    }
+
+    // Render all of the one-off (not per-service) files.
+    for (const QString &name: plainTemplateNames) {
+        qDebug() << "Render" << name;
     }
     Q_UNUSED(outputDir);
     Q_UNUSED(clobberMode);
