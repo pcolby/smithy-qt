@@ -220,6 +220,13 @@ QJsonObject Model::metadata() const
     return d->mergedMetadata;
 }
 
+Shape Model::shape(const ShapeId &shapeId) const
+{
+    Q_D(const Model);
+    /// \todo this should be d->mergedShapes, but using allShapes while finish() is incomplete.
+    return d->allShapes.value(shapeId);
+}
+
 QHash<ShapeId, Shape> Model::shapes(const Shape::Type &type) const
 {
     Q_D(const Model);
