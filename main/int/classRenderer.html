@@ -118,8 +118,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a3d3410b789a8218f0af0e344a5b0aaf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb2cf78a31e7d1a4e9d4456c4b13709b"><td class="memItemLeft" align="right" valign="top"><a class="elRef" href="https://doc.qt.io/qt-5/qstringlist.html">QStringList</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRenderer.html#aeb2cf78a31e7d1a4e9d4456c4b13709b">templatesNames</a> () const</td></tr>
 <tr class="separator:aeb2cf78a31e7d1a4e9d4456c4b13709b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9568cecef45f12a16ac9f641b65b615"><td class="memItemLeft" align="right" valign="top"><a id="ac9568cecef45f12a16ac9f641b65b615" name="ac9568cecef45f12a16ac9f641b65b615"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>render</b> (const <a class="elRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;templateName, const <a class="elRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;outputPathName, const QVariantMap &amp;additionalContext=QVariantMap{}) const</td></tr>
+<tr class="memitem:ac9568cecef45f12a16ac9f641b65b615"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRenderer.html#ac9568cecef45f12a16ac9f641b65b615">render</a> (const <a class="elRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;templateName, const <a class="elRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;outputPathName, const QVariantMap &amp;additionalContext=QVariantMap{}) const</td></tr>
 <tr class="separator:ac9568cecef45f12a16ac9f641b65b615"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-static-methods" name="pro-static-methods"></a>
@@ -223,6 +222,68 @@ Private Member Functions</h2></td></tr>
 <div class="ttc" id="aqstring_html_arg-11"><div class="ttname"><a href="https://doc.qt.io/qt-5/qstring.html#arg-11">QString::arg</a></div><div class="ttdeci">QString arg(qlonglong a, int fieldWidth, int base, QChar fillChar) const const</div></div>
 <div class="ttc" id="aqstring_html_mid"><div class="ttname"><a href="https://doc.qt.io/qt-5/qstring.html#mid">QString::mid</a></div><div class="ttdeci">QString mid(int position, int n) const const</div></div>
 <div class="ttc" id="aqstringlist_html"><div class="ttname"><a href="https://doc.qt.io/qt-5/qstringlist.html">QStringList</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ac9568cecef45f12a16ac9f641b65b615" name="ac9568cecef45f12a16ac9f641b65b615"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9568cecef45f12a16ac9f641b65b615">&#9670;&#160;</a></span>render()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Renderer::render </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="elRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;&#160;</td>
+          <td class="paramname"><em>templateName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="elRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;&#160;</td>
+          <td class="paramname"><em>outputPathName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const QVariantMap &amp;&#160;</td>
+          <td class="paramname"><em>additionalContext</em> = <code>QVariantMap{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="renderer_8cpp_source.html#l00067">67</a> of file <a class="el" href="renderer_8cpp_source.html">renderer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   69</span>{</div>
+<div class="line"><span class="lineno">   70</span>    <span class="keywordflow">if</span> (!templates.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstringlist.html#contains">contains</a>(templateName)) {</div>
+<div class="line"><span class="lineno">   71</span>        qWarning() &lt;&lt; <span class="stringliteral">&quot;template does not exist&quot;</span> &lt;&lt; templateName;</div>
+<div class="line"><span class="lineno">   72</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">   73</span>    }</div>
+<div class="line"><span class="lineno">   74</span> </div>
+<div class="line"><span class="lineno">   75</span>    qCDebug(lc) &lt;&lt; <span class="stringliteral">&quot;rendering&quot;</span> &lt;&lt; templateName &lt;&lt; <span class="stringliteral">&quot;to&quot;</span> &lt;&lt; outputPathName;</div>
+<div class="line"><span class="lineno">   76</span>    Q_UNUSED(additionalContext);</div>
+<div class="line"><span class="lineno">   77</span>    Q_UNIMPLEMENTED();</div>
+<div class="line"><span class="lineno">   78</span> </div>
+<div class="line"><span class="lineno">   79</span><span class="comment">//    QFile file(outputFileName);</span></div>
+<div class="line"><span class="lineno">   80</span><span class="comment">//    if (!file.open(QFile::WriteOnly)) {</span></div>
+<div class="line"><span class="lineno">   81</span><span class="comment">//        qWarning() &lt;&lt; &quot;failed to open file for writing&quot; &lt;&lt; outputFileName;</span></div>
+<div class="line"><span class="lineno">   82</span><span class="comment">//        return false;</span></div>
+<div class="line"><span class="lineno">   83</span><span class="comment">//    }</span></div>
+<div class="line"><span class="lineno">   84</span> </div>
+<div class="line"><span class="lineno">   85</span><span class="comment">//    QTextStream textStream(&amp;file);</span></div>
+<div class="line"><span class="lineno">   86</span><span class="comment">//    NoEscapeStream noEscapeStream(&amp;textStream);</span></div>
+<div class="line"><span class="lineno">   87</span><span class="comment">//    templates[templateName]-&gt;render(&amp;noEscapeStream, &amp;context);</span></div>
+<div class="line"><span class="lineno">   88</span><span class="comment">//    if (templates[templateName]-&gt;error()) {</span></div>
+<div class="line"><span class="lineno">   89</span><span class="comment">//        qInfo() &lt;&lt; &quot;failed to generate&quot; &lt;&lt; outputFileName &lt;&lt; templates[templateName]-&gt;errorString();</span></div>
+<div class="line"><span class="lineno">   90</span><span class="comment">//        return false;</span></div>
+<div class="line"><span class="lineno">   91</span><span class="comment">//    }</span></div>
+<div class="line"><span class="lineno">   92</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">   93</span>}</div>
+<div class="ttc" id="aqstringlist_html_contains"><div class="ttname"><a href="https://doc.qt.io/qt-5/qstringlist.html#contains">QStringList::contains</a></div><div class="ttdeci">bool contains(const QString &amp;str, Qt::CaseSensitivity cs) const const</div></div>
 </div><!-- fragment -->
 </div>
 </div>

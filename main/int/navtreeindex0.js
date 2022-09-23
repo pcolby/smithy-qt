@@ -3,7 +3,7 @@ var NAVTREEINDEX0 =
 "annotated.html":[2,0],
 "classGenerator.html":[2,0,0],
 "classGenerator.html#a1c11888855bffa262af6f288b63f53fe":[2,0,0,1],
-"classGenerator.html#ab361ff0bfa96dfbd44afaecc2c4fb852":[2,0,0,0],
+"classGenerator.html#a2acc1aa91219cbd5ec9036569afa560e":[2,0,0,0],
 "classModel.html":[2,0,1],
 "classModel.html#a006b5ee757212e9de1f564ebcdfab91d":[2,0,1,4],
 "classModel.html#a5296da875545acf527ce42c707d1ead1":[2,0,1,3],

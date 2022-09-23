@@ -99,6 +99,7 @@ $(document).ready(function(){initNavTree('classGenerator.html',''); initResizabl
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-static-methods">Static Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
@@ -128,8 +129,13 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aab65598e6f949682b21e13807c80b34f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ef7fb00c52796d6a0748dc9d4d59d00"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGenerator.html#a9ef7fb00c52796d6a0748dc9d4d59d00">expectedFileCount</a> () const</td></tr>
 <tr class="separator:a9ef7fb00c52796d6a0748dc9d4d59d00"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab361ff0bfa96dfbd44afaecc2c4fb852"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGenerator.html#ab361ff0bfa96dfbd44afaecc2c4fb852">generate</a> (const <a class="elRef" href="https://doc.qt.io/qt-5/qdir.html">QDir</a> &amp;outputDir, ClobberMode clobberMode)</td></tr>
-<tr class="separator:ab361ff0bfa96dfbd44afaecc2c4fb852"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2acc1aa91219cbd5ec9036569afa560e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGenerator.html#a2acc1aa91219cbd5ec9036569afa560e">generate</a> (const <a class="elRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;outputDir, ClobberMode clobberMode)</td></tr>
+<tr class="separator:a2acc1aa91219cbd5ec9036569afa560e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:adb8729881e2000fdc6d44068daac0edb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGenerator.html#adb8729881e2000fdc6d44068daac0edb">render</a> (const <a class="elRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;templateName, const <a class="elRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;outputDir, const QVariantMap &amp;context, ClobberMode &amp;clobberMode) const</td></tr>
+<tr class="separator:adb8729881e2000fdc6d44068daac0edb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -266,8 +272,8 @@ Static Private Attributes</h2></td></tr>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="ab361ff0bfa96dfbd44afaecc2c4fb852" name="ab361ff0bfa96dfbd44afaecc2c4fb852"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab361ff0bfa96dfbd44afaecc2c4fb852">&#9670;&#160;</a></span>generate()</h2>
+<a id="a2acc1aa91219cbd5ec9036569afa560e" name="a2acc1aa91219cbd5ec9036569afa560e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2acc1aa91219cbd5ec9036569afa560e">&#9670;&#160;</a></span>generate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -275,7 +281,7 @@ Static Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">int Generator::generate </td>
           <td>(</td>
-          <td class="paramtype">const <a class="elRef" href="https://doc.qt.io/qt-5/qdir.html">QDir</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="elRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;&#160;</td>
           <td class="paramname"><em>outputDir</em>, </td>
         </tr>
         <tr>
@@ -293,11 +299,10 @@ Static Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>build a list of services to add to context. </dd></dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>build context </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd></dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo:</a></b></dt><dd>render each of serviceTemplateNames, with sanitised service id. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Todo:</a></b></dt><dd></dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd>for each opteration, render each of operationTemplateNames, with sanitised op ids. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">Todo:</a></b></dt><dd></dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>render each of serviceTemplateNames, with sanitised service id. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo:</a></b></dt><dd>more context. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Todo:</a></b></dt><dd>for each opteration, render each of operationTemplateNames, with sanitised op ids. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd></dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="generator_8cpp_source.html#l00048">48</a> of file <a class="el" href="generator_8cpp_source.html">generator.cpp</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   49</span>{<span class="comment"></span></div>
@@ -329,22 +334,38 @@ Static Private Attributes</h2></td></tr>
 <div class="line"><span class="lineno">   75</span>            qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Service %1 has no SDK ID&quot;</span>).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#arg-11">arg</a>(service.id().toString());</div>
 <div class="line"><span class="lineno">   76</span>            <span class="keywordflow">return</span> -1;</div>
 <div class="line"><span class="lineno">   77</span>        }</div>
-<div class="line"><span class="lineno">   78</span>        qCDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;SDK ID: %1&quot;</span>).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#arg-11">arg</a>(sdkId);<span class="comment"></span></div>
-<div class="line"><span class="lineno">   79</span><span class="comment">        /// \todo build context</span></div>
-<div class="line"><span class="lineno">   80</span><span class="comment">        /// \todo render each of serviceTemplateNames, with sanitised service id.</span></div>
-<div class="line"><span class="lineno">   81</span><span class="comment">        /// \todo for each opteration, render each of operationTemplateNames, with sanitised op ids.</span></div>
-<div class="line"><span class="lineno">   82</span><span class="comment"></span>        <span class="comment">//qCDebug(lc).noquote() &lt;&lt; QJsonDocument(service.rawAst()).toJson();</span></div>
-<div class="line"><span class="lineno">   83</span>    }</div>
-<div class="line"><span class="lineno">   84</span> </div>
-<div class="line"><span class="lineno">   85</span>    <span class="comment">// Render all of the one-off (not per-service) files.</span></div>
-<div class="line"><span class="lineno">   86</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;name: plainTemplateNames) {</div>
-<div class="line"><span class="lineno">   87</span>        qDebug() &lt;&lt; <span class="stringliteral">&quot;Render&quot;</span> &lt;&lt; name;</div>
-<div class="line"><span class="lineno">   88</span>    }</div>
-<div class="line"><span class="lineno">   89</span>    Q_UNUSED(outputDir);</div>
-<div class="line"><span class="lineno">   90</span>    Q_UNUSED(clobberMode);</div>
-<div class="line"><span class="lineno">   91</span>    Q_UNIMPLEMENTED();</div>
-<div class="line"><span class="lineno">   92</span>    <span class="keywordflow">return</span> -1; <span class="comment">/// \todo</span></div>
-<div class="line"><span class="lineno">   93</span>}</div>
+<div class="line"><span class="lineno">   78</span>        qCDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;SDK ID: %1&quot;</span>).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#arg-11">arg</a>(sdkId);</div>
+<div class="line"><span class="lineno">   79</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   80</span><span class="comment">        /// \todo build context</span></div>
+<div class="line"><span class="lineno">   81</span><span class="comment"></span>        QVariantMap context;</div>
+<div class="line"><span class="lineno">   82</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   83</span><span class="comment">        /// \todo render each of serviceTemplateNames, with sanitised service id.</span></div>
+<div class="line"><span class="lineno">   84</span><span class="comment"></span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;templateName: serviceTemplateNames) {</div>
+<div class="line"><span class="lineno">   85</span>            qCDebug(lc).noquote() &lt;&lt; <span class="stringliteral">&quot;render &quot;</span>;</div>
+<div class="line"><span class="lineno">   86</span>            render(templateName, outputDir, context, clobberMode);</div>
+<div class="line"><span class="lineno">   87</span> </div>
+<div class="line"><span class="lineno">   88</span>            <span class="keyword">const</span> smithy::Shape::ShapeReferences operations = service.operations();</div>
+<div class="line"><span class="lineno">   89</span>            <span class="keywordflow">for</span> (<span class="keyword">auto</span> iter = operations.constBegin(); iter != operations.constEnd(); ++iter) {<span class="comment"></span></div>
+<div class="line"><span class="lineno">   90</span><span class="comment">                /// \todo more context.</span></div>
+<div class="line"><span class="lineno">   91</span><span class="comment"></span>                <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;templateName: operationTemplateNames) {</div>
+<div class="line"><span class="lineno">   92</span>                    render(templateName, outputDir, context, clobberMode);</div>
+<div class="line"><span class="lineno">   93</span>                }</div>
+<div class="line"><span class="lineno">   94</span>            }</div>
+<div class="line"><span class="lineno">   95</span>        }</div>
+<div class="line"><span class="lineno">   96</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   97</span><span class="comment">        /// \todo for each opteration, render each of operationTemplateNames, with sanitised op ids.</span></div>
+<div class="line"><span class="lineno">   98</span><span class="comment"></span>        <span class="comment">//qCDebug(lc).noquote() &lt;&lt; QJsonDocument(service.rawAst()).toJson();</span></div>
+<div class="line"><span class="lineno">   99</span>    }</div>
+<div class="line"><span class="lineno">  100</span> </div>
+<div class="line"><span class="lineno">  101</span>    <span class="comment">// Render all of the one-off (not per-service) files.</span></div>
+<div class="line"><span class="lineno">  102</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;name: plainTemplateNames) {</div>
+<div class="line"><span class="lineno">  103</span>        qDebug() &lt;&lt; <span class="stringliteral">&quot;Render&quot;</span> &lt;&lt; name;</div>
+<div class="line"><span class="lineno">  104</span>    }</div>
+<div class="line"><span class="lineno">  105</span>    Q_UNUSED(outputDir);</div>
+<div class="line"><span class="lineno">  106</span>    Q_UNUSED(clobberMode);</div>
+<div class="line"><span class="lineno">  107</span>    Q_UNIMPLEMENTED();</div>
+<div class="line"><span class="lineno">  108</span>    <span class="keywordflow">return</span> -1; <span class="comment">/// \todo</span></div>
+<div class="line"><span class="lineno">  109</span>}</div>
 <div class="ttc" id="aqlist_html_append"><div class="ttname"><a href="https://doc.qt.io/qt-5/qlist.html#append">QList::append</a></div><div class="ttdeci">void append(const T &amp;value)</div></div>
 <div class="ttc" id="aqlist_html_size"><div class="ttname"><a href="https://doc.qt.io/qt-5/qlist.html#size">QList::size</a></div><div class="ttdeci">int size() const const</div></div>
 <div class="ttc" id="aqregularexpression_html_match"><div class="ttname"><a href="https://doc.qt.io/qt-5/qregularexpression.html#match">QRegularExpression::match</a></div><div class="ttdeci">QRegularExpressionMatch match(const QString &amp;subject, int offset, QRegularExpression::MatchType matchType, QRegularExpression::MatchOptions matchOptions) const const</div></div>
@@ -356,10 +377,71 @@ Static Private Attributes</h2></td></tr>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classGenerator_ab361ff0bfa96dfbd44afaecc2c4fb852_cgraph.svg" width="406" height="315"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classGenerator_a2acc1aa91219cbd5ec9036569afa560e_cgraph.svg" width="406" height="315"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
+</div>
+</div>
+<a id="adb8729881e2000fdc6d44068daac0edb" name="adb8729881e2000fdc6d44068daac0edb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb8729881e2000fdc6d44068daac0edb">&#9670;&#160;</a></span>render()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Generator::render </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="elRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;&#160;</td>
+          <td class="paramname"><em>templateName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="elRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;&#160;</td>
+          <td class="paramname"><em>outputDir</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const QVariantMap &amp;&#160;</td>
+          <td class="paramname"><em>context</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ClobberMode &amp;&#160;</td>
+          <td class="paramname"><em>clobberMode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="generator_8cpp_source.html#l00111">111</a> of file <a class="el" href="generator_8cpp_source.html">generator.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  113</span>{</div>
+<div class="line"><span class="lineno">  114</span>    <span class="comment">// Build the output pathname.</span></div>
+<div class="line"><span class="lineno">  115</span>    <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> outputPathName = outputDir + <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qlatin1char.html">QLatin1Char</a>(<span class="charliteral">&#39;/&#39;</span>) + templateName;</div>
+<div class="line"><span class="lineno">  116</span> </div>
+<div class="line"><span class="lineno">  117</span>    <span class="comment">// Apply the clobber.</span></div>
+<div class="line"><span class="lineno">  118</span>    Q_UNUSED(clobberMode);</div>
+<div class="line"><span class="lineno">  119</span> </div>
+<div class="line"><span class="lineno">  120</span>    <span class="comment">// Render the content.</span></div>
+<div class="line"><span class="lineno">  121</span>    <span class="keywordflow">return</span> renderer-&gt;render(templateName, outputPathName, context);</div>
+<div class="line"><span class="lineno">  122</span>}</div>
+<div class="ttc" id="aqlatin1char_html"><div class="ttname"><a href="https://doc.qt.io/qt-5/qlatin1char.html">QLatin1Char</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -383,7 +465,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="generator_8h_source.html#l00052">52</a> of file <a class="el" href="generator_8h_source.html">generator.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="generator_8h_source.html#l00039">39</a> of file <a class="el" href="generator_8h_source.html">generator.h</a>.</p>
 
 </div>
 </div>
@@ -411,7 +493,7 @@ Here is the call graph for this function:</div>
 <div class="line">    QRegularExpression::CaseInsensitiveOption</div>
 <div class="line">}</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="generator_8h_source.html#l00056">56</a> of file <a class="el" href="generator_8h_source.html">generator.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="generator_8h_source.html#l00043">43</a> of file <a class="el" href="generator_8h_source.html">generator.h</a>.</p>
 
 </div>
 </div>
@@ -435,7 +517,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="generator_8h_source.html#l00053">53</a> of file <a class="el" href="generator_8h_source.html">generator.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="generator_8h_source.html#l00040">40</a> of file <a class="el" href="generator_8h_source.html">generator.h</a>.</p>
 
 </div>
 </div>
@@ -463,7 +545,7 @@ Here is the call graph for this function:</div>
 <div class="line">    QRegularExpression::CaseInsensitiveOption</div>
 <div class="line">}</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="generator_8h_source.html#l00055">55</a> of file <a class="el" href="generator_8h_source.html">generator.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="generator_8h_source.html#l00042">42</a> of file <a class="el" href="generator_8h_source.html">generator.h</a>.</p>
 
 </div>
 </div>
