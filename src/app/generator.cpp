@@ -37,20 +37,12 @@ int Generator::expectedFileCount() const
     const int operations = std::accumulate(services.constBegin(), services.constEnd(), 0,
         [](const int a, const smithy::Shape &shape) { return a + shape.operations().size();
     });
-    int expected = 0;
     const QStringList templates = renderer->templatesNames();
-    for (const QString &name: templates) {
-        if (servicePattern.match(name).hasMatch()) {
-            if (operationPattern.match(name).hasMatch()) {
-                expected += operations;
-            } else {
-                expected += services.size();
-            }
-        } else {
-            expected += 1;
-        }
-    }
-    return expected;
+    return std::accumulate(templates.constBegin(), templates.constEnd(), 0,
+        [&](const int a, const QString &name) {
+            return a + (servicePattern.match(name).hasMatch() ?
+                (operationPattern.match(name).hasMatch() ? operations : services.size()) : 1);
+        });
 }
 
 int Generator::generate(const QDir &outputDir, ClobberMode clobberMode)
