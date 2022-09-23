@@ -432,9 +432,10 @@ Shape::StringShapeRefMap ShapePrivate::getStrShapeRefMap(const QJsonObject &ast,
 Shape::TraitsMap ShapePrivate::getTraitsMap(const QJsonObject &ast, const QString &name)
 {
     Shape::TraitsMap traitsMap;
-    Q_UNUSED(ast);
-    Q_UNUSED(name);
-    Q_UNIMPLEMENTED();
+    const QJsonObject traits = ast.value(name).toObject();
+    for (auto iter = traits.constBegin(); iter != traits.constEnd(); ++iter) {
+        traitsMap.insert(iter.key(), iter.value());
+    }
     return traitsMap;
 }
 
