@@ -275,6 +275,12 @@ Shape::ShapeReferences Shape::mixins() const
     return ShapePrivate::getShapeRefs(d->ast, QStringLiteral("mixins"));
 }
 
+QJsonObject Shape::rawAst() const
+{
+    Q_D(const Shape);
+    return d->ast;
+}
+
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
 uint qHash(const Shape::ShapeReference &key, uint seed)
 #else

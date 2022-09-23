@@ -141,6 +141,8 @@ public:
     // Mixins https://awslabs.github.io/smithy/2.0/spec/json-ast.html#mixins
     ShapeReferences mixins() const;
 
+    QJsonObject rawAst() const;
+
 protected:
     /// \cond internal
     ShapePrivate * d_ptr; ///< Internal d-pointer.
