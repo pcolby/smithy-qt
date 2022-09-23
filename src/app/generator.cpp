@@ -46,6 +46,18 @@ int Generator::expectedFileCount() const
 
 int Generator::generate(const QDir &outputDir, ClobberMode clobberMode)
 {
+    const QHash<smithy::ShapeId, smithy::Shape> services = model->shapes(smithy::Shape::Type::Service);
+    for (const smithy::Shape &service: services) {
+        qCDebug(lc).noquote() << tr("Generating code for service %1").arg(service.id().toString());
+        const QString sdkId = service.traits().value(QSL("aws.api#service")).toObject().value(QSL("sdkId")).toString();
+        if (sdkId.isEmpty()) {
+            qCCritical(lc).noquote() << tr("Service %1 has no SDK ID").arg(service.id().toString());
+            return -1;
+
+        }
+        qCDebug(lc).noquote() << tr("SDK ID: %1").arg(sdkId);
+        /// \todo Sanitise sdkId (eg remove spaces).
+    }
     Q_UNUSED(outputDir);
     Q_UNUSED(clobberMode);
     Q_UNIMPLEMENTED();
