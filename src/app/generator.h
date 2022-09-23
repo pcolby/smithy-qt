@@ -29,24 +29,11 @@ public:
 
     int expectedFileCount() const;
 
-    int generate(const QDir &outputDir, ClobberMode clobberMode);
+    int generate(const QString &outputDir, ClobberMode clobberMode);
 
 protected:
-//    static QStringList formatHtmlDocumentation(const QString &html);
-
-//    bool generateModelClasses(Grantlee::Context &context, const QString &projectDir,
-//                              const QString &operationName, const QJsonObject &description);
-
-//    static QString getServiceName(const QJsonObject &metaData);
-
-//    bool render(const QString &templateName, Grantlee::Context &context,
-//                const QString &outputPathName) const;
-
-//    bool render(const QString &templateName, Grantlee::Context &context,
-//                const QString &outputDirName, const QString &outputFileName) const;
-
-//    void renderClassFiles(const QString &templateBaseName, Grantlee::Context &context,
-//                          const QString &outputPathName, const QString className);
+    bool render(const QString &templateName, const QString &outputDir,
+                const QVariantMap &context, ClobberMode &clobberMode) const;
 
 private:
     const smithy::Model * const model;

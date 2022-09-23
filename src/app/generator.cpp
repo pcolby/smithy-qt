@@ -45,7 +45,7 @@ int Generator::expectedFileCount() const
         });
 }
 
-int Generator::generate(const QDir &outputDir, ClobberMode clobberMode)
+int Generator::generate(const QString &outputDir, ClobberMode clobberMode)
 {
     /// \todo build a list of services to add to context.
 
@@ -76,8 +76,24 @@ int Generator::generate(const QDir &outputDir, ClobberMode clobberMode)
             return -1;
         }
         qCDebug(lc).noquote() << tr("SDK ID: %1").arg(sdkId);
+
         /// \todo build context
+        QVariantMap context;
+
         /// \todo render each of serviceTemplateNames, with sanitised service id.
+        for (const QString &templateName: serviceTemplateNames) {
+            qCDebug(lc).noquote() << "render ";
+            render(templateName, outputDir, context, clobberMode);
+
+            const smithy::Shape::ShapeReferences operations = service.operations();
+            for (auto iter = operations.constBegin(); iter != operations.constEnd(); ++iter) {
+                /// \todo more context.
+                for (const QString &templateName: operationTemplateNames) {
+                    render(templateName, outputDir, context, clobberMode);
+                }
+            }
+        }
+
         /// \todo for each opteration, render each of operationTemplateNames, with sanitised op ids.
         //qCDebug(lc).noquote() << QJsonDocument(service.rawAst()).toJson();
     }
@@ -92,94 +108,18 @@ int Generator::generate(const QDir &outputDir, ClobberMode clobberMode)
     return -1; /// \todo
 }
 
-//int Generator::generate(const QString &serviceFileName,
-//                         const QJsonObject &description)
-//{
-//    qInfo() << "generating service" << serviceFileName;
-//    headers.clear();
-//    sources.clear();
+bool Generator::render(const QString &templateName, const QString &outputDir,
+                       const QVariantMap &context, ClobberMode &clobberMode) const
+{
+    // Build the output pathname.
+    QString outputPathName = outputDir + QLatin1Char('/') + templateName;
 
-//    const QJsonObject metaData = description.value(QLatin1String("metadata")).toObject();
-//    const QString serviceName = getServiceName(metaData); // ie with original capitalisation.
-//    const QString serviceClassName =                      // With "ALLCAPS" changed to "Allcaps".
-//        ((serviceName.contains(QRegularExpression(QSL("^[^a-z]+$"))))
-//        ? serviceName.at(0) + serviceName.mid(1).toLower() : serviceName);
-//    const QString moduleName = QSL("QtAws") + serviceClassName;
-//    const QString moduleDirName = serviceClassName.toLower();
-//    const QString moduleDirPath = outputDir.absoluteFilePath(moduleDirName);
-//    if (!outputDir.mkpath(moduleDirName)) {
-//        qWarning() << "failed to create " << moduleDirPath;
-//        return -1;
-//    }
+    // Apply the clobber.
+    Q_UNUSED(clobberMode);
 
-//    Grantlee::Context context(description.toVariantHash());
-//    context.insert(QSL("ModuleName"), moduleName);
-//    context.insert(QSL("ServiceName"), serviceName);
-//    context.insert(QSL("ServiceClassName"), serviceClassName);
-//    context.insert(QSL("NameSpaceName"), serviceName);
-//    context.insert(QSL("ClassDocumentation"),
-//        formatHtmlDocumentation(description.value(QLatin1String("documentation")).toString()));
-
-//    // Generate model classes.
-//    context.push();
-//    context.insert(QSL("ClientClassName"), serviceClassName + QSL("Client"));
-//    renderClassFiles(QSL("src/service/requestbase"),  context, moduleDirPath, serviceClassName + QSL("Request"));
-//    renderClassFiles(QSL("src/service/responsebase"), context, moduleDirPath, serviceClassName + QSL("Response"));
-//    foreach (const QString &operationName, description.value(QLatin1String("operations")).toObject().keys()) {
-//        generateModelClasses(context, moduleDirPath, operationName, description);
-//    }
-//    context.pop();
-
-//    // Generate service client.
-//    context.push();
-//    QVariantMap operations = context.lookup(QSL("operations")).toMap();
-//    for (auto iter = operations.begin(); iter != operations.end(); ++iter) {
-//        QVariantMap operation = iter.value().toMap();
-//        if (operation.contains(QSL("documentation"))) {
-//            operation.insert(QSL("documentationFormatted"),
-//                      formatHtmlDocumentation(operation.value(QSL("documentation")).toString()));
-//            iter.value() = operation;
-//        }
-//    }
-//    context.insert(QSL("operations"), operations);
-//    renderClassFiles(QSL("src/service/client"), context, moduleDirPath, serviceClassName + QSL("Client"));
-//    context.pop();
-
-//    // Generate documentation.
-//    context.push();
-//    if (!outputDir.mkpath(serviceClassName.toLower() + QSL("/doc"))) {
-//        qWarning() << "failed to create " << serviceClassName.toLower() + QSL("/doc");
-//        return -1;
-//    }
-//    const QString docDir = moduleDirPath + QSL("/doc");
-//    render(QSL("doc/module.qdoc"),       context, docDir, moduleName.toLower() + QSL(".qdoc"));
-//    render(QSL("doc/module.qdocconf"),   context, docDir, moduleName.toLower() + QSL(".qdocconf"));
-//    render(QSL("doc/module-index.qdoc"), context, docDir, moduleName.toLower() + QSL("-index.qdoc"));
-//    context.pop();
-
-//    // Generate the import/export global file for this service.
-//    {
-//        const QString globalFileName(QSL("qtaws") + moduleDirName + QSL("global.h"));
-//        if (!render(QSL("src/service/qtawsglobal.h"), context, moduleDirPath, globalFileName)) {
-//            return -1;
-//        }
-//        headers.append(globalFileName);
-//    }
-
-//    // Generate ancillary project files.
-//    context.push();
-//    headers.sort();
-//    sources.sort();
-//    context.insert(QSL("HeaderFiles"), headers);
-//    context.insert(QSL("SourceFiles"), sources);
-//    if (!render(QSL("src/service/CMakeLists.txt"), context, moduleDirPath, QSL("CMakeLists.txt"))) {
-//        context.pop();
-//        return -1;
-//    }
-//    context.pop();
-//    modules.append(serviceClassName);
-//    return headers.size() + sources.size() + 1;
-//}
+    // Render the content.
+    return renderer->render(templateName, outputPathName, context);
+}
 
 //QStringList Generator::formatHtmlDocumentation(const QString &html)
 //{
@@ -240,94 +180,4 @@ int Generator::generate(const QDir &outputDir, ClobberMode clobberMode)
 //        lines.removeLast();
 //    }
 //    return lines;
-//}
-
-//bool Generator::generateModelClasses(Grantlee::Context &context, const QString &projectDir,
-//                                     const QString &operationName, const QJsonObject &description)
-//{
-//    qDebug() << "generating model for" << operationName;
-//    const QJsonObject operation = description.value(QLatin1String("operations"))
-//            .toObject().value(operationName).toObject();
-//    context.insert(QLatin1String("operation"), operation.toVariantHash());
-//    context.insert(QLatin1String("OperationName"), operationName);
-
-//    // Generate request class.
-//    context.push();
-//    renderClassFiles(QSL("src/service/request"), context, projectDir, operationName + QSL("Request"));
-//    context.pop();
-
-//    // Generate response class.
-//    context.push();
-//    renderClassFiles(QSL("src/service/response"), context, projectDir, operationName + QSL("Response"));
-//    context.pop();
-//    return true;
-//}
-
-//QString Generator::getServiceName(const QJsonObject &metaData)
-//{
-//    // Replicate what aws-sdk-cpp does; ie use the abbreviated name, if present
-//    // otherwise fall back to the full service name.
-//    // Note, there is also a serviceId field on some API descriptions, which looks promising, but
-//    // it is canonocalised, and so case folded to all lower, which is not what we want here.
-//    QString prefix = metaData.value(QLatin1String("serviceAbbreviation")).toString();
-//    if (prefix.isEmpty()) {
-//        prefix = metaData.value(QLatin1String("serviceFullName")).toString();
-//    }
-
-//    // Trim, the same as aws-sdk-cpp too.
-//    return prefix.replace(QRegularExpression(QSL("[- _/]|Amazon|AWS")), QString());
-//}
-
-//// Grantlee output stream that does *no* content escaping.
-//class NoEscapeStream : public Grantlee::OutputStream {
-//public:
-//    explicit NoEscapeStream(QTextStream * stream) : Grantlee::OutputStream(stream) { }
-
-//    virtual QString escape(const QString &input) const { return input; }
-
-//    virtual QSharedPointer<OutputStream> clone( QTextStream *stream ) const {
-//        return QSharedPointer<OutputStream>(new NoEscapeStream(stream));
-//    }
-//};
-
-//bool Generator::render(const QString &templateName, Grantlee::Context &context,
-//                       const QString &outputFileName) const
-//{
-//    if (!templates.contains(templateName)) {
-//        qWarning() << "template does not exist" << templateName;
-//        return false;
-//    }
-
-//    QFile file(outputFileName);
-//    if (!file.open(QFile::WriteOnly)) {
-//        qWarning() << "failed to open file for writing" << outputFileName;
-//        return false;
-//    }
-
-//    QTextStream textStream(&file);
-//    NoEscapeStream noEscapeStream(&textStream);
-//    templates[templateName]->render(&noEscapeStream, &context);
-//    if (templates[templateName]->error()) {
-//        qInfo() << "failed to generate" << outputFileName << templates[templateName]->errorString();
-//        return false;
-//    }
-//    return true;
-//}
-
-//bool Generator::render(const QString &templateName, Grantlee::Context &context,
-//                       const QString &outputDirName, const QString &outputFileName) const
-//{
-//    return render(templateName, context, outputDirName + QLatin1Char('/') + outputFileName);
-//}
-
-//void Generator::renderClassFiles(const QString &templateBaseName, Grantlee::Context &context,
-//                                 const QString &outputPathName, const QString className)
-//{
-//    context.push();
-//    context.insert(QSL("ClassName"), className);
-//    foreach (const QString &extension, QStringList() << QSL(".cpp") << QSL(".h") << QSL("_p.h")) {
-//        render(templateBaseName + extension, context, outputPathName, className.toLower() + extension);
-//        ((extension == QSL(".cpp")) ? sources : headers).append(className.toLower() + extension);
-//    }
-//    context.pop();
 //}

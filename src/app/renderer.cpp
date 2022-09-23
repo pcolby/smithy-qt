@@ -63,13 +63,18 @@ QStringList Renderer::templatesNames() const
 //    }
 //};
 
-//bool Renderer::render(const QString &templateName, const QString &outputPathName,
-//            const QVariantMap &additionalContext = QVariantMap{}) const
-//{
-//    if (!templates.contains(templateName)) {
-//        qWarning() << "template does not exist" << templateName;
-//        return false;
-//    }
+
+bool Renderer::render(const QString &templateName, const QString &outputPathName,
+            const QVariantMap &additionalContext) const
+{
+    if (!templates.contains(templateName)) {
+        qWarning() << "template does not exist" << templateName;
+        return false;
+    }
+
+    qCDebug(lc) << "rendering" << templateName << "to" << outputPathName;
+    Q_UNUSED(additionalContext);
+    Q_UNIMPLEMENTED();
 
 //    QFile file(outputFileName);
 //    if (!file.open(QFile::WriteOnly)) {
@@ -84,5 +89,5 @@ QStringList Renderer::templatesNames() const
 //        qInfo() << "failed to generate" << outputFileName << templates[templateName]->errorString();
 //        return false;
 //    }
-//    return true;
-//}
+    return true;
+}
