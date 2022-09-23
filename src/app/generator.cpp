@@ -55,7 +55,6 @@ int Generator::generate(const QString &outputDir, ClobberMode clobberMode)
     // Build the list of template names.
     const QStringList templatesNames = renderer->templatesNames();
     QStringList serviceTemplateNames, operationTemplateNames, plainTemplateNames;
-    const QHash<smithy::ShapeId, smithy::Shape> services = model->shapes(smithy::Shape::Type::Service);
     for (const QString &name: templatesNames) {
         ((servicePattern.match(name).hasMatch()) ? (operationPattern.match(name).hasMatch() ?
             operationTemplateNames : serviceTemplateNames) : plainTemplateNames).append(name);
@@ -64,6 +63,7 @@ int Generator::generate(const QString &outputDir, ClobberMode clobberMode)
              + plainTemplateNames.size() == templatesNames.size());
 
     // Render all of the services.
+    const QHash<smithy::ShapeId, smithy::Shape> services = model->shapes(smithy::Shape::Type::Service);
     for (const smithy::Shape &service: services) {
         if (!renderService(service, serviceTemplateNames, outputDir, context, clobberMode)) {
             return false;
