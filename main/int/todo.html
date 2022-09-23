@@ -101,12 +101,15 @@ $(document).ready(function(){initNavTree('todo.html',''); initResizable(); });
 <div class="contents">
 <div class="textblock"><dl class="reflist">
 <dt>Member <a class="el" href="classGenerator.html#a2acc1aa91219cbd5ec9036569afa560e">Generator::generate</a>  (const <a class="elRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;outputDir, ClobberMode clobberMode)</dt>
-<dd><p class="startdd"><a class="anchor" id="_todo000001"></a>build a list of services to add to context. </p>
-<p class="interdd"><a class="anchor" id="_todo000002"></a>build context </p>
+<dd><a class="anchor" id="_todo000001"></a>build a list of services to add to context.  </dd>
+<dt>Member <a class="el" href="classGenerator.html#a3ee386f7ccc09947e1c9eedcdc60ee25">Generator::renderOperation</a>  (const smithy::Shape &amp;service, const smithy::Shape &amp;operation, const <a class="elRef" href="https://doc.qt.io/qt-5/qstringlist.html">QStringList</a> &amp;templateNames, const <a class="elRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;outputDir, const QVariantMap &amp;context, ClobberMode &amp;clobberMode)</dt>
+<dd><p class="startdd"><a class="anchor" id="_todo000005"></a>extend context for this operation. </p>
+<p class="enddd"><a class="anchor" id="_todo000006"></a>Build the output pathname.  </p>
+</dd>
+<dt>Member <a class="el" href="classGenerator.html#a5c83551528ea2d2730022e0ad8fcca4c">Generator::renderService</a>  (const smithy::Shape &amp;service, const <a class="elRef" href="https://doc.qt.io/qt-5/qstringlist.html">QStringList</a> &amp;templateNames, const <a class="elRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;outputDir, const QVariantMap &amp;context, ClobberMode &amp;clobberMode)</dt>
+<dd><p class="startdd"><a class="anchor" id="_todo000002"></a>extend context for this operation. </p>
 <p class="interdd"><a class="anchor" id="_todo000003"></a>render each of serviceTemplateNames, with sanitised service id. </p>
-<p class="interdd"><a class="anchor" id="_todo000004"></a>more context. </p>
-<p class="interdd"><a class="anchor" id="_todo000005"></a>for each opteration, render each of operationTemplateNames, with sanitised op ids. </p>
-<p class="enddd"><a class="anchor" id="_todo000006"></a>  </p>
+<p class="enddd"><a class="anchor" id="_todo000004"></a>Build the output pathname.  </p>
 </dd>
 <dt>Member <a class="el" href="classModel.html#a83538d8a8b26113594d14f2b1ea20d8f">Model::finish</a>  ()</dt>
 <dd><p class="startdd"><a class="anchor" id="_todo000008"></a>resolve shape conflicts. </p>
@@ -115,8 +118,10 @@ $(document).ready(function(){initNavTree('todo.html',''); initResizable(); });
 </dd>
 <dt>Member <a class="el" href="classModel.html#ae3b375de5f6df4faf74a95d64748e048">Model::Model</a>  ()</dt>
 <dd><a class="anchor" id="_todo000007"></a>Load the Smithy prelude here?  </dd>
+<dt>Member <a class="el" href="classModel.html#a230e00c458f652c3fa9b447bdd672bdc">Model::shape</a>  (const <a class="el" href="classShapeId.html" title="The ShapeId class provides a Qt representation of a Smithy Shape ID.">ShapeId</a> &amp;shapeId) const</dt>
+<dd><a class="anchor" id="_todo000011"></a>this should be d-&gt;mergedShapes, but using allShapes while <a class="el" href="classModel.html#a83538d8a8b26113594d14f2b1ea20d8f">finish()</a> is incomplete.  </dd>
 <dt>Member <a class="el" href="classModel.html#a006b5ee757212e9de1f564ebcdfab91d">Model::shapes</a>  (const <a class="el" href="classShape.html#a359229718ec54cfac5980b883e3e4ea8">Shape::Type</a> &amp;type=<a class="el" href="classShape.html#a359229718ec54cfac5980b883e3e4ea8aec0fc0100c4fc1ce4eea230c3dc10360" title="The shape is undefined, usually the result of an error condition.">Shape::Type::Undefined</a>) const</dt>
-<dd><a class="anchor" id="_todo000011"></a>this should be d-&gt;mergedShapes, but using allShapes while <a class="el" href="classModel.html#a83538d8a8b26113594d14f2b1ea20d8f">finish()</a> is incomplete. </dd>
+<dd><a class="anchor" id="_todo000012"></a>this should be d-&gt;mergedShapes, but using allShapes while <a class="el" href="classModel.html#a83538d8a8b26113594d14f2b1ea20d8f">finish()</a> is incomplete. </dd>
 </dl>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

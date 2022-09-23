@@ -1,9 +1,11 @@
 <map id="Generator::generate" name="Generator::generate">
-<area shape="rect" id="node1" title=" " alt="" coords="5,141,159,167"/>
-<area shape="rect" id="node2" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qlist.html#append" title=" " alt="" coords="248,5,359,31"/>
-<area shape="rect" id="node3" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qstring.html#arg-11" title=" " alt="" coords="254,55,353,80"/>
-<area shape="rect" id="node4" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qregularexpressionmatch.html#hasMatch" title=" " alt="" coords="207,105,400,145"/>
-<area shape="rect" id="node5" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qstring.html#isEmpty" title=" " alt="" coords="238,169,369,195"/>
-<area shape="rect" id="node6" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qregularexpression.html#match" title=" " alt="" coords="227,219,380,259"/>
-<area shape="rect" id="node7" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qlist.html#size" title=" " alt="" coords="259,284,348,309"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,156,159,181"/>
+<area shape="rect" id="node2" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qlist.html#append" title=" " alt="" coords="252,5,363,31"/>
+<area shape="rect" id="node3" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qregularexpressionmatch.html#hasMatch" title=" " alt="" coords="211,55,404,95"/>
+<area shape="rect" id="node4" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qregularexpression.html#match" title=" " alt="" coords="231,119,384,159"/>
+<area shape="rect" id="node5" href="$classGenerator.html#a3ee386f7ccc09947e1c9eedcdc60ee25" title=" " alt="" coords="207,184,408,209"/>
+<area shape="rect" id="node6" href="$classGenerator.html#a5c83551528ea2d2730022e0ad8fcca4c" title=" " alt="" coords="215,233,400,259"/>
+<area shape="rect" id="node9" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qlist.html#size" title=" " alt="" coords="263,283,352,308"/>
+<area shape="rect" id="node7" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qstring.html#arg-11" title=" " alt="" coords="472,208,571,233"/>
+<area shape="rect" id="node8" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qstring.html#isEmpty" title=" " alt="" coords="456,257,587,283"/>
 </map>

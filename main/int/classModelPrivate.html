@@ -191,11 +191,11 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >Constructs a new <a class="el" href="classModelPrivate.html" title="The ModelPrivate class provides private implementation for Model.">ModelPrivate</a> object with public implementation <em>q</em>. </p>
 
-<p class="definition">Definition at line <a class="el" href="model_8cpp_source.html#l00250">250</a> of file <a class="el" href="model_8cpp_source.html">model.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  250</span>                                          : <a class="code hl_variable" href="classModelPrivate.html#a4fe976346d4fd7832a9dd2494e39a786">q_ptr</a>(q)</div>
-<div class="line"><span class="lineno">  251</span>{</div>
-<div class="line"><span class="lineno">  252</span> </div>
-<div class="line"><span class="lineno">  253</span>}</div>
+<p class="definition">Definition at line <a class="el" href="model_8cpp_source.html#l00257">257</a> of file <a class="el" href="model_8cpp_source.html">model.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  257</span>                                          : <a class="code hl_variable" href="classModelPrivate.html#a4fe976346d4fd7832a9dd2494e39a786">q_ptr</a>(q)</div>
+<div class="line"><span class="lineno">  258</span>{</div>
+<div class="line"><span class="lineno">  259</span> </div>
+<div class="line"><span class="lineno">  260</span>}</div>
 <div class="ttc" id="aclassModelPrivate_html_a4fe976346d4fd7832a9dd2494e39a786"><div class="ttname"><a href="classModelPrivate.html#a4fe976346d4fd7832a9dd2494e39a786">ModelPrivate::q_ptr</a></div><div class="ttdeci">Model * q_ptr</div><div class="ttdoc">Internal q-pointer.</div><div class="ttdef"><b>Definition:</b> <a href="model__p_8h_source.html#l00032">model_p.h:32</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -225,44 +225,44 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="model_8cpp_source.html#l00256">256</a> of file <a class="el" href="model_8cpp_source.html">model.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  257</span>{</div>
-<div class="line"><span class="lineno">  258</span>    qCDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Merging %n metedata entry(s)&quot;</span>, <span class="keyword">nullptr</span>, metadata.size());</div>
-<div class="line"><span class="lineno">  259</span>    <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qjsonobject.html">QJsonObject</a> merged;</div>
-<div class="line"><span class="lineno">  260</span>    <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstringlist.html">QStringList</a> keys = metadata.keys();</div>
-<div class="line"><span class="lineno">  261</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;key: keys) {</div>
-<div class="line"><span class="lineno">  262</span>        <span class="comment">// If values are arrays, concatenate them.</span></div>
-<div class="line"><span class="lineno">  263</span>        <span class="keyword">const</span> <span class="keyword">auto</span> values = metadata.values(key);</div>
-<div class="line"><span class="lineno">  264</span>        <span class="keywordflow">if</span> (values.first().isArray()) {</div>
-<div class="line"><span class="lineno">  265</span>            <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qjsonarray.html">QJsonArray</a> concatenatedArray;</div>
-<div class="line"><span class="lineno">  266</span>            <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qjsonvalue.html">QJsonValue</a> &amp;value: values) {</div>
-<div class="line"><span class="lineno">  267</span>                <span class="keywordflow">if</span> (!value.isArray()) {</div>
-<div class="line"><span class="lineno">  268</span>                    qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Metadata %1 has conflicting types&quot;</span>).arg(key);</div>
-<div class="line"><span class="lineno">  269</span>                    <span class="keywordflow">return</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qjsonobject.html">QJsonObject</a>{};</div>
-<div class="line"><span class="lineno">  270</span>                }</div>
-<div class="line"><span class="lineno">  271</span>                <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qjsonarray.html">QJsonArray</a> thisArray = value.toArray();</div>
-<div class="line"><span class="lineno">  272</span>                <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qjsonvalue.html">QJsonValue</a> &amp;item: thisArray) {</div>
-<div class="line"><span class="lineno">  273</span>                    concatenatedArray.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qjsonarray.html#append">append</a>(item);</div>
-<div class="line"><span class="lineno">  274</span>                }</div>
-<div class="line"><span class="lineno">  275</span>            }</div>
-<div class="line"><span class="lineno">  276</span>            merged.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qjsonobject.html#insert">insert</a>(key, concatenatedArray);</div>
-<div class="line"><span class="lineno">  277</span>            <span class="keywordflow">continue</span>;</div>
-<div class="line"><span class="lineno">  278</span>        }</div>
-<div class="line"><span class="lineno">  279</span> </div>
-<div class="line"><span class="lineno">  280</span>        <span class="comment">// Otherwise all values must be identical.</span></div>
-<div class="line"><span class="lineno">  281</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qjsonvalue.html">QJsonValue</a> &amp;value: values) {</div>
-<div class="line"><span class="lineno">  282</span>            qDebug() &lt;&lt; values.first() &lt;&lt; value;</div>
-<div class="line"><span class="lineno">  283</span>            <span class="keywordflow">if</span> (value != values.first()) {</div>
-<div class="line"><span class="lineno">  284</span>                qCDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Metatadata %1 has conflicting values&quot;</span>).arg(key);</div>
-<div class="line"><span class="lineno">  285</span>                <span class="keywordflow">return</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qjsonobject.html">QJsonObject</a>{};</div>
-<div class="line"><span class="lineno">  286</span>            }</div>
-<div class="line"><span class="lineno">  287</span>        }</div>
-<div class="line"><span class="lineno">  288</span>        merged.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qjsonobject.html#insert">insert</a>(key, values.first());</div>
-<div class="line"><span class="lineno">  289</span>    }</div>
-<div class="line"><span class="lineno">  290</span>    qCDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Merged %n metedata entry(s) to %1&quot;</span>, <span class="keyword">nullptr</span>, metadata.size())</div>
-<div class="line"><span class="lineno">  291</span>                             .arg(merged.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qjsonobject.html#size">size</a>());</div>
-<div class="line"><span class="lineno">  292</span>    <span class="keywordflow">return</span> merged;</div>
-<div class="line"><span class="lineno">  293</span>}</div>
+<p class="definition">Definition at line <a class="el" href="model_8cpp_source.html#l00263">263</a> of file <a class="el" href="model_8cpp_source.html">model.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  264</span>{</div>
+<div class="line"><span class="lineno">  265</span>    qCDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Merging %n metedata entry(s)&quot;</span>, <span class="keyword">nullptr</span>, metadata.size());</div>
+<div class="line"><span class="lineno">  266</span>    <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qjsonobject.html">QJsonObject</a> merged;</div>
+<div class="line"><span class="lineno">  267</span>    <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstringlist.html">QStringList</a> keys = metadata.keys();</div>
+<div class="line"><span class="lineno">  268</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;key: keys) {</div>
+<div class="line"><span class="lineno">  269</span>        <span class="comment">// If values are arrays, concatenate them.</span></div>
+<div class="line"><span class="lineno">  270</span>        <span class="keyword">const</span> <span class="keyword">auto</span> values = metadata.values(key);</div>
+<div class="line"><span class="lineno">  271</span>        <span class="keywordflow">if</span> (values.first().isArray()) {</div>
+<div class="line"><span class="lineno">  272</span>            <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qjsonarray.html">QJsonArray</a> concatenatedArray;</div>
+<div class="line"><span class="lineno">  273</span>            <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qjsonvalue.html">QJsonValue</a> &amp;value: values) {</div>
+<div class="line"><span class="lineno">  274</span>                <span class="keywordflow">if</span> (!value.isArray()) {</div>
+<div class="line"><span class="lineno">  275</span>                    qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Metadata %1 has conflicting types&quot;</span>).arg(key);</div>
+<div class="line"><span class="lineno">  276</span>                    <span class="keywordflow">return</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qjsonobject.html">QJsonObject</a>{};</div>
+<div class="line"><span class="lineno">  277</span>                }</div>
+<div class="line"><span class="lineno">  278</span>                <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qjsonarray.html">QJsonArray</a> thisArray = value.toArray();</div>
+<div class="line"><span class="lineno">  279</span>                <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qjsonvalue.html">QJsonValue</a> &amp;item: thisArray) {</div>
+<div class="line"><span class="lineno">  280</span>                    concatenatedArray.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qjsonarray.html#append">append</a>(item);</div>
+<div class="line"><span class="lineno">  281</span>                }</div>
+<div class="line"><span class="lineno">  282</span>            }</div>
+<div class="line"><span class="lineno">  283</span>            merged.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qjsonobject.html#insert">insert</a>(key, concatenatedArray);</div>
+<div class="line"><span class="lineno">  284</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno">  285</span>        }</div>
+<div class="line"><span class="lineno">  286</span> </div>
+<div class="line"><span class="lineno">  287</span>        <span class="comment">// Otherwise all values must be identical.</span></div>
+<div class="line"><span class="lineno">  288</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qjsonvalue.html">QJsonValue</a> &amp;value: values) {</div>
+<div class="line"><span class="lineno">  289</span>            qDebug() &lt;&lt; values.first() &lt;&lt; value;</div>
+<div class="line"><span class="lineno">  290</span>            <span class="keywordflow">if</span> (value != values.first()) {</div>
+<div class="line"><span class="lineno">  291</span>                qCDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Metatadata %1 has conflicting values&quot;</span>).arg(key);</div>
+<div class="line"><span class="lineno">  292</span>                <span class="keywordflow">return</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qjsonobject.html">QJsonObject</a>{};</div>
+<div class="line"><span class="lineno">  293</span>            }</div>
+<div class="line"><span class="lineno">  294</span>        }</div>
+<div class="line"><span class="lineno">  295</span>        merged.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qjsonobject.html#insert">insert</a>(key, values.first());</div>
+<div class="line"><span class="lineno">  296</span>    }</div>
+<div class="line"><span class="lineno">  297</span>    qCDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Merged %n metedata entry(s) to %1&quot;</span>, <span class="keyword">nullptr</span>, metadata.size())</div>
+<div class="line"><span class="lineno">  298</span>                             .arg(merged.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qjsonobject.html#size">size</a>());</div>
+<div class="line"><span class="lineno">  299</span>    <span class="keywordflow">return</span> merged;</div>
+<div class="line"><span class="lineno">  300</span>}</div>
 <div class="ttc" id="aqjsonarray_html"><div class="ttname"><a href="https://doc.qt.io/qt-5/qjsonarray.html">QJsonArray</a></div></div>
 <div class="ttc" id="aqjsonarray_html_append"><div class="ttname"><a href="https://doc.qt.io/qt-5/qjsonarray.html#append">QJsonArray::append</a></div><div class="ttdeci">void append(const QJsonValue &amp;value)</div></div>
 <div class="ttc" id="aqjsonobject_html"><div class="ttname"><a href="https://doc.qt.io/qt-5/qjsonobject.html">QJsonObject</a></div></div>
@@ -298,25 +298,25 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="model_8cpp_source.html#l00295">295</a> of file <a class="el" href="model_8cpp_source.html">model.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  296</span>{</div>
-<div class="line"><span class="lineno">  297</span>    <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> versionString = ast.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qjsonobject.html#value">value</a>(<a class="code hl_classRef" href="https://doc.qt.io/qt-5/qlatin1string.html">QLatin1String</a>(<span class="stringliteral">&quot;smithy&quot;</span>)).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qjsonvalue.html#toString">toString</a>();</div>
-<div class="line"><span class="lineno">  298</span>    qCDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Smithy version string:&quot;</span>) &lt;&lt; versionString;</div>
-<div class="line"><span class="lineno">  299</span><span class="preprocessor">    #if (QT_VERSION &lt; QT_VERSION_CHECK(6, 4, 0))</span></div>
-<div class="line"><span class="lineno">  300</span>    <span class="keywordtype">int</span> suffixIndex = -1; <span class="comment">// Initial value is ignored.</span></div>
-<div class="line"><span class="lineno">  301</span><span class="preprocessor">    #else</span></div>
-<div class="line"><span class="lineno">  302</span>    qsizetype suffixIndex = -1; <span class="comment">// Initial value is ignored.</span></div>
-<div class="line"><span class="lineno">  303</span><span class="preprocessor">    #endif</span></div>
-<div class="line"><span class="lineno">  304</span>    <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qversionnumber.html">QVersionNumber</a> versionNumber = <a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qversionnumber.html#fromString">QVersionNumber::fromString</a>(versionString, &amp;suffixIndex);</div>
-<div class="line"><span class="lineno">  305</span>    qCDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Smithy version number:&quot;</span>) &lt;&lt; versionNumber;</div>
-<div class="line"><span class="lineno">  306</span>    <span class="keywordflow">if</span> (versionNumber.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qversionnumber.html#isNull">isNull</a>()) {</div>
-<div class="line"><span class="lineno">  307</span>        qCWarning(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Failed to parse Smithy version \&quot;%1\&quot;&quot;</span>).arg(versionString);</div>
-<div class="line"><span class="lineno">  308</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (suffixIndex &lt; versionString.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#length">length</a>()) {</div>
-<div class="line"><span class="lineno">  309</span>        qCWarning(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Ignoring Smithy version suffix \&quot;%1\&quot;&quot;</span>)</div>
-<div class="line"><span class="lineno">  310</span>                                   .arg(versionString.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#mid">mid</a>(suffixIndex));</div>
-<div class="line"><span class="lineno">  311</span>    }</div>
-<div class="line"><span class="lineno">  312</span>    <span class="keywordflow">return</span> versionNumber;</div>
-<div class="line"><span class="lineno">  313</span>}</div>
+<p class="definition">Definition at line <a class="el" href="model_8cpp_source.html#l00302">302</a> of file <a class="el" href="model_8cpp_source.html">model.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  303</span>{</div>
+<div class="line"><span class="lineno">  304</span>    <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> versionString = ast.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qjsonobject.html#value">value</a>(<a class="code hl_classRef" href="https://doc.qt.io/qt-5/qlatin1string.html">QLatin1String</a>(<span class="stringliteral">&quot;smithy&quot;</span>)).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qjsonvalue.html#toString">toString</a>();</div>
+<div class="line"><span class="lineno">  305</span>    qCDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Smithy version string:&quot;</span>) &lt;&lt; versionString;</div>
+<div class="line"><span class="lineno">  306</span><span class="preprocessor">    #if (QT_VERSION &lt; QT_VERSION_CHECK(6, 4, 0))</span></div>
+<div class="line"><span class="lineno">  307</span>    <span class="keywordtype">int</span> suffixIndex = -1; <span class="comment">// Initial value is ignored.</span></div>
+<div class="line"><span class="lineno">  308</span><span class="preprocessor">    #else</span></div>
+<div class="line"><span class="lineno">  309</span>    qsizetype suffixIndex = -1; <span class="comment">// Initial value is ignored.</span></div>
+<div class="line"><span class="lineno">  310</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><span class="lineno">  311</span>    <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qversionnumber.html">QVersionNumber</a> versionNumber = <a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qversionnumber.html#fromString">QVersionNumber::fromString</a>(versionString, &amp;suffixIndex);</div>
+<div class="line"><span class="lineno">  312</span>    qCDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Smithy version number:&quot;</span>) &lt;&lt; versionNumber;</div>
+<div class="line"><span class="lineno">  313</span>    <span class="keywordflow">if</span> (versionNumber.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qversionnumber.html#isNull">isNull</a>()) {</div>
+<div class="line"><span class="lineno">  314</span>        qCWarning(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Failed to parse Smithy version \&quot;%1\&quot;&quot;</span>).arg(versionString);</div>
+<div class="line"><span class="lineno">  315</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (suffixIndex &lt; versionString.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#length">length</a>()) {</div>
+<div class="line"><span class="lineno">  316</span>        qCWarning(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Ignoring Smithy version suffix \&quot;%1\&quot;&quot;</span>)</div>
+<div class="line"><span class="lineno">  317</span>                                   .arg(versionString.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#mid">mid</a>(suffixIndex));</div>
+<div class="line"><span class="lineno">  318</span>    }</div>
+<div class="line"><span class="lineno">  319</span>    <span class="keywordflow">return</span> versionNumber;</div>
+<div class="line"><span class="lineno">  320</span>}</div>
 <div class="ttc" id="aqjsonobject_html_value"><div class="ttname"><a href="https://doc.qt.io/qt-5/qjsonobject.html#value">QJsonObject::value</a></div><div class="ttdeci">QJsonValue value(const QString &amp;key) const const</div></div>
 <div class="ttc" id="aqjsonvalue_html_toString"><div class="ttname"><a href="https://doc.qt.io/qt-5/qjsonvalue.html#toString">QJsonValue::toString</a></div><div class="ttdeci">QString toString() const const</div></div>
 <div class="ttc" id="aqlatin1string_html"><div class="ttname"><a href="https://doc.qt.io/qt-5/qlatin1string.html">QLatin1String</a></div></div>

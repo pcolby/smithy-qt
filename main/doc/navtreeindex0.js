@@ -2,7 +2,8 @@ var NAVTREEINDEX0 =
 {
 "annotated.html":[1,0],
 "classModel.html":[1,0,0],
-"classModel.html#a006b5ee757212e9de1f564ebcdfab91d":[1,0,0,4],
+"classModel.html#a006b5ee757212e9de1f564ebcdfab91d":[1,0,0,5],
+"classModel.html#a230e00c458f652c3fa9b447bdd672bdc":[1,0,0,4],
 "classModel.html#a5296da875545acf527ce42c707d1ead1":[1,0,0,3],
 "classModel.html#a83538d8a8b26113594d14f2b1ea20d8f":[1,0,0,2],
 "classModel.html#ad6ebd2062a0b823db841a0b88baac4c0":[1,0,0,1],

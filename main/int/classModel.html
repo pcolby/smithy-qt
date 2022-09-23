@@ -159,6 +159,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a436f875911534be67157ec5055ba5c4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aea2a8387c167cf3b0fd4fd1539882b84"><td class="memItemLeft" align="right" valign="top"><a class="elRef" href="https://doc.qt.io/qt-5/qjsonobject.html">QJsonObject</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classModel.html#aea2a8387c167cf3b0fd4fd1539882b84">metadata</a> () const</td></tr>
 <tr class="separator:aea2a8387c167cf3b0fd4fd1539882b84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a230e00c458f652c3fa9b447bdd672bdc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classShape.html">Shape</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classModel.html#a230e00c458f652c3fa9b447bdd672bdc">shape</a> (const <a class="el" href="classShapeId.html">ShapeId</a> &amp;shapeId) const</td></tr>
+<tr class="separator:a230e00c458f652c3fa9b447bdd672bdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a006b5ee757212e9de1f564ebcdfab91d"><td class="memItemLeft" align="right" valign="top"><a class="elRef" href="https://doc.qt.io/qt-5/qhash.html">QHash</a>&lt; <a class="el" href="classShapeId.html">ShapeId</a>, <a class="el" href="classShape.html">Shape</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classModel.html#a006b5ee757212e9de1f564ebcdfab91d">shapes</a> (const <a class="el" href="classShape.html#a359229718ec54cfac5980b883e3e4ea8">Shape::Type</a> &amp;type=<a class="el" href="classShape.html#a359229718ec54cfac5980b883e3e4ea8aec0fc0100c4fc1ce4eea230c3dc10360">Shape::Type::Undefined</a>) const</td></tr>
 <tr class="separator:a006b5ee757212e9de1f564ebcdfab91d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -240,7 +242,7 @@ Private Member Functions</h2></td></tr>
 <div class="line"><span class="lineno">   32</span><span class="comment"></span>}</div>
 <div class="ttc" id="aclassModelPrivate_html"><div class="ttname"><a href="classModelPrivate.html">ModelPrivate</a></div><div class="ttdoc">The ModelPrivate class provides private implementation for Model.</div><div class="ttdef"><b>Definition:</b> <a href="model__p_8h_source.html#l00021">model_p.h:22</a></div></div>
 <div class="ttc" id="aclassModel_html"><div class="ttname"><a href="classModel.html">Model</a></div><div class="ttdoc">The Model class provides a Qt representation of a Smithy semantic model.</div><div class="ttdef"><b>Definition:</b> <a href="model_8h_source.html#l00026">model.h:27</a></div></div>
-<div class="ttc" id="aclassModel_html_af49427fcc6a671c63c7f31a2e5ac5ec4"><div class="ttname"><a href="classModel.html#af49427fcc6a671c63c7f31a2e5ac5ec4">Model::d_ptr</a></div><div class="ttdeci">ModelPrivate * d_ptr</div><div class="ttdef"><b>Definition:</b> <a href="model_8h_source.html#l00060">model.h:60</a></div></div>
+<div class="ttc" id="aclassModel_html_af49427fcc6a671c63c7f31a2e5ac5ec4"><div class="ttname"><a href="classModel.html#af49427fcc6a671c63c7f31a2e5ac5ec4">Model::d_ptr</a></div><div class="ttdeci">ModelPrivate * d_ptr</div><div class="ttdef"><b>Definition:</b> <a href="model_8h_source.html#l00061">model.h:61</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -324,7 +326,7 @@ Private Member Functions</h2></td></tr>
 <div class="line"><span class="lineno">   81</span>    <span class="keyword">delete</span> <a class="code hl_variable" href="classModel.html#af49427fcc6a671c63c7f31a2e5ac5ec4">d_ptr</a>;</div>
 <div class="line"><span class="lineno">   82</span>}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="model_8h_source.html#l00060">d_ptr</a>.</p>
+<p class="reference">References <a class="el" href="model_8h_source.html#l00061">d_ptr</a>.</p>
 
 </div>
 </div>
@@ -511,18 +513,19 @@ Private Member Functions</h2></td></tr>
 <div class="line"><span class="lineno">  171</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><span class="lineno">  172</span>            }</div>
 <div class="line"><span class="lineno">  173</span>            qCDebug(d-&gt;lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Processing shape %1&quot;</span>).arg(shapeId.toString());</div>
-<div class="line"><span class="lineno">  174</span>            <span class="keyword">const</span> <a class="code hl_class" href="classShape.html">Shape</a> shape{iter.value().toObject(), shapeId};</div>
-<div class="line"><span class="lineno">  175</span>            <span class="keywordflow">if</span> (!shape.isValid()) {</div>
+<div class="line"><span class="lineno">  174</span>            <span class="keyword">const</span> <a class="code hl_class" href="classShape.html">Shape</a> <a class="code hl_function" href="classModel.html#a230e00c458f652c3fa9b447bdd672bdc">shape</a>{iter.value().toObject(), shapeId};</div>
+<div class="line"><span class="lineno">  175</span>            <span class="keywordflow">if</span> (!<a class="code hl_function" href="classModel.html#a230e00c458f652c3fa9b447bdd672bdc">shape</a>.isValid()) {</div>
 <div class="line"><span class="lineno">  176</span>                qCCritical(d-&gt;lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Failed to process shape %1&quot;</span>).arg(iter.key());</div>
 <div class="line"><span class="lineno">  177</span>                <span class="keywordflow">if</span> (d-&gt;error == Error::NoError) d-&gt;error = Error::InvalidShape;</div>
 <div class="line"><span class="lineno">  178</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><span class="lineno">  179</span>            }</div>
-<div class="line"><span class="lineno">  180</span>            d-&gt;allShapes.insert(iter.key(), shape);</div>
+<div class="line"><span class="lineno">  180</span>            d-&gt;allShapes.insert(iter.key(), <a class="code hl_function" href="classModel.html#a230e00c458f652c3fa9b447bdd672bdc">shape</a>);</div>
 <div class="line"><span class="lineno">  181</span>        }</div>
 <div class="line"><span class="lineno">  182</span>    }</div>
 <div class="line"><span class="lineno">  183</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><span class="lineno">  184</span>}</div>
-<div class="ttc" id="aclassModel_html_a006b5ee757212e9de1f564ebcdfab91d"><div class="ttname"><a href="classModel.html#a006b5ee757212e9de1f564ebcdfab91d">Model::shapes</a></div><div class="ttdeci">QHash&lt; ShapeId, Shape &gt; shapes(const Shape::Type &amp;type=Shape::Type::Undefined) const</div><div class="ttdef"><b>Definition:</b> <a href="model_8cpp_source.html#l00223">model.cpp:223</a></div></div>
+<div class="ttc" id="aclassModel_html_a006b5ee757212e9de1f564ebcdfab91d"><div class="ttname"><a href="classModel.html#a006b5ee757212e9de1f564ebcdfab91d">Model::shapes</a></div><div class="ttdeci">QHash&lt; ShapeId, Shape &gt; shapes(const Shape::Type &amp;type=Shape::Type::Undefined) const</div><div class="ttdef"><b>Definition:</b> <a href="model_8cpp_source.html#l00230">model.cpp:230</a></div></div>
+<div class="ttc" id="aclassModel_html_a230e00c458f652c3fa9b447bdd672bdc"><div class="ttname"><a href="classModel.html#a230e00c458f652c3fa9b447bdd672bdc">Model::shape</a></div><div class="ttdeci">Shape shape(const ShapeId &amp;shapeId) const</div><div class="ttdef"><b>Definition:</b> <a href="model_8cpp_source.html#l00223">model.cpp:223</a></div></div>
 <div class="ttc" id="aclassShapeId_html"><div class="ttname"><a href="classShapeId.html">ShapeId</a></div><div class="ttdoc">The ShapeId class provides a Qt representation of a Smithy Shape ID.</div><div class="ttdef"><b>Definition:</b> <a href="shapeid_8h_source.html#l00023">shapeid.h:24</a></div></div>
 <div class="ttc" id="aclassShape_html"><div class="ttname"><a href="classShape.html">Shape</a></div><div class="ttdoc">The Shape class provides a Qt representation of a Smithy semantic shape.</div><div class="ttdef"><b>Definition:</b> <a href="shape_8h_source.html#l00024">shape.h:25</a></div></div>
 <div class="ttc" id="aqjsonobject_html_keys"><div class="ttname"><a href="https://doc.qt.io/qt-5/qjsonobject.html#keys">QJsonObject::keys</a></div><div class="ttdeci">QStringList keys() const const</div></div>
@@ -536,11 +539,11 @@ Private Member Functions</h2></td></tr>
 <div class="ttc" id="aqversionnumber_html_majorVersion"><div class="ttname"><a href="https://doc.qt.io/qt-5/qversionnumber.html#majorVersion">QVersionNumber::majorVersion</a></div><div class="ttdeci">int majorVersion() const const</div></div>
 <div class="ttc" id="aqversionnumber_html_toString"><div class="ttname"><a href="https://doc.qt.io/qt-5/qversionnumber.html#toString">QVersionNumber::toString</a></div><div class="ttdeci">QString toString() const const</div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="shapeid_8cpp_source.html#l00225">ShapeId::hasNameSpace()</a>, <a class="elRef" href="https://doc.qt.io/qt-5/qjsonvalue.html#isObject">QJsonValue::isObject()</a>, <a class="el" href="shapeid_8cpp_source.html#l00281">ShapeId::isValid()</a>, <a class="elRef" href="https://doc.qt.io/qt-5/qjsonobject.html#keys">QJsonObject::keys()</a>, <a class="elRef" href="https://doc.qt.io/qt-5/qversionnumber.html#majorVersion">QVersionNumber::majorVersion()</a>, <a class="el" href="model_8cpp_source.html#l00223">shapes()</a>, <a class="elRef" href="https://doc.qt.io/qt-5/qjsonvalue.html#toObject-1">QJsonValue::toObject()</a>, <a class="el" href="shapeid_8cpp_source.html#l00214">ShapeId::toString()</a>, <a class="elRef" href="https://doc.qt.io/qt-5/qversionnumber.html#toString">QVersionNumber::toString()</a>, and <a class="elRef" href="https://doc.qt.io/qt-5/qjsonobject.html#value">QJsonObject::value()</a>.</p>
+<p class="reference">References <a class="el" href="shapeid_8cpp_source.html#l00225">ShapeId::hasNameSpace()</a>, <a class="elRef" href="https://doc.qt.io/qt-5/qjsonvalue.html#isObject">QJsonValue::isObject()</a>, <a class="el" href="shapeid_8cpp_source.html#l00281">ShapeId::isValid()</a>, <a class="elRef" href="https://doc.qt.io/qt-5/qjsonobject.html#keys">QJsonObject::keys()</a>, <a class="elRef" href="https://doc.qt.io/qt-5/qversionnumber.html#majorVersion">QVersionNumber::majorVersion()</a>, <a class="el" href="model_8cpp_source.html#l00223">shape()</a>, <a class="el" href="model_8cpp_source.html#l00230">shapes()</a>, <a class="elRef" href="https://doc.qt.io/qt-5/qjsonvalue.html#toObject-1">QJsonValue::toObject()</a>, <a class="el" href="shapeid_8cpp_source.html#l00214">ShapeId::toString()</a>, <a class="elRef" href="https://doc.qt.io/qt-5/qversionnumber.html#toString">QVersionNumber::toString()</a>, and <a class="elRef" href="https://doc.qt.io/qt-5/qjsonobject.html#value">QJsonObject::value()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classModel_a5296da875545acf527ce42c707d1ead1_cgraph.svg" width="1336" height="578"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classModel_a5296da875545acf527ce42c707d1ead1_cgraph.svg" width="1336" height="630"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -650,6 +653,40 @@ Here is the call graph for this function:</div>
 </div><!-- fragment -->
 </div>
 </div>
+<a id="a230e00c458f652c3fa9b447bdd672bdc" name="a230e00c458f652c3fa9b447bdd672bdc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a230e00c458f652c3fa9b447bdd672bdc">&#9670;&#160;</a></span>shape()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classShape.html">Shape</a> Model::shape </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classShapeId.html">ShapeId</a> &amp;&#160;</td>
+          <td class="paramname"><em>shapeId</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000011">Todo:</a></b></dt><dd>this should be d-&gt;mergedShapes, but using allShapes while <a class="el" href="classModel.html#a83538d8a8b26113594d14f2b1ea20d8f">finish()</a> is incomplete. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="model_8cpp_source.html#l00223">223</a> of file <a class="el" href="model_8cpp_source.html">model.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  224</span>{</div>
+<div class="line"><span class="lineno">  225</span>    Q_D(<span class="keyword">const</span> <a class="code hl_class" href="classModel.html">Model</a>);<span class="comment"></span></div>
+<div class="line"><span class="lineno">  226</span><span class="comment">    /// \todo this should be d-&gt;mergedShapes, but using allShapes while finish() is incomplete.</span></div>
+<div class="line"><span class="lineno">  227</span><span class="comment"></span>    <span class="keywordflow">return</span> d-&gt;allShapes.value(shapeId);</div>
+<div class="line"><span class="lineno">  228</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="model_8cpp_source.html#l00102">insert()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classModel_a230e00c458f652c3fa9b447bdd672bdc_icgraph.svg" width="275" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
+</div>
+</div>
 <a id="a006b5ee757212e9de1f564ebcdfab91d" name="a006b5ee757212e9de1f564ebcdfab91d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a006b5ee757212e9de1f564ebcdfab91d">&#9670;&#160;</a></span>shapes()</h2>
 
@@ -665,30 +702,30 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000011">Todo:</a></b></dt><dd>this should be d-&gt;mergedShapes, but using allShapes while <a class="el" href="classModel.html#a83538d8a8b26113594d14f2b1ea20d8f">finish()</a> is incomplete. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000012">Todo:</a></b></dt><dd>this should be d-&gt;mergedShapes, but using allShapes while <a class="el" href="classModel.html#a83538d8a8b26113594d14f2b1ea20d8f">finish()</a> is incomplete. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="model_8cpp_source.html#l00223">223</a> of file <a class="el" href="model_8cpp_source.html">model.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  224</span>{</div>
-<div class="line"><span class="lineno">  225</span>    Q_D(<span class="keyword">const</span> <a class="code hl_class" href="classModel.html">Model</a>);</div>
-<div class="line"><span class="lineno">  226</span>    <span class="keywordflow">if</span> (type == <a class="code hl_enumvalue" href="classShape.html#a359229718ec54cfac5980b883e3e4ea8aec0fc0100c4fc1ce4eea230c3dc10360">Shape::Type::Undefined</a>) {</div>
-<div class="line"><span class="lineno">  227</span>        <span class="keywordflow">return</span> d-&gt;mergedShapes;</div>
-<div class="line"><span class="lineno">  228</span>    }</div>
-<div class="line"><span class="lineno">  229</span>    <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qhash.html">QHash&lt;ShapeId, Shape&gt;</a> <a class="code hl_function" href="classModel.html#a006b5ee757212e9de1f564ebcdfab91d">shapes</a>;<span class="comment"></span></div>
-<div class="line"><span class="lineno">  230</span><span class="comment">    /// \todo this should be d-&gt;mergedShapes, but using allShapes while finish() is incomplete.</span></div>
-<div class="line"><span class="lineno">  231</span><span class="comment"></span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> iter = d-&gt;allShapes.constBegin(); iter != d-&gt;allShapes.constEnd(); ++iter) {</div>
-<div class="line"><span class="lineno">  232</span>        <span class="keywordflow">if</span> (iter.value().type() == type) {</div>
-<div class="line"><span class="lineno">  233</span>            <a class="code hl_function" href="classModel.html#a006b5ee757212e9de1f564ebcdfab91d">shapes</a>.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qhash.html#insert">insert</a>(iter.key(), iter.value());</div>
-<div class="line"><span class="lineno">  234</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="model_8cpp_source.html#l00230">230</a> of file <a class="el" href="model_8cpp_source.html">model.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  231</span>{</div>
+<div class="line"><span class="lineno">  232</span>    Q_D(<span class="keyword">const</span> <a class="code hl_class" href="classModel.html">Model</a>);</div>
+<div class="line"><span class="lineno">  233</span>    <span class="keywordflow">if</span> (type == <a class="code hl_enumvalue" href="classShape.html#a359229718ec54cfac5980b883e3e4ea8aec0fc0100c4fc1ce4eea230c3dc10360">Shape::Type::Undefined</a>) {</div>
+<div class="line"><span class="lineno">  234</span>        <span class="keywordflow">return</span> d-&gt;mergedShapes;</div>
 <div class="line"><span class="lineno">  235</span>    }</div>
-<div class="line"><span class="lineno">  236</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="classModel.html#a006b5ee757212e9de1f564ebcdfab91d">shapes</a>;</div>
-<div class="line"><span class="lineno">  237</span>}</div>
+<div class="line"><span class="lineno">  236</span>    <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qhash.html">QHash&lt;ShapeId, Shape&gt;</a> <a class="code hl_function" href="classModel.html#a006b5ee757212e9de1f564ebcdfab91d">shapes</a>;<span class="comment"></span></div>
+<div class="line"><span class="lineno">  237</span><span class="comment">    /// \todo this should be d-&gt;mergedShapes, but using allShapes while finish() is incomplete.</span></div>
+<div class="line"><span class="lineno">  238</span><span class="comment"></span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> iter = d-&gt;allShapes.constBegin(); iter != d-&gt;allShapes.constEnd(); ++iter) {</div>
+<div class="line"><span class="lineno">  239</span>        <span class="keywordflow">if</span> (iter.value().type() == type) {</div>
+<div class="line"><span class="lineno">  240</span>            <a class="code hl_function" href="classModel.html#a006b5ee757212e9de1f564ebcdfab91d">shapes</a>.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qhash.html#insert">insert</a>(iter.key(), iter.value());</div>
+<div class="line"><span class="lineno">  241</span>        }</div>
+<div class="line"><span class="lineno">  242</span>    }</div>
+<div class="line"><span class="lineno">  243</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="classModel.html#a006b5ee757212e9de1f564ebcdfab91d">shapes</a>;</div>
+<div class="line"><span class="lineno">  244</span>}</div>
 <div class="ttc" id="aclassShape_html_a359229718ec54cfac5980b883e3e4ea8aec0fc0100c4fc1ce4eea230c3dc10360"><div class="ttname"><a href="classShape.html#a359229718ec54cfac5980b883e3e4ea8aec0fc0100c4fc1ce4eea230c3dc10360">Shape::Type::Undefined</a></div><div class="ttdeci">@ Undefined</div><div class="ttdoc">The shape is undefined, usually the result of an error condition.</div></div>
 <div class="ttc" id="aqhash_html"><div class="ttname"><a href="https://doc.qt.io/qt-5/qhash.html">QHash</a></div></div>
 <div class="ttc" id="aqhash_html_insert"><div class="ttname"><a href="https://doc.qt.io/qt-5/qhash.html#insert">QHash::insert</a></div><div class="ttdeci">QHash::iterator insert(const Key &amp;key, const T &amp;value)</div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="elRef" href="https://doc.qt.io/qt-5/qhash.html#insert">QHash::insert()</a>, <a class="el" href="model_8cpp_source.html#l00223">shapes()</a>, and <a class="el" href="classShape.html#a359229718ec54cfac5980b883e3e4ea8aec0fc0100c4fc1ce4eea230c3dc10360">Shape::Undefined</a>.</p>
+<p class="reference">References <a class="elRef" href="https://doc.qt.io/qt-5/qhash.html#insert">QHash::insert()</a>, <a class="el" href="model_8cpp_source.html#l00230">shapes()</a>, and <a class="el" href="classShape.html#a359229718ec54cfac5980b883e3e4ea8aec0fc0100c4fc1ce4eea230c3dc10360">Shape::Undefined</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="model_8cpp_source.html#l00102">insert()</a>, and <a class="el" href="model_8cpp_source.html#l00223">shapes()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="model_8cpp_source.html#l00102">insert()</a>, and <a class="el" href="model_8cpp_source.html#l00230">shapes()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -726,7 +763,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p >Internal d-pointer. </p>
 
-<p class="definition">Definition at line <a class="el" href="model_8h_source.html#l00060">60</a> of file <a class="el" href="model_8h_source.html">model.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="model_8h_source.html#l00061">61</a> of file <a class="el" href="model_8h_source.html">model.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="model_8cpp_source.html#l00079">~Model()</a>.</p>
 
