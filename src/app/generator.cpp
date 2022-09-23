@@ -57,15 +57,8 @@ int Generator::generate(const QString &outputDir, ClobberMode clobberMode)
     QStringList serviceTemplateNames, operationTemplateNames, plainTemplateNames;
     const QHash<smithy::ShapeId, smithy::Shape> services = model->shapes(smithy::Shape::Type::Service);
     for (const QString &name: templatesNames) {
-        if (servicePattern.match(name).hasMatch()) {
-            if (operationPattern.match(name).hasMatch()) {
-                operationTemplateNames.append(name);
-            } else {
-                serviceTemplateNames.append(name);
-            }
-        } else {
-            plainTemplateNames.append(name);
-        }
+        ((servicePattern.match(name).hasMatch()) ? (operationPattern.match(name).hasMatch() ?
+            operationTemplateNames : serviceTemplateNames) : plainTemplateNames).append(name);
     }
     Q_ASSERT(serviceTemplateNames.size() + operationTemplateNames.size()
              + plainTemplateNames.size() == templatesNames.size());
