@@ -36,8 +36,8 @@ var searchData=
   ['null_33',['Null',['https://doc.qt.io/qt-5/qstring-null.html',1,'QString']]],
   ['nulldevice_34',['nullDevice',['https://doc.qt.io/qt-5/qprocess.html#nullDevice',1,'QProcess']]],
   ['number_35',['number',['https://doc.qt.io/qt-5/qstring.html#number-2',1,'QString::number(int n, int base)'],['https://doc.qt.io/qt-5/qstring.html#number-6',1,'QString::number(double n, char format, int precision)'],['https://doc.qt.io/qt-5/qstring.html#number-5',1,'QString::number(qulonglong n, int base)'],['https://doc.qt.io/qt-5/qstring.html#number-4',1,'QString::number(qlonglong n, int base)'],['https://doc.qt.io/qt-5/qstring.html#number-3',1,'QString::number(ulong n, int base)'],['https://doc.qt.io/qt-5/qstring.html#number',1,'QString::number(long n, int base)'],['https://doc.qt.io/qt-5/qstring.html#number-1',1,'QString::number(uint n, int base)'],['https://doc.qt.io/qt-5/qbytearray.html#number-4',1,'QByteArray::number(double n, char f, int prec)'],['https://doc.qt.io/qt-5/qbytearray.html#number-3',1,'QByteArray::number(qulonglong n, int base)'],['https://doc.qt.io/qt-5/qbytearray.html#number-2',1,'QByteArray::number(qlonglong n, int base)'],['https://doc.qt.io/qt-5/qbytearray.html#number-1',1,'QByteArray::number(uint n, int base)'],['https://doc.qt.io/qt-5/qbytearray.html#number',1,'QByteArray::number(int n, int base)']]],
-  ['numberflags_36',['numberFlags',['https://doc.qt.io/qt-5/qtextstream.html#numberFlags',1,'QTextStream']]],
-  ['numberflags_37',['NumberFlags',['https://doc.qt.io/qt-5/qtextstream.html#NumberFlag-enum',1,'QTextStream']]],
+  ['numberflags_36',['NumberFlags',['https://doc.qt.io/qt-5/qtextstream.html#NumberFlag-enum',1,'QTextStream']]],
+  ['numberflags_37',['numberFlags',['https://doc.qt.io/qt-5/qtextstream.html#numberFlags',1,'QTextStream']]],
   ['numberoptions_38',['numberOptions',['https://doc.qt.io/qt-5/qlocale.html#numberOptions',1,'QLocale']]],
   ['numberoptions_39',['NumberOptions',['https://doc.qt.io/qt-5/qlocale.html#NumberOption-enum',1,'QLocale']]],
   ['numericmode_40',['numericMode',['https://doc.qt.io/qt-5/qcollator.html#numericMode',1,'QCollator']]]
