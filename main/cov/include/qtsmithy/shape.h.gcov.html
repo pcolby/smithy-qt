@@ -203,27 +203,29 @@
 <a name="141"><span class="lineNum">     141 </span>            :     // Mixins https://awslabs.github.io/smithy/2.0/spec/json-ast.html#mixins</a>
 <a name="142"><span class="lineNum">     142 </span>            :     ShapeReferences mixins() const;</a>
 <a name="143"><span class="lineNum">     143 </span>            : </a>
-<a name="144"><span class="lineNum">     144 </span>            : protected:</a>
-<a name="145"><span class="lineNum">     145 </span>            :     /// \cond internal</a>
-<a name="146"><span class="lineNum">     146 </span>            :     ShapePrivate * d_ptr; ///&lt; Internal d-pointer.</a>
-<a name="147"><span class="lineNum">     147 </span>            :     /// \endcond</a>
-<a name="148"><span class="lineNum">     148 </span>            : </a>
-<a name="149"><span class="lineNum">     149 </span>            : private:</a>
-<a name="150"><span class="lineNum">     150 </span><span class="lineNoCov">          0 :     Q_DECLARE_PRIVATE(Shape)</span></a>
-<a name="151"><span class="lineNum">     151 </span>            :     QTSMITHY_BEFRIEND_TEST(Shape)</a>
-<a name="152"><span class="lineNum">     152 </span>            : };</a>
-<a name="153"><span class="lineNum">     153 </span>            : </a>
-<a name="154"><span class="lineNum">     154 </span>            : #if (QT_VERSION &lt; QT_VERSION_CHECK(6, 0, 0))</a>
-<a name="155"><span class="lineNum">     155 </span>            : QTSMITHY_EXPORT uint qHash(const Shape::ShapeReference &amp;key, uint seed = 0);</a>
-<a name="156"><span class="lineNum">     156 </span>            : #else</a>
-<a name="157"><span class="lineNum">     157 </span>            : QTSMITHY_EXPORT size_t qHash(const Shape::ShapeReference &amp;key, size_t seed = 0);</a>
-<a name="158"><span class="lineNum">     158 </span>            : #endif</a>
-<a name="159"><span class="lineNum">     159 </span>            : </a>
-<a name="160"><span class="lineNum">     160 </span>            : QTSMITHY_EXPORT bool operator==(const Shape::ShapeReference &amp;lhs, const Shape::ShapeReference&amp; rhs);</a>
+<a name="144"><span class="lineNum">     144 </span>            :     QJsonObject rawAst() const;</a>
+<a name="145"><span class="lineNum">     145 </span>            : </a>
+<a name="146"><span class="lineNum">     146 </span>            : protected:</a>
+<a name="147"><span class="lineNum">     147 </span>            :     /// \cond internal</a>
+<a name="148"><span class="lineNum">     148 </span>            :     ShapePrivate * d_ptr; ///&lt; Internal d-pointer.</a>
+<a name="149"><span class="lineNum">     149 </span>            :     /// \endcond</a>
+<a name="150"><span class="lineNum">     150 </span>            : </a>
+<a name="151"><span class="lineNum">     151 </span>            : private:</a>
+<a name="152"><span class="lineNum">     152 </span><span class="lineNoCov">          0 :     Q_DECLARE_PRIVATE(Shape)</span></a>
+<a name="153"><span class="lineNum">     153 </span>            :     QTSMITHY_BEFRIEND_TEST(Shape)</a>
+<a name="154"><span class="lineNum">     154 </span>            : };</a>
+<a name="155"><span class="lineNum">     155 </span>            : </a>
+<a name="156"><span class="lineNum">     156 </span>            : #if (QT_VERSION &lt; QT_VERSION_CHECK(6, 0, 0))</a>
+<a name="157"><span class="lineNum">     157 </span>            : QTSMITHY_EXPORT uint qHash(const Shape::ShapeReference &amp;key, uint seed = 0);</a>
+<a name="158"><span class="lineNum">     158 </span>            : #else</a>
+<a name="159"><span class="lineNum">     159 </span>            : QTSMITHY_EXPORT size_t qHash(const Shape::ShapeReference &amp;key, size_t seed = 0);</a>
+<a name="160"><span class="lineNum">     160 </span>            : #endif</a>
 <a name="161"><span class="lineNum">     161 </span>            : </a>
-<a name="162"><span class="lineNum">     162 </span>            : QTSMITHY_END_NAMESPACE</a>
+<a name="162"><span class="lineNum">     162 </span>            : QTSMITHY_EXPORT bool operator==(const Shape::ShapeReference &amp;lhs, const Shape::ShapeReference&amp; rhs);</a>
 <a name="163"><span class="lineNum">     163 </span>            : </a>
-<a name="164"><span class="lineNum">     164 </span>            : #endif // QTSMITHY_SHAPE_H</a>
+<a name="164"><span class="lineNum">     164 </span>            : QTSMITHY_END_NAMESPACE</a>
+<a name="165"><span class="lineNum">     165 </span>            : </a>
+<a name="166"><span class="lineNum">     166 </span>            : #endif // QTSMITHY_SHAPE_H</a>
 </pre>
       </td>
     </tr>
