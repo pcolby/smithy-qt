@@ -292,16 +292,39 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd></dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Sanitise sdkId (eg remove spaces). </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd></dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="generator_8cpp_source.html#l00047">47</a> of file <a class="el" href="generator_8cpp_source.html">generator.cpp</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   48</span>{</div>
-<div class="line"><span class="lineno">   49</span>    Q_UNUSED(outputDir);</div>
-<div class="line"><span class="lineno">   50</span>    Q_UNUSED(clobberMode);</div>
-<div class="line"><span class="lineno">   51</span>    Q_UNIMPLEMENTED();</div>
-<div class="line"><span class="lineno">   52</span>    <span class="keywordflow">return</span> -1; <span class="comment">/// \todo</span></div>
-<div class="line"><span class="lineno">   53</span>}</div>
+<div class="line"><span class="lineno">   49</span>    <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qhash.html">QHash&lt;smithy::ShapeId, smithy::Shape&gt;</a> services = model-&gt;shapes(smithy::Shape::Type::Service);</div>
+<div class="line"><span class="lineno">   50</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> smithy::Shape &amp;service: services) {</div>
+<div class="line"><span class="lineno">   51</span>        qCDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Generating code for service %1&quot;</span>).arg(service.id().toString());</div>
+<div class="line"><span class="lineno">   52</span>        <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> sdkId = service.traits().value(QSL(<span class="stringliteral">&quot;aws.api#service&quot;</span>)).toObject().value(QSL(<span class="stringliteral">&quot;sdkId&quot;</span>)).toString();</div>
+<div class="line"><span class="lineno">   53</span>        <span class="keywordflow">if</span> (sdkId.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#isEmpty">isEmpty</a>()) {</div>
+<div class="line"><span class="lineno">   54</span>            qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Service %1 has no SDK ID&quot;</span>).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#arg-11">arg</a>(service.id().toString());</div>
+<div class="line"><span class="lineno">   55</span>            <span class="keywordflow">return</span> -1;</div>
+<div class="line"><span class="lineno">   56</span> </div>
+<div class="line"><span class="lineno">   57</span>        }</div>
+<div class="line"><span class="lineno">   58</span>        qCDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;SDK ID: %1&quot;</span>).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#arg-11">arg</a>(sdkId);<span class="comment"></span></div>
+<div class="line"><span class="lineno">   59</span><span class="comment">        /// \todo Sanitise sdkId (eg remove spaces).</span></div>
+<div class="line"><span class="lineno">   60</span><span class="comment"></span>    }</div>
+<div class="line"><span class="lineno">   61</span>    Q_UNUSED(outputDir);</div>
+<div class="line"><span class="lineno">   62</span>    Q_UNUSED(clobberMode);</div>
+<div class="line"><span class="lineno">   63</span>    Q_UNIMPLEMENTED();</div>
+<div class="line"><span class="lineno">   64</span>    <span class="keywordflow">return</span> -1; <span class="comment">/// \todo</span></div>
+<div class="line"><span class="lineno">   65</span>}</div>
+<div class="ttc" id="aqstring_html_arg-11"><div class="ttname"><a href="https://doc.qt.io/qt-5/qstring.html#arg-11">QString::arg</a></div><div class="ttdeci">QString arg(qlonglong a, int fieldWidth, int base, QChar fillChar) const const</div></div>
+<div class="ttc" id="aqstring_html_isEmpty"><div class="ttname"><a href="https://doc.qt.io/qt-5/qstring.html#isEmpty">QString::isEmpty</a></div><div class="ttdeci">bool isEmpty() const const</div></div>
 </div><!-- fragment -->
+<p class="reference">References <a class="elRef" href="https://doc.qt.io/qt-5/qstring.html#arg-11">QString::arg()</a>, and <a class="elRef" href="https://doc.qt.io/qt-5/qstring.html#isEmpty">QString::isEmpty()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classGenerator_ab361ff0bfa96dfbd44afaecc2c4fb852_cgraph.svg" width="343" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
