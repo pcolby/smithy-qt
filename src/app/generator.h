@@ -52,5 +52,7 @@ private:
     const smithy::Model * const model;
     const Renderer * const renderer;
 
+    static const QRegularExpression servicePattern;
+    static const QRegularExpression operationPattern;
     static Q_LOGGING_CATEGORY(lc, "smithy.Generator", QtInfoMsg); ///< Logging category for Generator.
 };

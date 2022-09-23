@@ -13,12 +13,23 @@
 
 #define QSL(str) QStringLiteral(str) // Shorten the QStringLiteral macro for readability.
 
+const QRegularExpression Generator::servicePattern{
+    QSL("(?<type>Service)(?<seperator>[-_.]*)(?<id>Name|sdkId)"),
+    QRegularExpression::CaseInsensitiveOption
+};
+
+const QRegularExpression Generator::operationPattern{
+    QSL("(?<type>Operation)(?<seperator>[-_.]*)(?<id>Name)"),
+    QRegularExpression::CaseInsensitiveOption
+};
+
 Generator::Generator(const smithy::Model * const model, const Renderer * const renderer)
     : model(model), renderer(renderer)
 {
     Q_ASSERT(model->isValid());
     Q_ASSERT(renderer);
 }
+
 
 int Generator::expectedFileCount() const
 {
@@ -29,10 +40,8 @@ int Generator::expectedFileCount() const
     int expected = 0;
     const QStringList templates = renderer->templatesNames();
     for (const QString &name: templates) {
-        if (name.contains(QSL("ServiceName"), Qt::CaseInsensitive)||
-            name.contains(QSL("Service_Name"), Qt::CaseInsensitive)) {
-            if (name.contains(QSL("OperationName"), Qt::CaseInsensitive)||
-                name.contains(QSL("Operation_Name"), Qt::CaseInsensitive)) {
+        if (servicePattern.match(name).hasMatch()) {
+            if (operationPattern.match(name).hasMatch()) {
                 expected += operations;
             } else {
                 expected += services.size();
@@ -56,6 +65,7 @@ int Generator::generate(const QDir &outputDir, ClobberMode clobberMode)
 
         }
         qCDebug(lc).noquote() << tr("SDK ID: %1").arg(sdkId);
+        qCDebug(lc).noquote() << QJsonDocument(service.rawAst()).toJson();
         /// \todo Sanitise sdkId (eg remove spaces).
     }
     Q_UNUSED(outputDir);
