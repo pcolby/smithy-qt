@@ -47,7 +47,10 @@ int Generator::expectedFileCount() const
 
 int Generator::generate(const QString &outputDir, ClobberMode clobberMode)
 {
+    this->renderedFileCount = 0;
+
     /// \todo build a list of services to add to context.
+    QVariantMap context;
 
     // Build the list of template names.
     const QStringList templatesNames = renderer->templatesNames();
@@ -69,53 +72,83 @@ int Generator::generate(const QString &outputDir, ClobberMode clobberMode)
 
     // Render all of the services.
     for (const smithy::Shape &service: services) {
-        qCDebug(lc).noquote() << tr("Generating code for service %1").arg(service.id().toString());
-        const QString sdkId = service.traits().value(QSL("aws.api#service")).toObject().value(QSL("sdkId")).toString();
-        if (sdkId.isEmpty()) {
-            qCCritical(lc).noquote() << tr("Service %1 has no SDK ID").arg(service.id().toString());
-            return -1;
+        if (!renderService(service, serviceTemplateNames, outputDir, context, clobberMode)) {
+            return false;
         }
-        qCDebug(lc).noquote() << tr("SDK ID: %1").arg(sdkId);
-
-        /// \todo build context
-        QVariantMap context;
-
-        /// \todo render each of serviceTemplateNames, with sanitised service id.
-        for (const QString &templateName: serviceTemplateNames) {
-            qCDebug(lc).noquote() << "render ";
-            render(templateName, outputDir, context, clobberMode);
-
-            const smithy::Shape::ShapeReferences operations = service.operations();
-            for (auto iter = operations.constBegin(); iter != operations.constEnd(); ++iter) {
-                /// \todo more context.
-                for (const QString &templateName: operationTemplateNames) {
-                    render(templateName, outputDir, context, clobberMode);
-                }
+        const smithy::Shape::ShapeReferences operations = service.operations();
+        for (const smithy::Shape::ShapeReference &shapeRef: operations) {
+            const smithy::Shape operation = model->shape(shapeRef.target);
+            if (!operation.isValid()) {
+                qCCritical(lc).noquote() << tr("Failed to find shape for %1 operation in %2 service")
+                    .arg(shapeRef.target.toString(), service.id().toString());
+                return -1;
             }
+            renderOperation(service, operation, operationTemplateNames, outputDir, context, clobberMode);
         }
-
-        /// \todo for each opteration, render each of operationTemplateNames, with sanitised op ids.
-        //qCDebug(lc).noquote() << QJsonDocument(service.rawAst()).toJson();
     }
 
     // Render all of the one-off (not per-service) files.
-    for (const QString &name: plainTemplateNames) {
-        qDebug() << "Render" << name;
+    for (const QString &templateName: plainTemplateNames) {
+        render(templateName, outputDir, context, clobberMode);
     }
     Q_UNUSED(outputDir);
     Q_UNUSED(clobberMode);
     Q_UNIMPLEMENTED();
-    return -1; /// \todo
+    return renderedFileCount;
 }
 
-bool Generator::render(const QString &templateName, const QString &outputDir,
-                       const QVariantMap &context, ClobberMode &clobberMode) const
+bool Generator::renderService(const smithy::Shape &service,  const QStringList &templateNames,
+                              const QString &outputDir, const QVariantMap &context,
+                              ClobberMode &clobberMode)
 {
-    // Build the output pathname.
-    QString outputPathName = outputDir + QLatin1Char('/') + templateName;
+    qCDebug(lc).noquote() << tr("Rendering templates for service %1").arg(service.id().toString());
 
+    /// \todo extend context for this operation.
+    const QString sdkId = service.traits().value(QSL("aws.api#service")).toObject().value(QSL("sdkId")).toString();
+    if (sdkId.isEmpty()) {
+        qCCritical(lc).noquote() << tr("Service %1 has no SDK ID").arg(service.id().toString());
+        return -1;
+    }
+    qCDebug(lc).noquote() << tr("SDK ID: %1").arg(sdkId);
+
+
+    /// \todo render each of serviceTemplateNames, with sanitised service id.
+    for (const QString &templateName: templateNames) {
+        /// \todo Build the output pathname.
+        QString outputPathName = outputDir + QLatin1Char('/') + templateName;
+        if (!render(templateName, outputPathName, context, clobberMode)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool Generator::renderOperation(const smithy::Shape &service, const smithy::Shape &operation,
+                                const QStringList &templateNames, const QString &outputDir,
+                                const QVariantMap &context, ClobberMode &clobberMode)
+{
+    qCDebug(lc).noquote() << tr("Rendering templates for operation %1").arg(operation.id().toString());
+
+    /// \todo extend context for this operation.
+    Q_UNUSED(service);
+
+    for (const QString &templateName: templateNames) {
+        /// \todo Build the output pathname.
+        QString outputPathName = outputDir + QLatin1Char('/') + templateName;
+        if (!render(templateName, outputPathName, context, clobberMode)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool Generator::render(const QString &templateName, const QString &outputPathName,
+                       const QVariantMap &context, ClobberMode &clobberMode)
+{
     // Apply the clobber.
     Q_UNUSED(clobberMode);
+
+    renderedFileCount++;
 
     // Render the content.
     return renderer->render(templateName, outputPathName, context);

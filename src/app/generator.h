@@ -11,6 +11,7 @@
 
 namespace smithy {
   class Model;
+  class Shape;
 }
 class Renderer;
 
@@ -32,8 +33,18 @@ public:
     int generate(const QString &outputDir, ClobberMode clobberMode);
 
 protected:
-    bool render(const QString &templateName, const QString &outputDir,
-                const QVariantMap &context, ClobberMode &clobberMode) const;
+    int renderedFileCount;
+
+    bool renderService(const smithy::Shape &service, const QStringList &templateNames,
+                       const QString &outputDir, const QVariantMap &context,
+                       ClobberMode &clobberMode);
+
+    bool renderOperation(const smithy::Shape &service, const smithy::Shape &operation,
+                         const QStringList &templateNames, const QString &outputDir,
+                         const QVariantMap &context, ClobberMode &clobberMode);
+
+    bool render(const QString &templateName, const QString &outputPathName,
+                const QVariantMap &context, ClobberMode &clobberMode);
 
 private:
     const smithy::Model * const model;
