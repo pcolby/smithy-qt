@@ -82,9 +82,11 @@ bool Generator::generate(const QString &outputDir, ClobberMode clobberMode)
     }
 
     // Render all of the one-off (not per-service) files.
+    qCDebug(lc).noquote() << tr("Rendering %n unary template/s", nullptr, plainTemplateNames.size());
     return std::all_of(plainTemplateNames.constBegin(), plainTemplateNames.constEnd(),
         [&](const QString &templateName){
-            return render(templateName, outputDir, context, clobberMode);
+            const QString outputPathName = outputDir + QLatin1Char('/') + templateName;
+            return render(templateName, outputPathName, context, clobberMode);
     });
 }
 
