@@ -24,7 +24,7 @@ const QRegularExpression Generator::operationPattern{
 };
 
 Generator::Generator(const smithy::Model * const model, const Renderer * const renderer)
-    : renderedFileCount(0), model(model), renderer(renderer)
+    : model(model), renderer(renderer)
 {
     Q_ASSERT(model->isValid());
     Q_ASSERT(renderer);
@@ -45,10 +45,8 @@ int Generator::expectedFileCount() const
         });
 }
 
-int Generator::generate(const QString &outputDir, ClobberMode clobberMode)
+bool Generator::generate(const QString &outputDir, ClobberMode clobberMode)
 {
-    renderedFileCount = 0;
-
     /// \todo build a list of services to add to context.
     QVariantMap context;
 
@@ -74,7 +72,7 @@ int Generator::generate(const QString &outputDir, ClobberMode clobberMode)
             if (!operation.isValid()) {
                 qCCritical(lc).noquote() << tr("Failed to find shape for %1 operation in %2 service")
                     .arg(shapeRef.target.toString(), service.id().toString());
-                return -1;
+                return false;
             }
             renderOperation(service, operation, operationTemplateNames, outputDir, context, clobberMode);
         }
@@ -82,12 +80,21 @@ int Generator::generate(const QString &outputDir, ClobberMode clobberMode)
 
     // Render all of the one-off (not per-service) files.
     for (const QString &templateName: plainTemplateNames) {
-        render(templateName, outputDir, context, clobberMode);
+        if (!render(templateName, outputDir, context, clobberMode)) {
+            return false;
+        }
     }
-    Q_UNUSED(outputDir);
-    Q_UNUSED(clobberMode);
-    Q_UNIMPLEMENTED();
-    return renderedFileCount;
+    return true;
+}
+
+QStringList Generator::renderedFiles() const
+{
+    return renderedPathNames;
+}
+
+QStringList Generator::skippedFiles() const
+{
+    return skippedPathNames;
 }
 
 bool Generator::renderService(const smithy::Shape &service,  const QStringList &templateNames,
@@ -164,18 +171,19 @@ bool Generator::render(const QString &templateName, const QString &outputPathNam
             break;
         case ClobberMode::Prompt:
             if (promptToOverwrite(outputPathName, clobberMode)) {
-                break; // User said no.
+                break; // User said yes, so jump out of case statement.
             }
             __attribute__((fallthrough));
         case ClobberMode::Skip:
             qCDebug(lc) << tr("Skipping existing output file: %1").arg(outputPathName);
+            skippedPathNames.append(outputPathName);
             return true;
         }
     }
     if (!renderer->render(templateName, outputPathName, context)) {
         return false;
     }
-    renderedFileCount++;
+    renderedPathNames.append(outputPathName);
     return true;
 }
 

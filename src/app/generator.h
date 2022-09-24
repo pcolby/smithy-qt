@@ -30,7 +30,10 @@ public:
 
     int expectedFileCount() const;
 
-    int generate(const QString &outputDir, ClobberMode clobberMode);
+    bool generate(const QString &outputDir, ClobberMode clobberMode);
+
+    QStringList renderedFiles() const;
+    QStringList skippedFiles() const;
 
 protected:
     enum class Capitalisation {
@@ -40,8 +43,6 @@ protected:
         CamelCase = 3,
         UPPERCASE = 4,
     };
-
-    int renderedFileCount;
 
     bool renderService(const smithy::Shape &service, const QStringList &templateNames,
                        const QString &outputDir, const QVariantMap &context,
@@ -65,6 +66,8 @@ protected:
 private:
     const smithy::Model * const model;
     const Renderer * const renderer;
+    QStringList renderedPathNames;
+    QStringList skippedPathNames;
 
     static const QRegularExpression servicePattern;
     static const QRegularExpression operationPattern;
