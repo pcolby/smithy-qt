@@ -14,12 +14,12 @@
 #define QSL(str) QStringLiteral(str) // Shorten the QStringLiteral macro for readability.
 
 const QRegularExpression Generator::servicePattern{
-    QSL("(?<type>Service)(?<seperator>[-_.]*)(?<id>Name|sdkId)"),
+    QSL("(?<type>Service)(?<seperator>[^a-zA-Z0-9]*)(?<id>Name|sdkId)"),
     QRegularExpression::CaseInsensitiveOption
 };
 
 const QRegularExpression Generator::operationPattern{
-    QSL("(?<type>Operation)(?<seperator>[-_.]*)(?<id>Name)"),
+    QSL("(?<type>Operation)(?<seperator>[^a-zA-Z0-9]*)(?<id>Name)"),
     QRegularExpression::CaseInsensitiveOption
 };
 
@@ -76,7 +76,7 @@ int Generator::generate(const QString &outputDir, ClobberMode clobberMode)
                     .arg(shapeRef.target.toString(), service.id().toString());
                 return -1;
             }
-            renderOperation(service, operation, operationTemplateNames, outputDir, context, clobberMode);
+            //renderOperation(service, operation, operationTemplateNames, outputDir, context, clobberMode);
         }
     }
 
@@ -104,11 +104,20 @@ bool Generator::renderService(const smithy::Shape &service,  const QStringList &
     }
     qCDebug(lc).noquote() << tr("SDK ID: %1").arg(sdkId);
 
-
-    /// \todo render each of serviceTemplateNames, with sanitised service id.
+    /// Render each of service templates.
     for (const QString &templateName: templateNames) {
-        /// \todo Build the output pathname.
-        QString outputPathName = outputDir + QLatin1Char('/') + templateName;
+        QString outputPathName = templateName;
+        for (auto iter = servicePattern.globalMatch(templateName); iter.hasNext(); ) {
+            const QRegularExpressionMatch match = iter.next();
+            const QString type = match.captured(QSL("type"));
+            Q_ASSERT(type.compare(QSL("service"), Qt::CaseInsensitive) == 0);
+            const QString sep = match.captured(QSL("serparator"));
+            const QString id = match.captured(QSL("id"));
+            Q_ASSERT(!id.isEmpty());
+            const QString label = makeCase(sdkId, getCase(type, id)).replace(QLatin1Char(' '), sep);
+            outputPathName.replace(type+sep+id, label);
+        }
+        outputPathName.prepend(outputDir + QLatin1Char('/'));
         if (!render(templateName, outputPathName, context, clobberMode)) {
             return false;
         }
@@ -146,6 +155,45 @@ bool Generator::render(const QString &templateName, const QString &outputPathNam
     // Render the content.
     return renderer->render(templateName, outputPathName, context);
 }
+
+Generator::Capitalisation Generator::getCase(const QString &first, const QString &second)
+{
+    if (first.isLower() && second.isLower()) {
+        return Capitalisation::lowercase;
+    }
+    if (first.isUpper() && second.isUpper()) {
+        return Capitalisation::UPPERCASE;
+    }
+    if (first.front().isLower() && second.front().isUpper()) {
+        return Capitalisation::camelCase;
+    }
+    if (first.front().isUpper() && second.front().isUpper()) {
+        return Capitalisation::CamelCase;
+    }
+    return Capitalisation::NoChange;
+}
+
+QString Generator::makeCase(const QString &string, const Capitalisation &capitalisation)
+{
+    switch (capitalisation) {
+    case Capitalisation::NoChange:
+        return string;
+    case Capitalisation::lowercase:
+        return string.toLower();
+    case Capitalisation::camelCase:
+        /// \todo
+        break;
+    case Capitalisation::CamelCase:
+        /// \todo
+        break;
+    case Capitalisation::UPPERCASE:
+        return string.toUpper();
+    }
+    qCCritical(lc).noquote() << tr("Unknown capitalisation %1 for %2")
+        .arg((int)capitalisation).arg(string);
+    return QString{};
+}
+
 
 //QStringList Generator::formatHtmlDocumentation(const QString &html)
 //{

@@ -33,6 +33,14 @@ public:
     int generate(const QString &outputDir, ClobberMode clobberMode);
 
 protected:
+    enum class Capitalisation {
+        NoChange  = 0,
+        lowercase = 1,
+        camelCase = 2,
+        CamelCase = 3,
+        UPPERCASE = 4,
+    };
+
     int renderedFileCount;
 
     bool renderService(const smithy::Shape &service, const QStringList &templateNames,
@@ -45,6 +53,9 @@ protected:
 
     bool render(const QString &templateName, const QString &outputPathName,
                 const QVariantMap &context, ClobberMode &clobberMode);
+
+    static Capitalisation getCase(const QString &first, const QString &second);
+    static QString makeCase(const QString &string, const Capitalisation &capitalisation);
 
 private:
     const smithy::Model * const model;
