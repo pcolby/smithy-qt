@@ -24,6 +24,11 @@ public:
     bool render(const QString &templateName, const QString &outputPathName,
                 const QVariantHash &additionalContext = QVariantHash{});
 
+    static QString sanitise(const QString &key);
+    static QVariant sanitise(const QVariant &variant);
+    static QVariantHash sanitise(const QVariantHash &hash);
+    static QVariantMap sanitise(const QVariantMap &map);
+
 protected:
     Grantlee::Context context;
     Grantlee::Engine engine;

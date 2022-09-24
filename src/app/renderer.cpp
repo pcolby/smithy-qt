@@ -69,7 +69,7 @@ void Renderer::push(const QVariantHash &context)
 {
     this->context.push();
     for (auto iter = context.constBegin(); iter != context.constEnd(); ++iter) {
-        this->context.insert(iter.key(), iter.value());
+        this->context.insert(sanitise(iter.key()), sanitise(iter.value()));
     }
 }
 
@@ -112,4 +112,60 @@ bool Renderer::render(const QString &templateName, const QString &outputPathName
     }
     pop();
     return true;
+}
+
+QString Renderer::sanitise(const QString &key)
+{
+    QString newKey = key;
+    int pos;
+    while ((pos = newKey.indexOf(QLatin1Char('.'))) >= 0) {
+        newKey = newKey.mid(0, pos) + newKey.mid(pos+1,1).toUpper() + newKey.mid(pos+2);
+    }
+    newKey.replace(QRegularExpression{QSL("[^a-zA-Z_]")}, QSL("_"));
+    newKey.replace(QRegularExpression{QSL("^_")}, QLatin1String());
+    return newKey;
+}
+
+QVariant Renderer::sanitise(const QVariant &variant)
+{
+    if (variant.type() == QVariant::Hash) {
+        return sanitise(variant.toHash());
+    } else if (variant.type() == QVariant::Map) {
+        return sanitise(variant.toMap());
+    }
+    return variant;
+}
+
+QVariantHash Renderer::sanitise(const QVariantHash &hash)
+{
+    QVariantHash newHash;
+    for (auto iter = hash.begin(); iter != hash.end(); ++iter) {
+        const QString saneKey = sanitise(iter.key());
+        QVariant saneValue = iter.value();
+        if (iter->type() == QVariant::Hash) {
+            saneValue = sanitise(iter->toHash());
+        } else if (iter->type() == QVariant::Map) {
+            saneValue = sanitise(iter->toMap());
+        }
+        newHash.insert(saneKey, saneValue);
+    }
+    Q_ASSERT(hash.size() == newHash.size());
+    return newHash;
+}
+
+QVariantMap Renderer::sanitise(const QVariantMap &map)
+{
+    QVariantMap newMap;
+    for (auto iter = map.begin(); iter != map.end(); ++iter) {
+        const QString saneKey = sanitise(iter.key());
+        QVariant saneValue = iter.value();
+        if (iter->type() == QVariant::Hash) {
+            saneValue = sanitise(iter->toHash());
+        } else if (iter->type() == QVariant::Map) {
+            saneValue = sanitise(iter->toMap());
+        }
+        newMap.insert(saneKey, saneValue);
+    }
+    Q_ASSERT(map.size() == newMap.size());
+    return newMap;
 }
