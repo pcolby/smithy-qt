@@ -151,7 +151,7 @@ bool Generator::renderOperation(const smithy::Shape &service, const smithy::Shap
         QString outputPathName = makeOutputPathName(templateName, servicePattern, {
             { QSL("name"), apiTitle },
             { QSL("sdkid"), sdkId },
-        }, outputDir);
+        });
         outputPathName = makeOutputPathName(outputPathName, operationPattern, {
             { QSL("name"), operation.id().shapeName() },
         }, outputDir);
