@@ -1,0 +1,13 @@
+<map id="Generator::generate" name="Generator::generate">
+<area shape="rect" id="node1" title=" " alt="" coords="5,193,159,219"/>
+<area shape="rect" id="node2" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qlist.html#append" title=" " alt="" coords="252,5,363,31"/>
+<area shape="rect" id="node3" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qlist.html#constBegin" title=" " alt="" coords="240,55,375,80"/>
+<area shape="rect" id="node4" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qlist.html#constEnd" title=" " alt="" coords="246,104,369,129"/>
+<area shape="rect" id="node5" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qregularexpressionmatch.html#hasMatch" title=" " alt="" coords="211,154,404,194"/>
+<area shape="rect" id="node6" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qregularexpression.html#match" title=" " alt="" coords="231,218,384,258"/>
+<area shape="rect" id="node7" href="$classGenerator.html#a3ee386f7ccc09947e1c9eedcdc60ee25" title=" " alt="" coords="207,283,408,308"/>
+<area shape="rect" id="node10" href="$classGenerator.html#a5c83551528ea2d2730022e0ad8fcca4c" title=" " alt="" coords="215,332,400,357"/>
+<area shape="rect" id="node11" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qlist.html#size" title=" " alt="" coords="263,381,352,407"/>
+<area shape="rect" id="node8" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qstring.html#arg-11" title=" " alt="" coords="472,283,571,308"/>
+<area shape="rect" id="node9" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qstring.html#isEmpty" title=" " alt="" coords="456,332,587,357"/>
+</map>

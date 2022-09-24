@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['generate_0',['generate',['https://doc.qt.io/qt-5/qrandomgenerator.html#generate-1',1,'QRandomGenerator::generate()'],['https://doc.qt.io/qt-5/qrandomgenerator64.html#generate',1,'QRandomGenerator64::generate()'],['../classGenerator.html#a2acc1aa91219cbd5ec9036569afa560e',1,'Generator::generate()'],['https://doc.qt.io/qt-5/qrandomgenerator.html#generate',1,'QRandomGenerator::generate()']]],
+  ['generate_0',['generate',['https://doc.qt.io/qt-5/qrandomgenerator.html#generate-1',1,'QRandomGenerator::generate()'],['https://doc.qt.io/qt-5/qrandomgenerator64.html#generate',1,'QRandomGenerator64::generate()'],['../classGenerator.html#ad25c47d02c75979ab6d21b8bf75b958e',1,'Generator::generate()'],['https://doc.qt.io/qt-5/qrandomgenerator.html#generate',1,'QRandomGenerator::generate()']]],
   ['generate64_1',['generate64',['https://doc.qt.io/qt-5/qrandomgenerator.html#generate64',1,'QRandomGenerator']]],
   ['generatebyteordermark_2',['generateByteOrderMark',['https://doc.qt.io/qt-5/qtextstream.html#generateByteOrderMark',1,'QTextStream']]],
   ['generatedouble_3',['generateDouble',['https://doc.qt.io/qt-5/qrandomgenerator.html#generateDouble',1,'QRandomGenerator']]],
