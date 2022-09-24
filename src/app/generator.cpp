@@ -76,7 +76,7 @@ int Generator::generate(const QString &outputDir, ClobberMode clobberMode)
                     .arg(shapeRef.target.toString(), service.id().toString());
                 return -1;
             }
-            //renderOperation(service, operation, operationTemplateNames, outputDir, context, clobberMode);
+            renderOperation(service, operation, operationTemplateNames, outputDir, context, clobberMode);
         }
     }
 
@@ -96,7 +96,7 @@ bool Generator::renderService(const smithy::Shape &service,  const QStringList &
 {
     qCDebug(lc).noquote() << tr("Rendering templates for service %1").arg(service.id().toString());
 
-    /// \todo extend context for this operation.
+    /// \todo extend context for this service.
     const QString apiTitle = service.traits().value(QSL("smithy.api#title")).toString();
     const QString sdkId = service.traits().value(QSL("aws.api#service")).toObject().value(QSL("sdkId")).toString();
     if (apiTitle.isEmpty()) {
@@ -108,7 +108,7 @@ bool Generator::renderService(const smithy::Shape &service,  const QStringList &
         return false;
     }
 
-    /// Render each of service templates.
+    // Render each of service templates.
     for (const QString &templateName: templateNames) {
         const QString outputPathName = makeOutputPathName(templateName, servicePattern, {
             { QSL("name"), apiTitle },
@@ -128,11 +128,25 @@ bool Generator::renderOperation(const smithy::Shape &service, const smithy::Shap
     qCDebug(lc).noquote() << tr("Rendering templates for operation %1").arg(operation.id().toString());
 
     /// \todo extend context for this operation.
-    Q_UNUSED(service);
+    const QString apiTitle = service.traits().value(QSL("smithy.api#title")).toString();
+    const QString sdkId = service.traits().value(QSL("aws.api#service")).toObject().value(QSL("sdkId")).toString();
+    if (apiTitle.isEmpty()) {
+        qCCritical(lc).noquote() << tr("Service %1 has no API title").arg(service.id().toString());
+        return false;
+    }
+    if (sdkId.isEmpty()) {
+        qCCritical(lc).noquote() << tr("Service %1 has no SDK ID").arg(service.id().toString());
+        return false;
+    }
 
     for (const QString &templateName: templateNames) {
-        /// \todo Build the output pathname.
-        QString outputPathName = outputDir + QLatin1Char('/') + templateName;
+        QString outputPathName = makeOutputPathName(templateName, servicePattern, {
+            { QSL("name"), apiTitle },
+            { QSL("sdkid"), sdkId },
+        }, outputDir);
+        outputPathName = makeOutputPathName(outputPathName, operationPattern, {
+            { QSL("name"), operation.id().shapeName() },
+        }, outputDir);
         if (!render(templateName, outputPathName, context, clobberMode)) {
             return false;
         }
@@ -207,7 +221,9 @@ QString Generator::makeOutputPathName(const QString &templateName, const QRegula
         const QString label = makeCase(newId, getCase(type, id)).replace(QLatin1Char(' '), sep);
         outputPathName.replace(type+sep+id, label);
     }
-    outputPathName.prepend(outputDir + QLatin1Char('/'));
+    if (!outputDir.isEmpty()) {
+        outputPathName.prepend(outputDir + QLatin1Char('/'));
+    }
     return outputPathName;
 }
 

@@ -57,7 +57,8 @@ protected:
     static Capitalisation getCase(const QString &first, const QString &second);
     static QString makeCase(const QString &string, const Capitalisation &capitalisation);
     static QString makeOutputPathName(const QString &templateName, const QRegularExpression &pattern,
-                                      const QHash<QString,QString> &ids, const QString &outputDir);
+                                      const QHash<QString,QString> &ids,
+                                      const QString &outputDir = QString{});
 
 private:
     const smithy::Model * const model;
