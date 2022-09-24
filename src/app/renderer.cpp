@@ -56,8 +56,10 @@ class NoEscapeStream : public Grantlee::OutputStream {
 public:
     explicit NoEscapeStream(QTextStream * stream) : Grantlee::OutputStream(stream) { }
 
+    // cppcheck-suppress unusedFunction
     virtual QString escape(const QString &input) const { return input; }
 
+    // cppcheck-suppress unusedFunction
     virtual QSharedPointer<OutputStream> clone( QTextStream *stream ) const {
         return QSharedPointer<OutputStream>(new NoEscapeStream(stream));
     }
