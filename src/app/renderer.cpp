@@ -52,35 +52,34 @@ QStringList Renderer::templatesNames() const
 }
 
 // Grantlee output stream that does *no* content escaping.
-//class NoEscapeStream : public Grantlee::OutputStream {
-//public:
-//    explicit NoEscapeStream(QTextStream * stream) : Grantlee::OutputStream(stream) { }
+class NoEscapeStream : public Grantlee::OutputStream {
+public:
+    explicit NoEscapeStream(QTextStream * stream) : Grantlee::OutputStream(stream) { }
 
-//    virtual QString escape(const QString &input) const { return input; }
+    virtual QString escape(const QString &input) const { return input; }
 
-//    virtual QSharedPointer<OutputStream> clone( QTextStream *stream ) const {
-//        return QSharedPointer<OutputStream>(new NoEscapeStream(stream));
-//    }
-//};
-
+    virtual QSharedPointer<OutputStream> clone( QTextStream *stream ) const {
+        return QSharedPointer<OutputStream>(new NoEscapeStream(stream));
+    }
+};
 
 bool Renderer::render(const QString &templateName, const QString &outputPathName,
             const QVariantMap &additionalContext) const
 {
+    qCDebug(lc).noquote() << tr("Rendering %1 to %2").arg(templateName, outputPathName);
     if (!templates.contains(templateName)) {
-        qWarning() << "template does not exist" << templateName;
+        qCCritical(lc).noquote() << tr("Template %1 has not been loaded").arg(templateName);
         return false;
     }
 
-    qCDebug(lc) << "rendering" << templateName << "to" << outputPathName;
-    Q_UNUSED(additionalContext);
-    Q_UNIMPLEMENTED();
+    QFile file(outputPathName);
+    if (!file.open(QFile::WriteOnly)) {
+        qCCritical(lc).noquote() << tr("Failed to open %1 for writing: %2")
+            .arg(outputPathName, file.errorString());
+        return false;
+    }
 
-//    QFile file(outputFileName);
-//    if (!file.open(QFile::WriteOnly)) {
-//        qWarning() << "failed to open file for writing" << outputFileName;
-//        return false;
-//    }
+    Q_UNUSED(additionalContext);
 
 //    QTextStream textStream(&file);
 //    NoEscapeStream noEscapeStream(&textStream);

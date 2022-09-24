@@ -74,7 +74,10 @@ bool Generator::generate(const QString &outputDir, ClobberMode clobberMode)
                     .arg(shapeRef.target.toString(), service.id().toString());
                 return false;
             }
-            renderOperation(service, operation, operationTemplateNames, outputDir, context, clobberMode);
+            if (!renderOperation(service, operation, operationTemplateNames, outputDir, context,
+                                 clobberMode)) {
+                return false;
+            }
         }
     }
 
