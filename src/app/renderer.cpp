@@ -72,6 +72,12 @@ bool Renderer::render(const QString &templateName, const QString &outputPathName
         return false;
     }
 
+    const QDir dir = QFileInfo(outputPathName).dir();
+    if (!dir.mkpath(QSL("./"))) {
+        qCCritical(lc).noquote() << tr("Failed to create directory path %1").arg(dir.path());
+        return false;
+    }
+
     QFile file(outputPathName);
     if (!file.open(QFile::WriteOnly)) {
         qCCritical(lc).noquote() << tr("Failed to open %1 for writing: %2")
