@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2013-2022 Paul Colby <git@colby.id.au>
 # SPDX-License-Identifier: LGPL-3.0-or-later
 
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.12)
 message(STATUS "CMake version is ${CMAKE_VERSION}")
 if (DEFINED CMAKE_BUILD_TYPE)
   message(STATUS "CMake build type is ${CMAKE_BUILD_TYPE}")
@@ -10,6 +10,11 @@ endif()
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 project("Smithy Qt" VERSION 0.1.0 LANGUAGES CXX)
+
+# C++14 needed for std::underlying_type_t support.
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(PROJECT_PRE_RELEASE pre)
 #set(PROJECT_PRE_RELEASE rc1)

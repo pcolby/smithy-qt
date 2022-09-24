@@ -53,14 +53,11 @@ int Generator::generate(const QString &outputDir, ClobberMode clobberMode)
     QVariantMap context;
 
     // Build the list of template names.
-    const QStringList templatesNames = renderer->templatesNames();
     QStringList serviceTemplateNames, operationTemplateNames, plainTemplateNames;
-    for (const QString &name: templatesNames) {
+    for (const QStringList names = renderer->templatesNames(); const QString &name: names) {
         ((servicePattern.match(name).hasMatch()) ? (operationPattern.match(name).hasMatch() ?
             operationTemplateNames : serviceTemplateNames) : plainTemplateNames).append(name);
     }
-    Q_ASSERT(serviceTemplateNames.size() + operationTemplateNames.size()
-             + plainTemplateNames.size() == templatesNames.size());
 
     // Render all of the services.
     const QHash<smithy::ShapeId, smithy::Shape> services = model->shapes(smithy::Shape::Type::Service);
