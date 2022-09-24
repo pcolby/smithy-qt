@@ -18,8 +18,11 @@ public:
 
     QStringList templatesNames() const;
 
+    void push(const QVariantHash &context);
+    void pop();
+
     bool render(const QString &templateName, const QString &outputPathName,
-                const QVariantMap &additionalContext = QVariantMap{});
+                const QVariantHash &additionalContext = QVariantHash{});
 
 protected:
     Grantlee::Context context;

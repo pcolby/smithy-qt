@@ -48,7 +48,7 @@ int Generator::expectedFileCount() const
 bool Generator::generate(const QString &outputDir, ClobberMode clobberMode)
 {
     /// \todo build a list of services to add to context.
-    QVariantMap context;
+    QVariantHash context;
 
     // Build the list of template names.
     const QStringList templatesNames = renderer->templatesNames();
@@ -101,7 +101,7 @@ QStringList Generator::skippedFiles() const
 }
 
 bool Generator::renderService(const smithy::Shape &service,  const QStringList &templateNames,
-                              const QString &outputDir, const QVariantMap &context,
+                              const QString &outputDir, const QVariantHash &context,
                               ClobberMode &clobberMode)
 {
     qCDebug(lc).noquote() << tr("Rendering templates for service %1").arg(service.id().toString());
@@ -133,7 +133,7 @@ bool Generator::renderService(const smithy::Shape &service,  const QStringList &
 
 bool Generator::renderOperation(const smithy::Shape &service, const smithy::Shape &operation,
                                 const QStringList &templateNames, const QString &outputDir,
-                                const QVariantMap &context, ClobberMode &clobberMode)
+                                const QVariantHash &context, ClobberMode &clobberMode)
 {
     qCDebug(lc).noquote() << tr("Rendering templates for operation %1").arg(operation.id().toString());
 
@@ -165,7 +165,7 @@ bool Generator::renderOperation(const smithy::Shape &service, const smithy::Shap
 }
 
 bool Generator::render(const QString &templateName, const QString &outputPathName,
-                       const QVariantMap &context, ClobberMode &clobberMode)
+                       const QVariantHash &context, ClobberMode &clobberMode)
 {
     if (QFile::exists(outputPathName)) {
         switch (clobberMode) {

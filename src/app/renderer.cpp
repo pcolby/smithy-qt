@@ -65,8 +65,21 @@ public:
     }
 };
 
+void Renderer::push(const QVariantHash &context)
+{
+    this->context.push();
+    for (auto iter = context.constBegin(); iter != context.constEnd(); ++iter) {
+        this->context.insert(iter.key(), iter.value());
+    }
+}
+
+void Renderer::pop()
+{
+    context.pop();
+}
+
 bool Renderer::render(const QString &templateName, const QString &outputPathName,
-            const QVariantMap &additionalContext)
+            const QVariantHash &additionalContext)
 {
     qCDebug(lc).noquote() << tr("Rendering %1 to %2").arg(templateName, outputPathName);
     if (!templates.contains(templateName)) {
@@ -87,20 +100,16 @@ bool Renderer::render(const QString &templateName, const QString &outputPathName
         return false;
     }
 
-    context.push();
-    for (auto iter = additionalContext.constBegin(); iter != additionalContext.constEnd(); ++iter) {
-        context.insert(iter.key(), iter.value());
-    }
-
+    push(additionalContext);
     QTextStream textStream(&file);
     NoEscapeStream noEscapeStream(&textStream);
     Grantlee::Template tmplate = engine.loadByName(templateName);
     tmplate->render(&noEscapeStream, &context);
     if (tmplate->error()) {
         qInfo() << tr("Failed to render %1: %2").arg(outputPathName, tmplate->errorString());
-        context.pop();
+        pop();
         return false;
     }
-    context.pop();
+    pop();
     return true;
 }

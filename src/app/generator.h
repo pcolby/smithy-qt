@@ -45,15 +45,15 @@ protected:
     };
 
     bool renderService(const smithy::Shape &service, const QStringList &templateNames,
-                       const QString &outputDir, const QVariantMap &context,
+                       const QString &outputDir, const QVariantHash &context,
                        ClobberMode &clobberMode);
 
     bool renderOperation(const smithy::Shape &service, const smithy::Shape &operation,
                          const QStringList &templateNames, const QString &outputDir,
-                         const QVariantMap &context, ClobberMode &clobberMode);
+                         const QVariantHash &context, ClobberMode &clobberMode);
 
     bool render(const QString &templateName, const QString &outputPathName,
-                const QVariantMap &context, ClobberMode &clobberMode);
+                const QVariantHash &context, ClobberMode &clobberMode);
 
     static bool promptToOverwrite(const QString &pathName, ClobberMode &clobberMode);
 
