@@ -98,6 +98,7 @@ $(document).ready(function(){initNavTree('classRenderer.html',''); initResizable
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pro-static-methods">Static Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
@@ -118,8 +119,23 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a3d3410b789a8218f0af0e344a5b0aaf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb2cf78a31e7d1a4e9d4456c4b13709b"><td class="memItemLeft" align="right" valign="top"><a class="elRef" href="https://doc.qt.io/qt-5/qstringlist.html">QStringList</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRenderer.html#aeb2cf78a31e7d1a4e9d4456c4b13709b">templatesNames</a> () const</td></tr>
 <tr class="separator:aeb2cf78a31e7d1a4e9d4456c4b13709b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2234c152c63df8d4ddb9fcaa33d56106"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRenderer.html#a2234c152c63df8d4ddb9fcaa33d56106">render</a> (const <a class="elRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;templateName, const <a class="elRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;outputPathName, const QVariantMap &amp;additionalContext=QVariantMap{})</td></tr>
-<tr class="separator:a2234c152c63df8d4ddb9fcaa33d56106"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76c1ebf3e990d16152fd3cb50ffae96c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRenderer.html#a76c1ebf3e990d16152fd3cb50ffae96c">push</a> (const QVariantHash &amp;context)</td></tr>
+<tr class="separator:a76c1ebf3e990d16152fd3cb50ffae96c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9cae01f53131275354c1c040adc1b97"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRenderer.html#af9cae01f53131275354c1c040adc1b97">pop</a> ()</td></tr>
+<tr class="separator:af9cae01f53131275354c1c040adc1b97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdf3022bf136418b99a18cb4b144d9de"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRenderer.html#acdf3022bf136418b99a18cb4b144d9de">render</a> (const <a class="elRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;templateName, const <a class="elRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;outputPathName, const QVariantHash &amp;additionalContext=QVariantHash{})</td></tr>
+<tr class="separator:acdf3022bf136418b99a18cb4b144d9de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ac51415919a99eb7f7d2710f2be22d402"><td class="memItemLeft" align="right" valign="top">static <a class="elRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRenderer.html#ac51415919a99eb7f7d2710f2be22d402">sanitise</a> (const <a class="elRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;key)</td></tr>
+<tr class="separator:ac51415919a99eb7f7d2710f2be22d402"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0e415dce52a0512078d71ac0c0deb2a"><td class="memItemLeft" align="right" valign="top">static <a class="elRef" href="https://doc.qt.io/qt-5/qvariant.html">QVariant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRenderer.html#af0e415dce52a0512078d71ac0c0deb2a">sanitise</a> (const <a class="elRef" href="https://doc.qt.io/qt-5/qvariant.html">QVariant</a> &amp;variant)</td></tr>
+<tr class="separator:af0e415dce52a0512078d71ac0c0deb2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5959e10152c9bec1ae23527fea02fc9e"><td class="memItemLeft" align="right" valign="top">static QVariantHash&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRenderer.html#a5959e10152c9bec1ae23527fea02fc9e">sanitise</a> (const QVariantHash &amp;hash)</td></tr>
+<tr class="separator:a5959e10152c9bec1ae23527fea02fc9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e99e14db0087ade760cafad18259c2b"><td class="memItemLeft" align="right" valign="top">static QVariantMap&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRenderer.html#a8e99e14db0087ade760cafad18259c2b">sanitise</a> (const QVariantMap &amp;map)</td></tr>
+<tr class="separator:a8e99e14db0087ade760cafad18259c2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-static-methods" name="pro-static-methods"></a>
 Static Protected Member Functions</h2></td></tr>
@@ -225,8 +241,56 @@ Private Member Functions</h2></td></tr>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="a2234c152c63df8d4ddb9fcaa33d56106" name="a2234c152c63df8d4ddb9fcaa33d56106"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2234c152c63df8d4ddb9fcaa33d56106">&#9670;&#160;</a></span>render()</h2>
+<a id="af9cae01f53131275354c1c040adc1b97" name="af9cae01f53131275354c1c040adc1b97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9cae01f53131275354c1c040adc1b97">&#9670;&#160;</a></span>pop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Renderer::pop </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="renderer_8cpp_source.html#l00076">76</a> of file <a class="el" href="renderer_8cpp_source.html">renderer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   77</span>{</div>
+<div class="line"><span class="lineno">   78</span>    context.pop();</div>
+<div class="line"><span class="lineno">   79</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a76c1ebf3e990d16152fd3cb50ffae96c" name="a76c1ebf3e990d16152fd3cb50ffae96c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76c1ebf3e990d16152fd3cb50ffae96c">&#9670;&#160;</a></span>push()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Renderer::push </td>
+          <td>(</td>
+          <td class="paramtype">const QVariantHash &amp;&#160;</td>
+          <td class="paramname"><em>context</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="renderer_8cpp_source.html#l00068">68</a> of file <a class="el" href="renderer_8cpp_source.html">renderer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   69</span>{</div>
+<div class="line"><span class="lineno">   70</span>    this-&gt;context.push();</div>
+<div class="line"><span class="lineno">   71</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> iter = context.constBegin(); iter != context.constEnd(); ++iter) {</div>
+<div class="line"><span class="lineno">   72</span>        this-&gt;context.insert(sanitise(iter.key()), sanitise(iter.value()));</div>
+<div class="line"><span class="lineno">   73</span>    }</div>
+<div class="line"><span class="lineno">   74</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="acdf3022bf136418b99a18cb4b144d9de" name="acdf3022bf136418b99a18cb4b144d9de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdf3022bf136418b99a18cb4b144d9de">&#9670;&#160;</a></span>render()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -246,8 +310,8 @@ Private Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const QVariantMap &amp;&#160;</td>
-          <td class="paramname"><em>additionalContext</em> = <code>QVariantMap{}</code>&#160;</td>
+          <td class="paramtype">const QVariantHash &amp;&#160;</td>
+          <td class="paramname"><em>additionalContext</em> = <code>QVariantHash{}</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -257,44 +321,40 @@ Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="renderer_8cpp_source.html#l00068">68</a> of file <a class="el" href="renderer_8cpp_source.html">renderer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   70</span>{</div>
-<div class="line"><span class="lineno">   71</span>    qCDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Rendering %1 to %2&quot;</span>).arg(templateName, outputPathName);</div>
-<div class="line"><span class="lineno">   72</span>    <span class="keywordflow">if</span> (!templates.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstringlist.html#contains">contains</a>(templateName)) {</div>
-<div class="line"><span class="lineno">   73</span>        qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Template %1 has not been loaded&quot;</span>).arg(templateName);</div>
-<div class="line"><span class="lineno">   74</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">   75</span>    }</div>
-<div class="line"><span class="lineno">   76</span> </div>
-<div class="line"><span class="lineno">   77</span>    <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qdir.html">QDir</a> dir = <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qfileinfo.html">QFileInfo</a>(outputPathName).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qfileinfo.html#dir">dir</a>();</div>
-<div class="line"><span class="lineno">   78</span>    <span class="keywordflow">if</span> (!dir.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qdir.html#mkpath">mkpath</a>(QSL(<span class="stringliteral">&quot;./&quot;</span>))) {</div>
-<div class="line"><span class="lineno">   79</span>        qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Failed to create directory path %1&quot;</span>).arg(dir.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qdir.html#path">path</a>());</div>
-<div class="line"><span class="lineno">   80</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">   81</span>    }</div>
-<div class="line"><span class="lineno">   82</span> </div>
-<div class="line"><span class="lineno">   83</span>    <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qfile.html">QFile</a> file(outputPathName);</div>
-<div class="line"><span class="lineno">   84</span>    <span class="keywordflow">if</span> (!file.open(QFile::WriteOnly)) {</div>
-<div class="line"><span class="lineno">   85</span>        qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Failed to open %1 for writing: %2&quot;</span>)</div>
-<div class="line"><span class="lineno">   86</span>            .arg(outputPathName, file.errorString());</div>
+<p class="definition">Definition at line <a class="el" href="renderer_8cpp_source.html#l00081">81</a> of file <a class="el" href="renderer_8cpp_source.html">renderer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   83</span>{</div>
+<div class="line"><span class="lineno">   84</span>    qCDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Rendering %1 to %2&quot;</span>).arg(templateName, outputPathName);</div>
+<div class="line"><span class="lineno">   85</span>    <span class="keywordflow">if</span> (!templates.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstringlist.html#contains">contains</a>(templateName)) {</div>
+<div class="line"><span class="lineno">   86</span>        qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Template %1 has not been loaded&quot;</span>).arg(templateName);</div>
 <div class="line"><span class="lineno">   87</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><span class="lineno">   88</span>    }</div>
 <div class="line"><span class="lineno">   89</span> </div>
-<div class="line"><span class="lineno">   90</span>    context.push();</div>
-<div class="line"><span class="lineno">   91</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> iter = additionalContext.constBegin(); iter != additionalContext.constEnd(); ++iter) {</div>
-<div class="line"><span class="lineno">   92</span>        context.insert(iter.key(), iter.value());</div>
-<div class="line"><span class="lineno">   93</span>    }</div>
-<div class="line"><span class="lineno">   94</span> </div>
-<div class="line"><span class="lineno">   95</span>    <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qtextstream.html">QTextStream</a> textStream(&amp;file);</div>
-<div class="line"><span class="lineno">   96</span>    <a class="code hl_class" href="classNoEscapeStream.html">NoEscapeStream</a> noEscapeStream(&amp;textStream);</div>
-<div class="line"><span class="lineno">   97</span>    Grantlee::Template tmplate = engine.loadByName(templateName);</div>
-<div class="line"><span class="lineno">   98</span>    tmplate-&gt;render(&amp;noEscapeStream, &amp;context);</div>
-<div class="line"><span class="lineno">   99</span>    <span class="keywordflow">if</span> (tmplate-&gt;error()) {</div>
-<div class="line"><span class="lineno">  100</span>        qInfo() &lt;&lt; tr(<span class="stringliteral">&quot;Failed to render %1: %2&quot;</span>).arg(outputPathName, tmplate-&gt;errorString());</div>
-<div class="line"><span class="lineno">  101</span>        context.pop();</div>
-<div class="line"><span class="lineno">  102</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  103</span>    }</div>
-<div class="line"><span class="lineno">  104</span>    context.pop();</div>
-<div class="line"><span class="lineno">  105</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  106</span>}</div>
+<div class="line"><span class="lineno">   90</span>    <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qdir.html">QDir</a> dir = <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qfileinfo.html">QFileInfo</a>(outputPathName).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qfileinfo.html#dir">dir</a>();</div>
+<div class="line"><span class="lineno">   91</span>    <span class="keywordflow">if</span> (!dir.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qdir.html#mkpath">mkpath</a>(QSL(<span class="stringliteral">&quot;./&quot;</span>))) {</div>
+<div class="line"><span class="lineno">   92</span>        qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Failed to create directory path %1&quot;</span>).arg(dir.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qdir.html#path">path</a>());</div>
+<div class="line"><span class="lineno">   93</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">   94</span>    }</div>
+<div class="line"><span class="lineno">   95</span> </div>
+<div class="line"><span class="lineno">   96</span>    <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qfile.html">QFile</a> file(outputPathName);</div>
+<div class="line"><span class="lineno">   97</span>    <span class="keywordflow">if</span> (!file.open(QFile::WriteOnly)) {</div>
+<div class="line"><span class="lineno">   98</span>        qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Failed to open %1 for writing: %2&quot;</span>)</div>
+<div class="line"><span class="lineno">   99</span>            .arg(outputPathName, file.errorString());</div>
+<div class="line"><span class="lineno">  100</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  101</span>    }</div>
+<div class="line"><span class="lineno">  102</span> </div>
+<div class="line"><span class="lineno">  103</span>    push(additionalContext);</div>
+<div class="line"><span class="lineno">  104</span>    <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qtextstream.html">QTextStream</a> textStream(&amp;file);</div>
+<div class="line"><span class="lineno">  105</span>    <a class="code hl_class" href="classNoEscapeStream.html">NoEscapeStream</a> noEscapeStream(&amp;textStream);</div>
+<div class="line"><span class="lineno">  106</span>    Grantlee::Template tmplate = engine.loadByName(templateName);</div>
+<div class="line"><span class="lineno">  107</span>    tmplate-&gt;render(&amp;noEscapeStream, &amp;context);</div>
+<div class="line"><span class="lineno">  108</span>    <span class="keywordflow">if</span> (tmplate-&gt;error()) {</div>
+<div class="line"><span class="lineno">  109</span>        qInfo() &lt;&lt; tr(<span class="stringliteral">&quot;Failed to render %1: %2&quot;</span>).arg(outputPathName, tmplate-&gt;errorString());</div>
+<div class="line"><span class="lineno">  110</span>        pop();</div>
+<div class="line"><span class="lineno">  111</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  112</span>    }</div>
+<div class="line"><span class="lineno">  113</span>    pop();</div>
+<div class="line"><span class="lineno">  114</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  115</span>}</div>
 <div class="ttc" id="aclassNoEscapeStream_html"><div class="ttname"><a href="classNoEscapeStream.html">NoEscapeStream</a></div><div class="ttdef"><b>Definition:</b> <a href="renderer_8cpp_source.html#l00055">renderer.cpp:55</a></div></div>
 <div class="ttc" id="aqdir_html"><div class="ttname"><a href="https://doc.qt.io/qt-5/qdir.html">QDir</a></div></div>
 <div class="ttc" id="aqdir_html_mkpath"><div class="ttname"><a href="https://doc.qt.io/qt-5/qdir.html#mkpath">QDir::mkpath</a></div><div class="ttdeci">bool mkpath(const QString &amp;dirPath) const const</div></div>
@@ -304,6 +364,177 @@ Private Member Functions</h2></td></tr>
 <div class="ttc" id="aqfileinfo_html_dir"><div class="ttname"><a href="https://doc.qt.io/qt-5/qfileinfo.html#dir">QFileInfo::dir</a></div><div class="ttdeci">QDir dir() const const</div></div>
 <div class="ttc" id="aqstringlist_html_contains"><div class="ttname"><a href="https://doc.qt.io/qt-5/qstringlist.html#contains">QStringList::contains</a></div><div class="ttdeci">bool contains(const QString &amp;str, Qt::CaseSensitivity cs) const const</div></div>
 <div class="ttc" id="aqtextstream_html"><div class="ttname"><a href="https://doc.qt.io/qt-5/qtextstream.html">QTextStream</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ac51415919a99eb7f7d2710f2be22d402" name="ac51415919a99eb7f7d2710f2be22d402"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac51415919a99eb7f7d2710f2be22d402">&#9670;&#160;</a></span>sanitise() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="elRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> Renderer::sanitise </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="elRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="renderer_8cpp_source.html#l00117">117</a> of file <a class="el" href="renderer_8cpp_source.html">renderer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  118</span>{</div>
+<div class="line"><span class="lineno">  119</span>    <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> newKey = key;</div>
+<div class="line"><span class="lineno">  120</span>    <span class="keywordtype">int</span> pos;</div>
+<div class="line"><span class="lineno">  121</span>    <span class="keywordflow">while</span> ((pos = newKey.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#indexOf-1">indexOf</a>(<a class="code hl_classRef" href="https://doc.qt.io/qt-5/qlatin1char.html">QLatin1Char</a>(<span class="charliteral">&#39;.&#39;</span>))) &gt;= 0) {</div>
+<div class="line"><span class="lineno">  122</span>        newKey = newKey.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#mid">mid</a>(0, pos) + newKey.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#mid">mid</a>(pos+1,1).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#toUpper">toUpper</a>() + newKey.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#mid">mid</a>(pos+2);</div>
+<div class="line"><span class="lineno">  123</span>    }</div>
+<div class="line"><span class="lineno">  124</span>    newKey.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#replace-2">replace</a>(<a class="code hl_classRef" href="https://doc.qt.io/qt-5/qregularexpression.html">QRegularExpression</a>{QSL(<span class="stringliteral">&quot;[^a-zA-Z0-9_]&quot;</span>)}, QSL(<span class="stringliteral">&quot;_&quot;</span>));</div>
+<div class="line"><span class="lineno">  125</span>    newKey.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#replace-2">replace</a>(<a class="code hl_classRef" href="https://doc.qt.io/qt-5/qregularexpression.html">QRegularExpression</a>{QSL(<span class="stringliteral">&quot;^[0-9_]&quot;</span>)}, <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qlatin1string.html">QLatin1String</a>());</div>
+<div class="line"><span class="lineno">  126</span>    <span class="keywordflow">return</span> newKey;</div>
+<div class="line"><span class="lineno">  127</span>}</div>
+<div class="ttc" id="aqlatin1char_html"><div class="ttname"><a href="https://doc.qt.io/qt-5/qlatin1char.html">QLatin1Char</a></div></div>
+<div class="ttc" id="aqlatin1string_html"><div class="ttname"><a href="https://doc.qt.io/qt-5/qlatin1string.html">QLatin1String</a></div></div>
+<div class="ttc" id="aqregularexpression_html"><div class="ttname"><a href="https://doc.qt.io/qt-5/qregularexpression.html">QRegularExpression</a></div></div>
+<div class="ttc" id="aqstring_html_indexOf-1"><div class="ttname"><a href="https://doc.qt.io/qt-5/qstring.html#indexOf-1">QString::indexOf</a></div><div class="ttdeci">int indexOf(QChar ch, int from, Qt::CaseSensitivity cs) const const</div></div>
+<div class="ttc" id="aqstring_html_replace-2"><div class="ttname"><a href="https://doc.qt.io/qt-5/qstring.html#replace-2">QString::replace</a></div><div class="ttdeci">QString &amp; replace(int position, int n, QChar after)</div></div>
+<div class="ttc" id="aqstring_html_toUpper"><div class="ttname"><a href="https://doc.qt.io/qt-5/qstring.html#toUpper">QString::toUpper</a></div><div class="ttdeci">QString toUpper() const const</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="af0e415dce52a0512078d71ac0c0deb2a" name="af0e415dce52a0512078d71ac0c0deb2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0e415dce52a0512078d71ac0c0deb2a">&#9670;&#160;</a></span>sanitise() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="elRef" href="https://doc.qt.io/qt-5/qvariant.html">QVariant</a> Renderer::sanitise </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="elRef" href="https://doc.qt.io/qt-5/qvariant.html">QVariant</a> &amp;&#160;</td>
+          <td class="paramname"><em>variant</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="renderer_8cpp_source.html#l00129">129</a> of file <a class="el" href="renderer_8cpp_source.html">renderer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  130</span>{</div>
+<div class="line"><span class="lineno">  131</span>    <span class="keywordflow">if</span> (variant.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qvariant.html#type">type</a>() == QVariant::Hash) {</div>
+<div class="line"><span class="lineno">  132</span>        <span class="keywordflow">return</span> sanitise(variant.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qvariant.html#toHash">toHash</a>());</div>
+<div class="line"><span class="lineno">  133</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (variant.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qvariant.html#type">type</a>() == QVariant::Map) {</div>
+<div class="line"><span class="lineno">  134</span>        <span class="keywordflow">return</span> sanitise(variant.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qvariant.html#toMap">toMap</a>());</div>
+<div class="line"><span class="lineno">  135</span>    }</div>
+<div class="line"><span class="lineno">  136</span>    <span class="keywordflow">return</span> variant;</div>
+<div class="line"><span class="lineno">  137</span>}</div>
+<div class="ttc" id="aqvariant_html_toHash"><div class="ttname"><a href="https://doc.qt.io/qt-5/qvariant.html#toHash">QVariant::toHash</a></div><div class="ttdeci">QHash&lt; QString, QVariant &gt; toHash() const const</div></div>
+<div class="ttc" id="aqvariant_html_toMap"><div class="ttname"><a href="https://doc.qt.io/qt-5/qvariant.html#toMap">QVariant::toMap</a></div><div class="ttdeci">QMap&lt; QString, QVariant &gt; toMap() const const</div></div>
+<div class="ttc" id="aqvariant_html_type"><div class="ttname"><a href="https://doc.qt.io/qt-5/qvariant.html#type">QVariant::type</a></div><div class="ttdeci">QVariant::Type type() const const</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a5959e10152c9bec1ae23527fea02fc9e" name="a5959e10152c9bec1ae23527fea02fc9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5959e10152c9bec1ae23527fea02fc9e">&#9670;&#160;</a></span>sanitise() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantHash Renderer::sanitise </td>
+          <td>(</td>
+          <td class="paramtype">const QVariantHash &amp;&#160;</td>
+          <td class="paramname"><em>hash</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="renderer_8cpp_source.html#l00139">139</a> of file <a class="el" href="renderer_8cpp_source.html">renderer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  140</span>{</div>
+<div class="line"><span class="lineno">  141</span>    QVariantHash newHash;</div>
+<div class="line"><span class="lineno">  142</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> iter = hash.begin(); iter != hash.end(); ++iter) {</div>
+<div class="line"><span class="lineno">  143</span>        <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> saneKey = sanitise(iter.key());</div>
+<div class="line"><span class="lineno">  144</span>        <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qvariant.html">QVariant</a> saneValue = iter.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qvariant.html#value">value</a>();</div>
+<div class="line"><span class="lineno">  145</span>        <span class="keywordflow">if</span> (iter-&gt;type() == QVariant::Hash) {</div>
+<div class="line"><span class="lineno">  146</span>            saneValue = sanitise(iter-&gt;toHash());</div>
+<div class="line"><span class="lineno">  147</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (iter-&gt;type() == QVariant::Map) {</div>
+<div class="line"><span class="lineno">  148</span>            saneValue = sanitise(iter-&gt;toMap());</div>
+<div class="line"><span class="lineno">  149</span>        }</div>
+<div class="line"><span class="lineno">  150</span>        newHash.insert(saneKey, saneValue);</div>
+<div class="line"><span class="lineno">  151</span>    }</div>
+<div class="line"><span class="lineno">  152</span>    Q_ASSERT(hash.size() == newHash.size());</div>
+<div class="line"><span class="lineno">  153</span>    <span class="keywordflow">return</span> newHash;</div>
+<div class="line"><span class="lineno">  154</span>}</div>
+<div class="ttc" id="aqvariant_html"><div class="ttname"><a href="https://doc.qt.io/qt-5/qvariant.html">QVariant</a></div></div>
+<div class="ttc" id="aqvariant_html_value"><div class="ttname"><a href="https://doc.qt.io/qt-5/qvariant.html#value">QVariant::value</a></div><div class="ttdeci">T value() const const</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a8e99e14db0087ade760cafad18259c2b" name="a8e99e14db0087ade760cafad18259c2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e99e14db0087ade760cafad18259c2b">&#9670;&#160;</a></span>sanitise() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantMap Renderer::sanitise </td>
+          <td>(</td>
+          <td class="paramtype">const QVariantMap &amp;&#160;</td>
+          <td class="paramname"><em>map</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="renderer_8cpp_source.html#l00156">156</a> of file <a class="el" href="renderer_8cpp_source.html">renderer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  157</span>{</div>
+<div class="line"><span class="lineno">  158</span>    QVariantMap newMap;</div>
+<div class="line"><span class="lineno">  159</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> iter = map.begin(); iter != map.end(); ++iter) {</div>
+<div class="line"><span class="lineno">  160</span>        <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> saneKey = sanitise(iter.key());</div>
+<div class="line"><span class="lineno">  161</span>        <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qvariant.html">QVariant</a> saneValue = iter.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qvariant.html#value">value</a>();</div>
+<div class="line"><span class="lineno">  162</span>        <span class="keywordflow">if</span> (iter-&gt;type() == QVariant::Hash) {</div>
+<div class="line"><span class="lineno">  163</span>            saneValue = sanitise(iter-&gt;toHash());</div>
+<div class="line"><span class="lineno">  164</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (iter-&gt;type() == QVariant::Map) {</div>
+<div class="line"><span class="lineno">  165</span>            saneValue = sanitise(iter-&gt;toMap());</div>
+<div class="line"><span class="lineno">  166</span>        }</div>
+<div class="line"><span class="lineno">  167</span>        newMap.insert(saneKey, saneValue);</div>
+<div class="line"><span class="lineno">  168</span>    }</div>
+<div class="line"><span class="lineno">  169</span>    Q_ASSERT(map.size() == newMap.size());</div>
+<div class="line"><span class="lineno">  170</span>    <span class="keywordflow">return</span> newMap;</div>
+<div class="line"><span class="lineno">  171</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -350,7 +581,7 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="renderer_8h_source.html#l00025">25</a> of file <a class="el" href="renderer_8h_source.html">renderer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="renderer_8h_source.html#l00033">33</a> of file <a class="el" href="renderer_8h_source.html">renderer.h</a>.</p>
 
 </div>
 </div>
@@ -374,7 +605,7 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="renderer_8h_source.html#l00026">26</a> of file <a class="el" href="renderer_8h_source.html">renderer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="renderer_8h_source.html#l00034">34</a> of file <a class="el" href="renderer_8h_source.html">renderer.h</a>.</p>
 
 </div>
 </div>
@@ -398,7 +629,7 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="renderer_8h_source.html#l00027">27</a> of file <a class="el" href="renderer_8h_source.html">renderer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="renderer_8h_source.html#l00035">35</a> of file <a class="el" href="renderer_8h_source.html">renderer.h</a>.</p>
 
 </div>
 </div>

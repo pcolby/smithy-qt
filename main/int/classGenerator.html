@@ -153,12 +153,12 @@ Protected Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a5c83551528ea2d2730022e0ad8fcca4c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGenerator.html#a5c83551528ea2d2730022e0ad8fcca4c">renderService</a> (const smithy::Shape &amp;service, const <a class="elRef" href="https://doc.qt.io/qt-5/qstringlist.html">QStringList</a> &amp;templateNames, const <a class="elRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;outputDir, const QVariantMap &amp;context, ClobberMode &amp;clobberMode)</td></tr>
-<tr class="separator:a5c83551528ea2d2730022e0ad8fcca4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ee386f7ccc09947e1c9eedcdc60ee25"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGenerator.html#a3ee386f7ccc09947e1c9eedcdc60ee25">renderOperation</a> (const smithy::Shape &amp;service, const smithy::Shape &amp;operation, const <a class="elRef" href="https://doc.qt.io/qt-5/qstringlist.html">QStringList</a> &amp;templateNames, const <a class="elRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;outputDir, const QVariantMap &amp;context, ClobberMode &amp;clobberMode)</td></tr>
-<tr class="separator:a3ee386f7ccc09947e1c9eedcdc60ee25"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac21f2b2caa9d7cdbde3fb8f537299b8b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGenerator.html#ac21f2b2caa9d7cdbde3fb8f537299b8b">render</a> (const <a class="elRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;templateName, const <a class="elRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;outputPathName, const QVariantMap &amp;context, ClobberMode &amp;clobberMode)</td></tr>
-<tr class="separator:ac21f2b2caa9d7cdbde3fb8f537299b8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa1d9f88da53cc5be8e720cf7e23c548"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGenerator.html#aaa1d9f88da53cc5be8e720cf7e23c548">renderService</a> (const smithy::Shape &amp;service, const <a class="elRef" href="https://doc.qt.io/qt-5/qstringlist.html">QStringList</a> &amp;templateNames, const <a class="elRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;outputDir, const QVariantHash &amp;context, ClobberMode &amp;clobberMode)</td></tr>
+<tr class="separator:aaa1d9f88da53cc5be8e720cf7e23c548"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad87975d469b9c30bf7a60161c350bb6e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGenerator.html#ad87975d469b9c30bf7a60161c350bb6e">renderOperation</a> (const smithy::Shape &amp;service, const smithy::Shape &amp;operation, const <a class="elRef" href="https://doc.qt.io/qt-5/qstringlist.html">QStringList</a> &amp;templateNames, const <a class="elRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;outputDir, const QVariantHash &amp;context, ClobberMode &amp;clobberMode)</td></tr>
+<tr class="separator:ad87975d469b9c30bf7a60161c350bb6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43d78d7856cf63cfc6f611728578878b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGenerator.html#a43d78d7856cf63cfc6f611728578878b">render</a> (const <a class="elRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;templateName, const <a class="elRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;outputPathName, const QVariantHash &amp;context, ClobberMode &amp;clobberMode)</td></tr>
+<tr class="separator:a43d78d7856cf63cfc6f611728578878b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-static-methods" name="pro-static-methods"></a>
 Static Protected Member Functions</h2></td></tr>
@@ -371,59 +371,69 @@ Static Private Attributes</h2></td></tr>
 <p class="definition">Definition at line <a class="el" href="generator_8cpp_source.html#l00048">48</a> of file <a class="el" href="generator_8cpp_source.html">generator.cpp</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   49</span>{<span class="comment"></span></div>
 <div class="line"><span class="lineno">   50</span><span class="comment">    /// \todo build a list of services to add to context.</span></div>
-<div class="line"><span class="lineno">   51</span><span class="comment"></span>    QVariantMap context;</div>
-<div class="line"><span class="lineno">   52</span> </div>
-<div class="line"><span class="lineno">   53</span>    <span class="comment">// Build the list of template names.</span></div>
-<div class="line"><span class="lineno">   54</span>    <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstringlist.html">QStringList</a> templatesNames = renderer-&gt;templatesNames();</div>
-<div class="line"><span class="lineno">   55</span>    <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstringlist.html">QStringList</a> serviceTemplateNames, operationTemplateNames, plainTemplateNames;</div>
-<div class="line"><span class="lineno">   56</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;name: templatesNames) {</div>
-<div class="line"><span class="lineno">   57</span>        ((servicePattern.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qregularexpression.html#match">match</a>(name).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qregularexpressionmatch.html#hasMatch">hasMatch</a>()) ? (operationPattern.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qregularexpression.html#match">match</a>(name).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qregularexpressionmatch.html#hasMatch">hasMatch</a>() ?</div>
-<div class="line"><span class="lineno">   58</span>            operationTemplateNames : serviceTemplateNames) : plainTemplateNames).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qlist.html#append">append</a>(name);</div>
-<div class="line"><span class="lineno">   59</span>    }</div>
-<div class="line"><span class="lineno">   60</span>    Q_ASSERT(serviceTemplateNames.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qlist.html#size">size</a>() + operationTemplateNames.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qlist.html#size">size</a>()</div>
-<div class="line"><span class="lineno">   61</span>             + plainTemplateNames.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qlist.html#size">size</a>() == templatesNames.size());</div>
-<div class="line"><span class="lineno">   62</span> </div>
-<div class="line"><span class="lineno">   63</span>    <span class="comment">// Render all of the services.</span></div>
-<div class="line"><span class="lineno">   64</span>    <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qhash.html">QHash&lt;smithy::ShapeId, smithy::Shape&gt;</a> services = model-&gt;shapes(smithy::Shape::Type::Service);</div>
-<div class="line"><span class="lineno">   65</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> smithy::Shape &amp;service: services) {</div>
-<div class="line"><span class="lineno">   66</span>        <span class="keywordflow">if</span> (!<a class="code hl_function" href="classGenerator.html#a5c83551528ea2d2730022e0ad8fcca4c">renderService</a>(service, serviceTemplateNames, outputDir, context, clobberMode)) {</div>
-<div class="line"><span class="lineno">   67</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">   68</span>        }</div>
-<div class="line"><span class="lineno">   69</span>        <span class="keyword">const</span> smithy::Shape::ShapeReferences operations = service.operations();</div>
-<div class="line"><span class="lineno">   70</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> smithy::Shape::ShapeReference &amp;shapeRef: operations) {</div>
-<div class="line"><span class="lineno">   71</span>            <span class="keyword">const</span> smithy::Shape operation = model-&gt;shape(shapeRef.target);</div>
-<div class="line"><span class="lineno">   72</span>            <span class="keywordflow">if</span> (!operation.isValid()) {</div>
-<div class="line"><span class="lineno">   73</span>                qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Failed to find shape for %1 operation in %2 service&quot;</span>)</div>
-<div class="line"><span class="lineno">   74</span>                    .arg(shapeRef.target.toString(), service.id().toString());</div>
-<div class="line"><span class="lineno">   75</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">   76</span>            }</div>
-<div class="line"><span class="lineno">   77</span>            <span class="keywordflow">if</span> (!<a class="code hl_function" href="classGenerator.html#a3ee386f7ccc09947e1c9eedcdc60ee25">renderOperation</a>(service, operation, operationTemplateNames, outputDir, context,</div>
-<div class="line"><span class="lineno">   78</span>                                 clobberMode)) {</div>
-<div class="line"><span class="lineno">   79</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">   80</span>            }</div>
-<div class="line"><span class="lineno">   81</span>        }</div>
-<div class="line"><span class="lineno">   82</span>    }</div>
-<div class="line"><span class="lineno">   83</span> </div>
-<div class="line"><span class="lineno">   84</span>    <span class="comment">// Render all of the one-off (not per-service) files.</span></div>
-<div class="line"><span class="lineno">   85</span>    qCDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Rendering %n unary template/s&quot;</span>, <span class="keyword">nullptr</span>, plainTemplateNames.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qlist.html#size">size</a>());</div>
-<div class="line"><span class="lineno">   86</span>    <span class="keywordflow">return</span> std::all_of(plainTemplateNames.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qlist.html#constBegin">constBegin</a>(), plainTemplateNames.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qlist.html#constEnd">constEnd</a>(),</div>
-<div class="line"><span class="lineno">   87</span>        [&amp;](<span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;templateName){</div>
-<div class="line"><span class="lineno">   88</span>            const QString outputPathName = outputDir + QLatin1Char(<span class="stringliteral">&#39;/&#39;</span>) + templateName;</div>
-<div class="line"><span class="lineno">   89</span>            return render(templateName, outputPathName, context, clobberMode);</div>
-<div class="line"><span class="lineno">   90</span>    });</div>
-<div class="line"><span class="lineno">   91</span>}</div>
-<div class="ttc" id="aclassGenerator_html_a3ee386f7ccc09947e1c9eedcdc60ee25"><div class="ttname"><a href="classGenerator.html#a3ee386f7ccc09947e1c9eedcdc60ee25">Generator::renderOperation</a></div><div class="ttdeci">bool renderOperation(const smithy::Shape &amp;service, const smithy::Shape &amp;operation, const QStringList &amp;templateNames, const QString &amp;outputDir, const QVariantMap &amp;context, ClobberMode &amp;clobberMode)</div><div class="ttdef"><b>Definition:</b> <a href="generator_8cpp_source.html#l00134">generator.cpp:134</a></div></div>
-<div class="ttc" id="aclassGenerator_html_a5c83551528ea2d2730022e0ad8fcca4c"><div class="ttname"><a href="classGenerator.html#a5c83551528ea2d2730022e0ad8fcca4c">Generator::renderService</a></div><div class="ttdeci">bool renderService(const smithy::Shape &amp;service, const QStringList &amp;templateNames, const QString &amp;outputDir, const QVariantMap &amp;context, ClobberMode &amp;clobberMode)</div><div class="ttdef"><b>Definition:</b> <a href="generator_8cpp_source.html#l00103">generator.cpp:103</a></div></div>
+<div class="line"><span class="lineno">   51</span><span class="comment"></span>    <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qjsonobject.html">QJsonObject</a> obj;</div>
+<div class="line"><span class="lineno">   52</span>    <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qhash.html">QHash&lt;smithy::ShapeId, smithy::Shape&gt;</a> services = model-&gt;shapes(smithy::Shape::Type::Service);</div>
+<div class="line"><span class="lineno">   53</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> smithy::Shape &amp;service: services) {</div>
+<div class="line"><span class="lineno">   54</span>        obj.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qjsonobject.html#insert">insert</a>(service.id().toString(), service.rawAst());</div>
+<div class="line"><span class="lineno">   55</span>    }</div>
+<div class="line"><span class="lineno">   56</span>    QVariantHash context{</div>
+<div class="line"><span class="lineno">   57</span>        { QSL(<span class="stringliteral">&quot;services&quot;</span>), obj.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qjsonobject.html#toVariantHash">toVariantHash</a>() },</div>
+<div class="line"><span class="lineno">   58</span>    };</div>
+<div class="line"><span class="lineno">   59</span>    renderer-&gt;push(context);</div>
+<div class="line"><span class="lineno">   60</span> </div>
+<div class="line"><span class="lineno">   61</span>    <span class="comment">// Build the list of template names.</span></div>
+<div class="line"><span class="lineno">   62</span>    <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstringlist.html">QStringList</a> templatesNames = renderer-&gt;templatesNames();</div>
+<div class="line"><span class="lineno">   63</span>    <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstringlist.html">QStringList</a> serviceTemplateNames, operationTemplateNames, plainTemplateNames;</div>
+<div class="line"><span class="lineno">   64</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;name: templatesNames) {</div>
+<div class="line"><span class="lineno">   65</span>        ((servicePattern.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qregularexpression.html#match">match</a>(name).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qregularexpressionmatch.html#hasMatch">hasMatch</a>()) ? (operationPattern.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qregularexpression.html#match">match</a>(name).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qregularexpressionmatch.html#hasMatch">hasMatch</a>() ?</div>
+<div class="line"><span class="lineno">   66</span>            operationTemplateNames : serviceTemplateNames) : plainTemplateNames).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qlist.html#append">append</a>(name);</div>
+<div class="line"><span class="lineno">   67</span>    }</div>
+<div class="line"><span class="lineno">   68</span>    Q_ASSERT(serviceTemplateNames.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qlist.html#size">size</a>() + operationTemplateNames.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qlist.html#size">size</a>()</div>
+<div class="line"><span class="lineno">   69</span>             + plainTemplateNames.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qlist.html#size">size</a>() == templatesNames.size());</div>
+<div class="line"><span class="lineno">   70</span> </div>
+<div class="line"><span class="lineno">   71</span>    <span class="comment">// Render all of the services.</span></div>
+<div class="line"><span class="lineno">   72</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> smithy::Shape &amp;service: services) {</div>
+<div class="line"><span class="lineno">   73</span>        <span class="keywordflow">if</span> (!<a class="code hl_function" href="classGenerator.html#aaa1d9f88da53cc5be8e720cf7e23c548">renderService</a>(service, serviceTemplateNames, outputDir, QVariantHash{}, clobberMode)) {</div>
+<div class="line"><span class="lineno">   74</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">   75</span>        }</div>
+<div class="line"><span class="lineno">   76</span>        <span class="keyword">const</span> smithy::Shape::ShapeReferences operations = service.operations();</div>
+<div class="line"><span class="lineno">   77</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> smithy::Shape::ShapeReference &amp;shapeRef: operations) {</div>
+<div class="line"><span class="lineno">   78</span>            <span class="keyword">const</span> smithy::Shape operation = model-&gt;shape(shapeRef.target);</div>
+<div class="line"><span class="lineno">   79</span>            <span class="keywordflow">if</span> (!operation.isValid()) {</div>
+<div class="line"><span class="lineno">   80</span>                qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Failed to find shape for %1 operation in %2 service&quot;</span>)</div>
+<div class="line"><span class="lineno">   81</span>                    .arg(shapeRef.target.toString(), service.id().toString());</div>
+<div class="line"><span class="lineno">   82</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">   83</span>            }</div>
+<div class="line"><span class="lineno">   84</span>            <span class="keywordflow">if</span> (!<a class="code hl_function" href="classGenerator.html#ad87975d469b9c30bf7a60161c350bb6e">renderOperation</a>(service, operation, operationTemplateNames, outputDir, QVariantHash{},</div>
+<div class="line"><span class="lineno">   85</span>                                 clobberMode)) {</div>
+<div class="line"><span class="lineno">   86</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">   87</span>            }</div>
+<div class="line"><span class="lineno">   88</span>        }</div>
+<div class="line"><span class="lineno">   89</span>    }</div>
+<div class="line"><span class="lineno">   90</span> </div>
+<div class="line"><span class="lineno">   91</span>    <span class="comment">// Render all of the one-off (not per-service) files.</span></div>
+<div class="line"><span class="lineno">   92</span>    qCDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Rendering %n unary template/s&quot;</span>, <span class="keyword">nullptr</span>, plainTemplateNames.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qlist.html#size">size</a>());</div>
+<div class="line"><span class="lineno">   93</span>    <span class="keywordflow">return</span> std::all_of(plainTemplateNames.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qlist.html#constBegin">constBegin</a>(), plainTemplateNames.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qlist.html#constEnd">constEnd</a>(),</div>
+<div class="line"><span class="lineno">   94</span>        [&amp;](<span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;templateName){</div>
+<div class="line"><span class="lineno">   95</span>            const QString outputPathName = outputDir + QLatin1Char(<span class="stringliteral">&#39;/&#39;</span>) + templateName;</div>
+<div class="line"><span class="lineno">   96</span>            return render(templateName, outputPathName, context, clobberMode);</div>
+<div class="line"><span class="lineno">   97</span>    });</div>
+<div class="line"><span class="lineno">   98</span>}</div>
+<div class="ttc" id="aclassGenerator_html_aaa1d9f88da53cc5be8e720cf7e23c548"><div class="ttname"><a href="classGenerator.html#aaa1d9f88da53cc5be8e720cf7e23c548">Generator::renderService</a></div><div class="ttdeci">bool renderService(const smithy::Shape &amp;service, const QStringList &amp;templateNames, const QString &amp;outputDir, const QVariantHash &amp;context, ClobberMode &amp;clobberMode)</div><div class="ttdef"><b>Definition:</b> <a href="generator_8cpp_source.html#l00110">generator.cpp:110</a></div></div>
+<div class="ttc" id="aclassGenerator_html_ad87975d469b9c30bf7a60161c350bb6e"><div class="ttname"><a href="classGenerator.html#ad87975d469b9c30bf7a60161c350bb6e">Generator::renderOperation</a></div><div class="ttdeci">bool renderOperation(const smithy::Shape &amp;service, const smithy::Shape &amp;operation, const QStringList &amp;templateNames, const QString &amp;outputDir, const QVariantHash &amp;context, ClobberMode &amp;clobberMode)</div><div class="ttdef"><b>Definition:</b> <a href="generator_8cpp_source.html#l00141">generator.cpp:141</a></div></div>
+<div class="ttc" id="aqjsonobject_html"><div class="ttname"><a href="https://doc.qt.io/qt-5/qjsonobject.html">QJsonObject</a></div></div>
+<div class="ttc" id="aqjsonobject_html_insert"><div class="ttname"><a href="https://doc.qt.io/qt-5/qjsonobject.html#insert">QJsonObject::insert</a></div><div class="ttdeci">QJsonObject::iterator insert(const QString &amp;key, const QJsonValue &amp;value)</div></div>
+<div class="ttc" id="aqjsonobject_html_toVariantHash"><div class="ttname"><a href="https://doc.qt.io/qt-5/qjsonobject.html#toVariantHash">QJsonObject::toVariantHash</a></div><div class="ttdeci">QVariantHash toVariantHash() const const</div></div>
 <div class="ttc" id="aqlist_html_append"><div class="ttname"><a href="https://doc.qt.io/qt-5/qlist.html#append">QList::append</a></div><div class="ttdeci">void append(const T &amp;value)</div></div>
 <div class="ttc" id="aqlist_html_size"><div class="ttname"><a href="https://doc.qt.io/qt-5/qlist.html#size">QList::size</a></div><div class="ttdeci">int size() const const</div></div>
 <div class="ttc" id="aqregularexpression_html_match"><div class="ttname"><a href="https://doc.qt.io/qt-5/qregularexpression.html#match">QRegularExpression::match</a></div><div class="ttdeci">QRegularExpressionMatch match(const QString &amp;subject, int offset, QRegularExpression::MatchType matchType, QRegularExpression::MatchOptions matchOptions) const const</div></div>
 <div class="ttc" id="aqregularexpressionmatch_html_hasMatch"><div class="ttname"><a href="https://doc.qt.io/qt-5/qregularexpressionmatch.html#hasMatch">QRegularExpressionMatch::hasMatch</a></div><div class="ttdeci">bool hasMatch() const const</div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="elRef" href="https://doc.qt.io/qt-5/qlist.html#append">QList::append()</a>, <a class="elRef" href="https://doc.qt.io/qt-5/qlist.html#constBegin">QList::constBegin()</a>, <a class="elRef" href="https://doc.qt.io/qt-5/qlist.html#constEnd">QList::constEnd()</a>, <a class="elRef" href="https://doc.qt.io/qt-5/qregularexpressionmatch.html#hasMatch">QRegularExpressionMatch::hasMatch()</a>, <a class="elRef" href="https://doc.qt.io/qt-5/qregularexpression.html#match">QRegularExpression::match()</a>, <a class="el" href="generator_8cpp_source.html#l00134">renderOperation()</a>, <a class="el" href="generator_8cpp_source.html#l00103">renderService()</a>, and <a class="elRef" href="https://doc.qt.io/qt-5/qlist.html#size">QList::size()</a>.</p>
+<p class="reference">References <a class="elRef" href="https://doc.qt.io/qt-5/qlist.html#append">QList::append()</a>, <a class="elRef" href="https://doc.qt.io/qt-5/qlist.html#constBegin">QList::constBegin()</a>, <a class="elRef" href="https://doc.qt.io/qt-5/qlist.html#constEnd">QList::constEnd()</a>, <a class="elRef" href="https://doc.qt.io/qt-5/qregularexpressionmatch.html#hasMatch">QRegularExpressionMatch::hasMatch()</a>, <a class="elRef" href="https://doc.qt.io/qt-5/qjsonobject.html#insert">QJsonObject::insert()</a>, <a class="elRef" href="https://doc.qt.io/qt-5/qregularexpression.html#match">QRegularExpression::match()</a>, <a class="el" href="generator_8cpp_source.html#l00141">renderOperation()</a>, <a class="el" href="generator_8cpp_source.html#l00110">renderService()</a>, <a class="elRef" href="https://doc.qt.io/qt-5/qlist.html#size">QList::size()</a>, and <a class="elRef" href="https://doc.qt.io/qt-5/qjsonobject.html#toVariantHash">QJsonObject::toVariantHash()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classGenerator_ad25c47d02c75979ab6d21b8bf75b958e_cgraph.svg" width="592" height="412"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classGenerator_ad25c47d02c75979ab6d21b8bf75b958e_cgraph.svg" width="592" height="512"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -463,22 +473,22 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="generator_8cpp_source.html#l00224">224</a> of file <a class="el" href="generator_8cpp_source.html">generator.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  225</span>{</div>
-<div class="line"><span class="lineno">  226</span>    <span class="keywordflow">if</span> (first.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#isLower">isLower</a>() &amp;&amp; second.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#isLower">isLower</a>()) {</div>
-<div class="line"><span class="lineno">  227</span>        <span class="keywordflow">return</span> Capitalisation::lowercase;</div>
-<div class="line"><span class="lineno">  228</span>    }</div>
-<div class="line"><span class="lineno">  229</span>    <span class="keywordflow">if</span> (first.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#isUpper">isUpper</a>() &amp;&amp; second.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#isUpper">isUpper</a>()) {</div>
-<div class="line"><span class="lineno">  230</span>        <span class="keywordflow">return</span> Capitalisation::UPPERCASE;</div>
-<div class="line"><span class="lineno">  231</span>    }</div>
-<div class="line"><span class="lineno">  232</span>    <span class="keywordflow">if</span> (first.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#front">front</a>().<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qchar.html#isLower">isLower</a>() &amp;&amp; second.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#front">front</a>().<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qchar.html#isUpper">isUpper</a>()) {</div>
-<div class="line"><span class="lineno">  233</span>        <span class="keywordflow">return</span> Capitalisation::camelCase;</div>
-<div class="line"><span class="lineno">  234</span>    }</div>
-<div class="line"><span class="lineno">  235</span>    <span class="keywordflow">if</span> (first.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#front">front</a>().<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qchar.html#isUpper">isUpper</a>() &amp;&amp; second.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#front">front</a>().<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qchar.html#isUpper">isUpper</a>()) {</div>
-<div class="line"><span class="lineno">  236</span>        <span class="keywordflow">return</span> Capitalisation::CamelCase;</div>
-<div class="line"><span class="lineno">  237</span>    }</div>
-<div class="line"><span class="lineno">  238</span>    <span class="keywordflow">return</span> Capitalisation::NoChange;</div>
-<div class="line"><span class="lineno">  239</span>}</div>
+<p class="definition">Definition at line <a class="el" href="generator_8cpp_source.html#l00231">231</a> of file <a class="el" href="generator_8cpp_source.html">generator.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  232</span>{</div>
+<div class="line"><span class="lineno">  233</span>    <span class="keywordflow">if</span> (first.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#isLower">isLower</a>() &amp;&amp; second.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#isLower">isLower</a>()) {</div>
+<div class="line"><span class="lineno">  234</span>        <span class="keywordflow">return</span> Capitalisation::lowercase;</div>
+<div class="line"><span class="lineno">  235</span>    }</div>
+<div class="line"><span class="lineno">  236</span>    <span class="keywordflow">if</span> (first.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#isUpper">isUpper</a>() &amp;&amp; second.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#isUpper">isUpper</a>()) {</div>
+<div class="line"><span class="lineno">  237</span>        <span class="keywordflow">return</span> Capitalisation::UPPERCASE;</div>
+<div class="line"><span class="lineno">  238</span>    }</div>
+<div class="line"><span class="lineno">  239</span>    <span class="keywordflow">if</span> (first.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#front">front</a>().<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qchar.html#isLower">isLower</a>() &amp;&amp; second.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#front">front</a>().<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qchar.html#isUpper">isUpper</a>()) {</div>
+<div class="line"><span class="lineno">  240</span>        <span class="keywordflow">return</span> Capitalisation::camelCase;</div>
+<div class="line"><span class="lineno">  241</span>    }</div>
+<div class="line"><span class="lineno">  242</span>    <span class="keywordflow">if</span> (first.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#front">front</a>().<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qchar.html#isUpper">isUpper</a>() &amp;&amp; second.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#front">front</a>().<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qchar.html#isUpper">isUpper</a>()) {</div>
+<div class="line"><span class="lineno">  243</span>        <span class="keywordflow">return</span> Capitalisation::CamelCase;</div>
+<div class="line"><span class="lineno">  244</span>    }</div>
+<div class="line"><span class="lineno">  245</span>    <span class="keywordflow">return</span> Capitalisation::NoChange;</div>
+<div class="line"><span class="lineno">  246</span>}</div>
 <div class="ttc" id="aqchar_html_isLower"><div class="ttname"><a href="https://doc.qt.io/qt-5/qchar.html#isLower">QChar::isLower</a></div><div class="ttdeci">bool isLower() const const</div></div>
 <div class="ttc" id="aqchar_html_isUpper"><div class="ttname"><a href="https://doc.qt.io/qt-5/qchar.html#isUpper">QChar::isUpper</a></div><div class="ttdeci">bool isUpper() const const</div></div>
 <div class="ttc" id="aqstring_html_front"><div class="ttname"><a href="https://doc.qt.io/qt-5/qstring.html#front">QString::front</a></div><div class="ttdeci">QChar front() const const</div></div>
@@ -521,26 +531,26 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="generator_8cpp_source.html#l00241">241</a> of file <a class="el" href="generator_8cpp_source.html">generator.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  242</span>{</div>
-<div class="line"><span class="lineno">  243</span>    <span class="keywordflow">switch</span> (capitalisation) {</div>
-<div class="line"><span class="lineno">  244</span>    <span class="keywordflow">case</span> Capitalisation::NoChange:</div>
-<div class="line"><span class="lineno">  245</span>        <span class="keywordflow">return</span> string;</div>
-<div class="line"><span class="lineno">  246</span>    <span class="keywordflow">case</span> Capitalisation::lowercase:</div>
-<div class="line"><span class="lineno">  247</span>        <span class="keywordflow">return</span> <span class="keywordtype">string</span>.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#toLower">toLower</a>();</div>
-<div class="line"><span class="lineno">  248</span>    <span class="keywordflow">case</span> Capitalisation::camelCase:</div>
-<div class="line"><span class="lineno">  249</span>        Q_UNIMPLEMENTED();</div>
-<div class="line"><span class="lineno">  250</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  251</span>    <span class="keywordflow">case</span> Capitalisation::CamelCase:</div>
-<div class="line"><span class="lineno">  252</span>        Q_UNIMPLEMENTED();</div>
-<div class="line"><span class="lineno">  253</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  254</span>    <span class="keywordflow">case</span> Capitalisation::UPPERCASE:</div>
-<div class="line"><span class="lineno">  255</span>        <span class="keywordflow">return</span> <span class="keywordtype">string</span>.toUpper();</div>
-<div class="line"><span class="lineno">  256</span>    }</div>
-<div class="line"><span class="lineno">  257</span>    qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Unknown capitalisation %1 for %2&quot;</span>)</div>
-<div class="line"><span class="lineno">  258</span>        .arg((<span class="keywordtype">int</span>)capitalisation).arg(<span class="keywordtype">string</span>);</div>
-<div class="line"><span class="lineno">  259</span>    <span class="keywordflow">return</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a>{};</div>
-<div class="line"><span class="lineno">  260</span>}</div>
+<p class="definition">Definition at line <a class="el" href="generator_8cpp_source.html#l00248">248</a> of file <a class="el" href="generator_8cpp_source.html">generator.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  249</span>{</div>
+<div class="line"><span class="lineno">  250</span>    <span class="keywordflow">switch</span> (capitalisation) {</div>
+<div class="line"><span class="lineno">  251</span>    <span class="keywordflow">case</span> Capitalisation::NoChange:</div>
+<div class="line"><span class="lineno">  252</span>        <span class="keywordflow">return</span> string;</div>
+<div class="line"><span class="lineno">  253</span>    <span class="keywordflow">case</span> Capitalisation::lowercase:</div>
+<div class="line"><span class="lineno">  254</span>        <span class="keywordflow">return</span> <span class="keywordtype">string</span>.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#toLower">toLower</a>();</div>
+<div class="line"><span class="lineno">  255</span>    <span class="keywordflow">case</span> Capitalisation::camelCase:</div>
+<div class="line"><span class="lineno">  256</span>        Q_UNIMPLEMENTED();</div>
+<div class="line"><span class="lineno">  257</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  258</span>    <span class="keywordflow">case</span> Capitalisation::CamelCase:</div>
+<div class="line"><span class="lineno">  259</span>        Q_UNIMPLEMENTED();</div>
+<div class="line"><span class="lineno">  260</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  261</span>    <span class="keywordflow">case</span> Capitalisation::UPPERCASE:</div>
+<div class="line"><span class="lineno">  262</span>        <span class="keywordflow">return</span> <span class="keywordtype">string</span>.toUpper();</div>
+<div class="line"><span class="lineno">  263</span>    }</div>
+<div class="line"><span class="lineno">  264</span>    qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Unknown capitalisation %1 for %2&quot;</span>)</div>
+<div class="line"><span class="lineno">  265</span>        .arg((<span class="keywordtype">int</span>)capitalisation).arg(<span class="keywordtype">string</span>);</div>
+<div class="line"><span class="lineno">  266</span>    <span class="keywordflow">return</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a>{};</div>
+<div class="line"><span class="lineno">  267</span>}</div>
 <div class="ttc" id="aqstring_html_toLower"><div class="ttname"><a href="https://doc.qt.io/qt-5/qstring.html#toLower">QString::toLower</a></div><div class="ttdeci">QString toLower() const const</div></div>
 </div><!-- fragment -->
 </div>
@@ -591,27 +601,27 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="generator_8cpp_source.html#l00262">262</a> of file <a class="el" href="generator_8cpp_source.html">generator.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  264</span>{</div>
-<div class="line"><span class="lineno">  265</span>    <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> outputPathName = templateName;</div>
-<div class="line"><span class="lineno">  266</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> iter = pattern.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qregularexpression.html#globalMatch">globalMatch</a>(templateName); iter.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qregularexpressionmatchiterator.html#hasNext">hasNext</a>(); ) {</div>
-<div class="line"><span class="lineno">  267</span>        <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qregularexpressionmatch.html">QRegularExpressionMatch</a> match = iter.next();</div>
-<div class="line"><span class="lineno">  268</span>        <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> type = match.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qregularexpressionmatch.html#captured">captured</a>(QSL(<span class="stringliteral">&quot;type&quot;</span>));</div>
-<div class="line"><span class="lineno">  269</span>        <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> sep = match.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qregularexpressionmatch.html#captured">captured</a>(QSL(<span class="stringliteral">&quot;separator&quot;</span>));</div>
-<div class="line"><span class="lineno">  270</span>        <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> <span class="keywordtype">id</span> = match.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qregularexpressionmatch.html#captured">captured</a>(QSL(<span class="stringliteral">&quot;id&quot;</span>));</div>
-<div class="line"><span class="lineno">  271</span>        <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> newId = ids.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qhash.html#value">value</a>(<span class="keywordtype">id</span>.toLower());</div>
-<div class="line"><span class="lineno">  272</span>        <span class="keywordflow">if</span> (newId.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#isNull">isNull</a>()) {</div>
-<div class="line"><span class="lineno">  273</span>            qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;No pathname ID value for %1&quot;</span>).arg(<span class="keywordtype">id</span>);</div>
-<div class="line"><span class="lineno">  274</span>            <span class="keywordflow">return</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a>{};</div>
-<div class="line"><span class="lineno">  275</span>        }</div>
-<div class="line"><span class="lineno">  276</span>        <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> label = makeCase(newId, getCase(type, <span class="keywordtype">id</span>)).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#replace-2">replace</a>(<a class="code hl_classRef" href="https://doc.qt.io/qt-5/qlatin1char.html">QLatin1Char</a>(<span class="charliteral">&#39; &#39;</span>), sep);</div>
-<div class="line"><span class="lineno">  277</span>        outputPathName.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#replace-2">replace</a>(type+sep+<span class="keywordtype">id</span>, label);</div>
-<div class="line"><span class="lineno">  278</span>    }</div>
-<div class="line"><span class="lineno">  279</span>    <span class="keywordflow">if</span> (!outputDir.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#isEmpty">isEmpty</a>()) {</div>
-<div class="line"><span class="lineno">  280</span>        outputPathName.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#prepend-2">prepend</a>(outputDir + <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qlatin1char.html">QLatin1Char</a>(<span class="charliteral">&#39;/&#39;</span>));</div>
-<div class="line"><span class="lineno">  281</span>    }</div>
-<div class="line"><span class="lineno">  282</span>    <span class="keywordflow">return</span> outputPathName;</div>
-<div class="line"><span class="lineno">  283</span>}</div>
+<p class="definition">Definition at line <a class="el" href="generator_8cpp_source.html#l00269">269</a> of file <a class="el" href="generator_8cpp_source.html">generator.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  271</span>{</div>
+<div class="line"><span class="lineno">  272</span>    <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> outputPathName = templateName;</div>
+<div class="line"><span class="lineno">  273</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> iter = pattern.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qregularexpression.html#globalMatch">globalMatch</a>(templateName); iter.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qregularexpressionmatchiterator.html#hasNext">hasNext</a>(); ) {</div>
+<div class="line"><span class="lineno">  274</span>        <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qregularexpressionmatch.html">QRegularExpressionMatch</a> match = iter.next();</div>
+<div class="line"><span class="lineno">  275</span>        <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> type = match.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qregularexpressionmatch.html#captured">captured</a>(QSL(<span class="stringliteral">&quot;type&quot;</span>));</div>
+<div class="line"><span class="lineno">  276</span>        <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> sep = match.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qregularexpressionmatch.html#captured">captured</a>(QSL(<span class="stringliteral">&quot;separator&quot;</span>));</div>
+<div class="line"><span class="lineno">  277</span>        <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> <span class="keywordtype">id</span> = match.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qregularexpressionmatch.html#captured">captured</a>(QSL(<span class="stringliteral">&quot;id&quot;</span>));</div>
+<div class="line"><span class="lineno">  278</span>        <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> newId = ids.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qhash.html#value">value</a>(<span class="keywordtype">id</span>.toLower());</div>
+<div class="line"><span class="lineno">  279</span>        <span class="keywordflow">if</span> (newId.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#isNull">isNull</a>()) {</div>
+<div class="line"><span class="lineno">  280</span>            qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;No pathname ID value for %1&quot;</span>).arg(<span class="keywordtype">id</span>);</div>
+<div class="line"><span class="lineno">  281</span>            <span class="keywordflow">return</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a>{};</div>
+<div class="line"><span class="lineno">  282</span>        }</div>
+<div class="line"><span class="lineno">  283</span>        <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> label = makeCase(newId, getCase(type, <span class="keywordtype">id</span>)).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#replace-2">replace</a>(<a class="code hl_classRef" href="https://doc.qt.io/qt-5/qlatin1char.html">QLatin1Char</a>(<span class="charliteral">&#39; &#39;</span>), sep);</div>
+<div class="line"><span class="lineno">  284</span>        outputPathName.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#replace-2">replace</a>(type+sep+<span class="keywordtype">id</span>, label);</div>
+<div class="line"><span class="lineno">  285</span>    }</div>
+<div class="line"><span class="lineno">  286</span>    <span class="keywordflow">if</span> (!outputDir.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#isEmpty">isEmpty</a>()) {</div>
+<div class="line"><span class="lineno">  287</span>        outputPathName.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#prepend-2">prepend</a>(outputDir + <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qlatin1char.html">QLatin1Char</a>(<span class="charliteral">&#39;/&#39;</span>));</div>
+<div class="line"><span class="lineno">  288</span>    }</div>
+<div class="line"><span class="lineno">  289</span>    <span class="keywordflow">return</span> outputPathName;</div>
+<div class="line"><span class="lineno">  290</span>}</div>
 <div class="ttc" id="aqhash_html_value"><div class="ttname"><a href="https://doc.qt.io/qt-5/qhash.html#value">QHash::value</a></div><div class="ttdeci">const T value(const Key &amp;key) const const</div></div>
 <div class="ttc" id="aqlatin1char_html"><div class="ttname"><a href="https://doc.qt.io/qt-5/qlatin1char.html">QLatin1Char</a></div></div>
 <div class="ttc" id="aqregularexpression_html_globalMatch"><div class="ttname"><a href="https://doc.qt.io/qt-5/qregularexpression.html#globalMatch">QRegularExpression::globalMatch</a></div><div class="ttdeci">QRegularExpressionMatchIterator globalMatch(const QString &amp;subject, int offset, QRegularExpression::MatchType matchType, QRegularExpression::MatchOptions matchOptions) const const</div></div>
@@ -659,43 +669,43 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="generator_8cpp_source.html#l00193">193</a> of file <a class="el" href="generator_8cpp_source.html">generator.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  194</span>{</div>
-<div class="line"><span class="lineno">  195</span>    Q_ASSERT(clobberMode == ClobberMode::Prompt);</div>
-<div class="line"><span class="lineno">  196</span>    <span class="keywordflow">while</span> (<span class="keyword">true</span>) {</div>
-<div class="line"><span class="lineno">  197</span>        qCWarning(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Overwrite %1 [y,n,a,s,q,?]? &quot;</span>).arg(pathName);</div>
-<div class="line"><span class="lineno">  198</span>        <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qtextstream.html">QTextStream</a> stream(stdin);</div>
-<div class="line"><span class="lineno">  199</span>        <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> response = stream.readLine().<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#toLower">toLower</a>();</div>
-<div class="line"><span class="lineno">  200</span>        <span class="keywordflow">if</span> (response == QSL(<span class="stringliteral">&quot;y&quot;</span>)) {</div>
-<div class="line"><span class="lineno">  201</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  202</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (response == QSL(<span class="stringliteral">&quot;n&quot;</span>)) {</div>
-<div class="line"><span class="lineno">  203</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  204</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (response == QSL(<span class="stringliteral">&quot;a&quot;</span>)) {</div>
-<div class="line"><span class="lineno">  205</span>            clobberMode = ClobberMode::Overwrite;</div>
-<div class="line"><span class="lineno">  206</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  207</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (response == QSL(<span class="stringliteral">&quot;s&quot;</span>)) {</div>
-<div class="line"><span class="lineno">  208</span>            clobberMode = ClobberMode::Skip;</div>
-<div class="line"><span class="lineno">  209</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  210</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (response == QSL(<span class="stringliteral">&quot;q&quot;</span>)) {</div>
-<div class="line"><span class="lineno">  211</span>            <a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qcoreapplication.html#exit">QCoreApplication::exit</a>(EXIT_FAILURE);</div>
-<div class="line"><span class="lineno">  212</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">  213</span>            qCInfo(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;y - overwrite this file&quot;</span>);</div>
-<div class="line"><span class="lineno">  214</span>            qCInfo(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;n - do not overwrite this file&quot;</span>);</div>
-<div class="line"><span class="lineno">  215</span>            qCInfo(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;a - overwrite this, and all remaining files&quot;</span>);</div>
-<div class="line"><span class="lineno">  216</span>            qCInfo(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;s - do not overwrite this, or any remaining files&quot;</span>);</div>
-<div class="line"><span class="lineno">  217</span>            qCInfo(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;q - quit now, without writing any further files&quot;</span>);</div>
-<div class="line"><span class="lineno">  218</span>            qCInfo(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;? - print help&quot;</span>);</div>
-<div class="line"><span class="lineno">  219</span>        }</div>
-<div class="line"><span class="lineno">  220</span>    }</div>
-<div class="line"><span class="lineno">  221</span>    Q_UNREACHABLE();</div>
-<div class="line"><span class="lineno">  222</span>}</div>
+<p class="definition">Definition at line <a class="el" href="generator_8cpp_source.html#l00200">200</a> of file <a class="el" href="generator_8cpp_source.html">generator.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  201</span>{</div>
+<div class="line"><span class="lineno">  202</span>    Q_ASSERT(clobberMode == ClobberMode::Prompt);</div>
+<div class="line"><span class="lineno">  203</span>    <span class="keywordflow">while</span> (<span class="keyword">true</span>) {</div>
+<div class="line"><span class="lineno">  204</span>        qCWarning(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Overwrite %1 [y,n,a,s,q,?]? &quot;</span>).arg(pathName);</div>
+<div class="line"><span class="lineno">  205</span>        <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qtextstream.html">QTextStream</a> stream(stdin);</div>
+<div class="line"><span class="lineno">  206</span>        <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> response = stream.readLine().<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#toLower">toLower</a>();</div>
+<div class="line"><span class="lineno">  207</span>        <span class="keywordflow">if</span> (response == QSL(<span class="stringliteral">&quot;y&quot;</span>)) {</div>
+<div class="line"><span class="lineno">  208</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  209</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (response == QSL(<span class="stringliteral">&quot;n&quot;</span>)) {</div>
+<div class="line"><span class="lineno">  210</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  211</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (response == QSL(<span class="stringliteral">&quot;a&quot;</span>)) {</div>
+<div class="line"><span class="lineno">  212</span>            clobberMode = ClobberMode::Overwrite;</div>
+<div class="line"><span class="lineno">  213</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  214</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (response == QSL(<span class="stringliteral">&quot;s&quot;</span>)) {</div>
+<div class="line"><span class="lineno">  215</span>            clobberMode = ClobberMode::Skip;</div>
+<div class="line"><span class="lineno">  216</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  217</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (response == QSL(<span class="stringliteral">&quot;q&quot;</span>)) {</div>
+<div class="line"><span class="lineno">  218</span>            <a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qcoreapplication.html#exit">QCoreApplication::exit</a>(EXIT_FAILURE);</div>
+<div class="line"><span class="lineno">  219</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  220</span>            qCInfo(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;y - overwrite this file&quot;</span>);</div>
+<div class="line"><span class="lineno">  221</span>            qCInfo(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;n - do not overwrite this file&quot;</span>);</div>
+<div class="line"><span class="lineno">  222</span>            qCInfo(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;a - overwrite this, and all remaining files&quot;</span>);</div>
+<div class="line"><span class="lineno">  223</span>            qCInfo(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;s - do not overwrite this, or any remaining files&quot;</span>);</div>
+<div class="line"><span class="lineno">  224</span>            qCInfo(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;q - quit now, without writing any further files&quot;</span>);</div>
+<div class="line"><span class="lineno">  225</span>            qCInfo(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;? - print help&quot;</span>);</div>
+<div class="line"><span class="lineno">  226</span>        }</div>
+<div class="line"><span class="lineno">  227</span>    }</div>
+<div class="line"><span class="lineno">  228</span>    Q_UNREACHABLE();</div>
+<div class="line"><span class="lineno">  229</span>}</div>
 <div class="ttc" id="aqcoreapplication_html_exit"><div class="ttname"><a href="https://doc.qt.io/qt-5/qcoreapplication.html#exit">QCoreApplication::exit</a></div><div class="ttdeci">void exit(int returnCode)</div></div>
 <div class="ttc" id="aqtextstream_html"><div class="ttname"><a href="https://doc.qt.io/qt-5/qtextstream.html">QTextStream</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="ac21f2b2caa9d7cdbde3fb8f537299b8b" name="ac21f2b2caa9d7cdbde3fb8f537299b8b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac21f2b2caa9d7cdbde3fb8f537299b8b">&#9670;&#160;</a></span>render()</h2>
+<a id="a43d78d7856cf63cfc6f611728578878b" name="a43d78d7856cf63cfc6f611728578878b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43d78d7856cf63cfc6f611728578878b">&#9670;&#160;</a></span>render()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -718,7 +728,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const QVariantMap &amp;&#160;</td>
+          <td class="paramtype">const QVariantHash &amp;&#160;</td>
           <td class="paramname"><em>context</em>, </td>
         </tr>
         <tr>
@@ -740,30 +750,30 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="generator_8cpp_source.html#l00167">167</a> of file <a class="el" href="generator_8cpp_source.html">generator.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  169</span>{</div>
-<div class="line"><span class="lineno">  170</span>    <span class="keywordflow">if</span> (<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qfile.html#exists-1">QFile::exists</a>(outputPathName)) {</div>
-<div class="line"><span class="lineno">  171</span>        <span class="keywordflow">switch</span> (clobberMode) {</div>
-<div class="line"><span class="lineno">  172</span>        <span class="keywordflow">case</span> ClobberMode::Overwrite:</div>
-<div class="line"><span class="lineno">  173</span>            qCDebug(lc) &lt;&lt; tr(<span class="stringliteral">&quot;Overwriting existing file: %1&quot;</span>).arg(outputPathName);</div>
-<div class="line"><span class="lineno">  174</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  175</span>        <span class="keywordflow">case</span> ClobberMode::Prompt:</div>
-<div class="line"><span class="lineno">  176</span>            <span class="keywordflow">if</span> (promptToOverwrite(outputPathName, clobberMode)) {</div>
-<div class="line"><span class="lineno">  177</span>                <span class="keywordflow">break</span>; <span class="comment">// User said yes, so jump out of case statement.</span></div>
-<div class="line"><span class="lineno">  178</span>            }</div>
-<div class="line"><span class="lineno">  179</span>            __attribute__((fallthrough));</div>
-<div class="line"><span class="lineno">  180</span>        <span class="keywordflow">case</span> ClobberMode::Skip:</div>
-<div class="line"><span class="lineno">  181</span>            qCDebug(lc) &lt;&lt; tr(<span class="stringliteral">&quot;Skipping existing output file: %1&quot;</span>).arg(outputPathName);</div>
-<div class="line"><span class="lineno">  182</span>            skippedPathNames.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qlist.html#append">append</a>(outputPathName);</div>
-<div class="line"><span class="lineno">  183</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  184</span>        }</div>
-<div class="line"><span class="lineno">  185</span>    }</div>
-<div class="line"><span class="lineno">  186</span>    <span class="keywordflow">if</span> (!renderer-&gt;render(templateName, outputPathName, context)) {</div>
-<div class="line"><span class="lineno">  187</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  188</span>    }</div>
-<div class="line"><span class="lineno">  189</span>    renderedPathNames.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qlist.html#append">append</a>(outputPathName);</div>
-<div class="line"><span class="lineno">  190</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  191</span>}</div>
+<p class="definition">Definition at line <a class="el" href="generator_8cpp_source.html#l00174">174</a> of file <a class="el" href="generator_8cpp_source.html">generator.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  176</span>{</div>
+<div class="line"><span class="lineno">  177</span>    <span class="keywordflow">if</span> (<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qfile.html#exists-1">QFile::exists</a>(outputPathName)) {</div>
+<div class="line"><span class="lineno">  178</span>        <span class="keywordflow">switch</span> (clobberMode) {</div>
+<div class="line"><span class="lineno">  179</span>        <span class="keywordflow">case</span> ClobberMode::Overwrite:</div>
+<div class="line"><span class="lineno">  180</span>            qCDebug(lc) &lt;&lt; tr(<span class="stringliteral">&quot;Overwriting existing file: %1&quot;</span>).arg(outputPathName);</div>
+<div class="line"><span class="lineno">  181</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  182</span>        <span class="keywordflow">case</span> ClobberMode::Prompt:</div>
+<div class="line"><span class="lineno">  183</span>            <span class="keywordflow">if</span> (promptToOverwrite(outputPathName, clobberMode)) {</div>
+<div class="line"><span class="lineno">  184</span>                <span class="keywordflow">break</span>; <span class="comment">// User said yes, so jump out of case statement.</span></div>
+<div class="line"><span class="lineno">  185</span>            }</div>
+<div class="line"><span class="lineno">  186</span>            __attribute__((fallthrough));</div>
+<div class="line"><span class="lineno">  187</span>        <span class="keywordflow">case</span> ClobberMode::Skip:</div>
+<div class="line"><span class="lineno">  188</span>            qCDebug(lc) &lt;&lt; tr(<span class="stringliteral">&quot;Skipping existing output file: %1&quot;</span>).arg(outputPathName);</div>
+<div class="line"><span class="lineno">  189</span>            skippedPathNames.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qlist.html#append">append</a>(outputPathName);</div>
+<div class="line"><span class="lineno">  190</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  191</span>        }</div>
+<div class="line"><span class="lineno">  192</span>    }</div>
+<div class="line"><span class="lineno">  193</span>    <span class="keywordflow">if</span> (!renderer-&gt;render(templateName, outputPathName, context)) {</div>
+<div class="line"><span class="lineno">  194</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  195</span>    }</div>
+<div class="line"><span class="lineno">  196</span>    renderedPathNames.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qlist.html#append">append</a>(outputPathName);</div>
+<div class="line"><span class="lineno">  197</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  198</span>}</div>
 <div class="ttc" id="aqfile_html_exists-1"><div class="ttname"><a href="https://doc.qt.io/qt-5/qfile.html#exists-1">QFile::exists</a></div><div class="ttdeci">bool exists() const const</div></div>
 </div><!-- fragment -->
 </div>
@@ -783,15 +793,15 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="generator_8cpp_source.html#l00093">93</a> of file <a class="el" href="generator_8cpp_source.html">generator.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   94</span>{</div>
-<div class="line"><span class="lineno">   95</span>    <span class="keywordflow">return</span> renderedPathNames;</div>
-<div class="line"><span class="lineno">   96</span>}</div>
+<p class="definition">Definition at line <a class="el" href="generator_8cpp_source.html#l00100">100</a> of file <a class="el" href="generator_8cpp_source.html">generator.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  101</span>{</div>
+<div class="line"><span class="lineno">  102</span>    <span class="keywordflow">return</span> renderedPathNames;</div>
+<div class="line"><span class="lineno">  103</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="a3ee386f7ccc09947e1c9eedcdc60ee25" name="a3ee386f7ccc09947e1c9eedcdc60ee25"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ee386f7ccc09947e1c9eedcdc60ee25">&#9670;&#160;</a></span>renderOperation()</h2>
+<a id="ad87975d469b9c30bf7a60161c350bb6e" name="ad87975d469b9c30bf7a60161c350bb6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad87975d469b9c30bf7a60161c350bb6e">&#9670;&#160;</a></span>renderOperation()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -826,7 +836,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const QVariantMap &amp;&#160;</td>
+          <td class="paramtype">const QVariantHash &amp;&#160;</td>
           <td class="paramname"><em>context</em>, </td>
         </tr>
         <tr>
@@ -849,36 +859,36 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>extend context for this operation. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="generator_8cpp_source.html#l00134">134</a> of file <a class="el" href="generator_8cpp_source.html">generator.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  137</span>{</div>
-<div class="line"><span class="lineno">  138</span>    qCDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Rendering templates for operation %1&quot;</span>).arg(operation.id().toString());</div>
-<div class="line"><span class="lineno">  139</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  140</span><span class="comment">    /// \todo extend context for this operation.</span></div>
-<div class="line"><span class="lineno">  141</span><span class="comment"></span>    <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> apiTitle = service.traits().value(QSL(<span class="stringliteral">&quot;smithy.api#title&quot;</span>)).toString();</div>
-<div class="line"><span class="lineno">  142</span>    <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> sdkId = service.traits().value(QSL(<span class="stringliteral">&quot;aws.api#service&quot;</span>)).toObject().value(QSL(<span class="stringliteral">&quot;sdkId&quot;</span>)).toString();</div>
-<div class="line"><span class="lineno">  143</span>    <span class="keywordflow">if</span> (apiTitle.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#isEmpty">isEmpty</a>()) {</div>
-<div class="line"><span class="lineno">  144</span>        qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Service %1 has no API title&quot;</span>).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#arg-11">arg</a>(service.id().toString());</div>
-<div class="line"><span class="lineno">  145</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  146</span>    }</div>
-<div class="line"><span class="lineno">  147</span>    <span class="keywordflow">if</span> (sdkId.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#isEmpty">isEmpty</a>()) {</div>
-<div class="line"><span class="lineno">  148</span>        qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Service %1 has no SDK ID&quot;</span>).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#arg-11">arg</a>(service.id().toString());</div>
-<div class="line"><span class="lineno">  149</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  150</span>    }</div>
-<div class="line"><span class="lineno">  151</span> </div>
-<div class="line"><span class="lineno">  152</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;templateName: templateNames) {</div>
-<div class="line"><span class="lineno">  153</span>        <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> outputPathName = makeOutputPathName(templateName, servicePattern, {</div>
-<div class="line"><span class="lineno">  154</span>            { QSL(<span class="stringliteral">&quot;name&quot;</span>), apiTitle },</div>
-<div class="line"><span class="lineno">  155</span>            { QSL(<span class="stringliteral">&quot;sdkid&quot;</span>), sdkId },</div>
-<div class="line"><span class="lineno">  156</span>        });</div>
-<div class="line"><span class="lineno">  157</span>        outputPathName = makeOutputPathName(outputPathName, operationPattern, {</div>
-<div class="line"><span class="lineno">  158</span>            { QSL(<span class="stringliteral">&quot;name&quot;</span>), operation.id().shapeName() },</div>
-<div class="line"><span class="lineno">  159</span>        }, outputDir);</div>
-<div class="line"><span class="lineno">  160</span>        <span class="keywordflow">if</span> (!render(templateName, outputPathName, context, clobberMode)) {</div>
-<div class="line"><span class="lineno">  161</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  162</span>        }</div>
-<div class="line"><span class="lineno">  163</span>    }</div>
-<div class="line"><span class="lineno">  164</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  165</span>}</div>
+<p class="definition">Definition at line <a class="el" href="generator_8cpp_source.html#l00141">141</a> of file <a class="el" href="generator_8cpp_source.html">generator.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  144</span>{</div>
+<div class="line"><span class="lineno">  145</span>    qCDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Rendering templates for operation %1&quot;</span>).arg(operation.id().toString());</div>
+<div class="line"><span class="lineno">  146</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  147</span><span class="comment">    /// \todo extend context for this operation.</span></div>
+<div class="line"><span class="lineno">  148</span><span class="comment"></span>    <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> apiTitle = service.traits().value(QSL(<span class="stringliteral">&quot;smithy.api#title&quot;</span>)).toString();</div>
+<div class="line"><span class="lineno">  149</span>    <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> sdkId = service.traits().value(QSL(<span class="stringliteral">&quot;aws.api#service&quot;</span>)).toObject().value(QSL(<span class="stringliteral">&quot;sdkId&quot;</span>)).toString();</div>
+<div class="line"><span class="lineno">  150</span>    <span class="keywordflow">if</span> (apiTitle.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#isEmpty">isEmpty</a>()) {</div>
+<div class="line"><span class="lineno">  151</span>        qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Service %1 has no API title&quot;</span>).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#arg-11">arg</a>(service.id().toString());</div>
+<div class="line"><span class="lineno">  152</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  153</span>    }</div>
+<div class="line"><span class="lineno">  154</span>    <span class="keywordflow">if</span> (sdkId.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#isEmpty">isEmpty</a>()) {</div>
+<div class="line"><span class="lineno">  155</span>        qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Service %1 has no SDK ID&quot;</span>).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#arg-11">arg</a>(service.id().toString());</div>
+<div class="line"><span class="lineno">  156</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  157</span>    }</div>
+<div class="line"><span class="lineno">  158</span> </div>
+<div class="line"><span class="lineno">  159</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;templateName: templateNames) {</div>
+<div class="line"><span class="lineno">  160</span>        <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> outputPathName = makeOutputPathName(templateName, servicePattern, {</div>
+<div class="line"><span class="lineno">  161</span>            { QSL(<span class="stringliteral">&quot;name&quot;</span>), apiTitle },</div>
+<div class="line"><span class="lineno">  162</span>            { QSL(<span class="stringliteral">&quot;sdkid&quot;</span>), sdkId },</div>
+<div class="line"><span class="lineno">  163</span>        });</div>
+<div class="line"><span class="lineno">  164</span>        outputPathName = makeOutputPathName(outputPathName, operationPattern, {</div>
+<div class="line"><span class="lineno">  165</span>            { QSL(<span class="stringliteral">&quot;name&quot;</span>), operation.id().shapeName() },</div>
+<div class="line"><span class="lineno">  166</span>        }, outputDir);</div>
+<div class="line"><span class="lineno">  167</span>        <span class="keywordflow">if</span> (!render(templateName, outputPathName, context, clobberMode)) {</div>
+<div class="line"><span class="lineno">  168</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  169</span>        }</div>
+<div class="line"><span class="lineno">  170</span>    }</div>
+<div class="line"><span class="lineno">  171</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  172</span>}</div>
 <div class="ttc" id="aqstring_html_arg-11"><div class="ttname"><a href="https://doc.qt.io/qt-5/qstring.html#arg-11">QString::arg</a></div><div class="ttdeci">QString arg(qlonglong a, int fieldWidth, int base, QChar fillChar) const const</div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="elRef" href="https://doc.qt.io/qt-5/qstring.html#arg-11">QString::arg()</a>, and <a class="elRef" href="https://doc.qt.io/qt-5/qstring.html#isEmpty">QString::isEmpty()</a>.</p>
@@ -887,20 +897,20 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classGenerator_a3ee386f7ccc09947e1c9eedcdc60ee25_cgraph.svg" width="391" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classGenerator_ad87975d469b9c30bf7a60161c350bb6e_cgraph.svg" width="391" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classGenerator_a3ee386f7ccc09947e1c9eedcdc60ee25_icgraph.svg" width="414" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classGenerator_ad87975d469b9c30bf7a60161c350bb6e_icgraph.svg" width="414" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
 </div>
 </div>
-<a id="a5c83551528ea2d2730022e0ad8fcca4c" name="a5c83551528ea2d2730022e0ad8fcca4c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5c83551528ea2d2730022e0ad8fcca4c">&#9670;&#160;</a></span>renderService()</h2>
+<a id="aaa1d9f88da53cc5be8e720cf7e23c548" name="aaa1d9f88da53cc5be8e720cf7e23c548"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa1d9f88da53cc5be8e720cf7e23c548">&#9670;&#160;</a></span>renderService()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -929,7 +939,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const QVariantMap &amp;&#160;</td>
+          <td class="paramtype">const QVariantHash &amp;&#160;</td>
           <td class="paramname"><em>context</em>, </td>
         </tr>
         <tr>
@@ -952,34 +962,34 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>extend context for this service. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="generator_8cpp_source.html#l00103">103</a> of file <a class="el" href="generator_8cpp_source.html">generator.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  106</span>{</div>
-<div class="line"><span class="lineno">  107</span>    qCDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Rendering templates for service %1&quot;</span>).arg(service.id().toString());</div>
-<div class="line"><span class="lineno">  108</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  109</span><span class="comment">    /// \todo extend context for this service.</span></div>
-<div class="line"><span class="lineno">  110</span><span class="comment"></span>    <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> apiTitle = service.traits().value(QSL(<span class="stringliteral">&quot;smithy.api#title&quot;</span>)).toString();</div>
-<div class="line"><span class="lineno">  111</span>    <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> sdkId = service.traits().value(QSL(<span class="stringliteral">&quot;aws.api#service&quot;</span>)).toObject().value(QSL(<span class="stringliteral">&quot;sdkId&quot;</span>)).toString();</div>
-<div class="line"><span class="lineno">  112</span>    <span class="keywordflow">if</span> (apiTitle.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#isEmpty">isEmpty</a>()) {</div>
-<div class="line"><span class="lineno">  113</span>        qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Service %1 has no API title&quot;</span>).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#arg-11">arg</a>(service.id().toString());</div>
-<div class="line"><span class="lineno">  114</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  115</span>    }</div>
-<div class="line"><span class="lineno">  116</span>    <span class="keywordflow">if</span> (sdkId.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#isEmpty">isEmpty</a>()) {</div>
-<div class="line"><span class="lineno">  117</span>        qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Service %1 has no SDK ID&quot;</span>).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#arg-11">arg</a>(service.id().toString());</div>
-<div class="line"><span class="lineno">  118</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  119</span>    }</div>
-<div class="line"><span class="lineno">  120</span> </div>
-<div class="line"><span class="lineno">  121</span>    <span class="comment">// Render each of service templates.</span></div>
-<div class="line"><span class="lineno">  122</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;templateName: templateNames) {</div>
-<div class="line"><span class="lineno">  123</span>        <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> outputPathName = makeOutputPathName(templateName, servicePattern, {</div>
-<div class="line"><span class="lineno">  124</span>            { QSL(<span class="stringliteral">&quot;name&quot;</span>), apiTitle },</div>
-<div class="line"><span class="lineno">  125</span>            { QSL(<span class="stringliteral">&quot;sdkid&quot;</span>), sdkId },</div>
-<div class="line"><span class="lineno">  126</span>        }, outputDir);</div>
-<div class="line"><span class="lineno">  127</span>        <span class="keywordflow">if</span> (!render(templateName, outputPathName, context, clobberMode)) {</div>
-<div class="line"><span class="lineno">  128</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  129</span>        }</div>
-<div class="line"><span class="lineno">  130</span>    }</div>
-<div class="line"><span class="lineno">  131</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  132</span>}</div>
+<p class="definition">Definition at line <a class="el" href="generator_8cpp_source.html#l00110">110</a> of file <a class="el" href="generator_8cpp_source.html">generator.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  113</span>{</div>
+<div class="line"><span class="lineno">  114</span>    qCDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Rendering templates for service %1&quot;</span>).arg(service.id().toString());</div>
+<div class="line"><span class="lineno">  115</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  116</span><span class="comment">    /// \todo extend context for this service.</span></div>
+<div class="line"><span class="lineno">  117</span><span class="comment"></span>    <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> apiTitle = service.traits().value(QSL(<span class="stringliteral">&quot;smithy.api#title&quot;</span>)).toString();</div>
+<div class="line"><span class="lineno">  118</span>    <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> sdkId = service.traits().value(QSL(<span class="stringliteral">&quot;aws.api#service&quot;</span>)).toObject().value(QSL(<span class="stringliteral">&quot;sdkId&quot;</span>)).toString();</div>
+<div class="line"><span class="lineno">  119</span>    <span class="keywordflow">if</span> (apiTitle.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#isEmpty">isEmpty</a>()) {</div>
+<div class="line"><span class="lineno">  120</span>        qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Service %1 has no API title&quot;</span>).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#arg-11">arg</a>(service.id().toString());</div>
+<div class="line"><span class="lineno">  121</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  122</span>    }</div>
+<div class="line"><span class="lineno">  123</span>    <span class="keywordflow">if</span> (sdkId.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#isEmpty">isEmpty</a>()) {</div>
+<div class="line"><span class="lineno">  124</span>        qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Service %1 has no SDK ID&quot;</span>).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#arg-11">arg</a>(service.id().toString());</div>
+<div class="line"><span class="lineno">  125</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  126</span>    }</div>
+<div class="line"><span class="lineno">  127</span> </div>
+<div class="line"><span class="lineno">  128</span>    <span class="comment">// Render each of service templates.</span></div>
+<div class="line"><span class="lineno">  129</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;templateName: templateNames) {</div>
+<div class="line"><span class="lineno">  130</span>        <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> outputPathName = makeOutputPathName(templateName, servicePattern, {</div>
+<div class="line"><span class="lineno">  131</span>            { QSL(<span class="stringliteral">&quot;name&quot;</span>), apiTitle },</div>
+<div class="line"><span class="lineno">  132</span>            { QSL(<span class="stringliteral">&quot;sdkid&quot;</span>), sdkId },</div>
+<div class="line"><span class="lineno">  133</span>        }, outputDir);</div>
+<div class="line"><span class="lineno">  134</span>        <span class="keywordflow">if</span> (!render(templateName, outputPathName, context, clobberMode)) {</div>
+<div class="line"><span class="lineno">  135</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  136</span>        }</div>
+<div class="line"><span class="lineno">  137</span>    }</div>
+<div class="line"><span class="lineno">  138</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  139</span>}</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="elRef" href="https://doc.qt.io/qt-5/qstring.html#arg-11">QString::arg()</a>, and <a class="elRef" href="https://doc.qt.io/qt-5/qstring.html#isEmpty">QString::isEmpty()</a>.</p>
 
@@ -987,13 +997,13 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classGenerator_a5c83551528ea2d2730022e0ad8fcca4c_cgraph.svg" width="375" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classGenerator_aaa1d9f88da53cc5be8e720cf7e23c548_cgraph.svg" width="375" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classGenerator_a5c83551528ea2d2730022e0ad8fcca4c_icgraph.svg" width="398" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classGenerator_aaa1d9f88da53cc5be8e720cf7e23c548_icgraph.svg" width="398" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -1014,10 +1024,10 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="generator_8cpp_source.html#l00098">98</a> of file <a class="el" href="generator_8cpp_source.html">generator.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   99</span>{</div>
-<div class="line"><span class="lineno">  100</span>    <span class="keywordflow">return</span> skippedPathNames;</div>
-<div class="line"><span class="lineno">  101</span>}</div>
+<p class="definition">Definition at line <a class="el" href="generator_8cpp_source.html#l00105">105</a> of file <a class="el" href="generator_8cpp_source.html">generator.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  106</span>{</div>
+<div class="line"><span class="lineno">  107</span>    <span class="keywordflow">return</span> skippedPathNames;</div>
+<div class="line"><span class="lineno">  108</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
