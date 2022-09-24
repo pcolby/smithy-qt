@@ -14,7 +14,7 @@
 #define QSL(str) QStringLiteral(str) // Shorten the QStringLiteral macro for readability.
 
 const QRegularExpression Generator::servicePattern{
-    QSL("(?<type>Service)(?<seperator>[^a-zA-Z0-9]*)(?<id>Name|sdkId)"),
+    QSL("(?<type>Service)(?<seperator>[^a-zA-Z0-9]*)(?<id>Title|sdkId)"),
     QRegularExpression::CaseInsensitiveOption
 };
 
@@ -97,27 +97,23 @@ bool Generator::renderService(const smithy::Shape &service,  const QStringList &
     qCDebug(lc).noquote() << tr("Rendering templates for service %1").arg(service.id().toString());
 
     /// \todo extend context for this operation.
+    const QString apiTitle = service.traits().value(QSL("smithy.api#title")).toString();
     const QString sdkId = service.traits().value(QSL("aws.api#service")).toObject().value(QSL("sdkId")).toString();
+    if (apiTitle.isEmpty()) {
+        qCCritical(lc).noquote() << tr("Service %1 has no API title").arg(service.id().toString());
+        return false;
+    }
     if (sdkId.isEmpty()) {
         qCCritical(lc).noquote() << tr("Service %1 has no SDK ID").arg(service.id().toString());
         return false;
     }
-    qCDebug(lc).noquote() << tr("SDK ID: %1").arg(sdkId);
 
     /// Render each of service templates.
     for (const QString &templateName: templateNames) {
-        QString outputPathName = templateName;
-        for (auto iter = servicePattern.globalMatch(templateName); iter.hasNext(); ) {
-            const QRegularExpressionMatch match = iter.next();
-            const QString type = match.captured(QSL("type"));
-            Q_ASSERT(type.compare(QSL("service"), Qt::CaseInsensitive) == 0);
-            const QString sep = match.captured(QSL("serparator"));
-            const QString id = match.captured(QSL("id"));
-            Q_ASSERT(!id.isEmpty());
-            const QString label = makeCase(sdkId, getCase(type, id)).replace(QLatin1Char(' '), sep);
-            outputPathName.replace(type+sep+id, label);
-        }
-        outputPathName.prepend(outputDir + QLatin1Char('/'));
+        const QString outputPathName = makeOutputPathName(templateName, servicePattern, {
+            { QSL("name"), apiTitle },
+            { QSL("sdkid"), sdkId },
+        }, outputDir);
         if (!render(templateName, outputPathName, context, clobberMode)) {
             return false;
         }
@@ -194,6 +190,26 @@ QString Generator::makeCase(const QString &string, const Capitalisation &capital
     return QString{};
 }
 
+QString Generator::makeOutputPathName(const QString &templateName, const QRegularExpression &pattern,
+                                      const QHash<QString,QString> &ids, const QString &outputDir)
+{
+    QString outputPathName = templateName;
+    for (auto iter = pattern.globalMatch(templateName); iter.hasNext(); ) {
+        const QRegularExpressionMatch match = iter.next();
+        const QString type = match.captured(QSL("type"));
+        const QString sep = match.captured(QSL("separator"));
+        const QString id = match.captured(QSL("id"));
+        const QString newId = ids.value(id.toLower());
+        if (newId.isNull()) {
+            qCCritical(lc).noquote() << tr("No pathname ID value for %1").arg(id);
+            return QString{};
+        }
+        const QString label = makeCase(newId, getCase(type, id)).replace(QLatin1Char(' '), sep);
+        outputPathName.replace(type+sep+id, label);
+    }
+    outputPathName.prepend(outputDir + QLatin1Char('/'));
+    return outputPathName;
+}
 
 //QStringList Generator::formatHtmlDocumentation(const QString &html)
 //{
