@@ -82,12 +82,10 @@ bool Generator::generate(const QString &outputDir, ClobberMode clobberMode)
     }
 
     // Render all of the one-off (not per-service) files.
-    for (const QString &templateName: plainTemplateNames) {
-        if (!render(templateName, outputDir, context, clobberMode)) {
-            return false;
-        }
-    }
-    return true;
+    return std::all_of(plainTemplateNames.constBegin(), plainTemplateNames.constEnd(),
+        [&](const QString &templateName){
+            return render(templateName, outputDir, context, clobberMode);
+    });
 }
 
 QStringList Generator::renderedFiles() const
