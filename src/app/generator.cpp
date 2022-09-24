@@ -48,7 +48,15 @@ int Generator::expectedFileCount() const
 bool Generator::generate(const QString &outputDir, ClobberMode clobberMode)
 {
     /// \todo build a list of services to add to context.
-    QVariantHash context;
+    QJsonObject obj;
+    const QHash<smithy::ShapeId, smithy::Shape> services = model->shapes(smithy::Shape::Type::Service);
+    for (const smithy::Shape &service: services) {
+        obj.insert(service.id().toString(), service.rawAst());
+    }
+    QVariantHash context{
+        { QSL("services"), obj.toVariantHash() },
+    };
+    renderer->push(context);
 
     // Build the list of template names.
     const QStringList templatesNames = renderer->templatesNames();
@@ -61,9 +69,8 @@ bool Generator::generate(const QString &outputDir, ClobberMode clobberMode)
              + plainTemplateNames.size() == templatesNames.size());
 
     // Render all of the services.
-    const QHash<smithy::ShapeId, smithy::Shape> services = model->shapes(smithy::Shape::Type::Service);
     for (const smithy::Shape &service: services) {
-        if (!renderService(service, serviceTemplateNames, outputDir, context, clobberMode)) {
+        if (!renderService(service, serviceTemplateNames, outputDir, QVariantHash{}, clobberMode)) {
             return false;
         }
         const smithy::Shape::ShapeReferences operations = service.operations();
@@ -74,7 +81,7 @@ bool Generator::generate(const QString &outputDir, ClobberMode clobberMode)
                     .arg(shapeRef.target.toString(), service.id().toString());
                 return false;
             }
-            if (!renderOperation(service, operation, operationTemplateNames, outputDir, context,
+            if (!renderOperation(service, operation, operationTemplateNames, outputDir, QVariantHash{},
                                  clobberMode)) {
                 return false;
             }
