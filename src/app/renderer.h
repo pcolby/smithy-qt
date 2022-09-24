@@ -19,7 +19,7 @@ public:
     QStringList templatesNames() const;
 
     bool render(const QString &templateName, const QString &outputPathName,
-                const QVariantMap &additionalContext = QVariantMap{}) const;
+                const QVariantMap &additionalContext = QVariantMap{});
 
 protected:
     Grantlee::Context context;

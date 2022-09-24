@@ -26,7 +26,7 @@ public:
         Skip,
     };
 
-    Generator(const smithy::Model * const model, const Renderer * const renderer);
+    Generator(const smithy::Model * const model, Renderer * const renderer);
 
     int expectedFileCount() const;
 
@@ -65,7 +65,7 @@ protected:
 
 private:
     const smithy::Model * const model;
-    const Renderer * const renderer;
+    Renderer * const renderer;
     QStringList renderedPathNames;
     QStringList skippedPathNames;
 

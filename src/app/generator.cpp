@@ -23,7 +23,7 @@ const QRegularExpression Generator::operationPattern{
     QRegularExpression::CaseInsensitiveOption
 };
 
-Generator::Generator(const smithy::Model * const model, const Renderer * const renderer)
+Generator::Generator(const smithy::Model * const model, Renderer * const renderer)
     : model(model), renderer(renderer)
 {
     Q_ASSERT(model->isValid());

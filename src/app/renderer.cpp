@@ -64,7 +64,7 @@ public:
 };
 
 bool Renderer::render(const QString &templateName, const QString &outputPathName,
-            const QVariantMap &additionalContext) const
+            const QVariantMap &additionalContext)
 {
     qCDebug(lc).noquote() << tr("Rendering %1 to %2").arg(templateName, outputPathName);
     if (!templates.contains(templateName)) {
@@ -85,14 +85,20 @@ bool Renderer::render(const QString &templateName, const QString &outputPathName
         return false;
     }
 
-    Q_UNUSED(additionalContext);
+    context.push();
+    for (auto iter = additionalContext.constBegin(); iter != additionalContext.constEnd(); ++iter) {
+        context.insert(iter.key(), iter.value());
+    }
 
-//    QTextStream textStream(&file);
-//    NoEscapeStream noEscapeStream(&textStream);
-//    templates[templateName]->render(&noEscapeStream, &context);
-//    if (templates[templateName]->error()) {
-//        qInfo() << "failed to generate" << outputFileName << templates[templateName]->errorString();
-//        return false;
-//    }
+    QTextStream textStream(&file);
+    NoEscapeStream noEscapeStream(&textStream);
+    Grantlee::Template tmplate = engine.loadByName(templateName);
+    tmplate->render(&noEscapeStream, &context);
+    if (tmplate->error()) {
+        qInfo() << tr("Failed to render %1: %2").arg(outputPathName, tmplate->errorString());
+        context.pop();
+        return false;
+    }
+    context.pop();
     return true;
 }

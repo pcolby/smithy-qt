@@ -251,13 +251,15 @@ int main(int argc, char *argv[])
     // Setup the generator.
     const QString outputDir = QDir(parser.value(QStringLiteral("output"))).absolutePath();
     Generator generator(&model, &renderer);
-    qCWarning(lc).noquote() << QCoreApplication::translate("main", "About to generate approximately"
-        " %n file/s in %2", nullptr, generator.expectedFileCount()).arg(outputDir);
     if (!parser.isSet(QStringLiteral("force"))) {
+        qCWarning(lc).noquote() << QCoreApplication::translate("main", "About to generate approximately"
+            " %n file/s in %2", nullptr, generator.expectedFileCount()).arg(outputDir);
         qCInfo(lc).noquote() << QCoreApplication::translate("main", "Press Enter to contine");
         QTextStream stream(stdin);
         stream.readLine();
     }
+    qCInfo(lc).noquote() << QCoreApplication::translate("main", "Rendering approximately"
+        " %n file/s in %2", nullptr, generator.expectedFileCount()).arg(outputDir);
     if (!generator.generate(outputDir, parser.isSet(QStringLiteral("force"))
             ? Generator::ClobberMode::Overwrite : Generator::ClobberMode::Prompt)) {
         return 6;
