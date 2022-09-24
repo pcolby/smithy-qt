@@ -319,55 +319,48 @@ Static Private Attributes</h2></td></tr>
 <div class="line"><span class="lineno">   55</span>    <span class="comment">// Build the list of template names.</span></div>
 <div class="line"><span class="lineno">   56</span>    <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstringlist.html">QStringList</a> templatesNames = renderer-&gt;templatesNames();</div>
 <div class="line"><span class="lineno">   57</span>    <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstringlist.html">QStringList</a> serviceTemplateNames, operationTemplateNames, plainTemplateNames;</div>
-<div class="line"><span class="lineno">   58</span>    <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qhash.html">QHash&lt;smithy::ShapeId, smithy::Shape&gt;</a> services = model-&gt;shapes(smithy::Shape::Type::Service);</div>
-<div class="line"><span class="lineno">   59</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;name: templatesNames) {</div>
-<div class="line"><span class="lineno">   60</span>        <span class="keywordflow">if</span> (servicePattern.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qregularexpression.html#match">match</a>(name).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qregularexpressionmatch.html#hasMatch">hasMatch</a>()) {</div>
-<div class="line"><span class="lineno">   61</span>            <span class="keywordflow">if</span> (operationPattern.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qregularexpression.html#match">match</a>(name).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qregularexpressionmatch.html#hasMatch">hasMatch</a>()) {</div>
-<div class="line"><span class="lineno">   62</span>                operationTemplateNames.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qlist.html#append">append</a>(name);</div>
-<div class="line"><span class="lineno">   63</span>            } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">   64</span>                serviceTemplateNames.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qlist.html#append">append</a>(name);</div>
-<div class="line"><span class="lineno">   65</span>            }</div>
-<div class="line"><span class="lineno">   66</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">   67</span>            plainTemplateNames.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qlist.html#append">append</a>(name);</div>
-<div class="line"><span class="lineno">   68</span>        }</div>
-<div class="line"><span class="lineno">   69</span>    }</div>
-<div class="line"><span class="lineno">   70</span>    Q_ASSERT(serviceTemplateNames.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qlist.html#size">size</a>() + operationTemplateNames.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qlist.html#size">size</a>()</div>
-<div class="line"><span class="lineno">   71</span>             + plainTemplateNames.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qlist.html#size">size</a>() == templatesNames.size());</div>
-<div class="line"><span class="lineno">   72</span> </div>
-<div class="line"><span class="lineno">   73</span>    <span class="comment">// Render all of the services.</span></div>
-<div class="line"><span class="lineno">   74</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> smithy::Shape &amp;service: services) {</div>
-<div class="line"><span class="lineno">   75</span>        <span class="keywordflow">if</span> (!<a class="code hl_function" href="classGenerator.html#a5c83551528ea2d2730022e0ad8fcca4c">renderService</a>(service, serviceTemplateNames, outputDir, context, clobberMode)) {</div>
-<div class="line"><span class="lineno">   76</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">   77</span>        }</div>
-<div class="line"><span class="lineno">   78</span>        <span class="keyword">const</span> smithy::Shape::ShapeReferences operations = service.operations();</div>
-<div class="line"><span class="lineno">   79</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> smithy::Shape::ShapeReference &amp;shapeRef: operations) {</div>
-<div class="line"><span class="lineno">   80</span>            <span class="keyword">const</span> smithy::Shape operation = model-&gt;shape(shapeRef.target);</div>
-<div class="line"><span class="lineno">   81</span>            <span class="keywordflow">if</span> (!operation.isValid()) {</div>
-<div class="line"><span class="lineno">   82</span>                qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Failed to find shape for %1 operation in %2 service&quot;</span>)</div>
-<div class="line"><span class="lineno">   83</span>                    .arg(shapeRef.target.toString(), service.id().toString());</div>
-<div class="line"><span class="lineno">   84</span>                <span class="keywordflow">return</span> -1;</div>
-<div class="line"><span class="lineno">   85</span>            }</div>
-<div class="line"><span class="lineno">   86</span>            <a class="code hl_function" href="classGenerator.html#a3ee386f7ccc09947e1c9eedcdc60ee25">renderOperation</a>(service, operation, operationTemplateNames, outputDir, context, clobberMode);</div>
-<div class="line"><span class="lineno">   87</span>        }</div>
-<div class="line"><span class="lineno">   88</span>    }</div>
-<div class="line"><span class="lineno">   89</span> </div>
-<div class="line"><span class="lineno">   90</span>    <span class="comment">// Render all of the one-off (not per-service) files.</span></div>
-<div class="line"><span class="lineno">   91</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;templateName: plainTemplateNames) {</div>
-<div class="line"><span class="lineno">   92</span>        render(templateName, outputDir, context, clobberMode);</div>
-<div class="line"><span class="lineno">   93</span>    }</div>
-<div class="line"><span class="lineno">   94</span>    Q_UNUSED(outputDir);</div>
-<div class="line"><span class="lineno">   95</span>    Q_UNUSED(clobberMode);</div>
-<div class="line"><span class="lineno">   96</span>    Q_UNIMPLEMENTED();</div>
-<div class="line"><span class="lineno">   97</span>    <span class="keywordflow">return</span> renderedFileCount;</div>
-<div class="line"><span class="lineno">   98</span>}</div>
-<div class="ttc" id="aclassGenerator_html_a3ee386f7ccc09947e1c9eedcdc60ee25"><div class="ttname"><a href="classGenerator.html#a3ee386f7ccc09947e1c9eedcdc60ee25">Generator::renderOperation</a></div><div class="ttdeci">bool renderOperation(const smithy::Shape &amp;service, const smithy::Shape &amp;operation, const QStringList &amp;templateNames, const QString &amp;outputDir, const QVariantMap &amp;context, ClobberMode &amp;clobberMode)</div><div class="ttdef"><b>Definition:</b> <a href="generator_8cpp_source.html#l00126">generator.cpp:126</a></div></div>
-<div class="ttc" id="aclassGenerator_html_a5c83551528ea2d2730022e0ad8fcca4c"><div class="ttname"><a href="classGenerator.html#a5c83551528ea2d2730022e0ad8fcca4c">Generator::renderService</a></div><div class="ttdeci">bool renderService(const smithy::Shape &amp;service, const QStringList &amp;templateNames, const QString &amp;outputDir, const QVariantMap &amp;context, ClobberMode &amp;clobberMode)</div><div class="ttdef"><b>Definition:</b> <a href="generator_8cpp_source.html#l00100">generator.cpp:100</a></div></div>
+<div class="line"><span class="lineno">   58</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;name: templatesNames) {</div>
+<div class="line"><span class="lineno">   59</span>        ((servicePattern.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qregularexpression.html#match">match</a>(name).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qregularexpressionmatch.html#hasMatch">hasMatch</a>()) ? (operationPattern.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qregularexpression.html#match">match</a>(name).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qregularexpressionmatch.html#hasMatch">hasMatch</a>() ?</div>
+<div class="line"><span class="lineno">   60</span>            operationTemplateNames : serviceTemplateNames) : plainTemplateNames).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qlist.html#append">append</a>(name);</div>
+<div class="line"><span class="lineno">   61</span>    }</div>
+<div class="line"><span class="lineno">   62</span>    Q_ASSERT(serviceTemplateNames.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qlist.html#size">size</a>() + operationTemplateNames.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qlist.html#size">size</a>()</div>
+<div class="line"><span class="lineno">   63</span>             + plainTemplateNames.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qlist.html#size">size</a>() == templatesNames.size());</div>
+<div class="line"><span class="lineno">   64</span> </div>
+<div class="line"><span class="lineno">   65</span>    <span class="comment">// Render all of the services.</span></div>
+<div class="line"><span class="lineno">   66</span>    <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qhash.html">QHash&lt;smithy::ShapeId, smithy::Shape&gt;</a> services = model-&gt;shapes(smithy::Shape::Type::Service);</div>
+<div class="line"><span class="lineno">   67</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> smithy::Shape &amp;service: services) {</div>
+<div class="line"><span class="lineno">   68</span>        <span class="keywordflow">if</span> (!<a class="code hl_function" href="classGenerator.html#a5c83551528ea2d2730022e0ad8fcca4c">renderService</a>(service, serviceTemplateNames, outputDir, context, clobberMode)) {</div>
+<div class="line"><span class="lineno">   69</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">   70</span>        }</div>
+<div class="line"><span class="lineno">   71</span>        <span class="keyword">const</span> smithy::Shape::ShapeReferences operations = service.operations();</div>
+<div class="line"><span class="lineno">   72</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> smithy::Shape::ShapeReference &amp;shapeRef: operations) {</div>
+<div class="line"><span class="lineno">   73</span>            <span class="keyword">const</span> smithy::Shape operation = model-&gt;shape(shapeRef.target);</div>
+<div class="line"><span class="lineno">   74</span>            <span class="keywordflow">if</span> (!operation.isValid()) {</div>
+<div class="line"><span class="lineno">   75</span>                qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Failed to find shape for %1 operation in %2 service&quot;</span>)</div>
+<div class="line"><span class="lineno">   76</span>                    .arg(shapeRef.target.toString(), service.id().toString());</div>
+<div class="line"><span class="lineno">   77</span>                <span class="keywordflow">return</span> -1;</div>
+<div class="line"><span class="lineno">   78</span>            }</div>
+<div class="line"><span class="lineno">   79</span>            <a class="code hl_function" href="classGenerator.html#a3ee386f7ccc09947e1c9eedcdc60ee25">renderOperation</a>(service, operation, operationTemplateNames, outputDir, context, clobberMode);</div>
+<div class="line"><span class="lineno">   80</span>        }</div>
+<div class="line"><span class="lineno">   81</span>    }</div>
+<div class="line"><span class="lineno">   82</span> </div>
+<div class="line"><span class="lineno">   83</span>    <span class="comment">// Render all of the one-off (not per-service) files.</span></div>
+<div class="line"><span class="lineno">   84</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;templateName: plainTemplateNames) {</div>
+<div class="line"><span class="lineno">   85</span>        render(templateName, outputDir, context, clobberMode);</div>
+<div class="line"><span class="lineno">   86</span>    }</div>
+<div class="line"><span class="lineno">   87</span>    Q_UNUSED(outputDir);</div>
+<div class="line"><span class="lineno">   88</span>    Q_UNUSED(clobberMode);</div>
+<div class="line"><span class="lineno">   89</span>    Q_UNIMPLEMENTED();</div>
+<div class="line"><span class="lineno">   90</span>    <span class="keywordflow">return</span> renderedFileCount;</div>
+<div class="line"><span class="lineno">   91</span>}</div>
+<div class="ttc" id="aclassGenerator_html_a3ee386f7ccc09947e1c9eedcdc60ee25"><div class="ttname"><a href="classGenerator.html#a3ee386f7ccc09947e1c9eedcdc60ee25">Generator::renderOperation</a></div><div class="ttdeci">bool renderOperation(const smithy::Shape &amp;service, const smithy::Shape &amp;operation, const QStringList &amp;templateNames, const QString &amp;outputDir, const QVariantMap &amp;context, ClobberMode &amp;clobberMode)</div><div class="ttdef"><b>Definition:</b> <a href="generator_8cpp_source.html#l00119">generator.cpp:119</a></div></div>
+<div class="ttc" id="aclassGenerator_html_a5c83551528ea2d2730022e0ad8fcca4c"><div class="ttname"><a href="classGenerator.html#a5c83551528ea2d2730022e0ad8fcca4c">Generator::renderService</a></div><div class="ttdeci">bool renderService(const smithy::Shape &amp;service, const QStringList &amp;templateNames, const QString &amp;outputDir, const QVariantMap &amp;context, ClobberMode &amp;clobberMode)</div><div class="ttdef"><b>Definition:</b> <a href="generator_8cpp_source.html#l00093">generator.cpp:93</a></div></div>
 <div class="ttc" id="aqlist_html_append"><div class="ttname"><a href="https://doc.qt.io/qt-5/qlist.html#append">QList::append</a></div><div class="ttdeci">void append(const T &amp;value)</div></div>
 <div class="ttc" id="aqlist_html_size"><div class="ttname"><a href="https://doc.qt.io/qt-5/qlist.html#size">QList::size</a></div><div class="ttdeci">int size() const const</div></div>
 <div class="ttc" id="aqregularexpression_html_match"><div class="ttname"><a href="https://doc.qt.io/qt-5/qregularexpression.html#match">QRegularExpression::match</a></div><div class="ttdeci">QRegularExpressionMatch match(const QString &amp;subject, int offset, QRegularExpression::MatchType matchType, QRegularExpression::MatchOptions matchOptions) const const</div></div>
 <div class="ttc" id="aqregularexpressionmatch_html_hasMatch"><div class="ttname"><a href="https://doc.qt.io/qt-5/qregularexpressionmatch.html#hasMatch">QRegularExpressionMatch::hasMatch</a></div><div class="ttdeci">bool hasMatch() const const</div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="elRef" href="https://doc.qt.io/qt-5/qlist.html#append">QList::append()</a>, <a class="elRef" href="https://doc.qt.io/qt-5/qregularexpressionmatch.html#hasMatch">QRegularExpressionMatch::hasMatch()</a>, <a class="elRef" href="https://doc.qt.io/qt-5/qregularexpression.html#match">QRegularExpression::match()</a>, <a class="el" href="generator_8cpp_source.html#l00126">renderOperation()</a>, <a class="el" href="generator_8cpp_source.html#l00100">renderService()</a>, and <a class="elRef" href="https://doc.qt.io/qt-5/qlist.html#size">QList::size()</a>.</p>
+<p class="reference">References <a class="elRef" href="https://doc.qt.io/qt-5/qlist.html#append">QList::append()</a>, <a class="elRef" href="https://doc.qt.io/qt-5/qregularexpressionmatch.html#hasMatch">QRegularExpressionMatch::hasMatch()</a>, <a class="elRef" href="https://doc.qt.io/qt-5/qregularexpression.html#match">QRegularExpression::match()</a>, <a class="el" href="generator_8cpp_source.html#l00119">renderOperation()</a>, <a class="el" href="generator_8cpp_source.html#l00093">renderService()</a>, and <a class="elRef" href="https://doc.qt.io/qt-5/qlist.html#size">QList::size()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -423,16 +416,16 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="generator_8cpp_source.html#l00145">145</a> of file <a class="el" href="generator_8cpp_source.html">generator.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  147</span>{</div>
-<div class="line"><span class="lineno">  148</span>    <span class="comment">// Apply the clobber.</span></div>
-<div class="line"><span class="lineno">  149</span>    Q_UNUSED(clobberMode);</div>
-<div class="line"><span class="lineno">  150</span> </div>
-<div class="line"><span class="lineno">  151</span>    renderedFileCount++;</div>
-<div class="line"><span class="lineno">  152</span> </div>
-<div class="line"><span class="lineno">  153</span>    <span class="comment">// Render the content.</span></div>
-<div class="line"><span class="lineno">  154</span>    <span class="keywordflow">return</span> renderer-&gt;render(templateName, outputPathName, context);</div>
-<div class="line"><span class="lineno">  155</span>}</div>
+<p class="definition">Definition at line <a class="el" href="generator_8cpp_source.html#l00138">138</a> of file <a class="el" href="generator_8cpp_source.html">generator.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  140</span>{</div>
+<div class="line"><span class="lineno">  141</span>    <span class="comment">// Apply the clobber.</span></div>
+<div class="line"><span class="lineno">  142</span>    Q_UNUSED(clobberMode);</div>
+<div class="line"><span class="lineno">  143</span> </div>
+<div class="line"><span class="lineno">  144</span>    renderedFileCount++;</div>
+<div class="line"><span class="lineno">  145</span> </div>
+<div class="line"><span class="lineno">  146</span>    <span class="comment">// Render the content.</span></div>
+<div class="line"><span class="lineno">  147</span>    <span class="keywordflow">return</span> renderer-&gt;render(templateName, outputPathName, context);</div>
+<div class="line"><span class="lineno">  148</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -496,22 +489,22 @@ Here is the call graph for this function:</div>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Todo:</a></b></dt><dd>extend context for this operation. </dd></dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd>Build the output pathname. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="generator_8cpp_source.html#l00126">126</a> of file <a class="el" href="generator_8cpp_source.html">generator.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  129</span>{</div>
-<div class="line"><span class="lineno">  130</span>    qCDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Rendering templates for operation %1&quot;</span>).arg(operation.id().toString());</div>
-<div class="line"><span class="lineno">  131</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  132</span><span class="comment">    /// \todo extend context for this operation.</span></div>
-<div class="line"><span class="lineno">  133</span><span class="comment"></span>    Q_UNUSED(service);</div>
-<div class="line"><span class="lineno">  134</span> </div>
-<div class="line"><span class="lineno">  135</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;templateName: templateNames) {<span class="comment"></span></div>
-<div class="line"><span class="lineno">  136</span><span class="comment">        /// \todo Build the output pathname.</span></div>
-<div class="line"><span class="lineno">  137</span><span class="comment"></span>        <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> outputPathName = outputDir + <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qlatin1char.html">QLatin1Char</a>(<span class="charliteral">&#39;/&#39;</span>) + templateName;</div>
-<div class="line"><span class="lineno">  138</span>        <span class="keywordflow">if</span> (!render(templateName, outputPathName, context, clobberMode)) {</div>
-<div class="line"><span class="lineno">  139</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  140</span>        }</div>
-<div class="line"><span class="lineno">  141</span>    }</div>
-<div class="line"><span class="lineno">  142</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  143</span>}</div>
+<p class="definition">Definition at line <a class="el" href="generator_8cpp_source.html#l00119">119</a> of file <a class="el" href="generator_8cpp_source.html">generator.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  122</span>{</div>
+<div class="line"><span class="lineno">  123</span>    qCDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Rendering templates for operation %1&quot;</span>).arg(operation.id().toString());</div>
+<div class="line"><span class="lineno">  124</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  125</span><span class="comment">    /// \todo extend context for this operation.</span></div>
+<div class="line"><span class="lineno">  126</span><span class="comment"></span>    Q_UNUSED(service);</div>
+<div class="line"><span class="lineno">  127</span> </div>
+<div class="line"><span class="lineno">  128</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;templateName: templateNames) {<span class="comment"></span></div>
+<div class="line"><span class="lineno">  129</span><span class="comment">        /// \todo Build the output pathname.</span></div>
+<div class="line"><span class="lineno">  130</span><span class="comment"></span>        <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> outputPathName = outputDir + <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qlatin1char.html">QLatin1Char</a>(<span class="charliteral">&#39;/&#39;</span>) + templateName;</div>
+<div class="line"><span class="lineno">  131</span>        <span class="keywordflow">if</span> (!render(templateName, outputPathName, context, clobberMode)) {</div>
+<div class="line"><span class="lineno">  132</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  133</span>        }</div>
+<div class="line"><span class="lineno">  134</span>    }</div>
+<div class="line"><span class="lineno">  135</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  136</span>}</div>
 <div class="ttc" id="aqlatin1char_html"><div class="ttname"><a href="https://doc.qt.io/qt-5/qlatin1char.html">QLatin1Char</a></div></div>
 </div><!-- fragment -->
 <p class="reference">Referenced by <a class="el" href="generator_8cpp_source.html#l00048">generate()</a>.</p>
@@ -579,29 +572,29 @@ Here is the caller graph for this function:</div>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>render each of serviceTemplateNames, with sanitised service id. </dd></dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo:</a></b></dt><dd>Build the output pathname. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="generator_8cpp_source.html#l00100">100</a> of file <a class="el" href="generator_8cpp_source.html">generator.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  103</span>{</div>
-<div class="line"><span class="lineno">  104</span>    qCDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Rendering templates for service %1&quot;</span>).arg(service.id().toString());</div>
-<div class="line"><span class="lineno">  105</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  106</span><span class="comment">    /// \todo extend context for this operation.</span></div>
-<div class="line"><span class="lineno">  107</span><span class="comment"></span>    <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> sdkId = service.traits().value(QSL(<span class="stringliteral">&quot;aws.api#service&quot;</span>)).toObject().value(QSL(<span class="stringliteral">&quot;sdkId&quot;</span>)).toString();</div>
-<div class="line"><span class="lineno">  108</span>    <span class="keywordflow">if</span> (sdkId.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#isEmpty">isEmpty</a>()) {</div>
-<div class="line"><span class="lineno">  109</span>        qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Service %1 has no SDK ID&quot;</span>).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#arg-11">arg</a>(service.id().toString());</div>
-<div class="line"><span class="lineno">  110</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  111</span>    }</div>
-<div class="line"><span class="lineno">  112</span>    qCDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;SDK ID: %1&quot;</span>).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#arg-11">arg</a>(sdkId);</div>
-<div class="line"><span class="lineno">  113</span> </div>
-<div class="line"><span class="lineno">  114</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  115</span><span class="comment">    /// \todo render each of serviceTemplateNames, with sanitised service id.</span></div>
-<div class="line"><span class="lineno">  116</span><span class="comment"></span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;templateName: templateNames) {<span class="comment"></span></div>
-<div class="line"><span class="lineno">  117</span><span class="comment">        /// \todo Build the output pathname.</span></div>
-<div class="line"><span class="lineno">  118</span><span class="comment"></span>        <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> outputPathName = outputDir + <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qlatin1char.html">QLatin1Char</a>(<span class="charliteral">&#39;/&#39;</span>) + templateName;</div>
-<div class="line"><span class="lineno">  119</span>        <span class="keywordflow">if</span> (!render(templateName, outputPathName, context, clobberMode)) {</div>
-<div class="line"><span class="lineno">  120</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  121</span>        }</div>
-<div class="line"><span class="lineno">  122</span>    }</div>
-<div class="line"><span class="lineno">  123</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  124</span>}</div>
+<p class="definition">Definition at line <a class="el" href="generator_8cpp_source.html#l00093">93</a> of file <a class="el" href="generator_8cpp_source.html">generator.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   96</span>{</div>
+<div class="line"><span class="lineno">   97</span>    qCDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Rendering templates for service %1&quot;</span>).arg(service.id().toString());</div>
+<div class="line"><span class="lineno">   98</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   99</span><span class="comment">    /// \todo extend context for this operation.</span></div>
+<div class="line"><span class="lineno">  100</span><span class="comment"></span>    <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> sdkId = service.traits().value(QSL(<span class="stringliteral">&quot;aws.api#service&quot;</span>)).toObject().value(QSL(<span class="stringliteral">&quot;sdkId&quot;</span>)).toString();</div>
+<div class="line"><span class="lineno">  101</span>    <span class="keywordflow">if</span> (sdkId.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#isEmpty">isEmpty</a>()) {</div>
+<div class="line"><span class="lineno">  102</span>        qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Service %1 has no SDK ID&quot;</span>).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#arg-11">arg</a>(service.id().toString());</div>
+<div class="line"><span class="lineno">  103</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  104</span>    }</div>
+<div class="line"><span class="lineno">  105</span>    qCDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;SDK ID: %1&quot;</span>).<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qstring.html#arg-11">arg</a>(sdkId);</div>
+<div class="line"><span class="lineno">  106</span> </div>
+<div class="line"><span class="lineno">  107</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  108</span><span class="comment">    /// \todo render each of serviceTemplateNames, with sanitised service id.</span></div>
+<div class="line"><span class="lineno">  109</span><span class="comment"></span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;templateName: templateNames) {<span class="comment"></span></div>
+<div class="line"><span class="lineno">  110</span><span class="comment">        /// \todo Build the output pathname.</span></div>
+<div class="line"><span class="lineno">  111</span><span class="comment"></span>        <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> outputPathName = outputDir + <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qlatin1char.html">QLatin1Char</a>(<span class="charliteral">&#39;/&#39;</span>) + templateName;</div>
+<div class="line"><span class="lineno">  112</span>        <span class="keywordflow">if</span> (!render(templateName, outputPathName, context, clobberMode)) {</div>
+<div class="line"><span class="lineno">  113</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  114</span>        }</div>
+<div class="line"><span class="lineno">  115</span>    }</div>
+<div class="line"><span class="lineno">  116</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  117</span>}</div>
 <div class="ttc" id="aqstring_html_arg-11"><div class="ttname"><a href="https://doc.qt.io/qt-5/qstring.html#arg-11">QString::arg</a></div><div class="ttdeci">QString arg(qlonglong a, int fieldWidth, int base, QChar fillChar) const const</div></div>
 <div class="ttc" id="aqstring_html_isEmpty"><div class="ttname"><a href="https://doc.qt.io/qt-5/qstring.html#isEmpty">QString::isEmpty</a></div><div class="ttdeci">bool isEmpty() const const</div></div>
 </div><!-- fragment -->
