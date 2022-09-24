@@ -54,6 +54,8 @@ protected:
     bool render(const QString &templateName, const QString &outputPathName,
                 const QVariantMap &context, ClobberMode &clobberMode);
 
+    static bool promptToOverwrite(const QString &pathName, ClobberMode &clobberMode);
+
     static Capitalisation getCase(const QString &first, const QString &second);
     static QString makeCase(const QString &string, const Capitalisation &capitalisation);
     static QString makeOutputPathName(const QString &templateName, const QRegularExpression &pattern,

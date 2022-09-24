@@ -157,13 +157,57 @@ bool Generator::renderOperation(const smithy::Shape &service, const smithy::Shap
 bool Generator::render(const QString &templateName, const QString &outputPathName,
                        const QVariantMap &context, ClobberMode &clobberMode)
 {
-    // Apply the clobber.
-    Q_UNUSED(clobberMode);
-
+    if (QFile::exists(outputPathName)) {
+        switch (clobberMode) {
+        case ClobberMode::Overwrite:
+            qCDebug(lc) << tr("Overwriting existing file: %1").arg(outputPathName);
+            break;
+        case ClobberMode::Prompt:
+            if (promptToOverwrite(outputPathName, clobberMode)) {
+                break; // User said no.
+            }
+            __attribute__((fallthrough));
+        case ClobberMode::Skip:
+            qCDebug(lc) << tr("Skipping existing output file: %1").arg(outputPathName);
+            return true;
+        }
+    }
+    if (!renderer->render(templateName, outputPathName, context)) {
+        return false;
+    }
     renderedFileCount++;
+    return true;
+}
 
-    // Render the content.
-    return renderer->render(templateName, outputPathName, context);
+bool Generator::promptToOverwrite(const QString &pathName, ClobberMode &clobberMode)
+{
+    Q_ASSERT(clobberMode == ClobberMode::Prompt);
+    while (true) {
+        qCWarning(lc).noquote() << tr("Overwrite %1 [y,n,a,s,q,?]? ").arg(pathName);
+        QTextStream stream(stdin);
+        const QString response = stream.readLine().toLower();
+        if (response == QSL("y")) {
+            return true;
+        } else if (response == QSL("n")) {
+            return false;
+        } else if (response == QSL("a")) {
+            clobberMode = ClobberMode::Overwrite;
+            return true;
+        } else if (response == QSL("s")) {
+            clobberMode = ClobberMode::Skip;
+            return false;
+        } else if (response == QSL("q")) {
+            QCoreApplication::exit(EXIT_FAILURE);
+        } else {
+            qCInfo(lc).noquote() << tr("y - overwrite this file");
+            qCInfo(lc).noquote() << tr("n - do not overwrite this file");
+            qCInfo(lc).noquote() << tr("a - overwrite this, and all remaining files");
+            qCInfo(lc).noquote() << tr("s - do not overwrite this, or any remaining files");
+            qCInfo(lc).noquote() << tr("q - quit now, without writing any further files");
+            qCInfo(lc).noquote() << tr("? - print help");
+        }
+    }
+    Q_UNREACHABLE();
 }
 
 Generator::Capitalisation Generator::getCase(const QString &first, const QString &second)
@@ -191,10 +235,10 @@ QString Generator::makeCase(const QString &string, const Capitalisation &capital
     case Capitalisation::lowercase:
         return string.toLower();
     case Capitalisation::camelCase:
-        /// \todo
+        Q_UNIMPLEMENTED();
         break;
     case Capitalisation::CamelCase:
-        /// \todo
+        Q_UNIMPLEMENTED();
         break;
     case Capitalisation::UPPERCASE:
         return string.toUpper();
