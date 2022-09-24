@@ -121,8 +121,8 @@ QString Renderer::sanitise(const QString &key)
     while ((pos = newKey.indexOf(QLatin1Char('.'))) >= 0) {
         newKey = newKey.mid(0, pos) + newKey.mid(pos+1,1).toUpper() + newKey.mid(pos+2);
     }
-    newKey.replace(QRegularExpression{QSL("[^a-zA-Z_]")}, QSL("_"));
-    newKey.replace(QRegularExpression{QSL("^_")}, QLatin1String());
+    newKey.replace(QRegularExpression{QSL("[^a-zA-Z0-9_]")}, QSL("_"));
+    newKey.replace(QRegularExpression{QSL("^[0-9_]")}, QLatin1String());
     return newKey;
 }
 
