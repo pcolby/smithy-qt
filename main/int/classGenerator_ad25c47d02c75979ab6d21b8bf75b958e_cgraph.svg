@@ -157,9 +157,9 @@
 <!-- Node13 -->
 <g id="node13" class="node">
 <title>Node13</title>
-<g id="a_node13"><a target="_parent" xlink:href="https://doc.qt.io/qt-5/qjsonobject.html#toVariantHash" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="302,-19 151,-19 151,0 302,0 302,-19"/>
-<text text-anchor="middle" x="226.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">QJsonObject::toVariantHash</text>
+<g id="a_node13"><a target="_parent" xlink:href="https://doc.qt.io/qt-5/qjsonobject.html#toVariantMap" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="300,-19 153,-19 153,0 300,0 300,-19"/>
+<text text-anchor="middle" x="226.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">QJsonObject::toVariantMap</text>
 </a>
 </g>
 </g>

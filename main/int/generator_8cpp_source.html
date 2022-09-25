@@ -148,14 +148,14 @@ $(document).ready(function(){initNavTree('generator_8cpp_source.html',''); initR
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="classGenerator.html#ad25c47d02c75979ab6d21b8bf75b958e">   48</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="classGenerator.html#ad25c47d02c75979ab6d21b8bf75b958e">Generator::generate</a>(<span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qstring.html">QString</a> &amp;outputDir, ClobberMode clobberMode)</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>{<span class="comment"></span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment">    /// \todo build a list of services to add to context.</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment">    /// Add initial context.</span></div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment"></span>    <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qjsonobject.html">QJsonObject</a> obj;</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qhash.html">QHash&lt;smithy::ShapeId, smithy::Shape&gt;</a> services = model-&gt;shapes(smithy::Shape::Type::Service);</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> smithy::Shape &amp;service: services) {</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        obj.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qjsonobject.html#insert">insert</a>(service.id().toString(), service.rawAst());</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    }</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    QVariantHash context{</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        { QSL(<span class="stringliteral">&quot;services&quot;</span>), obj.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qjsonobject.html#toVariantHash">toVariantHash</a>() },</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        { QSL(<span class="stringliteral">&quot;services&quot;</span>), obj.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qjsonobject.html#toVariantMap">toVariantMap</a>() },</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    };</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    renderer-&gt;push(context);</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
@@ -465,7 +465,7 @@ $(document).ready(function(){initNavTree('generator_8cpp_source.html',''); initR
 <div class="ttc" id="aqhash_html_value"><div class="ttname"><a href="https://doc.qt.io/qt-5/qhash.html#value">QHash::value</a></div><div class="ttdeci">const T value(const Key &amp;key) const const</div></div>
 <div class="ttc" id="aqjsonobject_html"><div class="ttname"><a href="https://doc.qt.io/qt-5/qjsonobject.html">QJsonObject</a></div></div>
 <div class="ttc" id="aqjsonobject_html_insert"><div class="ttname"><a href="https://doc.qt.io/qt-5/qjsonobject.html#insert">QJsonObject::insert</a></div><div class="ttdeci">QJsonObject::iterator insert(const QString &amp;key, const QJsonValue &amp;value)</div></div>
-<div class="ttc" id="aqjsonobject_html_toVariantHash"><div class="ttname"><a href="https://doc.qt.io/qt-5/qjsonobject.html#toVariantHash">QJsonObject::toVariantHash</a></div><div class="ttdeci">QVariantHash toVariantHash() const const</div></div>
+<div class="ttc" id="aqjsonobject_html_toVariantMap"><div class="ttname"><a href="https://doc.qt.io/qt-5/qjsonobject.html#toVariantMap">QJsonObject::toVariantMap</a></div><div class="ttdeci">QVariantMap toVariantMap() const const</div></div>
 <div class="ttc" id="aqlatin1char_html"><div class="ttname"><a href="https://doc.qt.io/qt-5/qlatin1char.html">QLatin1Char</a></div></div>
 <div class="ttc" id="aqlist_html_append"><div class="ttname"><a href="https://doc.qt.io/qt-5/qlist.html#append">QList::append</a></div><div class="ttdeci">void append(const T &amp;value)</div></div>
 <div class="ttc" id="aqlist_html_constBegin"><div class="ttname"><a href="https://doc.qt.io/qt-5/qlist.html#constBegin">QList::constBegin</a></div><div class="ttdeci">QList::const_iterator constBegin() const const</div></div>

@@ -366,18 +366,18 @@ Static Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>build a list of services to add to context. </dd></dl>
+<p >Add initial context.</p>
 
 <p class="definition">Definition at line <a class="el" href="generator_8cpp_source.html#l00048">48</a> of file <a class="el" href="generator_8cpp_source.html">generator.cpp</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   49</span>{<span class="comment"></span></div>
-<div class="line"><span class="lineno">   50</span><span class="comment">    /// \todo build a list of services to add to context.</span></div>
+<div class="line"><span class="lineno">   50</span><span class="comment">    /// Add initial context.</span></div>
 <div class="line"><span class="lineno">   51</span><span class="comment"></span>    <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qjsonobject.html">QJsonObject</a> obj;</div>
 <div class="line"><span class="lineno">   52</span>    <span class="keyword">const</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-5/qhash.html">QHash&lt;smithy::ShapeId, smithy::Shape&gt;</a> services = model-&gt;shapes(smithy::Shape::Type::Service);</div>
 <div class="line"><span class="lineno">   53</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> smithy::Shape &amp;service: services) {</div>
 <div class="line"><span class="lineno">   54</span>        obj.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qjsonobject.html#insert">insert</a>(service.id().toString(), service.rawAst());</div>
 <div class="line"><span class="lineno">   55</span>    }</div>
 <div class="line"><span class="lineno">   56</span>    QVariantHash context{</div>
-<div class="line"><span class="lineno">   57</span>        { QSL(<span class="stringliteral">&quot;services&quot;</span>), obj.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qjsonobject.html#toVariantHash">toVariantHash</a>() },</div>
+<div class="line"><span class="lineno">   57</span>        { QSL(<span class="stringliteral">&quot;services&quot;</span>), obj.<a class="code hl_functionRef" href="https://doc.qt.io/qt-5/qjsonobject.html#toVariantMap">toVariantMap</a>() },</div>
 <div class="line"><span class="lineno">   58</span>    };</div>
 <div class="line"><span class="lineno">   59</span>    renderer-&gt;push(context);</div>
 <div class="line"><span class="lineno">   60</span> </div>
@@ -423,13 +423,13 @@ Static Private Attributes</h2></td></tr>
 <div class="ttc" id="aclassGenerator_html_ad87975d469b9c30bf7a60161c350bb6e"><div class="ttname"><a href="classGenerator.html#ad87975d469b9c30bf7a60161c350bb6e">Generator::renderOperation</a></div><div class="ttdeci">bool renderOperation(const smithy::Shape &amp;service, const smithy::Shape &amp;operation, const QStringList &amp;templateNames, const QString &amp;outputDir, const QVariantHash &amp;context, ClobberMode &amp;clobberMode)</div><div class="ttdef"><b>Definition:</b> <a href="generator_8cpp_source.html#l00141">generator.cpp:141</a></div></div>
 <div class="ttc" id="aqjsonobject_html"><div class="ttname"><a href="https://doc.qt.io/qt-5/qjsonobject.html">QJsonObject</a></div></div>
 <div class="ttc" id="aqjsonobject_html_insert"><div class="ttname"><a href="https://doc.qt.io/qt-5/qjsonobject.html#insert">QJsonObject::insert</a></div><div class="ttdeci">QJsonObject::iterator insert(const QString &amp;key, const QJsonValue &amp;value)</div></div>
-<div class="ttc" id="aqjsonobject_html_toVariantHash"><div class="ttname"><a href="https://doc.qt.io/qt-5/qjsonobject.html#toVariantHash">QJsonObject::toVariantHash</a></div><div class="ttdeci">QVariantHash toVariantHash() const const</div></div>
+<div class="ttc" id="aqjsonobject_html_toVariantMap"><div class="ttname"><a href="https://doc.qt.io/qt-5/qjsonobject.html#toVariantMap">QJsonObject::toVariantMap</a></div><div class="ttdeci">QVariantMap toVariantMap() const const</div></div>
 <div class="ttc" id="aqlist_html_append"><div class="ttname"><a href="https://doc.qt.io/qt-5/qlist.html#append">QList::append</a></div><div class="ttdeci">void append(const T &amp;value)</div></div>
 <div class="ttc" id="aqlist_html_size"><div class="ttname"><a href="https://doc.qt.io/qt-5/qlist.html#size">QList::size</a></div><div class="ttdeci">int size() const const</div></div>
 <div class="ttc" id="aqregularexpression_html_match"><div class="ttname"><a href="https://doc.qt.io/qt-5/qregularexpression.html#match">QRegularExpression::match</a></div><div class="ttdeci">QRegularExpressionMatch match(const QString &amp;subject, int offset, QRegularExpression::MatchType matchType, QRegularExpression::MatchOptions matchOptions) const const</div></div>
 <div class="ttc" id="aqregularexpressionmatch_html_hasMatch"><div class="ttname"><a href="https://doc.qt.io/qt-5/qregularexpressionmatch.html#hasMatch">QRegularExpressionMatch::hasMatch</a></div><div class="ttdeci">bool hasMatch() const const</div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="elRef" href="https://doc.qt.io/qt-5/qlist.html#append">QList::append()</a>, <a class="elRef" href="https://doc.qt.io/qt-5/qlist.html#constBegin">QList::constBegin()</a>, <a class="elRef" href="https://doc.qt.io/qt-5/qlist.html#constEnd">QList::constEnd()</a>, <a class="elRef" href="https://doc.qt.io/qt-5/qregularexpressionmatch.html#hasMatch">QRegularExpressionMatch::hasMatch()</a>, <a class="elRef" href="https://doc.qt.io/qt-5/qjsonobject.html#insert">QJsonObject::insert()</a>, <a class="elRef" href="https://doc.qt.io/qt-5/qregularexpression.html#match">QRegularExpression::match()</a>, <a class="el" href="generator_8cpp_source.html#l00141">renderOperation()</a>, <a class="el" href="generator_8cpp_source.html#l00110">renderService()</a>, <a class="elRef" href="https://doc.qt.io/qt-5/qlist.html#size">QList::size()</a>, and <a class="elRef" href="https://doc.qt.io/qt-5/qjsonobject.html#toVariantHash">QJsonObject::toVariantHash()</a>.</p>
+<p class="reference">References <a class="elRef" href="https://doc.qt.io/qt-5/qlist.html#append">QList::append()</a>, <a class="elRef" href="https://doc.qt.io/qt-5/qlist.html#constBegin">QList::constBegin()</a>, <a class="elRef" href="https://doc.qt.io/qt-5/qlist.html#constEnd">QList::constEnd()</a>, <a class="elRef" href="https://doc.qt.io/qt-5/qregularexpressionmatch.html#hasMatch">QRegularExpressionMatch::hasMatch()</a>, <a class="elRef" href="https://doc.qt.io/qt-5/qjsonobject.html#insert">QJsonObject::insert()</a>, <a class="elRef" href="https://doc.qt.io/qt-5/qregularexpression.html#match">QRegularExpression::match()</a>, <a class="el" href="generator_8cpp_source.html#l00141">renderOperation()</a>, <a class="el" href="generator_8cpp_source.html#l00110">renderService()</a>, <a class="elRef" href="https://doc.qt.io/qt-5/qlist.html#size">QList::size()</a>, and <a class="elRef" href="https://doc.qt.io/qt-5/qjsonobject.html#toVariantMap">QJsonObject::toVariantMap()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -857,7 +857,7 @@ Here is the call graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>extend context for this operation. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>extend context for this operation. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="generator_8cpp_source.html#l00141">141</a> of file <a class="el" href="generator_8cpp_source.html">generator.cpp</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  144</span>{</div>
@@ -960,7 +960,7 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>extend context for this service. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>extend context for this service. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="generator_8cpp_source.html#l00110">110</a> of file <a class="el" href="generator_8cpp_source.html">generator.cpp</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  113</span>{</div>
