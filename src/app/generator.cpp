@@ -47,14 +47,14 @@ int Generator::expectedFileCount() const
 
 bool Generator::generate(const QString &outputDir, ClobberMode clobberMode)
 {
-    /// \todo build a list of services to add to context.
+    /// Add initial context.
     QJsonObject obj;
     const QHash<smithy::ShapeId, smithy::Shape> services = model->shapes(smithy::Shape::Type::Service);
     for (const smithy::Shape &service: services) {
         obj.insert(service.id().toString(), service.rawAst());
     }
     QVariantHash context{
-        { QSL("services"), obj.toVariantHash() },
+        { QSL("services"), obj.toVariantMap() },
     };
     renderer->push(context);
 
