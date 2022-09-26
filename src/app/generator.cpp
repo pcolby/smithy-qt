@@ -113,7 +113,7 @@ bool Generator::renderService(const smithy::Shape &service,  const QStringList &
 {
     qCDebug(lc).noquote() << tr("Rendering templates for service %1").arg(service.id().toString());
 
-    /// \todo extend context for this service.
+    // Extend context for this service.
     const QString apiTitle = service.traits().value(QSL("smithy.api#title")).toString();
     const QString sdkId = service.traits().value(QSL("aws.api#service")).toObject().value(QSL("sdkId")).toString();
     if (apiTitle.isEmpty()) {
@@ -124,8 +124,14 @@ bool Generator::renderService(const smithy::Shape &service,  const QStringList &
         qCCritical(lc).noquote() << tr("Service %1 has no SDK ID").arg(service.id().toString());
         return false;
     }
+    const smithy::Shape::ShapeReferences operationRefs = service.operations();
+    QVariantMap operations;
+    for (const smithy::Shape::ShapeReference &operation: operationRefs) {
+        operations.insert(operation.target.memberName(), model->shape(operation.target).rawAst());
+    }
     renderer->push(QVariantHash{
         { QSL("service"), service.rawAst().toVariantHash() },
+        { QSL("operations"), operations },
     });
 
     // Render each of service templates.
