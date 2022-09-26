@@ -13,6 +13,23 @@
 
 #define QSL(str) QStringLiteral(str) // Shorten the QStringLiteral macro for readability.
 
+class ScopedContext
+{
+public:
+    ScopedContext(Renderer * renderer, const QVariantHash &hash) : renderer(renderer)
+    {
+        renderer->push(hash);
+    }
+
+    ScopedContext() {
+        renderer->pop();
+    }
+
+private:
+    Renderer * renderer;
+};
+
+
 const QRegularExpression Generator::servicePattern{
     QSL("(?<type>Service)(?<seperator>[^a-zA-Z0-9]*)(?<id>Title|sdkId)"),
     QRegularExpression::CaseInsensitiveOption
@@ -53,10 +70,9 @@ bool Generator::generate(const QString &outputDir, ClobberMode clobberMode)
     for (const smithy::Shape &service: services) {
         obj.insert(service.id().toString(), service.rawAst());
     }
-    QVariantHash context{
+    ScopedContext context(renderer, {
         { QSL("services"), obj.toVariantMap() },
-    };
-    renderer->push(context);
+    });
 
     // Build the list of template names.
     const QStringList templatesNames = renderer->templatesNames();
@@ -123,6 +139,8 @@ bool Generator::renderService(const smithy::Shape &service,  const QStringList &
         qCCritical(lc).noquote() << tr("Service %1 has no SDK ID").arg(service.id().toString());
         return false;
     }
+
+    // Add renderer context for this service.
     const smithy::Shape::ShapeReferences operationRefs = service.operations();
     QVariantMap operations;
     for (const smithy::Shape::ShapeReference &operation: operationRefs) {
@@ -130,7 +148,7 @@ bool Generator::renderService(const smithy::Shape &service,  const QStringList &
                           model->shape(operation.target).rawAst().toVariantHash());
     }
     Q_ASSERT(operationRefs.size() == operations.size());
-    renderer->push(QVariantHash{
+    ScopedContext context(renderer, {
         { QSL("service"), service.rawAst().toVariantHash() },
         { QSL("operations"), operations },
     });
@@ -142,11 +160,9 @@ bool Generator::renderService(const smithy::Shape &service,  const QStringList &
             { QSL("sdkid"), sdkId },
         }, outputDir);
         if (!render(templateName, outputPathName, clobberMode)) {
-            renderer->pop();
             return false;
         }
     }
-    renderer->pop();
     return true;
 }
 
