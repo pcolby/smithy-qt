@@ -128,18 +128,6 @@ bool Generator::renderService(const smithy::Shape &service,  const QStringList &
 {
     qCDebug(lc).noquote() << tr("Rendering templates for service %1").arg(service.id().toString());
 
-    // Extend context for this service.
-    const QString apiTitle = service.traits().value(QSL("smithy.api#title")).toString();
-    const QString sdkId = service.traits().value(QSL("aws.api#service")).toObject().value(QSL("sdkId")).toString();
-    if (apiTitle.isEmpty()) {
-        qCCritical(lc).noquote() << tr("Service %1 has no API title").arg(service.id().toString());
-        return false;
-    }
-    if (sdkId.isEmpty()) {
-        qCCritical(lc).noquote() << tr("Service %1 has no SDK ID").arg(service.id().toString());
-        return false;
-    }
-
     // Add renderer context for this service.
     const smithy::Shape::ShapeReferences operationRefs = service.operations();
     QVariantMap operations;
@@ -153,7 +141,17 @@ bool Generator::renderService(const smithy::Shape &service,  const QStringList &
         { QSL("operations"), operations },
     });
 
-    // Render each of service templates.
+    // Render each service template.
+    const QString apiTitle = service.traits().value(QSL("smithy.api#title")).toString();
+    if (apiTitle.isEmpty()) {
+        qCCritical(lc).noquote() << tr("Service %1 has no API title").arg(service.id().toString());
+        return false;
+    }
+    const QString sdkId = service.traits().value(QSL("aws.api#service")).toObject().value(QSL("sdkId")).toString();
+    if (sdkId.isEmpty()) {
+        qCCritical(lc).noquote() << tr("Service %1 has no SDK ID").arg(service.id().toString());
+        return false;
+    }
     for (const QString &templateName: templateNames) {
         const QString outputPathName = makeOutputPathName(templateName, servicePattern, {
             { QSL("name"), apiTitle },
