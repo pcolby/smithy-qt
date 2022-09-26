@@ -124,6 +124,9 @@ bool Generator::renderService(const smithy::Shape &service,  const QStringList &
         qCCritical(lc).noquote() << tr("Service %1 has no SDK ID").arg(service.id().toString());
         return false;
     }
+    renderer->push(QVariantHash{
+        { QSL("service"), service.rawAst().toVariantHash() },
+    });
 
     // Render each of service templates.
     for (const QString &templateName: templateNames) {
@@ -132,9 +135,11 @@ bool Generator::renderService(const smithy::Shape &service,  const QStringList &
             { QSL("sdkid"), sdkId },
         }, outputDir);
         if (!render(templateName, outputPathName, context, clobberMode)) {
+            renderer->pop();
             return false;
         }
     }
+    renderer->pop();
     return true;
 }
 
