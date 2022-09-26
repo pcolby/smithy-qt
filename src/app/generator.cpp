@@ -70,7 +70,7 @@ bool Generator::generate(const QString &outputDir, ClobberMode clobberMode)
 
     // Render all of the services.
     for (const smithy::Shape &service: services) {
-        if (!renderService(service, serviceTemplateNames, outputDir, QVariantHash{}, clobberMode)) {
+        if (!renderService(service, serviceTemplateNames, outputDir, clobberMode)) {
             return false;
         }
         const smithy::Shape::ShapeReferences operations = service.operations();
@@ -81,7 +81,7 @@ bool Generator::generate(const QString &outputDir, ClobberMode clobberMode)
                     .arg(shapeRef.target.toString(), service.id().toString());
                 return false;
             }
-            if (!renderOperation(service, operation, operationTemplateNames, outputDir, QVariantHash{},
+            if (!renderOperation(service, operation, operationTemplateNames, outputDir,
                                  clobberMode)) {
                 return false;
             }
@@ -93,7 +93,7 @@ bool Generator::generate(const QString &outputDir, ClobberMode clobberMode)
     return std::all_of(plainTemplateNames.constBegin(), plainTemplateNames.constEnd(),
         [&](const QString &templateName){
             const QString outputPathName = outputDir + QLatin1Char('/') + templateName;
-            return render(templateName, outputPathName, context, clobberMode);
+            return render(templateName, outputPathName, clobberMode);
     });
 }
 
@@ -108,8 +108,7 @@ QStringList Generator::skippedFiles() const
 }
 
 bool Generator::renderService(const smithy::Shape &service,  const QStringList &templateNames,
-                              const QString &outputDir, const QVariantHash &context,
-                              ClobberMode &clobberMode)
+                              const QString &outputDir, ClobberMode &clobberMode)
 {
     qCDebug(lc).noquote() << tr("Rendering templates for service %1").arg(service.id().toString());
 
@@ -140,7 +139,7 @@ bool Generator::renderService(const smithy::Shape &service,  const QStringList &
             { QSL("name"), apiTitle },
             { QSL("sdkid"), sdkId },
         }, outputDir);
-        if (!render(templateName, outputPathName, context, clobberMode)) {
+        if (!render(templateName, outputPathName, clobberMode)) {
             renderer->pop();
             return false;
         }
@@ -151,7 +150,7 @@ bool Generator::renderService(const smithy::Shape &service,  const QStringList &
 
 bool Generator::renderOperation(const smithy::Shape &service, const smithy::Shape &operation,
                                 const QStringList &templateNames, const QString &outputDir,
-                                const QVariantHash &context, ClobberMode &clobberMode)
+                                ClobberMode &clobberMode)
 {
     qCDebug(lc).noquote() << tr("Rendering templates for operation %1").arg(operation.id().toString());
 
@@ -175,7 +174,7 @@ bool Generator::renderOperation(const smithy::Shape &service, const smithy::Shap
         outputPathName = makeOutputPathName(outputPathName, operationPattern, {
             { QSL("name"), operation.id().shapeName() },
         }, outputDir);
-        if (!render(templateName, outputPathName, context, clobberMode)) {
+        if (!render(templateName, outputPathName, clobberMode)) {
             return false;
         }
     }
@@ -183,7 +182,7 @@ bool Generator::renderOperation(const smithy::Shape &service, const smithy::Shap
 }
 
 bool Generator::render(const QString &templateName, const QString &outputPathName,
-                       const QVariantHash &context, ClobberMode &clobberMode)
+                       ClobberMode &clobberMode)
 {
     if (QFile::exists(outputPathName)) {
         switch (clobberMode) {
@@ -201,7 +200,7 @@ bool Generator::render(const QString &templateName, const QString &outputPathNam
             return true;
         }
     }
-    if (!renderer->render(templateName, outputPathName, context)) {
+    if (!renderer->render(templateName, outputPathName)) {
         return false;
     }
     renderedPathNames.append(outputPathName);
