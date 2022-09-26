@@ -126,8 +126,10 @@ bool Generator::renderService(const smithy::Shape &service,  const QStringList &
     const smithy::Shape::ShapeReferences operationRefs = service.operations();
     QVariantMap operations;
     for (const smithy::Shape::ShapeReference &operation: operationRefs) {
-        operations.insert(operation.target.memberName(), model->shape(operation.target).rawAst());
+        operations.insert(operation.target.shapeName(),
+                          model->shape(operation.target).rawAst().toVariantHash());
     }
+    Q_ASSERT(operationRefs.size() == operations.size());
     renderer->push(QVariantHash{
         { QSL("service"), service.rawAst().toVariantHash() },
         { QSL("operations"), operations },
