@@ -104,9 +104,14 @@ bool Renderer::render(const QString &templateName, const QString &outputPathName
     QTextStream textStream(&file);
     NoEscapeStream noEscapeStream(&textStream);
     Grantlee::Template tmplate = engine.loadByName(templateName);
+    if (!tmplate) {
+        qCCritical(lc).noquote() << tr("Failed to fetch template %1").arg(outputPathName);
+        pop();
+        return false;
+    }
     tmplate->render(&noEscapeStream, &context);
     if (tmplate->error()) {
-        qInfo() << tr("Failed to render %1: %2").arg(outputPathName, tmplate->errorString());
+        qCCritical(lc).noquote() << tr("Failed to render %1: %2").arg(outputPathName, tmplate->errorString());
         pop();
         return false;
     }
