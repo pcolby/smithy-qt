@@ -7,6 +7,7 @@ var hierarchy =
       [ "NoEscapeStream", "classNoEscapeStream.html", null ]
     ] ],
     [ "Renderer", "classRenderer.html", null ],
+    [ "ScopedContext", "classScopedContext.html", null ],
     [ "Shape", "classShape.html", null ],
     [ "ShapeId", "classShapeId.html", null ],
     [ "ShapeIdPrivate", "classShapeIdPrivate.html", null ],

@@ -5,6 +5,7 @@ var annotated_dup =
     [ "ModelPrivate", "classModelPrivate.html", "classModelPrivate" ],
     [ "NoEscapeStream", "classNoEscapeStream.html", null ],
     [ "Renderer", "classRenderer.html", "classRenderer" ],
+    [ "ScopedContext", "classScopedContext.html", null ],
     [ "Shape", "classShape.html", "classShape" ],
     [ "ShapeId", "classShapeId.html", "classShapeId" ],
     [ "ShapeIdPrivate", "classShapeIdPrivate.html", "classShapeIdPrivate" ],
