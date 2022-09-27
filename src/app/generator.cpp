@@ -70,7 +70,7 @@ bool Generator::generate(const QString &outputDir, ClobberMode clobberMode)
     for (const smithy::Shape &service: services) {
         obj.insert(service.id().toString(), service.rawAst());
     }
-    ScopedContext context(renderer, {
+    const ScopedContext context(renderer, {
         { QSL("services"), obj.toVariantMap() },
     });
 
@@ -136,7 +136,7 @@ bool Generator::renderService(const smithy::Shape &service,  const QStringList &
                           model->shape(operation.target).rawAst().toVariantHash());
     }
     Q_ASSERT(operationRefs.size() == operations.size());
-    ScopedContext context(renderer, {
+    const ScopedContext context(renderer, { // cppcheck-suppress unreadVariable
         { QSL("service"), service.rawAst().toVariantHash() },
         { QSL("operations"), operations },
           // metadata.endpointPrefix
