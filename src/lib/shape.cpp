@@ -447,11 +447,8 @@ Shape::TraitsMap ShapePrivate::getTraitsMap(const QJsonObject &ast, const QStrin
 
 QString ShapePrivate::getString(const QJsonObject &ast, const QString &name)
 {
-    QString string;
-    Q_UNUSED(ast);
-    Q_UNUSED(name);
-    Q_UNIMPLEMENTED();
-    return string;
+    const auto iter = ast.constFind(name);
+    return (iter == ast.constEnd()) ? QString() : iter->toString();
 }
 
 QStringList ShapePrivate::supportedProperties(const Shape::Type &type)

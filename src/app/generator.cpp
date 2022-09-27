@@ -139,6 +139,11 @@ bool Generator::renderService(const smithy::Shape &service,  const QStringList &
     ScopedContext context(renderer, {
         { QSL("service"), service.rawAst().toVariantHash() },
         { QSL("operations"), operations },
+          // metadata.endpointPrefix
+          // metadata.serviceAbbreviation
+          // metadata.serviceFullName
+          // metadata.signatureVersion|upper
+        { QSL("version"), service.version() }
     });
 
     // Render each service template.
