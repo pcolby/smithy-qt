@@ -175,7 +175,14 @@ bool Generator::renderOperation(const smithy::Shape &service, const smithy::Shap
 {
     qCDebug(lc).noquote() << tr("Rendering templates for operation %1").arg(operation.id().toString());
 
-    /// \todo extend context for this operation.
+    // Add renderer context for this operation.
+    const ScopedContext context(renderer, { // cppcheck-suppress unreadVariable
+        { QSL("operation"), QVariantHash{
+            { QSL("name"), operation.id().shapeName() },
+            /// \todo Add inputs, outputs, and errors.
+        }},
+    });
+
     const QString apiTitle = service.traits().value(QSL("smithy.api#title")).toString();
     const QString sdkId = service.traits().value(QSL("aws.api#service")).toObject().value(QSL("sdkId")).toString();
     if (apiTitle.isEmpty()) {
