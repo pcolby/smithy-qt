@@ -139,10 +139,6 @@ bool Generator::renderService(const smithy::Shape &service,  const QStringList &
     const ScopedContext context(renderer, { // cppcheck-suppress unreadVariable
         { QSL("service"), service.rawAst().toVariantHash() },
         { QSL("operations"), operations },
-          // metadata.endpointPrefix
-          // metadata.serviceAbbreviation
-          // metadata.serviceFullName
-          // metadata.signatureVersion|upper
         { QSL("version"), service.version() }
     });
 
