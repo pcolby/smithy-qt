@@ -129,6 +129,9 @@ bool Generator::renderService(const smithy::Shape &service,  const QStringList &
     qCDebug(lc).noquote() << tr("Rendering templates for service %1").arg(service.id().toString());
 
     // Add renderer context for this service.
+    QVariantHash serviceContext = service.rawAst().toVariantHash();
+    serviceContext.insert(QSL("documentation"), formatHtmlDocumentation(
+        service.traits().value(QSL("smithy.api#documentation")).toString()));
     const smithy::Shape::ShapeReferences operationRefs = service.operations();
     QVariantMap operations;
     for (const smithy::Shape::ShapeReference &operation: operationRefs) {
@@ -140,9 +143,7 @@ bool Generator::renderService(const smithy::Shape &service,  const QStringList &
     }
     Q_ASSERT(operationRefs.size() == operations.size());
     const ScopedContext context(renderer, { // cppcheck-suppress unreadVariable
-        { QSL("service"), service.rawAst().toVariantHash() },
-        { QSL("documentation"), formatHtmlDocumentation(
-                service.traits().value(QSL("smithy.api#documentation")).toString()) },
+        { QSL("service"), serviceContext },
         { QSL("operations"), operations },
     });
 
