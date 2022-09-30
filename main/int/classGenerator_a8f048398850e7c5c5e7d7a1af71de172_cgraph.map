@@ -1,5 +1,19 @@
 <map id="Generator::renderOperation" name="Generator::renderOperation">
-<area shape="rect" id="node1" title=" " alt="" coords="5,31,207,56"/>
-<area shape="rect" id="node2" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qstring.html#arg-11" title=" " alt="" coords="271,5,369,31"/>
-<area shape="rect" id="node3" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qstring.html#isEmpty" title=" " alt="" coords="255,55,385,80"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,128,207,153"/>
+<area shape="rect" id="node2" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qstring.html#arg-11" title=" " alt="" coords="341,77,439,103"/>
+<area shape="rect" id="node3" href="$classGenerator.html#a32ea485bd5804f2b40e542aeefacb00a" title=" " alt="" coords="255,301,525,327"/>
+<area shape="rect" id="node8" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qstring.html#isEmpty" title=" " alt="" coords="581,5,711,31"/>
+<area shape="rect" id="node4" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qlist.html#append" title=" " alt="" coords="591,55,701,80"/>
+<area shape="rect" id="node5" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qstring.html#clear" title=" " alt="" coords="591,104,701,129"/>
+<area shape="rect" id="node6" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qstring.html#endsWith" title=" " alt="" coords="577,153,715,179"/>
+<area shape="rect" id="node7" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qlist.html#first" title=" " alt="" coords="602,203,690,228"/>
+<area shape="rect" id="node9" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qlist.html#isEmpty" title=" " alt="" coords="588,252,704,277"/>
+<area shape="rect" id="node10" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qlist.html#last" title=" " alt="" coords="603,301,689,327"/>
+<area shape="rect" id="node11" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qstring.html#remove" title=" " alt="" coords="582,351,710,376"/>
+<area shape="rect" id="node12" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qlist.html#removeFirst" title=" " alt="" coords="575,400,717,425"/>
+<area shape="rect" id="node13" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qlist.html#removeLast" title=" " alt="" coords="576,449,716,475"/>
+<area shape="rect" id="node14" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qstring.html#replace-2" title=" " alt="" coords="583,499,709,524"/>
+<area shape="rect" id="node15" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qstring.html#size" title=" " alt="" coords="594,548,698,573"/>
+<area shape="rect" id="node16" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qstring.html#split" title=" " alt="" coords="593,597,699,623"/>
+<area shape="rect" id="node17" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qstring.html#startsWith" title=" " alt="" coords="573,647,719,672"/>
 </map>
