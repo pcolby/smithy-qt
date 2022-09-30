@@ -141,6 +141,8 @@ bool Generator::renderService(const smithy::Shape &service,  const QStringList &
     Q_ASSERT(operationRefs.size() == operations.size());
     const ScopedContext context(renderer, { // cppcheck-suppress unreadVariable
         { QSL("service"), service.rawAst().toVariantHash() },
+        { QSL("documentation"), formatHtmlDocumentation(
+                service.traits().value(QSL("smithy.api#documentation")).toString()) },
         { QSL("operations"), operations },
         { QSL("version"), service.version() }
     });
@@ -178,6 +180,8 @@ bool Generator::renderOperation(const smithy::Shape &service, const smithy::Shap
     const ScopedContext context(renderer, { // cppcheck-suppress unreadVariable
         { QSL("operation"), QVariantHash{
             { QSL("name"), operation.id().shapeName() },
+            { QSL("documentation"), formatHtmlDocumentation(
+                operation.traits().value(QSL("smithy.api#documentation")).toString()) },
             /// \todo Add inputs, outputs, and errors.
         }},
     });
