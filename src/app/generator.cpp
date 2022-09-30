@@ -132,8 +132,11 @@ bool Generator::renderService(const smithy::Shape &service,  const QStringList &
     const smithy::Shape::ShapeReferences operationRefs = service.operations();
     QVariantMap operations;
     for (const smithy::Shape::ShapeReference &operation: operationRefs) {
-        operations.insert(operation.target.shapeName(),
-                          model->shape(operation.target).rawAst().toVariantHash());
+        const smithy::Shape operationShape = model->shape(operation.target);
+        QVariantHash operationVariant = operationShape.rawAst().toVariantHash();
+        operationVariant.insert(QSL("documentation"), formatHtmlDocumentation(
+            operationShape.traits().value(QSL("smithy.api#documentation")).toString()));
+        operations.insert(operation.target.shapeName(), operationVariant);
     }
     Q_ASSERT(operationRefs.size() == operations.size());
     const ScopedContext context(renderer, { // cppcheck-suppress unreadVariable
@@ -323,63 +326,66 @@ QString Generator::makeOutputPathName(const QString &templateName, const QRegula
     return outputPathName;
 }
 
-//QStringList Generator::formatHtmlDocumentation(const QString &html)
-//{
-//    QString content(html);
+/// \todo This is often dropping the last word of a sentence... won't fix yet so we can maintain
+/// the old aws-sdk-qt codegen behaviour until the swithover to smithy-qt templating is complete
+/// (ie to minimise the initial change-over diff).
+QStringList Generator::formatHtmlDocumentation(const QString &html)
+{
+    QString content(html);
 
-//    /// @todo There's much more we can do here, indeed the documentation
-//    /// conversation still needs a lot of love. But its a start, and no point
-//    /// prioritising it yet, since its more important we get the code structure
-//    /// right first.
+    /// @todo There's much more we can do here, indeed the documentation
+    /// conversation still needs a lot of love. But its a start, and no point
+    /// prioritising it yet, since its more important we get the code structure
+    /// right first.
 
-//    content.replace(QSL("<function>"), QSL("<code>"));
-//    content.replace(QSL("</function>"), QSL("</code>"));
+    content.replace(QSL("<function>"), QSL("<code>"));
+    content.replace(QSL("</function>"), QSL("</code>"));
 
-//    content.replace(QSL("<important>"), QSL("<b>"));
-//    content.replace(QSL("</important>"), QSL("</b>"));
+    content.replace(QSL("<important>"), QSL("<b>"));
+    content.replace(QSL("</important>"), QSL("</b>"));
 
-//    // Replace /* and */ with &ast; versions to avoid breaking comment blocks.
-//    content.replace(QSL("/*"), QSL("/&ast;"));
-//    content.replace(QSL("*/"), QSL("&ast;/"));
+    // Replace /* and */ with &ast; versions to avoid breaking comment blocks.
+    content.replace(QSL("/*"), QSL("/&ast;"));
+    content.replace(QSL("*/"), QSL("&ast;/"));
 
-//    QStringList lines;
-//    QString line;
-//    #if (QT_VERSION > QT_VERSION_CHECK(5, 14, 0))
-//        #define SKIP_EMPTY_PARTS Qt::SkipEmptyParts // Introduced in Qt 5.14.
-//    #else
-//        #define SKIP_EMPTY_PARTS QString::SkipEmptyParts // Deprecated in Qt 5.15.
-//    #endif
-//    foreach (QString word, content.split(QRegularExpression(QSL("\\s+")), SKIP_EMPTY_PARTS)) {
-//        if (word.startsWith(QSL("<p>")) || word.endsWith(QSL("</p>"))) {
-//            lines.append(line);
-//            line.clear();
-//            if (!lines.last().isEmpty()) {
-//                lines.append(QSL("")); // A blank line.
-//            }
-//            if (word.startsWith(QSL("<p>"))) {
-//                word.remove(0,3);
-//            }
-//            if (word.endsWith(QSL("</p>"))) {
-//                word.remove(word.size()-5,4);
-//            }
-//        }
+    QStringList lines;
+    QString line;
+    #if (QT_VERSION > QT_VERSION_CHECK(5, 14, 0))
+        #define SKIP_EMPTY_PARTS Qt::SkipEmptyParts // Introduced in Qt 5.14.
+    #else
+        #define SKIP_EMPTY_PARTS QString::SkipEmptyParts // Deprecated in Qt 5.15.
+    #endif
+    foreach (QString word, content.split(QRegularExpression(QSL("\\s+")), SKIP_EMPTY_PARTS)) {
+        if (word.startsWith(QSL("<p>")) || word.endsWith(QSL("</p>"))) {
+            lines.append(line);
+            line.clear();
+            if (!lines.last().isEmpty()) {
+                lines.append(QString()); // A blank line.
+            }
+            if (word.startsWith(QSL("<p>"))) {
+                word.remove(0,3);
+            }
+            if (word.endsWith(QSL("</p>"))) {
+                word.remove(word.size()-5,4);
+            }
+        }
 
-//        if (line.isEmpty()) {
-//            line += word;
-//        } else if (line.size() + word.size() < 120) {
-//            line += QLatin1Char(' ') + word;
-//        } else {
-//            lines.append(line);
-//            line = word;
-//        }
-//    }
+        if (line.isEmpty()) {
+            line += word;
+        } else if (line.size() + word.size() < 120) {
+            line += QLatin1Char(' ') + word;
+        } else {
+            lines.append(line);
+            line = word;
+        }
+    }
 
-//    // Remove leading and trailing blank lines.
-//    while ((!lines.isEmpty()) && (lines.first().isEmpty())) {
-//        lines.removeFirst();
-//    }
-//    while ((!lines.isEmpty()) && (lines.last().isEmpty())) {
-//        lines.removeLast();
-//    }
-//    return lines;
-//}
+    // Remove leading and trailing blank lines.
+    while ((!lines.isEmpty()) && (lines.first().isEmpty())) {
+        lines.removeFirst();
+    }
+    while ((!lines.isEmpty()) && (lines.last().isEmpty())) {
+        lines.removeLast();
+    }
+    return lines;
+}

@@ -62,6 +62,8 @@ protected:
                                       const QHash<QString,QString> &ids,
                                       const QString &outputDir = QString{});
 
+    static QStringList formatHtmlDocumentation(const QString &html);
+
 private:
     const smithy::Model * const model;
     Renderer * const renderer;
