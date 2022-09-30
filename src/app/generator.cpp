@@ -129,23 +129,8 @@ bool Generator::renderService(const smithy::Shape &service,  const QStringList &
     qCDebug(lc).noquote() << tr("Rendering templates for service %1").arg(service.id().toString());
 
     // Add renderer context for this service.
-    QVariantHash serviceContext = service.rawAst().toVariantHash();
-    serviceContext.insert(QSL("documentation"), formatHtmlDocumentation(
-        service.traits().value(QSL("smithy.api#documentation")).toString()));
-    const smithy::Shape::ShapeReferences operationRefs = service.operations();
-    QVariantMap operations;
-    for (const smithy::Shape::ShapeReference &operation: operationRefs) {
-        const smithy::Shape operationShape = model->shape(operation.target);
-        QVariantHash operationVariant = operationShape.rawAst().toVariantHash();
-        operationVariant.insert(QSL("documentation"), formatHtmlDocumentation(
-            operationShape.traits().value(QSL("smithy.api#documentation")).toString()));
-        operations.insert(operation.target.shapeName(), operationVariant);
-    }
-    Q_ASSERT(operationRefs.size() == operations.size());
-    const ScopedContext context(renderer, { // cppcheck-suppress unreadVariable
-        { QSL("service"), serviceContext },
-        { QSL("operations"), operations },
-    });
+    // cppcheck-suppress unreadVariable
+    const ScopedContext context(renderer, { { QSL("service"), toContext(service) } });
 
     // Render each service template.
     const QString apiTitle = service.traits().value(QSL("smithy.api#title")).toString();
@@ -177,14 +162,8 @@ bool Generator::renderOperation(const smithy::Shape &service, const smithy::Shap
     qCDebug(lc).noquote() << tr("Rendering templates for operation %1").arg(operation.id().toString());
 
     // Add renderer context for this operation.
-    const ScopedContext context(renderer, { // cppcheck-suppress unreadVariable
-        { QSL("operation"), QVariantHash{
-            { QSL("name"), operation.id().shapeName() },
-            { QSL("documentation"), formatHtmlDocumentation(
-                operation.traits().value(QSL("smithy.api#documentation")).toString()) },
-            /// \todo Add inputs, outputs, and errors.
-        }},
-    });
+    // cppcheck-suppress unreadVariable
+    const ScopedContext context(renderer, { { QSL("operation"), toContext(operation) } });
 
     const QString apiTitle = service.traits().value(QSL("smithy.api#title")).toString();
     const QString sdkId = service.traits().value(QSL("aws.api#service")).toObject().value(QSL("sdkId")).toString();
@@ -236,6 +215,92 @@ bool Generator::render(const QString &templateName, const QString &outputPathNam
     }
     renderedPathNames.append(outputPathName);
     return true;
+}
+
+// Turn shape into a context hash. Note, only service and operation shapes supported for now.
+QVariantHash Generator::toContext(const smithy::Shape &shape) const
+{
+    if (shape.type() == smithy::Shape::Type::Service) {
+        QVariantHash hash = shape.rawAst().toVariantHash();
+        hash.insert(QSL("documentation"), formatHtmlDocumentation(
+            shape.traits().value(QSL("smithy.api#documentation")).toString()));
+        QVariantMap operations;
+        const smithy::Shape::ShapeReferences operationRefs = shape.operations();
+        for (const smithy::Shape::ShapeReference &operationRef: operationRefs) {
+            operations.insert(operationRef.target.shapeName(),
+                              toContext(model->shape(operationRef.target)));
+        }
+        Q_ASSERT(operationRefs.size() == operations.size());
+        const smithy::Shape::ShapeReferences resourceRefs = shape.resources();
+        for (const smithy::Shape::ShapeReference &resourceRef: resourceRefs) {
+            const QVariantHash resourceContext = toContext(model->shape(resourceRef.target));
+            // resourceContext will contain the raw AST, and probably other things too over time,
+            // but for now (to replicate historical aws-sdk-qt codegen behaviour) we just want to
+            // add the resource operations to the service operations list.
+            const QVariantMap resourceOperations = resourceContext.value(QSL("operations")).toMap();
+            for (auto iter = resourceOperations.constBegin(); iter != resourceOperations.constEnd(); ++iter) {
+                operations.insert(iter.key(), iter.value());
+            }
+        }
+        hash.insert(QSL("operations"), operations);
+        return hash;
+    }
+
+    if (shape.type() == smithy::Shape::Type::Operation) {
+        QVariantHash hash = shape.rawAst().toVariantHash();
+        hash.insert(QSL("name"), shape.id().shapeName());
+        hash.insert(QSL("documentation"), formatHtmlDocumentation(
+            shape.traits().value(QSL("smithy.api#documentation")).toString()));
+        return hash;
+    }
+
+    if (shape.type() == smithy::Shape::Type::Resource) {
+        QVariantHash hash = shape.rawAst().toVariantHash();
+        QVariantMap operations;
+        #define QTSMITHY_IF_VALID_INSERT(action) { \
+            const smithy::ShapeId action##TargetId = shape.action().target; \
+            if (action##TargetId.isValid()) {                   \
+                operations.insert(action##TargetId.shapeName(), \
+                    toContext(model->shape(action##TargetId))); \
+            } \
+        }
+        QTSMITHY_IF_VALID_INSERT(create)
+        QTSMITHY_IF_VALID_INSERT(put)
+        QTSMITHY_IF_VALID_INSERT(read)
+        QTSMITHY_IF_VALID_INSERT(update)
+        QTSMITHY_IF_VALID_INSERT(Delete)
+        QTSMITHY_IF_VALID_INSERT(list)
+        #undef QTSMITHY_IF_VALID_INSERT
+
+        #define QTSMITHY_ADD_SHAPES(property) { \
+            const smithy::Shape::ShapeReferences refs = shape.property(); \
+            for (const smithy::Shape::ShapeReference &ref: refs) { \
+                operations.insert(ref.target.shapeName(), toContext(model->shape(ref.target))); \
+            } \
+        }
+        QTSMITHY_ADD_SHAPES(operations)
+        QTSMITHY_ADD_SHAPES(collectionOperations)
+        #undef QTSMITHY_ADD_SHAPES
+
+        const smithy::Shape::ShapeReferences resourceRefs = shape.resources();
+        for (const smithy::Shape::ShapeReference &resourceRef: resourceRefs) {
+            const QVariantHash resourceContext = toContext(model->shape(resourceRef.target));
+            // resourceContext will contain the raw AST, and probably other things too over time,
+            // but for now (to replicate historical aws-sdk-qt codegen behaviour) we just want to
+            // add the resource operations to the service operations list.
+            const QVariantMap resourceOperations = resourceContext.value(QSL("operations")).toMap();
+            for (auto iter = resourceOperations.constBegin(); iter != resourceOperations.constEnd(); ++iter) {
+                operations.insert(iter.key(), iter.value());
+            }
+        }
+
+        hash.insert(QSL("operations"), operations);
+        return hash;
+    }
+
+    qCCritical(lc).noquote() << tr("Cannot generate context for shape type 0x%1")
+        .arg((int)shape.type(), 0, 16);
+    return QVariantHash{};
 }
 
 bool Generator::promptToOverwrite(const QString &pathName, ClobberMode &clobberMode)

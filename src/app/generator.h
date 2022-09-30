@@ -54,6 +54,8 @@ protected:
     bool render(const QString &templateName, const QString &outputPathName,
                 ClobberMode &clobberMode);
 
+    QVariantHash toContext(const smithy::Shape &shape) const;
+
     static bool promptToOverwrite(const QString &pathName, ClobberMode &clobberMode);
 
     static Capitalisation getCase(const QString &first, const QString &second);
