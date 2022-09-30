@@ -144,7 +144,6 @@ bool Generator::renderService(const smithy::Shape &service,  const QStringList &
         { QSL("documentation"), formatHtmlDocumentation(
                 service.traits().value(QSL("smithy.api#documentation")).toString()) },
         { QSL("operations"), operations },
-        { QSL("version"), service.version() }
     });
 
     // Render each service template.
