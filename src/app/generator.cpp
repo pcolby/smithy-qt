@@ -116,8 +116,8 @@ bool Generator::renderService(const smithy::Shape &service,
     qCDebug(lc).noquote() << tr("Rendering templates for service %1").arg(service.id().toString());
 
     // Add renderer context for this service.
-    // cppcheck-suppress unreadVariable
     const QVariantHash serviceContext = toContext(service);
+    // cppcheck-suppress unreadVariable
     const ScopedContext context(renderer, { { QSL("service"), serviceContext } });
 
     // Render each service template.
