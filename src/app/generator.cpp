@@ -133,12 +133,12 @@ bool Generator::renderService(const smithy::Shape &service,
     }
 
     // Render each of the service's operation.
-    const smithy::Shape::ShapeReferences operations = service.operations();
-    for (const smithy::Shape::ShapeReference &shapeRef: operations) {
-        const smithy::Shape operation = model->shape(shapeRef.target);
+    const QVariantMap operations = serviceContext.value(QSL("operations")).toMap();
+    for (auto iter = operations.constBegin(); iter != operations.constEnd(); ++iter) {
+        const smithy::Shape operation = model->shape(iter->toHash().value(QSL("shapeId")).toString());
         if (!operation.isValid()) {
             qCCritical(lc).noquote() << tr("Failed to find shape for %1 operation in %2 service")
-                .arg(shapeRef.target.toString(), service.id().toString());
+                .arg(iter.key(), service.id().toString());
             return false;
         }
         if (!renderOperation(operation, serviceContext, operationTemplateNames, outputDir, clobberMode)) {
@@ -236,6 +236,7 @@ QVariantHash Generator::toContext(const smithy::Shape &shape) const
     if (shape.type() == smithy::Shape::Type::Operation) {
         QVariantHash hash = shape.rawAst().toVariantHash();
         hash.insert(QSL("name"), shape.id().shapeName());
+        hash.insert(QSL("shapeId"), shape.id().toString());
         hash.insert(QSL("documentation"), formatHtmlDocumentation(
             shape.traits().value(QSL("smithy.api#documentation")).toString()));
         return hash;
