@@ -56,6 +56,8 @@ protected:
 
     QVariantHash toContext(const smithy::Shape &shape) const;
 
+    static const QString canonicalServiceId(const QString &sdkId);
+
     static bool promptToOverwrite(const QString &pathName, ClobberMode &clobberMode);
 
     static Capitalisation getCase(const QString &first, const QString &second);

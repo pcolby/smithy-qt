@@ -64,7 +64,8 @@ int Generator::expectedFileCount() const
 
 bool Generator::generate(const QString &outputDir, ClobberMode clobberMode)
 {
-    /// Add initial context.
+    // Add initial context.
+    /// \todo Make this QVariantHash servicesMap instead of QJsonObject, and use toContext().
     QJsonObject obj;
     const QHash<smithy::ShapeId, smithy::Shape> services = model->shapes(smithy::Shape::Type::Service);
     for (const smithy::Shape &service: services) {
@@ -222,6 +223,10 @@ QVariantHash Generator::toContext(const smithy::Shape &shape) const
 {
     if (shape.type() == smithy::Shape::Type::Service) {
         QVariantHash hash = shape.rawAst().toVariantHash();
+        hash.insert(QSL("canonicalId"), canonicalServiceId(shape.traits()
+            .value(QSL("aws.api#service")).toObject().value(QSL("sdkId")).toString()));
+        hash.insert(QSL("sdkId"), shape.traits().value(QSL("aws.api#service")).toObject()
+            .value(QSL("sdkId")).toString());
         hash.insert(QSL("documentation"), formatHtmlDocumentation(
             shape.traits().value(QSL("smithy.api#documentation")).toString()));
         QVariantMap operations;
@@ -301,6 +306,54 @@ QVariantHash Generator::toContext(const smithy::Shape &shape) const
     qCCritical(lc).noquote() << tr("Cannot generate context for shape type 0x%1")
         .arg((int)shape.type(), 0, 16);
     return QVariantHash{};
+}
+
+
+const QString Generator::canonicalServiceId(const QString &sdkId)
+{
+    // Handle some hard-coded special cases that are hard to automate without a dictionary.
+    const QMap<QString,QString> specialCases{
+        { QSL("identitystore"   ), QSL("IdentityStore")    },
+        { QSL("ivschat"         ), QSL("IvsChat")          },
+        { QSL("forecastquery"   ), QSL("ForecastQuery")    },
+        { QSL("resiliencehub"   ), QSL("ResilienceHub")    },
+        { QSL("savingsplans"    ), QSL("SavingsPlans")     },
+        { QSL("codeartifact"    ), QSL("CodeArtifact")     },
+        { QSL("imagebuilder"    ), QSL("ImageBuilder")     },
+        { QSL("billingconductor"), QSL("BillingConductor") },
+    };
+    for (const auto iter = specialCases.constFind(sdkId); iter != specialCases.constEnd(); ) {
+        return iter.value();
+    }
+
+    // Start with the sdkId.
+    QString id = sdkId;
+
+    // Convert runs of upercase letters with first-upper, and the rest lower.
+    auto iter = QRegularExpression(QSL("[A-Z]{2,}([^a-zA-Z]|$)")).globalMatch(id);
+    while (iter.hasNext()) {
+        const auto match = iter.next();
+        id.replace(match.capturedStart()+1, match.capturedLength()-1,
+                   match.captured().mid(1).toLower());
+    }
+
+    // If the sdkId was all lowercase, then uppercase the first letter of each word.
+    if (id.isLower()) {
+        const QStringList words = id.split(QRegularExpression(QSL("[^a-zA-Z0-9]+")));
+        id.clear();
+        for (const QString &word: words) {
+            id.append(word.at(0).toUpper() + word.mid(1));
+        }
+    }
+
+    // Strip all non-alphanumeric characters, and any instances of "Amazon" and "AWS".
+    id.replace(QRegularExpression(QSL("[^a-zA-Z0-9]|Amazon|AWS"),
+               QRegularExpression::PatternOption::CaseInsensitiveOption),QString());
+
+    // Remove any trailing instances of "API", "Client" and "Service".
+    id.replace(QRegularExpression(QSL("(API|Client|Service)$"),
+               QRegularExpression::PatternOption::CaseInsensitiveOption),QString());
+    return id;
 }
 
 bool Generator::promptToOverwrite(const QString &pathName, ClobberMode &clobberMode)
