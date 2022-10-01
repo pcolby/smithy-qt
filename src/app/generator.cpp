@@ -66,14 +66,12 @@ bool Generator::generate(const QString &outputDir, ClobberMode clobberMode)
 {
     // Add initial context.
     /// \todo Make this QVariantHash servicesMap instead of QJsonObject, and use toContext().
-    QJsonObject obj;
+    QVariantMap servicesMap;
     const QHash<smithy::ShapeId, smithy::Shape> services = model->shapes(smithy::Shape::Type::Service);
     for (const smithy::Shape &service: services) {
-        obj.insert(service.id().toString(), service.rawAst());
+        servicesMap.insert(service.id().toString(), toContext(service));
     }
-    const ScopedContext context(renderer, {
-        { QSL("services"), obj.toVariantMap() },
-    });
+    const ScopedContext context(renderer, { { QSL("services"), servicesMap } });
 
     // Build the list of template names.
     const QStringList templatesNames = renderer->templatesNames();
