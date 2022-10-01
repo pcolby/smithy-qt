@@ -83,10 +83,10 @@ bool Generator::generate(const QString &outputDir, ClobberMode clobberMode)
              + plainTemplateNames.size() == templatesNames.size());
 
     // Render all of the services.
-    for (const smithy::Shape &service: services) {
-        if (!renderService(service, serviceTemplateNames, operationTemplateNames, outputDir, clobberMode)) {
-            return false;
-        }
+    if (!std::all_of(services.constBegin(), services.constEnd(), [&](const smithy::Shape &service) {
+         return renderService(service, serviceTemplateNames, operationTemplateNames, outputDir, clobberMode);
+    })) {
+        return false;
     }
 
     // Render all of the one-off (not per-service) files.
