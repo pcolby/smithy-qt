@@ -31,7 +31,7 @@ private:
 
 
 const QRegularExpression Generator::servicePattern{
-    QSL("(?<type>Service)(?<seperator>[^a-zA-Z0-9]*)(?<id>Title|sdkId)"),
+    QSL("(?<type>Service)(?<seperator>[^a-zA-Z0-9]*)(?<id>Title|Id|sdkId)"),
     QRegularExpression::CaseInsensitiveOption
 };
 
@@ -65,7 +65,6 @@ int Generator::expectedFileCount() const
 bool Generator::generate(const QString &outputDir, ClobberMode clobberMode)
 {
     // Add initial context.
-    /// \todo Make this QVariantHash servicesMap instead of QJsonObject, and use toContext().
     QVariantMap servicesMap;
     const QHash<smithy::ShapeId, smithy::Shape> services = model->shapes(smithy::Shape::Type::Service);
     for (const smithy::Shape &service: services) {
@@ -85,21 +84,8 @@ bool Generator::generate(const QString &outputDir, ClobberMode clobberMode)
 
     // Render all of the services.
     for (const smithy::Shape &service: services) {
-        if (!renderService(service, serviceTemplateNames, outputDir, clobberMode)) {
+        if (!renderService(service, serviceTemplateNames, operationTemplateNames, outputDir, clobberMode)) {
             return false;
-        }
-        const smithy::Shape::ShapeReferences operations = service.operations();
-        for (const smithy::Shape::ShapeReference &shapeRef: operations) {
-            const smithy::Shape operation = model->shape(shapeRef.target);
-            if (!operation.isValid()) {
-                qCCritical(lc).noquote() << tr("Failed to find shape for %1 operation in %2 service")
-                    .arg(shapeRef.target.toString(), service.id().toString());
-                return false;
-            }
-            if (!renderOperation(service, operation, operationTemplateNames, outputDir,
-                                 clobberMode)) {
-                return false;
-            }
         }
     }
 
@@ -122,39 +108,47 @@ QStringList Generator::skippedFiles() const
     return skippedPathNames;
 }
 
-bool Generator::renderService(const smithy::Shape &service,  const QStringList &templateNames,
+bool Generator::renderService(const smithy::Shape &service,
+                              const QStringList &serviceTemplateNames,
+                              const QStringList &operationTemplateNames,
                               const QString &outputDir, ClobberMode &clobberMode)
 {
     qCDebug(lc).noquote() << tr("Rendering templates for service %1").arg(service.id().toString());
 
     // Add renderer context for this service.
     // cppcheck-suppress unreadVariable
-    const ScopedContext context(renderer, { { QSL("service"), toContext(service) } });
+    const QVariantHash serviceContext = toContext(service);
+    const ScopedContext context(renderer, { { QSL("service"), serviceContext } });
 
     // Render each service template.
-    const QString apiTitle = service.traits().value(QSL("smithy.api#title")).toString();
-    if (apiTitle.isEmpty()) {
-        qCCritical(lc).noquote() << tr("Service %1 has no API title").arg(service.id().toString());
-        return false;
-    }
-    const QString sdkId = service.traits().value(QSL("aws.api#service")).toObject().value(QSL("sdkId")).toString();
-    if (sdkId.isEmpty()) {
-        qCCritical(lc).noquote() << tr("Service %1 has no SDK ID").arg(service.id().toString());
-        return false;
-    }
-    for (const QString &templateName: templateNames) {
+    for (const QString &templateName: serviceTemplateNames) {
         const QString outputPathName = makeOutputPathName(templateName, servicePattern, {
-            { QSL("name"), apiTitle },
-            { QSL("sdkid"), sdkId },
+            { QSL("name"), service.id().shapeName() },
+            { QSL("id"), serviceContext.value(QSL("canonicalId")).toString() },
+            { QSL("sdkid"), serviceContext.value(QSL("sdkId")).toString() },
         }, outputDir);
         if (!render(templateName, outputPathName, clobberMode)) {
+            return false;
+        }
+    }
+
+    // Render each of the service's operation.
+    const smithy::Shape::ShapeReferences operations = service.operations();
+    for (const smithy::Shape::ShapeReference &shapeRef: operations) {
+        const smithy::Shape operation = model->shape(shapeRef.target);
+        if (!operation.isValid()) {
+            qCCritical(lc).noquote() << tr("Failed to find shape for %1 operation in %2 service")
+                .arg(shapeRef.target.toString(), service.id().toString());
+            return false;
+        }
+        if (!renderOperation(operation, serviceContext, operationTemplateNames, outputDir, clobberMode)) {
             return false;
         }
     }
     return true;
 }
 
-bool Generator::renderOperation(const smithy::Shape &service, const smithy::Shape &operation,
+bool Generator::renderOperation(const smithy::Shape &operation, const QVariantHash serviceContext,
                                 const QStringList &templateNames, const QString &outputDir,
                                 ClobberMode &clobberMode)
 {
@@ -163,22 +157,11 @@ bool Generator::renderOperation(const smithy::Shape &service, const smithy::Shap
     // Add renderer context for this operation.
     // cppcheck-suppress unreadVariable
     const ScopedContext context(renderer, { { QSL("operation"), toContext(operation) } });
-
-    const QString apiTitle = service.traits().value(QSL("smithy.api#title")).toString();
-    const QString sdkId = service.traits().value(QSL("aws.api#service")).toObject().value(QSL("sdkId")).toString();
-    if (apiTitle.isEmpty()) {
-        qCCritical(lc).noquote() << tr("Service %1 has no API title").arg(service.id().toString());
-        return false;
-    }
-    if (sdkId.isEmpty()) {
-        qCCritical(lc).noquote() << tr("Service %1 has no SDK ID").arg(service.id().toString());
-        return false;
-    }
-
     for (const QString &templateName: templateNames) {
         QString outputPathName = makeOutputPathName(templateName, servicePattern, {
-            { QSL("name"), apiTitle },
-            { QSL("sdkid"), sdkId },
+            { QSL("name"), serviceContext.value(QSL("shapeName")).toString() },
+            { QSL("id"), serviceContext.value(QSL("canonicalId")).toString() },
+            { QSL("sdkid"), serviceContext.value(QSL("sdkId")).toString() },
         });
         outputPathName = makeOutputPathName(outputPathName, operationPattern, {
             { QSL("name"), operation.id().shapeName() },
@@ -221,6 +204,7 @@ QVariantHash Generator::toContext(const smithy::Shape &shape) const
 {
     if (shape.type() == smithy::Shape::Type::Service) {
         QVariantHash hash = shape.rawAst().toVariantHash();
+        hash.insert(QSL("shapeName"), shape.id().shapeName());
         hash.insert(QSL("canonicalId"), canonicalServiceId(shape.traits()
             .value(QSL("aws.api#service")).toObject().value(QSL("sdkId")).toString()));
         hash.insert(QSL("sdkId"), shape.traits().value(QSL("aws.api#service")).toObject()

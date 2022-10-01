@@ -44,10 +44,12 @@ protected:
         UPPERCASE = 4,
     };
 
-    bool renderService(const smithy::Shape &service, const QStringList &templateNames,
+    bool renderService(const smithy::Shape &service,
+                       const QStringList &serviceTemplateNames,
+                       const QStringList &operationTemplateNames,
                        const QString &outputDir, ClobberMode &clobberMode);
 
-    bool renderOperation(const smithy::Shape &service, const smithy::Shape &operation,
+    bool renderOperation(const smithy::Shape &operation, const QVariantHash serviceContext,
                          const QStringList &templateNames, const QString &outputDir,
                          ClobberMode &clobberMode);
 
