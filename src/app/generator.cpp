@@ -333,6 +333,8 @@ const QString Generator::canonicalServiceId(const QString &sdkId)
                QRegularExpression::PatternOption::CaseInsensitiveOption),QString());
 
     // Remove any trailing instances of "API", "Client" and "Service".
+    if (id == QSL("ConfigService"))    return id; // Skip dropping the Service for this one.
+    if (id == QSL("DirectoryService")) return id; // Skip dropping the Service for this one.
     id.replace(QRegularExpression(QSL("(API|Client|Service)$"),
                QRegularExpression::PatternOption::CaseInsensitiveOption),QString());
     return id;
