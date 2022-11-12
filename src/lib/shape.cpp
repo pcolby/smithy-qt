@@ -209,10 +209,10 @@ Shape::StringShapeRefMap Shape::identifiers() const
     return ShapePrivate::getStrShapeRefMap(d->ast, QStringLiteral("identifiers"));
 }
 
-StringShapeIdMap Shape::properties() const
+Shape::StringShapeRefMap Shape::properties() const
 {
     Q_D(const Shape);
-    return ShapePrivate::getStrShapeIdMap(d->ast, QStringLiteral("properties"));
+    return ShapePrivate::getStrShapeRefMap(d->ast, QStringLiteral("properties"));
 }
 
 Shape::ShapeReference Shape::create() const
@@ -415,15 +415,6 @@ Shape::StringMemberMap ShapePrivate::getStrMemberMap(const QJsonObject &ast, con
     Q_UNUSED(name);
     Q_UNIMPLEMENTED();
     return memberMap;
-}
-
-StringShapeIdMap ShapePrivate::getStrShapeIdMap(const QJsonObject &ast, const QString &name)
-{
-    StringShapeIdMap shapeIdMap;
-    Q_UNUSED(ast);
-    Q_UNUSED(name);
-    Q_UNIMPLEMENTED();
-    return shapeIdMap;
 }
 
 Shape::StringShapeRefMap ShapePrivate::getStrShapeRefMap(const QJsonObject &ast, const QString &name)
@@ -793,7 +784,8 @@ bool ShapePrivate::validateProperty(const QString &name, const QJsonValue &value
     }
 
     // StringShapeRefMap
-    else if (name == QLatin1String("identifiers")) {
+    else if ((name == QLatin1String("identifiers")) ||
+             (name == QLatin1String("properties"))) {
         if (!value.isObject()) {
             qCCritical(lc).noquote() << tr("%1 property is not a JSON object").arg(name);
             return false;
@@ -808,40 +800,6 @@ bool ShapePrivate::validateProperty(const QString &name, const QJsonValue &value
             if (!validateProperty(QLatin1String("ShapeReference"), iter.value())) {
                 qCCritical(lc).noquote() << tr("%1 property has invalid value for %2 property")
                                             .arg(name, iter.key());
-                return false;
-            }
-        }
-    }
-
-    // StringShapeIdMap
-    else if (name == QLatin1String("properties")) {
-        if (!value.isObject()) {
-            qCCritical(lc).noquote() << tr("%1 property is not a JSON object").arg(name);
-            return false;
-        }
-        const QJsonObject identifiers = value.toObject();
-        for (auto iter = identifiers.constBegin(); iter != identifiers.constEnd(); ++iter) {
-            // Smithy appears to documentN no constraints on the string ie iter->key().
-            if (!validateProperty(QLatin1String("ShapeReference"), iter.value())) {
-                qCCritical(lc).noquote() << tr("%1 property has invalid value for %2 property")
-                                            .arg(name, iter.key());
-                return false;
-            }
-            if (!iter.value().isString()) {
-                qCCritical(lc).noquote() << tr("%1 property has name %2 with invalid value")
-                                            .arg(name, iter.key());
-                return false;
-            }
-            const QString shapeIdString = iter.value().toString();
-            const ShapeId shapeId(shapeIdString);
-            if (!shapeId.isValid()) {
-                qCCritical(lc).noquote() << tr("%1 property has name %2 with invalid shape ID %2")
-                                            .arg(name, iter.key(), shapeIdString);
-                return false;
-            }
-            if (shapeId.isRelativeShapeId()) {
-                qCCritical(lc).noquote() << tr("%1 property has name %2 with relative shape ID %2")
-                                            .arg(name, iter.key(), shapeIdString);
                 return false;
             }
         }

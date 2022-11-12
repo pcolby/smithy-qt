@@ -31,7 +31,6 @@ public:
     static Shape::ShapeReference getShapeRef(const QJsonObject &ast, const QString &name);
     static Shape::ShapeReferences getShapeRefs(const QJsonObject &ast, const QString &name);
     static Shape::StringMemberMap getStrMemberMap(const QJsonObject &ast, const QString &name);
-    static StringShapeIdMap getStrShapeIdMap(const QJsonObject &ast, const QString &name);
     static Shape::StringShapeRefMap getStrShapeRefMap(const QJsonObject &ast, const QString &name);
     static Shape::TraitsMap getTraitsMap(const QJsonObject &ast, const QString &name);
     static QString getString(const QJsonObject &ast, const QString &name);

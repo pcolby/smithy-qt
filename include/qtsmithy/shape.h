@@ -122,7 +122,7 @@ public:
 
     // Resource shape https://awslabs.github.io/smithy/2.0/spec/json-ast.html#resource-shape
     StringShapeRefMap identifiers() const;
-    StringShapeIdMap properties() const;
+    StringShapeRefMap properties() const;
     ShapeReference create() const;
     ShapeReference put() const;
     ShapeReference read() const;
