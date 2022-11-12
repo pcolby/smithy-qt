@@ -151,6 +151,8 @@ jobs:
         CXX: ${{ matrix.env.cxx }}
         CMAKE_OSX_ARCHITECTURES: ${{ startsWith(matrix.qt, '6') && 'arm64;' || '' }}x86_64
       run: |
+        # Use xcode 14.1, because the current GH Actions default (14.0) has a big with GCC.
+        sudo xcode-select --switch '/Applications/Xcode_14.1.app'
         cmake -D CMAKE_BUILD_TYPE=Release \
               -D CODECOV_GCOV=${{ startsWith(matrix.env.cc, 'gcc') && '/usr/local/bin/gcov-11' || '/usr/bin/gcov'}} \
               -D ENABLE_COVERAGE=${{ startsWith(matrix.env.cc, 'gcc') && 'ON' || 'OFF'}} \
