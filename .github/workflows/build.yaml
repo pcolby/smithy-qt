@@ -12,7 +12,7 @@ jobs:
         - { cc: clang, cxx: clang++ }
         - { cc: gcc, cxx: g++ }
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Install Qt
       run: sudo apt update && sudo apt upgrade && sudo apt install lcov libgrantlee5-dev qtbase5-dev
     - name: Build
@@ -65,7 +65,7 @@ jobs:
         - { cc: clang, cxx: clang++ }
         - { cc: gcc, cxx: g++ }
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Install Tools
       run: sudo apt update && sudo apt upgrade && sudo apt install clang lcov
     - name: Install Qt
@@ -138,7 +138,7 @@ jobs:
           # need to selectively enable/disable universal builds for clang/gcc-11 respectively
           # in the Build step below, at least until such time as GCC adds support.
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Install lcov
       run: brew install lcov
     - name: Install Qt
@@ -255,7 +255,7 @@ jobs:
         - { generator: 'NMake Makefiles', tool: msvc,  dll:    QtSmithy.dll }
         - { generator: 'MinGW Makefiles', tool: mingw, dll: libQtSmithy.dll }
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Install host Qt for cross-compilation
       if: matrix.arch == 'arm64'
       uses: jurplel/install-qt-action@v3
@@ -310,7 +310,7 @@ jobs:
     needs: [ linux0, linux, mac, win ]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - run: sudo apt update && sudo apt upgrade && sudo apt install lcov
     - name: Download all artifacts
       uses: actions/download-artifact@v3
@@ -349,7 +349,7 @@ jobs:
     if: success() && (github.ref == 'refs/heads/main')
     needs: collate-test-results
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with: { ref: doc }
     - name: Clear previous coverage report
       run: rm -rf main/cov
