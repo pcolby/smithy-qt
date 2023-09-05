@@ -14,7 +14,7 @@ jobs:
         submodules: true
     - name: Install Doxygen
       run: |
-        sudo apt update && sudo apt upgrade && sudo apt install graphviz libclang1-9 libclang-cpp9 qtbase5-dev qtbase5-doc-dev
+        sudo apt update && sudo apt upgrade && sudo apt install graphviz qtbase5-dev qtbase5-doc-dev
         curl --location --silent "https://github.com/doxygen/doxygen/releases/download/Release_${DOXYGEN_VERSION//./_}/doxygen-${DOXYGEN_VERSION}.linux.bin.tar.gz" |
           tar --extract --gzip --directory "$RUNNER_TEMP"
         "$RUNNER_TEMP/doxygen-${DOXYGEN_VERSION}/bin/doxygen" --version
