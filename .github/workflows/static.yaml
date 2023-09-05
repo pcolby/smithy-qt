@@ -9,7 +9,7 @@ jobs:
   CodeQL:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Install Qt
       run: sudo apt update && sudo apt upgrade && sudo apt install libgrantlee5-dev qtbase5-dev
     - name: Initialize CodeQL
@@ -28,7 +28,7 @@ jobs:
     steps:
     - name: Install Cppcheck
       run: sudo apt update && sudo apt upgrade && sudo apt install cppcheck
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Perform Cppcheck Analysis
       run: ./.cppcheck.sh --xml --xml-version=2 2> "$RUNNER_TEMP/cppcheck.xml"
     - name: Generate Report
