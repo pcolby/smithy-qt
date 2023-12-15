@@ -28,7 +28,7 @@ jobs:
       if: startsWith(matrix.env.cc, 'gcc')
       run: cmake --build "$RUNNER_TEMP" --target coverage
     - name: Upload test results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: test-results-linux-${{ matrix.env.cc }}
         path: |
@@ -47,7 +47,7 @@ jobs:
     - name: Setup artifacts
       run: echo "smithyQtVersion=$(cat "$RUNNER_TEMP/version.txt")" >> $GITHUB_ENV
     - name: Upload artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: smithy-qt-${{ env.smithyQtVersion }}+${{ github.run_number }}.linux.x86-64.${{ matrix.env.cc }}
         path: |
@@ -85,7 +85,7 @@ jobs:
       if: startsWith(matrix.env.cc, 'gcc')
       run: cmake --build "$RUNNER_TEMP" --target coverage
     - name: Upload test results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: test-results-linux-${{ matrix.env.cc }}-${{ matrix.qt }}
         path: |
@@ -103,7 +103,7 @@ jobs:
     - name: Setup artifacts
       run: echo "smithyQtVersion=$(cat "$RUNNER_TEMP/version.txt")" >> $GITHUB_ENV
     - name: Upload artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: smithy-qt-${{ env.smithyQtVersion }}+${{ github.run_number }}.linux.x86-64.${{ matrix.env.cc }}.qt-${{ matrix.qt }}
         path: ${{ runner.temp }}/src/lib/libQtSmithy.so
@@ -164,7 +164,7 @@ jobs:
       if: startsWith(matrix.env.cc, 'gcc')
       run: cmake --build "$RUNNER_TEMP" --target coverage
     - name: Upload test results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: test-results-mac-${{ matrix.env.cc }}-${{ matrix.qt }}
         path: |
@@ -182,7 +182,7 @@ jobs:
     - name: Setup artifacts
       run: echo "smithyQtVersion=$(cat "$RUNNER_TEMP/version.txt")" >> $GITHUB_ENV
     - name: Upload artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: smithy-qt-${{ env.smithyQtVersion }}+${{ github.run_number }}.mac.${{ startsWith(matrix.qt, '6') && 'arm64-' || '' }}x86_64.${{ matrix.env.cc }}.qt-${{ matrix.qt }}
         path: ${{ runner.temp }}/src/lib/libQtSmithy.dylib
@@ -291,7 +291,7 @@ jobs:
       run: ctest --test-dir "%RUNNER_TEMP%" --verbose
     - name: Upload test results
       if: matrix.arch != 'arm64'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: test-results-win-${{ matrix.arch }}-${{ matrix.tool }}-${{ matrix.qt }}
         path: ${{ runner.temp }}/test/unit/*.tap
@@ -300,7 +300,7 @@ jobs:
       shell: bash
       run: echo "smithyQtVersion=$(cat "$RUNNER_TEMP/version.txt")" >> $GITHUB_ENV
     - name: Upload artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: smithy-qt-${{ env.smithyQtVersion }}+${{ github.run_number }}.win.${{ matrix.arch }}.${{ matrix.tool }}.qt-${{ matrix.qt }}
         path: ${{ runner.temp }}/src/lib/${{ matrix.dll }}
@@ -333,7 +333,7 @@ jobs:
         /usr/bin/env bash ./artifacts/test-results-linux-gcc/removeHtmlDates.sh
       working-directory: ${{ runner.temp }}
     - name: Upload HTML coverage report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: coverage-report
         path: "${{ runner.temp }}/coverage"
