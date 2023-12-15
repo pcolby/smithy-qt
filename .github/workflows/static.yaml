@@ -13,7 +13,7 @@ jobs:
     - name: Install Qt
       run: sudo apt update && sudo apt upgrade && sudo apt install libgrantlee5-dev qtbase5-dev
     - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
+      uses: github/codeql-action/init@v3
       with:
         languages: cpp
     - name: Build
@@ -21,7 +21,7 @@ jobs:
         cmake -S "$GITHUB_WORKSPACE" -B "$RUNNER_TEMP"
         cmake --build "$RUNNER_TEMP"
     - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
+      uses: github/codeql-action/analyze@v3
 
   Cppcheck:
     runs-on: ubuntu-22.04
