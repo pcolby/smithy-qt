@@ -6,6 +6,7 @@ set(SmithyQtAppSources
   generator.h
   renderer.cpp
   renderer.h
+  textlee.h
 )
 
 add_library(smithy-qt-lib OBJECT ${SmithyQtAppSources})
@@ -13,7 +14,8 @@ add_library(smithy-qt-lib OBJECT ${SmithyQtAppSources})
 target_link_libraries(
   smithy-qt-lib
   PRIVATE QtSmithy
-  PRIVATE Qt${QT_VERSION_MAJOR}::Core)
+  PRIVATE Qt${QT_VERSION_MAJOR}::Core
+  PRIVATE ${TEXT_TEMPLATE_TARGET})
 
 add_executable(smithy-qt main.cpp)
 

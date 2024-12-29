@@ -321,7 +321,11 @@ const QString Generator::canonicalServiceId(const QString &sdkId)
     }
 
     // If the sdkId was all lowercase, then uppercase the first letter of each word.
-    if (id.isLower()) {
+    #if (QT_VERSION < QT_VERSION_CHECK(5, 12, 0))
+    if (id == id.toLower()) {
+    #else
+    if (id.isLower()) { // QString::isLower() added in Qt 5.12.
+    #endif
         const QStringList words = id.split(QRegularExpression(QSL("[^a-zA-Z0-9]+")));
         id.clear();
         for (const QString &word: words) {
@@ -374,16 +378,32 @@ bool Generator::promptToOverwrite(const QString &pathName, ClobberMode &clobberM
 
 Generator::Capitalisation Generator::getCase(const QString &first, const QString &second)
 {
+    #if (QT_VERSION < QT_VERSION_CHECK(5, 12, 0))
+    if ((first == first.toLower()) && (second == second.toLower())) {
+    #else
     if (first.isLower() && second.isLower()) {
+    #endif
         return Capitalisation::lowercase;
     }
+    #if (QT_VERSION < QT_VERSION_CHECK(5, 12, 0))
+    if ((first == first.toUpper()) && (second == second.toUpper())) {
+    #else
     if (first.isUpper() && second.isUpper()) {
+    #endif
         return Capitalisation::UPPERCASE;
     }
+    #if (QT_VERSION < QT_VERSION_CHECK(5, 12, 0))
+    if ((first.at(0) == first.at(0).toLower()) && (second.at(0) == second.at(0).toUpper())) {
+    #else
     if (first.front().isLower() && second.front().isUpper()) {
+    #endif
         return Capitalisation::camelCase;
     }
+    #if (QT_VERSION < QT_VERSION_CHECK(5, 12, 0))
+    if ((first.at(0) == first.at(0).isUpper()) && (second.at(0) == second.at(0).toLower())) {
+    #else
     if (first.front().isUpper() && second.front().isUpper()) {
+    #endif
         return Capitalisation::CamelCase;
     }
     return Capitalisation::NoChange;
@@ -462,7 +482,7 @@ QStringList Generator::formatHtmlDocumentation(const QString &html)
     #else
         #define SKIP_EMPTY_PARTS QString::SkipEmptyParts // Deprecated in Qt 5.15.
     #endif
-    foreach (QString word, content.split(QRegularExpression(QSL("\\s+")), SKIP_EMPTY_PARTS)) {
+    for (QString word: content.split(QRegularExpression(QSL("\\s+")), SKIP_EMPTY_PARTS)) {
         if (word.startsWith(QSL("<p>")) || word.endsWith(QSL("</p>"))) {
             lines.append(line);
             line.clear();

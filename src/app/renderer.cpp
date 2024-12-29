@@ -8,8 +8,13 @@
 #include <QJsonParseError>
 #include <QRegularExpression>
 
+#if defined USE_CUTELEE
+#include <cutelee/cachingloaderdecorator.h>
+#include <cutelee/templateloader.h>
+#elif defined USE_GRANTLEE
 #include <grantlee/cachingloaderdecorator.h>
 #include <grantlee/templateloader.h>
+#endif
 
 #define QSL(str) QStringLiteral(str) // Shorten the QStringLiteral macro for readability.
 
@@ -20,13 +25,18 @@ Renderer::Renderer()
 
 bool Renderer::loadTemplates(const QString &dir)
 {
-    qCInfo(lc).noquote() << tr("Loading Grantlee templates from %1").arg(dir);
+    qCInfo(lc).noquote() << tr("Loading Textlee templates from %1").arg(dir);
 
     // Setup the template loader.
-    auto loader = QSharedPointer<Grantlee::FileSystemTemplateLoader>::create();
+    #if defined USE_CUTELEE
+    auto loader = std::make_shared<Textlee::FileSystemTemplateLoader>();
+    auto cachedLoader = std::make_shared<Textlee::CachingLoaderDecorator>(loader);
+    #elif defined USE_GRANTLEE
+    auto loader = QSharedPointer<Textlee::FileSystemTemplateLoader>::create();
+    auto cachedLoader = QSharedPointer<Textlee::CachingLoaderDecorator>::create(loader);
+    #endif
     // Note, {% include "<filename>" %} will look for files relative to templateDirs.
     loader->setTemplateDirs(QStringList{dir});
-    auto cachedLoader = QSharedPointer<Grantlee::CachingLoaderDecorator>::create(loader);
     engine.addTemplateLoader(cachedLoader);
 
     // Load the templates.
@@ -34,7 +44,7 @@ bool Renderer::loadTemplates(const QString &dir)
     while (iter.hasNext()) {
         const QString name = iter.next().mid(iter.path().size()+1);
         qCDebug(lc).noquote() << tr("Loading template: %1").arg(name);
-        const Grantlee::Template tmplate = engine.loadByName(name);
+        const Textlee::Template tmplate = engine.loadByName(name);
         if (tmplate->error()) {
             qCritical().noquote() << tr("Error loading template %1: %2")
                 .arg(name, tmplate->errorString());
@@ -51,18 +61,24 @@ QStringList Renderer::templatesNames() const
     return templates;
 }
 
-// Grantlee output stream that does *no* content escaping.
-class NoEscapeStream : public Grantlee::OutputStream {
+// Textlee output stream that does *no* content escaping.
+class NoEscapeStream : public Textlee::OutputStream {
 public:
-    explicit NoEscapeStream(QTextStream * stream) : Grantlee::OutputStream(stream) { }
+    explicit NoEscapeStream(QTextStream * stream) : Textlee::OutputStream(stream) { }
 
     // cppcheck-suppress unusedFunction
     virtual QString escape(const QString &input) const { return input; }
 
     // cppcheck-suppress unusedFunction
-    virtual QSharedPointer<OutputStream> clone( QTextStream *stream ) const {
+    #if defined USE_CUTELEE
+    virtual std::shared_ptr<OutputStream> clone(QTextStream *stream) const {
+        return std::shared_ptr<OutputStream>(new NoEscapeStream(stream));
+    }
+    #elif defined USE_GRANTLEE
+    virtual QSharedPointer<OutputStream> clone(QTextStream *stream) const {
         return QSharedPointer<OutputStream>(new NoEscapeStream(stream));
     }
+    #endif
 };
 
 void Renderer::push(const QVariantHash &context)
@@ -103,7 +119,7 @@ bool Renderer::render(const QString &templateName, const QString &outputPathName
     push(additionalContext);
     QTextStream textStream(&file);
     NoEscapeStream noEscapeStream(&textStream);
-    Grantlee::Template tmplate = engine.loadByName(templateName);
+    Textlee::Template tmplate = engine.loadByName(templateName);
     if (!tmplate) {
         qCCritical(lc).noquote() << tr("Failed to fetch template %1").arg(outputPathName);
         pop();
@@ -133,9 +149,14 @@ QString Renderer::sanitise(const QString &key)
 
 QVariant Renderer::sanitise(const QVariant &variant)
 {
-    if (variant.type() == QVariant::Hash) {
+    #if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+    const int typeId = variant.typeId();
+    #else
+    const int typeId = variant.type();
+    #endif
+    if (typeId == QMetaType::QVariantHash) {
         return sanitise(variant.toHash());
-    } else if (variant.type() == QVariant::Map) {
+    } else if (typeId == QMetaType::QVariantMap) {
         return sanitise(variant.toMap());
     }
     return variant;
@@ -147,9 +168,14 @@ QVariantHash Renderer::sanitise(const QVariantHash &hash)
     for (auto iter = hash.begin(); iter != hash.end(); ++iter) {
         const QString saneKey = sanitise(iter.key());
         QVariant saneValue = iter.value();
-        if (iter->type() == QVariant::Hash) {
+        #if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+        const int typeId = iter->typeId();
+        #else
+        const int typeId = iter->type();
+        #endif
+        if (typeId == QMetaType::QVariantHash) {
             saneValue = sanitise(iter->toHash());
-        } else if (iter->type() == QVariant::Map) {
+        } else if (typeId == QMetaType::QVariantMap) {
             saneValue = sanitise(iter->toMap());
         }
         newHash.insert(saneKey, saneValue);
@@ -164,9 +190,14 @@ QVariantMap Renderer::sanitise(const QVariantMap &map)
     for (auto iter = map.begin(); iter != map.end(); ++iter) {
         const QString saneKey = sanitise(iter.key());
         QVariant saneValue = iter.value();
-        if (iter->type() == QVariant::Hash) {
+        #if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+        const int typeId = iter->typeId();
+        #else
+        const int typeId = iter->type();
+        #endif
+        if (typeId == QMetaType::QVariantHash) {
             saneValue = sanitise(iter->toHash());
-        } else if (iter->type() == QVariant::Map) {
+        } else if (typeId == QMetaType::QVariantMap) {
             saneValue = sanitise(iter->toMap());
         }
         newMap.insert(saneKey, saneValue);

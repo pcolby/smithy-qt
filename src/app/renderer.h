@@ -1,8 +1,13 @@
 // SPDX-FileCopyrightText: 2013-2024 Paul Colby <git@colby.id.au>
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
-
+#if defined USE_CUTELEE
+#include <cutelee/engine.h>
+#elif defined USE_GRANTLEE
 #include <grantlee/engine.h>
+#endif
+
+#include "textlee.h"
 
 #include <QCoreApplication>
 #include <QLoggingCategory>
@@ -30,8 +35,8 @@ public:
     static QVariantMap sanitise(const QVariantMap &map);
 
 protected:
-    Grantlee::Context context;
-    Grantlee::Engine engine;
+    Textlee::Context context;
+    Textlee::Engine engine;
     QStringList templates;
 
     static Q_LOGGING_CATEGORY(lc, "smithy.Renderer", QtInfoMsg); ///< Logging category for Renderer.

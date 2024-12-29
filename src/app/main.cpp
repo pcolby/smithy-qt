@@ -69,7 +69,7 @@ void parseCommandLineOptions(QCoreApplication &app, QCommandLineParser &parser)
           QCoreApplication::translate("main", "Read Smithy models from dir"),
           QStringLiteral("dir")},
         {{QStringLiteral("t"), QStringLiteral("templates")},
-          QCoreApplication::translate("main", "Read Grantlee templates from dir"),
+          QCoreApplication::translate("main", "Read text templates from dir"),
           QStringLiteral("dir")},
         {{QStringLiteral("o"), QStringLiteral("output")},
           QCoreApplication::translate("main", "Write output files to dir"), QStringLiteral("dir")},
@@ -169,7 +169,11 @@ int loadModels(const QString &dir, smithy::Model &model)
         QFile file{iter.next()};
         qCDebug(lc).noquote() << QCoreApplication::translate("loadModels", "Loading Smithy JSON: %1")
                                  .arg(file.fileName());
-        file.open(QFile::ReadOnly);
+        if (!file.open(QFile::ReadOnly)) {
+            qCCritical(lc).noquote() << QCoreApplication::translate("loadModels",
+                "Failed to open JSON file: %1").arg(file.fileName());
+            return -count;
+        }
         QJsonParseError error{};
         QJsonDocument json = QJsonDocument::fromJson(file.readAll(), &error);
         if (error.error != QJsonParseError::NoError) {
