@@ -119,6 +119,32 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core LinguistTools)
 message(STATUS "Found Qt ${Qt${QT_VERSION_MAJOR}_VERSION}")
 message(STATUS "Found Qt Linguist Tools ${Qt${QT_VERSION_MAJOR}LinguistTools_VERSION}")
 
+# Determine which text templating library to use.
+# \todo Consider supporting KF6-KTextTemplate too when available.
+set(TEXT_TEMPLATE_LIBRARY CACHE STRING "Text template library to use (Cutelee or Grantlee)")
+set_property(CACHE TEXT_TEMPLATE_LIBRARY PROPERTY STRINGS Cutelee Grantlee)
+if(NOT TEXT_TEMPLATE_LIBRARY)
+  if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
+    set(TEXT_TEMPLATE_LIBRARY Cutelee)
+  else()
+    set(TEXT_TEMPLATE_LIBRARY Grantlee)
+  endif()
+endif()
+
+if(TEXT_TEMPLATE_LIBRARY STREQUAL Cutelee)
+  find_package(Cutelee6Qt${QT_VERSION_MAJOR} REQUIRED)
+  message(STATUS "Found Cutelee ${Cutelee6Qt${QT_VERSION_MAJOR}_VERSION}")
+  add_compile_definitions(USE_CUTELEE)
+  set(TEXT_TEMPLATE_TARGET Cutelee::Templates)
+elseif(TEXT_TEMPLATE_LIBRARY STREQUAL Grantlee)
+  find_package(Grantlee5 REQUIRED)
+  message(STATUS "Found Grantlee ${Grantlee5_VERSION}")
+  add_compile_definitions(USE_GRANTLEE)
+  set(TEXT_TEMPLATE_TARGET Grantlee5::Templates)
+else()
+  message(SEND_ERROR "Unknown text template library: ${DOXLEE_TEMPLATE_LIBRARY}")
+endif()
+
 # Set a default (but optional and overridable) library namespace.
 set(QTSMITHY_NAMESPACE "smithy" CACHE STRING "Optional SmithyQt library namespace")
 if (QTSMITHY_NAMESPACE)
