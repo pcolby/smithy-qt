@@ -30,5 +30,8 @@ endif()
   endif()
 endfunction()
 
-#add_subdirectory(app)
 add_subdirectory(lib)
+
+if(NOT TEXT_TEMPLATE_LIBRARY STREQUAL None)
+  add_subdirectory(app)
+endif()

@@ -121,8 +121,9 @@ message(STATUS "Found Qt Linguist Tools ${Qt${QT_VERSION_MAJOR}LinguistTools_VER
 
 # Determine which text templating library to use.
 # \todo Consider supporting KF6-KTextTemplate too when available.
-set(TEXT_TEMPLATE_LIBRARY CACHE STRING "Text template library to use (Cutelee or Grantlee)")
-set_property(CACHE TEXT_TEMPLATE_LIBRARY PROPERTY STRINGS Cutelee Grantlee)
+set(TEXT_TEMPLATE_LIBRARY CACHE STRING "Text template library to use (Cutelee, Grantlee or None)")
+set_property(CACHE TEXT_TEMPLATE_LIBRARY PROPERTY STRINGS Cutelee Grantlee None)
+set(TEXT_TEMPLATE_LIBRARY None)
 if(NOT TEXT_TEMPLATE_LIBRARY)
   if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     set(TEXT_TEMPLATE_LIBRARY Cutelee)
@@ -141,6 +142,8 @@ elseif(TEXT_TEMPLATE_LIBRARY STREQUAL Grantlee)
   message(STATUS "Found Grantlee ${Grantlee5_VERSION}")
   add_compile_definitions(USE_GRANTLEE)
   set(TEXT_TEMPLATE_TARGET Grantlee5::Templates)
+elseif(TEXT_TEMPLATE_LIBRARY STREQUAL None)
+  message(STATUS "Not using any template engine; will build library, but not CLI application")
 else()
   message(SEND_ERROR "Unknown text template library: ${DOXLEE_TEMPLATE_LIBRARY}")
 endif()
