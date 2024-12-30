@@ -25,8 +25,8 @@ used to generate code (or indeed non-code) for any language or technology.
 ```mermaid
 graph LR
   model(["Smithy Model"]) --QtSmithy--> smithy-qt("smithy-qt")
-  templates(["Grantlee<br/>Templates"]) --Grantlee--> smithy-qt
-  smithy-qt --Grantlee--> output(["Rendered Files"])
+  templates(["Text<br/>Templates"]) --Template<br/>Engine--> smithy-qt
+  smithy-qt --Template<br/>Engine--> output(["Rendered Files"])
 ```
 
 ```mermaid
