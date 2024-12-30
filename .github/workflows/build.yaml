@@ -706,6 +706,7 @@ jobs:
           name: coverage-report
           path: main/cov
       - name: Inject version selectors
+        if: false
         run: ./.selector.sh
       - name: Inspect changes # for diagnostics only.
         run: git status && git diff
