@@ -40,10 +40,10 @@ graph LR
   class templates,code,aws-sdk-qt aws-sdk-qt
   style model color:black,fill:#FF9900,stroke:darkorange
 
-  click aws-sdk-qt https://github.com/pcolby/aws-sdk-qt
-  click code https://github.com/pcolby/aws-sdk-qt
-  click templates https://github.com/pcolby/aws-sdk-qt
-  click model https://github.com/aws/aws-sdk-js-v3/tree/main/codegen/sdk-codegen/aws-models
+  click aws-sdk-qt "https://github.com/pcolby/aws-sdk-qt"
+  click code "https://github.com/pcolby/aws-sdk-qt"
+  click templates "https://github.com/pcolby/aws-sdk-qt"
+  click model "https://github.com/aws/aws-sdk-js-v3/tree/main/codegen/sdk-codegen/aws-models"
 ```
 
 ### Text Templates
