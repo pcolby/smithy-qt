@@ -31,14 +31,19 @@ graph LR
 
 ```mermaid
 graph LR
-  model(["Amazon's<br/>AWS Models"]) --> smithy-qt("smithy-qt")
+  model(["AWS Models"]) --> smithy-qt("smithy-qt")
   templates(["qt-aws-sdk<br/>Templates"]) --> smithy-qt
   smithy-qt --> output(["Generated Code"]) --> aws-sdk-qt["AWS SDK for Qt"]
-  code(["Handwritten Code"]) --> aws-sdk-qt
+  code(["qt-aws-sdk Code"]) --> aws-sdk-qt
 
-  classDef aws-sdk-qt fill:lightgreen,stroke:green
+  classDef aws-sdk-qt color:#00414A,fill:lightgreen,stroke:#2CDE85
   class templates,code,aws-sdk-qt aws-sdk-qt
-  style model fill:orange,stroke:darkorange
+  style model color:black,fill:#FF9900,stroke:darkorange
+
+  click aws-sdk-qt https://github.com/pcolby/aws-sdk-qt
+  click code https://github.com/pcolby/aws-sdk-qt
+  click templates https://github.com/pcolby/aws-sdk-qt
+  click model https://github.com/aws/aws-sdk-js-v3/tree/main/codegen/sdk-codegen/aws-models
 ```
 
 ### Text Templates
