@@ -30,6 +30,27 @@ target_link_libraries(
   PRIVATE Qt${QT_VERSION_MAJOR}::Core
   PRIVATE ${TEXT_TEMPLATE_TARGET})
 
-# \todo linuxdeploy
+find_program(LINUXDEPLOY NAMES linuxdeploy linuxdeploy-x86_64.AppImage)
+if (LINUXDEPLOY)
+  message(STATUS "Found linuxdeploy: ${LINUXDEPLOY}")
+  configure_file(desktop.in smithy-qt.desktop)
+  add_custom_target(
+    appimage
+    COMMAND ${CMAKE_COMMAND} -E env
+      OUTPUT=${CMAKE_BINARY_DIR}/smithy-qt-${PROJECT_VERSION}${PROJECT_VERSION_SUFFIX}.AppImage
+      QMAKE=$<TARGET_FILE:Qt${QT_VERSION_MAJOR}::qmake>
+      --
+      ${LINUXDEPLOY}
+      --appdir "${CMAKE_BINARY_DIR}/AppDir"
+      --desktop-file "${CMAKE_CURRENT_BINARY_DIR}/smithy-qt.desktop"
+      --executable "$<TARGET_FILE:smithy-qt>"
+      --icon-file "${CMAKE_CURRENT_SOURCE_DIR}/smithy-qt.png"
+      --output appimage
+      --plugin qt
+    COMMENT "Bundling AppImage"
+    DEPENDS smithy-qt QtSmithy
+    VERBATIM
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+endif()
 
 # \todo windeployqt

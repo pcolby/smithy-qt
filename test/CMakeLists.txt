@@ -31,7 +31,7 @@ if (ENABLE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "Clang$")
       COMMAND ${LLVM_COV} export
         "$<$<BOOL:${LLVM_COV_ARCH}>:--arch;${LLVM_COV_ARCH}>"
         --format lcov --instr-profile coverage.profdata
-        "--object;$<JOIN:$<TARGET_OBJECTS:QtPokit>,;--object;>"
+        "--object;$<JOIN:$<TARGET_OBJECTS:QtSmithy>,;--object;>"
         "$<$<TARGET_EXISTS:cli-lib>:--object;$<JOIN:$<TARGET_OBJECTS:cli-lib>,;--object;>>"
         --sources "${LLVM_COV_SOURCES}" > coverage.info
       COMMAND_EXPAND_LISTS

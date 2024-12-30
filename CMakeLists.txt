@@ -114,16 +114,15 @@ endif()
 # Default to Qt6 where available, otherwise Qt5.
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
-find_package(QT REQUIRED COMPONENTS Core LinguistTools NAMES Qt6 Qt5)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core LinguistTools)
+find_package(QT REQUIRED COMPONENTS Core NAMES Qt6 Qt5)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core)
 message(STATUS "Found Qt ${Qt${QT_VERSION_MAJOR}_VERSION}")
-message(STATUS "Found Qt Linguist Tools ${Qt${QT_VERSION_MAJOR}LinguistTools_VERSION}")
+#message(STATUS "Found Qt Linguist Tools ${Qt${QT_VERSION_MAJOR}LinguistTools_VERSION}")
 
 # Determine which text templating library to use.
 # \todo Consider supporting KF6-KTextTemplate too when available.
 set(TEXT_TEMPLATE_LIBRARY CACHE STRING "Text template library to use (Cutelee, Grantlee or None)")
 set_property(CACHE TEXT_TEMPLATE_LIBRARY PROPERTY STRINGS Cutelee Grantlee None)
-set(TEXT_TEMPLATE_LIBRARY None)
 if(NOT TEXT_TEMPLATE_LIBRARY)
   if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     set(TEXT_TEMPLATE_LIBRARY Cutelee)
@@ -145,7 +144,7 @@ elseif(TEXT_TEMPLATE_LIBRARY STREQUAL Grantlee)
 elseif(TEXT_TEMPLATE_LIBRARY STREQUAL None)
   message(STATUS "Not using any template engine; will build library, but not CLI application")
 else()
-  message(SEND_ERROR "Unknown text template library: ${DOXLEE_TEMPLATE_LIBRARY}")
+  message(SEND_ERROR "Unknown text template library: ${TEXT_TEMPLATE_LIBRARY}")
 endif()
 
 # Set a default (but optional and overridable) library namespace.

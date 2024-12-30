@@ -1,0 +1,26 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=smithy-qt
+#GenericName
+NoDisplay=true
+Comment=Smithy code generator for Qt
+Icon=smithy-qt
+#Hidden
+#OnlyShowIn
+#NotShowIn
+#DBusActivatable
+TryExec=smithy-qt
+Exec=smithy-qt
+#Path
+#Terminal
+#Actions
+#MimeType
+Categories=Development
+#Implements
+#Keywords
+#StartupNotify
+#StartupWMClass
+#URL
+#PrefersNonDefaultGPU
+#SingleMainWindow
