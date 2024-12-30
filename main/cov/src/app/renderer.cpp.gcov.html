@@ -1,0 +1,283 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info - src/app/renderer.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../index.html" title="Click to go to top-level">top level</a> - <a href="index.html" title="Click to go to directory src/app">src/app</a> - renderer.cpp<span style="font-size: 80%;"> (source / <a href="renderer.cpp.func.html" title="Click to go to function table">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Project:</td>
+            <td class="headerValue">Smithy Qt</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
+            <td class="headerCovTableEntry">107</td>
+            <td class="headerCovTableEntry">0</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Version:</td>
+            <td class="headerValue">0.1.0-pre</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
+            <td class="headerCovTableEntry">13</td>
+            <td class="headerCovTableEntry">0</td>
+          </tr>
+                  <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">            Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>              : // SPDX-FileCopyrightText: 2013-2024 Paul Colby &lt;git@colby.id.au&gt;</span>
+<span id="L2"><span class="lineNum">       2</span>              : // SPDX-License-Identifier: LGPL-3.0-or-later</span>
+<span id="L3"><span class="lineNum">       3</span>              : </span>
+<span id="L4"><span class="lineNum">       4</span>              : #include &quot;renderer.h&quot;</span>
+<span id="L5"><span class="lineNum">       5</span>              : </span>
+<span id="L6"><span class="lineNum">       6</span>              : #include &lt;QDebug&gt;</span>
+<span id="L7"><span class="lineNum">       7</span>              : #include &lt;QDirIterator&gt;</span>
+<span id="L8"><span class="lineNum">       8</span>              : #include &lt;QJsonParseError&gt;</span>
+<span id="L9"><span class="lineNum">       9</span>              : #include &lt;QRegularExpression&gt;</span>
+<span id="L10"><span class="lineNum">      10</span>              : </span>
+<span id="L11"><span class="lineNum">      11</span>              : #if defined USE_CUTELEE</span>
+<span id="L12"><span class="lineNum">      12</span>              : #include &lt;cutelee/cachingloaderdecorator.h&gt;</span>
+<span id="L13"><span class="lineNum">      13</span>              : #include &lt;cutelee/templateloader.h&gt;</span>
+<span id="L14"><span class="lineNum">      14</span>              : #elif defined USE_GRANTLEE</span>
+<span id="L15"><span class="lineNum">      15</span>              : #include &lt;grantlee/cachingloaderdecorator.h&gt;</span>
+<span id="L16"><span class="lineNum">      16</span>              : #include &lt;grantlee/templateloader.h&gt;</span>
+<span id="L17"><span class="lineNum">      17</span>              : #endif</span>
+<span id="L18"><span class="lineNum">      18</span>              : </span>
+<span id="L19"><span class="lineNum">      19</span>              : #define QSL(str) QStringLiteral(str) // Shorten the QStringLiteral macro for readability.</span>
+<span id="L20"><span class="lineNum">      20</span>              : </span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaUNC">           0 : Renderer::Renderer()</span></span>
+<span id="L22"><span class="lineNum">      22</span>              : {</span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaUNC">           0 :     engine.setSmartTrimEnabled(true);</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaUNC">           0 : }</span></span>
+<span id="L25"><span class="lineNum">      25</span>              : </span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaUNC">           0 : bool Renderer::loadTemplates(const QString &amp;dir)</span></span>
+<span id="L27"><span class="lineNum">      27</span>              : {</span>
+<span id="L28"><span class="lineNum">      28</span> <span class="tlaUNC">           0 :     qCInfo(lc).noquote() &lt;&lt; tr(&quot;Loading Textlee templates from %1&quot;).arg(dir);</span></span>
+<span id="L29"><span class="lineNum">      29</span>              : </span>
+<span id="L30"><span class="lineNum">      30</span>              :     // Setup the template loader.</span>
+<span id="L31"><span class="lineNum">      31</span>              :     #if defined USE_CUTELEE</span>
+<span id="L32"><span class="lineNum">      32</span>              :     auto loader = std::make_shared&lt;Textlee::FileSystemTemplateLoader&gt;();</span>
+<span id="L33"><span class="lineNum">      33</span>              :     auto cachedLoader = std::make_shared&lt;Textlee::CachingLoaderDecorator&gt;(loader);</span>
+<span id="L34"><span class="lineNum">      34</span>              :     #elif defined USE_GRANTLEE</span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaUNC">           0 :     auto loader = QSharedPointer&lt;Textlee::FileSystemTemplateLoader&gt;::create();</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaUNC">           0 :     auto cachedLoader = QSharedPointer&lt;Textlee::CachingLoaderDecorator&gt;::create(loader);</span></span>
+<span id="L37"><span class="lineNum">      37</span>              :     #endif</span>
+<span id="L38"><span class="lineNum">      38</span>              :     // Note, {% include &quot;&lt;filename&gt;&quot; %} will look for files relative to templateDirs.</span>
+<span id="L39"><span class="lineNum">      39</span> <span class="tlaUNC">           0 :     loader-&gt;setTemplateDirs(QStringList{dir});</span></span>
+<span id="L40"><span class="lineNum">      40</span> <span class="tlaUNC">           0 :     engine.addTemplateLoader(cachedLoader);</span></span>
+<span id="L41"><span class="lineNum">      41</span>              : </span>
+<span id="L42"><span class="lineNum">      42</span>              :     // Load the templates.</span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaUNC">           0 :     QDirIterator iter{QDir::cleanPath(dir), QDir::Files, QDirIterator::Subdirectories};</span></span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaUNC">           0 :     while (iter.hasNext()) {</span></span>
+<span id="L45"><span class="lineNum">      45</span> <span class="tlaUNC">           0 :         const QString name = iter.next().mid(iter.path().size()+1);</span></span>
+<span id="L46"><span class="lineNum">      46</span> <span class="tlaUNC">           0 :         qCDebug(lc).noquote() &lt;&lt; tr(&quot;Loading template: %1&quot;).arg(name);</span></span>
+<span id="L47"><span class="lineNum">      47</span> <span class="tlaUNC">           0 :         const Textlee::Template tmplate = engine.loadByName(name);</span></span>
+<span id="L48"><span class="lineNum">      48</span> <span class="tlaUNC">           0 :         if (tmplate-&gt;error()) {</span></span>
+<span id="L49"><span class="lineNum">      49</span> <span class="tlaUNC">           0 :             qCritical().noquote() &lt;&lt; tr(&quot;Error loading template %1: %2&quot;)</span></span>
+<span id="L50"><span class="lineNum">      50</span> <span class="tlaUNC">           0 :                 .arg(name, tmplate-&gt;errorString());</span></span>
+<span id="L51"><span class="lineNum">      51</span>              :             return false;</span>
+<span id="L52"><span class="lineNum">      52</span>              :         }</span>
+<span id="L53"><span class="lineNum">      53</span> <span class="tlaUNC">           0 :         templates.append(name);</span></span>
+<span id="L54"><span class="lineNum">      54</span> <span class="tlaUNC">           0 :     }</span></span>
+<span id="L55"><span class="lineNum">      55</span> <span class="tlaUNC">           0 :     qDebug(lc).noquote() &lt;&lt; tr(&quot;Loaded %n template/s from %1&quot;, nullptr, templates.size()).arg(dir);</span></span>
+<span id="L56"><span class="lineNum">      56</span> <span class="tlaUNC">           0 :     return true;</span></span>
+<span id="L57"><span class="lineNum">      57</span> <span class="tlaUNC">           0 : }</span></span>
+<span id="L58"><span class="lineNum">      58</span>              : </span>
+<span id="L59"><span class="lineNum">      59</span> <span class="tlaUNC">           0 : QStringList Renderer::templatesNames() const</span></span>
+<span id="L60"><span class="lineNum">      60</span>              : {</span>
+<span id="L61"><span class="lineNum">      61</span> <span class="tlaUNC">           0 :     return templates;</span></span>
+<span id="L62"><span class="lineNum">      62</span>              : }</span>
+<span id="L63"><span class="lineNum">      63</span>              : </span>
+<span id="L64"><span class="lineNum">      64</span>              : // Textlee output stream that does *no* content escaping.</span>
+<span id="L65"><span class="lineNum">      65</span> <span class="tlaUNC">           0 : class NoEscapeStream : public Textlee::OutputStream {</span></span>
+<span id="L66"><span class="lineNum">      66</span>              : public:</span>
+<span id="L67"><span class="lineNum">      67</span> <span class="tlaUNC">           0 :     explicit NoEscapeStream(QTextStream * stream) : Textlee::OutputStream(stream) { }</span></span>
+<span id="L68"><span class="lineNum">      68</span>              : </span>
+<span id="L69"><span class="lineNum">      69</span>              :     // cppcheck-suppress unusedFunction</span>
+<span id="L70"><span class="lineNum">      70</span> <span class="tlaUNC">           0 :     virtual QString escape(const QString &amp;input) const { return input; }</span></span>
+<span id="L71"><span class="lineNum">      71</span>              : </span>
+<span id="L72"><span class="lineNum">      72</span>              :     // cppcheck-suppress unusedFunction</span>
+<span id="L73"><span class="lineNum">      73</span>              :     #if defined USE_CUTELEE</span>
+<span id="L74"><span class="lineNum">      74</span> <span class="tlaUNC">           0 :     virtual std::shared_ptr&lt;OutputStream&gt; clone(QTextStream *stream) const {</span></span>
+<span id="L75"><span class="lineNum">      75</span> <span class="tlaUNC">           0 :         return std::shared_ptr&lt;OutputStream&gt;(new NoEscapeStream(stream));</span></span>
+<span id="L76"><span class="lineNum">      76</span>              :     }</span>
+<span id="L77"><span class="lineNum">      77</span>              :     #elif defined USE_GRANTLEE</span>
+<span id="L78"><span class="lineNum">      78</span> <span class="tlaUNC">           0 :     virtual QSharedPointer&lt;OutputStream&gt; clone(QTextStream *stream) const {</span></span>
+<span id="L79"><span class="lineNum">      79</span> <span class="tlaUNC">           0 :         return QSharedPointer&lt;OutputStream&gt;(new NoEscapeStream(stream));</span></span>
+<span id="L80"><span class="lineNum">      80</span>              :     }</span>
+<span id="L81"><span class="lineNum">      81</span>              :     #endif</span>
+<span id="L82"><span class="lineNum">      82</span>              : };</span>
+<span id="L83"><span class="lineNum">      83</span>              : </span>
+<span id="L84"><span class="lineNum">      84</span> <span class="tlaUNC">           0 : void Renderer::push(const QVariantHash &amp;context)</span></span>
+<span id="L85"><span class="lineNum">      85</span>              : {</span>
+<span id="L86"><span class="lineNum">      86</span> <span class="tlaUNC">           0 :     this-&gt;context.push();</span></span>
+<span id="L87"><span class="lineNum">      87</span> <span class="tlaUNC">           0 :     for (auto iter = context.constBegin(); iter != context.constEnd(); ++iter) {</span></span>
+<span id="L88"><span class="lineNum">      88</span> <span class="tlaUNC">           0 :         this-&gt;context.insert(sanitise(iter.key()), sanitise(iter.value()));</span></span>
+<span id="L89"><span class="lineNum">      89</span>              :     }</span>
+<span id="L90"><span class="lineNum">      90</span> <span class="tlaUNC">           0 : }</span></span>
+<span id="L91"><span class="lineNum">      91</span>              : </span>
+<span id="L92"><span class="lineNum">      92</span> <span class="tlaUNC">           0 : void Renderer::pop()</span></span>
+<span id="L93"><span class="lineNum">      93</span>              : {</span>
+<span id="L94"><span class="lineNum">      94</span> <span class="tlaUNC">           0 :     context.pop();</span></span>
+<span id="L95"><span class="lineNum">      95</span> <span class="tlaUNC">           0 : }</span></span>
+<span id="L96"><span class="lineNum">      96</span>              : </span>
+<span id="L97"><span class="lineNum">      97</span> <span class="tlaUNC">           0 : bool Renderer::render(const QString &amp;templateName, const QString &amp;outputPathName,</span></span>
+<span id="L98"><span class="lineNum">      98</span>              :             const QVariantHash &amp;additionalContext)</span>
+<span id="L99"><span class="lineNum">      99</span>              : {</span>
+<span id="L100"><span class="lineNum">     100</span> <span class="tlaUNC">           0 :     qCDebug(lc).noquote() &lt;&lt; tr(&quot;Rendering %1 to %2&quot;).arg(templateName, outputPathName);</span></span>
+<span id="L101"><span class="lineNum">     101</span> <span class="tlaUNC">           0 :     if (!templates.contains(templateName)) {</span></span>
+<span id="L102"><span class="lineNum">     102</span> <span class="tlaUNC">           0 :         qCCritical(lc).noquote() &lt;&lt; tr(&quot;Template %1 has not been loaded&quot;).arg(templateName);</span></span>
+<span id="L103"><span class="lineNum">     103</span> <span class="tlaUNC">           0 :         return false;</span></span>
+<span id="L104"><span class="lineNum">     104</span>              :     }</span>
+<span id="L105"><span class="lineNum">     105</span>              : </span>
+<span id="L106"><span class="lineNum">     106</span> <span class="tlaUNC">           0 :     const QDir dir = QFileInfo(outputPathName).dir();</span></span>
+<span id="L107"><span class="lineNum">     107</span> <span class="tlaUNC">           0 :     if (!dir.mkpath(QSL(&quot;./&quot;))) {</span></span>
+<span id="L108"><span class="lineNum">     108</span> <span class="tlaUNC">           0 :         qCCritical(lc).noquote() &lt;&lt; tr(&quot;Failed to create directory path %1&quot;).arg(dir.path());</span></span>
+<span id="L109"><span class="lineNum">     109</span> <span class="tlaUNC">           0 :         return false;</span></span>
+<span id="L110"><span class="lineNum">     110</span>              :     }</span>
+<span id="L111"><span class="lineNum">     111</span>              : </span>
+<span id="L112"><span class="lineNum">     112</span> <span class="tlaUNC">           0 :     QFile file(outputPathName);</span></span>
+<span id="L113"><span class="lineNum">     113</span> <span class="tlaUNC">           0 :     if (!file.open(QFile::WriteOnly)) {</span></span>
+<span id="L114"><span class="lineNum">     114</span> <span class="tlaUNC">           0 :         qCCritical(lc).noquote() &lt;&lt; tr(&quot;Failed to open %1 for writing: %2&quot;)</span></span>
+<span id="L115"><span class="lineNum">     115</span> <span class="tlaUNC">           0 :             .arg(outputPathName, file.errorString());</span></span>
+<span id="L116"><span class="lineNum">     116</span> <span class="tlaUNC">           0 :         return false;</span></span>
+<span id="L117"><span class="lineNum">     117</span>              :     }</span>
+<span id="L118"><span class="lineNum">     118</span>              : </span>
+<span id="L119"><span class="lineNum">     119</span> <span class="tlaUNC">           0 :     push(additionalContext);</span></span>
+<span id="L120"><span class="lineNum">     120</span> <span class="tlaUNC">           0 :     QTextStream textStream(&amp;file);</span></span>
+<span id="L121"><span class="lineNum">     121</span>              :     NoEscapeStream noEscapeStream(&amp;textStream);</span>
+<span id="L122"><span class="lineNum">     122</span> <span class="tlaUNC">           0 :     Textlee::Template tmplate = engine.loadByName(templateName);</span></span>
+<span id="L123"><span class="lineNum">     123</span> <span class="tlaUNC">           0 :     if (!tmplate) {</span></span>
+<span id="L124"><span class="lineNum">     124</span> <span class="tlaUNC">           0 :         qCCritical(lc).noquote() &lt;&lt; tr(&quot;Failed to fetch template %1&quot;).arg(outputPathName);</span></span>
+<span id="L125"><span class="lineNum">     125</span> <span class="tlaUNC">           0 :         pop();</span></span>
+<span id="L126"><span class="lineNum">     126</span>              :         return false;</span>
+<span id="L127"><span class="lineNum">     127</span>              :     }</span>
+<span id="L128"><span class="lineNum">     128</span> <span class="tlaUNC">           0 :     tmplate-&gt;render(&amp;noEscapeStream, &amp;context);</span></span>
+<span id="L129"><span class="lineNum">     129</span> <span class="tlaUNC">           0 :     if (tmplate-&gt;error()) {</span></span>
+<span id="L130"><span class="lineNum">     130</span> <span class="tlaUNC">           0 :         qCCritical(lc).noquote() &lt;&lt; tr(&quot;Failed to render %1: %2&quot;).arg(outputPathName, tmplate-&gt;errorString());</span></span>
+<span id="L131"><span class="lineNum">     131</span> <span class="tlaUNC">           0 :         pop();</span></span>
+<span id="L132"><span class="lineNum">     132</span>              :         return false;</span>
+<span id="L133"><span class="lineNum">     133</span>              :     }</span>
+<span id="L134"><span class="lineNum">     134</span> <span class="tlaUNC">           0 :     pop();</span></span>
+<span id="L135"><span class="lineNum">     135</span>              :     return true;</span>
+<span id="L136"><span class="lineNum">     136</span> <span class="tlaUNC">           0 : }</span></span>
+<span id="L137"><span class="lineNum">     137</span>              : </span>
+<span id="L138"><span class="lineNum">     138</span> <span class="tlaUNC">           0 : QString Renderer::sanitise(const QString &amp;key)</span></span>
+<span id="L139"><span class="lineNum">     139</span>              : {</span>
+<span id="L140"><span class="lineNum">     140</span>              :     QString newKey = key;</span>
+<span id="L141"><span class="lineNum">     141</span>              :     int pos;</span>
+<span id="L142"><span class="lineNum">     142</span> <span class="tlaUNC">           0 :     while ((pos = newKey.indexOf(QLatin1Char('.'))) &gt;= 0) {</span></span>
+<span id="L143"><span class="lineNum">     143</span> <span class="tlaUNC">           0 :         newKey = newKey.mid(0, pos) + newKey.mid(pos+1,1).toUpper() + newKey.mid(pos+2);</span></span>
+<span id="L144"><span class="lineNum">     144</span>              :     }</span>
+<span id="L145"><span class="lineNum">     145</span> <span class="tlaUNC">           0 :     newKey.replace(QRegularExpression{QSL(&quot;[^a-zA-Z0-9_]&quot;)}, QSL(&quot;_&quot;));</span></span>
+<span id="L146"><span class="lineNum">     146</span> <span class="tlaUNC">           0 :     newKey.replace(QRegularExpression{QSL(&quot;^[0-9_]&quot;)}, QLatin1String());</span></span>
+<span id="L147"><span class="lineNum">     147</span> <span class="tlaUNC">           0 :     return newKey;</span></span>
+<span id="L148"><span class="lineNum">     148</span> <span class="tlaUNC">           0 : }</span></span>
+<span id="L149"><span class="lineNum">     149</span>              : </span>
+<span id="L150"><span class="lineNum">     150</span> <span class="tlaUNC">           0 : QVariant Renderer::sanitise(const QVariant &amp;variant)</span></span>
+<span id="L151"><span class="lineNum">     151</span>              : {</span>
+<span id="L152"><span class="lineNum">     152</span>              :     #if (QT_VERSION &gt;= QT_VERSION_CHECK(6, 0, 0))</span>
+<span id="L153"><span class="lineNum">     153</span>              :     const int typeId = variant.typeId();</span>
+<span id="L154"><span class="lineNum">     154</span>              :     #else</span>
+<span id="L155"><span class="lineNum">     155</span> <span class="tlaUNC">           0 :     const int typeId = variant.type();</span></span>
+<span id="L156"><span class="lineNum">     156</span>              :     #endif</span>
+<span id="L157"><span class="lineNum">     157</span> <span class="tlaUNC">           0 :     if (typeId == QMetaType::QVariantHash) {</span></span>
+<span id="L158"><span class="lineNum">     158</span> <span class="tlaUNC">           0 :         return sanitise(variant.toHash());</span></span>
+<span id="L159"><span class="lineNum">     159</span> <span class="tlaUNC">           0 :     } else if (typeId == QMetaType::QVariantMap) {</span></span>
+<span id="L160"><span class="lineNum">     160</span> <span class="tlaUNC">           0 :         return sanitise(variant.toMap());</span></span>
+<span id="L161"><span class="lineNum">     161</span>              :     }</span>
+<span id="L162"><span class="lineNum">     162</span> <span class="tlaUNC">           0 :     return variant;</span></span>
+<span id="L163"><span class="lineNum">     163</span>              : }</span>
+<span id="L164"><span class="lineNum">     164</span>              : </span>
+<span id="L165"><span class="lineNum">     165</span> <span class="tlaUNC">           0 : QVariantHash Renderer::sanitise(const QVariantHash &amp;hash)</span></span>
+<span id="L166"><span class="lineNum">     166</span>              : {</span>
+<span id="L167"><span class="lineNum">     167</span> <span class="tlaUNC">           0 :     QVariantHash newHash;</span></span>
+<span id="L168"><span class="lineNum">     168</span> <span class="tlaUNC">           0 :     for (auto iter = hash.begin(); iter != hash.end(); ++iter) {</span></span>
+<span id="L169"><span class="lineNum">     169</span> <span class="tlaUNC">           0 :         const QString saneKey = sanitise(iter.key());</span></span>
+<span id="L170"><span class="lineNum">     170</span> <span class="tlaUNC">           0 :         QVariant saneValue = iter.value();</span></span>
+<span id="L171"><span class="lineNum">     171</span>              :         #if (QT_VERSION &gt;= QT_VERSION_CHECK(6, 0, 0))</span>
+<span id="L172"><span class="lineNum">     172</span>              :         const int typeId = iter-&gt;typeId();</span>
+<span id="L173"><span class="lineNum">     173</span>              :         #else</span>
+<span id="L174"><span class="lineNum">     174</span> <span class="tlaUNC">           0 :         const int typeId = iter-&gt;type();</span></span>
+<span id="L175"><span class="lineNum">     175</span>              :         #endif</span>
+<span id="L176"><span class="lineNum">     176</span> <span class="tlaUNC">           0 :         if (typeId == QMetaType::QVariantHash) {</span></span>
+<span id="L177"><span class="lineNum">     177</span> <span class="tlaUNC">           0 :             saneValue = sanitise(iter-&gt;toHash());</span></span>
+<span id="L178"><span class="lineNum">     178</span> <span class="tlaUNC">           0 :         } else if (typeId == QMetaType::QVariantMap) {</span></span>
+<span id="L179"><span class="lineNum">     179</span> <span class="tlaUNC">           0 :             saneValue = sanitise(iter-&gt;toMap());</span></span>
+<span id="L180"><span class="lineNum">     180</span>              :         }</span>
+<span id="L181"><span class="lineNum">     181</span> <span class="tlaUNC">           0 :         newHash.insert(saneKey, saneValue);</span></span>
+<span id="L182"><span class="lineNum">     182</span> <span class="tlaUNC">           0 :     }</span></span>
+<span id="L183"><span class="lineNum">     183</span>              :     Q_ASSERT(hash.size() == newHash.size());</span>
+<span id="L184"><span class="lineNum">     184</span> <span class="tlaUNC">           0 :     return newHash;</span></span>
+<span id="L185"><span class="lineNum">     185</span> <span class="tlaUNC">           0 : }</span></span>
+<span id="L186"><span class="lineNum">     186</span>              : </span>
+<span id="L187"><span class="lineNum">     187</span> <span class="tlaUNC">           0 : QVariantMap Renderer::sanitise(const QVariantMap &amp;map)</span></span>
+<span id="L188"><span class="lineNum">     188</span>              : {</span>
+<span id="L189"><span class="lineNum">     189</span> <span class="tlaUNC">           0 :     QVariantMap newMap;</span></span>
+<span id="L190"><span class="lineNum">     190</span> <span class="tlaUNC">           0 :     for (auto iter = map.begin(); iter != map.end(); ++iter) {</span></span>
+<span id="L191"><span class="lineNum">     191</span> <span class="tlaUNC">           0 :         const QString saneKey = sanitise(iter.key());</span></span>
+<span id="L192"><span class="lineNum">     192</span> <span class="tlaUNC">           0 :         QVariant saneValue = iter.value();</span></span>
+<span id="L193"><span class="lineNum">     193</span>              :         #if (QT_VERSION &gt;= QT_VERSION_CHECK(6, 0, 0))</span>
+<span id="L194"><span class="lineNum">     194</span>              :         const int typeId = iter-&gt;typeId();</span>
+<span id="L195"><span class="lineNum">     195</span>              :         #else</span>
+<span id="L196"><span class="lineNum">     196</span> <span class="tlaUNC">           0 :         const int typeId = iter-&gt;type();</span></span>
+<span id="L197"><span class="lineNum">     197</span>              :         #endif</span>
+<span id="L198"><span class="lineNum">     198</span> <span class="tlaUNC">           0 :         if (typeId == QMetaType::QVariantHash) {</span></span>
+<span id="L199"><span class="lineNum">     199</span> <span class="tlaUNC">           0 :             saneValue = sanitise(iter-&gt;toHash());</span></span>
+<span id="L200"><span class="lineNum">     200</span> <span class="tlaUNC">           0 :         } else if (typeId == QMetaType::QVariantMap) {</span></span>
+<span id="L201"><span class="lineNum">     201</span> <span class="tlaUNC">           0 :             saneValue = sanitise(iter-&gt;toMap());</span></span>
+<span id="L202"><span class="lineNum">     202</span>              :         }</span>
+<span id="L203"><span class="lineNum">     203</span> <span class="tlaUNC">           0 :         newMap.insert(saneKey, saneValue);</span></span>
+<span id="L204"><span class="lineNum">     204</span> <span class="tlaUNC">           0 :     }</span></span>
+<span id="L205"><span class="lineNum">     205</span>              :     Q_ASSERT(map.size() == newMap.size());</span>
+<span id="L206"><span class="lineNum">     206</span> <span class="tlaUNC">           0 :     return newMap;</span></span>
+<span id="L207"><span class="lineNum">     207</span> <span class="tlaUNC">           0 : }</span></span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.2-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>
