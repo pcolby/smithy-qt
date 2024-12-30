@@ -8,6 +8,10 @@
   https://github.com/pcolby/smithy-qt/actions/workflows/static.yaml?query=branch%3Amain)
 [![Documentation](https://github.com/pcolby/smithy-qt/actions/workflows/docs.yaml/badge.svg?branch=main)](
   https://github.com/pcolby/smithy-qt/actions/workflows/docs.yaml?query=branch%3Amain)
+[![Codacy Grade](https://app.codacy.com/project/badge/Grade/ca79f90b9ef249b389c980d93fa25d9d)](
+  https://app.codacy.com/gh/pcolby/smithy-qt/dashboard)
+[![Codacy Coverage](https://app.codacy.com/project/badge/Coverage/ca79f90b9ef249b389c980d93fa25d9d)](
+  https://app.codacy.com/gh/pcolby/smithy-qt/dashboard)
 
 Smithy Qt is (or will be, eventually) two things:
 
