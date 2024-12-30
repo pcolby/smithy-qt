@@ -1,9 +1,16 @@
 <map id="shapeid_p.h" name="shapeid_p.h">
-<area shape="rect" id="node1" title="Declares the ShapeIdPrivate class." alt="" coords="271,5,371,31"/>
-<area shape="rect" id="node2" href="$shapeid_8h.html" title="Declares the ShapeId class." alt="" coords="135,79,281,104"/>
-<area shape="rect" id="node5" title=" " alt="" coords="258,152,393,177"/>
-<area shape="rect" id="node7" title=" " alt="" coords="359,79,502,104"/>
-<area shape="rect" id="node3" href="$qtsmithy__global_8h.html" title="Global QtSmithy library macros." alt="" coords="5,152,144,177"/>
-<area shape="rect" id="node6" title=" " alt="" coords="169,152,234,177"/>
-<area shape="rect" id="node4" title=" " alt="" coords="35,225,114,251"/>
+<area shape="rect" id="Node000001" title="Declares the ShapeIdPrivate class." alt="" coords="271,5,371,31"/>
+<area shape="rect" id="Node000002" href="$shapeid_8h.html" title="Declares the ShapeId class." alt="" coords="135,79,281,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="305,33,237,75,234,71,302,28"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="258,152,393,177"/>
+<area shape="poly" id="edge6_Node000001_Node000005" title=" " alt="" coords="324,31,327,141,322,141,319,31"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="359,79,502,104"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="340,28,405,70,402,75,337,33"/>
+<area shape="rect" id="Node000003" href="$qtsmithy__global_8h.html" title="Global QtSmithy library macros." alt="" coords="5,152,144,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="188,106,108,149,105,144,185,102"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="228,102,298,144,295,148,225,106"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="169,152,234,177"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="210,105,206,141,201,141,204,104"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="35,225,114,251"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="77,178,77,214,72,214,72,178"/>
 </map>

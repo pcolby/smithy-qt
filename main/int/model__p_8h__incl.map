@@ -1,15 +1,34 @@
 <map id="model_p.h" name="model_p.h">
-<area shape="rect" id="node1" title="Declares the ModelPrivate class." alt="" coords="509,5,599,31"/>
-<area shape="rect" id="node2" href="$model_8h.html" title="Declares the Model class." alt="" coords="285,79,423,104"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,299,140,324"/>
-<area shape="rect" id="node9" href="$shapeid_8h.html" title="Declares the ShapeId class." alt="" coords="381,225,466,251"/>
-<area shape="rect" id="node12" title=" " alt="" coords="592,79,735,104"/>
-<area shape="rect" id="node13" title=" " alt="" coords="759,79,891,104"/>
-<area shape="rect" id="node4" title=" " alt="" coords="471,299,536,324"/>
-<area shape="rect" id="node5" title=" " alt="" coords="255,225,357,251"/>
-<area shape="rect" id="node6" title=" " alt="" coords="391,152,466,177"/>
-<area shape="rect" id="node7" href="$shape_8h.html" title="Declares the Shape class." alt="" coords="192,152,265,177"/>
-<area shape="rect" id="node8" title=" " alt="" coords="136,225,231,251"/>
-<area shape="rect" id="node10" href="$qtsmithy__global_8h.html" title="Global QtSmithy library macros." alt="" coords="307,299,446,324"/>
-<area shape="rect" id="node11" title=" " alt="" coords="337,372,416,397"/>
+<area shape="rect" id="Node000001" title="Declares the ModelPrivate class." alt="" coords="509,5,599,31"/>
+<area shape="rect" id="Node000002" href="$model_8h.html" title="Declares the Model class." alt="" coords="285,79,423,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="523,33,398,77,396,72,521,28"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,299,140,324"/>
+<area shape="poly" id="edge17_Node000001_Node000003" title=" " alt="" coords="509,25,431,35,333,56,281,73,230,95,181,121,137,154,105,186,85,226,77,258,75,288,69,288,72,257,79,224,101,183,134,150,178,117,227,90,279,68,331,51,430,29,508,19"/>
+<area shape="rect" id="Node000009" href="$shapeid_8h.html" title="Declares the ShapeId class." alt="" coords="381,225,466,251"/>
+<area shape="poly" id="edge16_Node000001_Node000009" title=" " alt="" coords="552,32,526,96,505,138,480,179,446,219,442,216,476,176,500,135,521,94,547,30"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="592,79,735,104"/>
+<area shape="poly" id="edge18_Node000001_Node000012" title=" " alt="" coords="573,28,638,70,635,75,570,33"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="759,79,891,104"/>
+<area shape="poly" id="edge19_Node000001_Node000013" title=" " alt="" coords="598,28,771,73,770,78,597,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="304,107,243,126,181,154,134,185,118,202,100,227,86,258,79,288,73,287,81,256,96,224,114,198,131,180,178,150,241,121,302,102"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="471,299,536,324"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="404,102,445,120,464,133,480,150,498,185,507,222,509,258,509,288,503,287,504,258,501,223,493,186,476,154,461,138,442,125,402,107"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="255,225,357,251"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="353,105,316,216,311,214,348,104"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="391,152,466,177"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="368,102,410,142,407,146,364,106"/>
+<area shape="rect" id="Node000007" href="$shape_8h.html" title="Declares the Shape class." alt="" coords="192,152,265,177"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="335,106,260,149,257,144,333,102"/>
+<area shape="poly" id="edge15_Node000002_Node000009" title=" " alt="" coords="359,103,367,137,382,176,408,215,404,218,377,179,362,139,354,105"/>
+<area shape="poly" id="edge7_Node000007_Node000003" title=" " alt="" coords="201,180,163,199,125,227,101,258,84,290,79,287,97,255,121,223,160,195,198,175"/>
+<area shape="poly" id="edge8_Node000007_Node000005" title=" " alt="" coords="243,175,287,216,283,220,239,179"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="136,225,231,251"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="223,179,199,217,194,215,219,176"/>
+<area shape="poly" id="edge10_Node000007_Node000009" title=" " alt="" coords="261,175,382,219,380,224,259,180"/>
+<area shape="poly" id="edge13_Node000009_Node000003" title=" " alt="" coords="381,251,369,253,141,299,140,294,368,248,380,246"/>
+<area shape="poly" id="edge14_Node000009_Node000004" title=" " alt="" coords="438,249,484,289,480,293,434,253"/>
+<area shape="rect" id="Node000010" href="$qtsmithy__global_8h.html" title="Global QtSmithy library macros." alt="" coords="307,299,446,324"/>
+<area shape="poly" id="edge11_Node000009_Node000010" title=" " alt="" coords="418,252,393,291,388,288,413,250"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="337,372,416,397"/>
+<area shape="poly" id="edge12_Node000010_Node000011" title=" " alt="" coords="379,324,379,361,374,361,374,324"/>
 </map>

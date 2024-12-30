@@ -1,5 +1,9 @@
 var searchData=
 [
-  ['iterator_0',['Iterator',['https://doc.qt.io/qt-5/qcborarray-iterator.html',1,'QCborArray::Iterator'],['https://doc.qt.io/qt-5/qcbormap-iterator.html',1,'QCborMap::Iterator']]],
-  ['iterator_1',['iterator',['https://doc.qt.io/qt-5/qhash-iterator.html',1,'QHash::iterator'],['https://doc.qt.io/qt-5/qjsonarray-iterator.html',1,'QJsonArray::iterator'],['https://doc.qt.io/qt-5/qjsonobject-iterator.html',1,'QJsonObject::iterator'],['https://doc.qt.io/qt-5/qlinkedlist-iterator.html',1,'QLinkedList::iterator'],['https://doc.qt.io/qt-5/qlist-iterator.html',1,'QList::iterator'],['https://doc.qt.io/qt-5/qmap-iterator.html',1,'QMap::iterator'],['https://doc.qt.io/qt-5/qset-iterator.html',1,'QSet::iterator']]]
+  ['scopedcontext_0',['ScopedContext',['../classScopedContext.html',1,'']]],
+  ['shape_1',['Shape',['../classShape.html',1,'']]],
+  ['shapeid_2',['ShapeId',['../classShapeId.html',1,'']]],
+  ['shapeidprivate_3',['ShapeIdPrivate',['../classShapeIdPrivate.html',1,'']]],
+  ['shapeprivate_4',['ShapePrivate',['../classShapePrivate.html',1,'']]],
+  ['shapereference_5',['ShapeReference',['../structShape_1_1ShapeReference.html',1,'Shape']]]
 ];

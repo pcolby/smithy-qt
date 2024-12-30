@@ -1,8 +1,14 @@
 <map id="shapeid.h" name="shapeid.h">
-<area shape="rect" id="node1" title="Declares the ShapeId class." alt="" coords="83,5,168,31"/>
-<area shape="rect" id="node2" href="$model_8h.html" title="Declares the Model class." alt="" coords="13,152,88,177"/>
-<area shape="rect" id="node4" href="$shape_8h.html" title="Declares the Shape class." alt="" coords="89,79,162,104"/>
-<area shape="rect" id="node6" href="$shapeid_8cpp.html" title="Defines the ShapeId and ShapeIdPrivate classes." alt="" coords="186,79,286,104"/>
-<area shape="rect" id="node3" href="$model_8cpp.html" title="Defines the Model and ModelPrivate classes." alt="" coords="5,225,96,251"/>
-<area shape="rect" id="node5" href="$shape_8cpp.html" title="Defines the Shape and ShapePrivate classes." alt="" coords="112,152,200,177"/>
+<area shape="rect" id="Node000001" title="Declares the ShapeId class." alt="" coords="83,5,168,31"/>
+<area shape="rect" id="Node000002" href="$model_8h.html" title="Declares the Model class." alt="" coords="13,152,88,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="108,41,80,80,64,119,55,153,50,151,59,117,75,77,104,38"/>
+<area shape="rect" id="Node000004" href="$shape_8h.html" title="Declares the Shape class." alt="" coords="89,79,162,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="128,42,128,79,123,79,123,42"/>
+<area shape="rect" id="Node000006" href="$shapeid_8cpp.html" title="Defines the ShapeId and ShapeIdPrivate classes." alt="" coords="186,79,286,104"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="154,34,219,76,216,81,151,39"/>
+<area shape="rect" id="Node000003" href="$model_8cpp.html" title="Defines the Model and ModelPrivate classes." alt="" coords="5,225,96,251"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="53,188,53,225,48,225,48,188"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="107,113,65,154,61,150,104,109"/>
+<area shape="rect" id="Node000005" href="$shape_8cpp.html" title="Defines the Shape and ShapePrivate classes." alt="" coords="112,152,200,177"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="137,113,153,151,149,153,132,115"/>
 </map>

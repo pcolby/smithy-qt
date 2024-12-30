@@ -1,8 +1,11 @@
 <map id="Shape" name="Shape">
-<area shape="rect" id="node1" title="The Shape class provides a Qt representation of a Smithy semantic shape." alt="" coords="5,5,68,31"/>
-<area shape="rect" id="node2" href="$classShapePrivate.html" title="The ShapePrivate class provides private implementation for Shape." alt="" coords="71,123,179,148"/>
-<area shape="rect" id="node3" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qjsonobject.html" title=" " alt="" coords="107,5,209,31"/>
-<area shape="rect" id="node4" href="$classShapeId.html" title="The ShapeId class provides a Qt representation of a Smithy Shape ID." alt="" coords="233,5,307,31"/>
-<area shape="rect" id="node5" href="$classShapeIdPrivate.html" title="The ShapeIdPrivate class provides private implementation for ShapeId." alt="" coords="275,123,395,148"/>
-<area shape="rect" id="node6" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qstring.html" title=" " alt="" coords="368,5,439,31"/>
+<area shape="rect" id="Node000001" title="The Shape class provides a Qt representation of a Smithy semantic shape." alt="" coords="5,5,68,31"/>
+<area shape="rect" id="Node000002" href="$classShapePrivate.html" title="The ShapePrivate class provides private implementation for Shape." alt="" coords="16,93,124,119"/>
+<area shape="poly" id="edge2_Node000002_Node000001" title=" " alt="" coords="18,41,11,55,12,68,24,81,39,91,36,96,20,85,8,70,6,54,14,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="59,84,39,32,44,30,64,82"/>
+<area shape="rect" id="Node000003" href="$classShapeId.html" title="The ShapeId class provides a Qt representation of a Smithy Shape ID." alt="" coords="149,5,223,31"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="163,40,87,95,84,91,160,35"/>
+<area shape="rect" id="Node000004" href="$classShapeIdPrivate.html" title="The ShapeIdPrivate class provides private implementation for ShapeId." alt="" coords="171,93,291,119"/>
+<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="182,41,181,55,184,68,194,81,208,91,205,95,191,85,180,71,176,56,177,41"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="229,83,222,56,201,33,205,29,227,53,234,81"/>
 </map>

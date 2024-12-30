@@ -1,7 +1,12 @@
 <map id="ShapeId::shapeName" name="ShapeId::shapeName">
-<area shape="rect" id="node1" title="Returns the Shape ID&#39;s shape name, if it has one, otherwise a null string." alt="" coords="812,31,972,56"/>
-<area shape="rect" id="node2" href="$classShapeId.html#aad508460b545930c3aeb82021e79de5a" title="Returns this object as a relative Smithy Shape ID, that one without a leading namespace." alt="" coords="580,31,764,56"/>
-<area shape="rect" id="node3" href="$classShapeId.html#a42ae1231e4d242958ab12e61504e33ca" title="Returns this object as an absolute Smithy Shape ID if this object has a namespace,..." alt="" coords="341,5,532,31"/>
-<area shape="rect" id="node4" href="$classShapeId.html#a564f14952b394af6b38f748417a7e48a" title="Returns this object as an absolute Smithy Shape ID if this object has a namespace,..." alt="" coords="160,31,293,56"/>
-<area shape="rect" id="node5" href="$classModel.html#a5296da875545acf527ce42c707d1ead1" title="Add the logical content of the JSON AST model file given by ast into this semantic model." alt="" coords="5,31,112,56"/>
+<area shape="rect" id="Node000001" title="Returns the Shape ID&#39;s shape name, if it has one, otherwise a null string." alt="" coords="812,31,972,56"/>
+<area shape="rect" id="Node000002" href="$classShapeId.html#aad508460b545930c3aeb82021e79de5a" title="Returns this object as a relative Smithy Shape ID, that one without a leading namespace." alt="" coords="580,31,764,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="801,46,764,46,764,41,801,41"/>
+<area shape="rect" id="Node000003" href="$classShapeId.html#a42ae1231e4d242958ab12e61504e33ca" title="Returns this object as an absolute Smithy Shape ID if this object has a namespace,..." alt="" coords="341,5,532,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="569,35,532,31,533,26,569,30"/>
+<area shape="rect" id="Node000004" href="$classShapeId.html#a564f14952b394af6b38f748417a7e48a" title="Returns this object as an absolute Smithy Shape ID if this object has a namespace,..." alt="" coords="160,31,293,56"/>
+<area shape="poly" id="edge5_Node000002_Node000004" title=" " alt="" coords="569,46,294,46,294,41,569,41"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="330,34,294,38,293,33,330,28"/>
+<area shape="rect" id="Node000005" href="$classModel.html#a5296da875545acf527ce42c707d1ead1" title="Add the logical content of the JSON AST model file given by ast into this semantic model." alt="" coords="5,31,112,56"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="149,46,112,46,112,41,149,41"/>
 </map>

@@ -1,7 +1,5 @@
 <map id="Generator" name="Generator">
-<area shape="rect" id="node1" title=" " alt="" coords="190,275,277,300"/>
-<area shape="rect" id="node2" href="$classRenderer.html" title=" " alt="" coords="193,170,274,195"/>
-<area shape="rect" id="node3" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qstringlist.html" title=" " alt="" coords="5,80,99,105"/>
-<area shape="rect" id="node4" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qlist.html" title=" " alt="" coords="25,5,79,31"/>
-<area shape="rect" id="node5" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qregularexpression.html" title=" " alt="" coords="298,170,451,195"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,93,92,119"/>
+<area shape="rect" id="Node000002" href="$classRenderer.html" title=" " alt="" coords="8,5,89,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="51,42,51,93,46,93,46,42"/>
 </map>

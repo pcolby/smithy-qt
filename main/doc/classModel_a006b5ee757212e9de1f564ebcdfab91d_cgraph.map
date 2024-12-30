@@ -1,3 +1,7 @@
 <map id="Model::shapes" name="Model::shapes">
-<area shape="rect" id="node1" title=" " alt="" coords="5,29,121,55"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,121,55"/>
+<area shape="poly" id="edge3_Node000001_Node000001" title=" " alt="" coords="36,31,31,21,34,11,45,5,63,3,88,7,95,18,91,21,85,12,63,8,47,10,38,15,36,20,41,28"/>
+<area shape="rect" id="Node000002" href="$classModel.html#ae3b375de5f6df4faf74a95d64748e048" title="Constructs a new, empty Smithy model." alt="" coords="169,29,280,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="122,39,158,39,158,45,122,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="198,31,192,21,195,11,206,5,225,3,249,7,257,18,252,21,246,12,225,8,208,10,199,15,197,20,202,28"/>
 </map>

@@ -9,43 +9,49 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 23)">
 <title>ShapeId::absoluteShapeId</title>
 <!-- Node1 -->
-<g id="node1" class="node">
+<g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_node1"><a xlink:title="Returns this object as an absolute Smithy Shape ID if this object has a namespace,...">
+<g id="a_Node000001"><a xlink:title="Returns this object as an absolute Smithy Shape ID if this object has a namespace,...">
 <polygon fill="#999999" stroke="#666666" points="395,-19 252,-19 252,0 395,0 395,-19"/>
 <text text-anchor="middle" x="323.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">ShapeId::absoluteShapeId</text>
 </a>
 </g>
 </g>
 <!-- Node2 -->
-<g id="node2" class="node">
+<g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="classShapeId.html#a564f14952b394af6b38f748417a7e48a" target="_top" xlink:title="Returns this object as an absolute Smithy Shape ID if this object has a namespace,...">
+<g id="a_Node000002"><a xlink:href="classShapeId.html#a564f14952b394af6b38f748417a7e48a" target="_top" xlink:title="Returns this object as an absolute Smithy Shape ID if this object has a namespace,...">
 <polygon fill="white" stroke="#666666" points="216,-19 116,-19 116,0 216,0 216,-19"/>
 <text text-anchor="middle" x="166" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">ShapeId::toString</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node2 -->
-<g id="edge1" class="edge">
+<g id="edge1_Node000001_Node000002" class="edge">
 <title>Node1&#45;&gt;Node2</title>
+<g id="a_edge1_Node000001_Node000002"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M243.39,-9.5C234.07,-9.5 224.77,-9.5 216.03,-9.5"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="251.58,-9.5 243.58,-13.1 247.58,-9.5 243.58,-9.5 243.58,-9.5 243.58,-9.5 247.58,-9.5 243.58,-5.9 251.58,-9.5 251.58,-9.5"/>
+</a>
+</g>
 </g>
 <!-- Node3 -->
-<g id="node3" class="node">
+<g id="Node000003" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="classModel.html#a5296da875545acf527ce42c707d1ead1" target="_top" xlink:title="Add the logical content of the JSON AST model file given by ast into this semantic model.">
+<g id="a_Node000003"><a xlink:href="classModel.html#a5296da875545acf527ce42c707d1ead1" target="_top" xlink:title="Add the logical content of the JSON AST model file given by ast into this semantic model.">
 <polygon fill="white" stroke="#666666" points="80,-19 0,-19 0,0 80,0 80,-19"/>
 <text text-anchor="middle" x="40" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">Model::insert</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node3 -->
-<g id="edge2" class="edge">
+<g id="edge2_Node000002_Node000003" class="edge">
 <title>Node2&#45;&gt;Node3</title>
+<g id="a_edge2_Node000002_Node000003"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M107.81,-9.5C98.44,-9.5 88.91,-9.5 80.11,-9.5"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="115.99,-9.5 107.99,-13.1 111.99,-9.5 107.99,-9.5 107.99,-9.5 107.99,-9.5 111.99,-9.5 107.99,-5.9 115.99,-9.5 115.99,-9.5"/>
+</a>
+</g>
 </g>
 </g>
 </svg>

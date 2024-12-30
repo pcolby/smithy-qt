@@ -1,5 +1,7 @@
 <map id="ShapeId::hasNameSpace" name="ShapeId::hasNameSpace">
-<area shape="rect" id="node1" title="Returns true if this Shape ID has a non&#45;empty namespace, otherwise false otherwise." alt="" coords="5,31,188,56"/>
-<area shape="rect" id="node2" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qstring.html#isEmpty" title=" " alt="" coords="250,5,381,31"/>
-<area shape="rect" id="node3" href="$classShapeId.html#a0d88184bccd8dc5b22b67800aeccf092" title="Returns the Shape ID&#39;s namespace, if it has one, otherwise a null string." alt="" coords="236,55,395,80"/>
+<area shape="rect" id="Node000001" title="Returns true if this Shape ID has a non&#45;empty namespace, otherwise false otherwise." alt="" coords="5,5,188,31"/>
+<area shape="rect" id="Node000002" href="$classShapeId.html#a0d88184bccd8dc5b22b67800aeccf092" title="Returns the Shape ID&#39;s namespace, if it has one, otherwise a null string." alt="" coords="236,5,395,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="188,15,225,15,225,21,188,21"/>
+<area shape="rect" id="Node000003" href="$classShapeId.html#a5c5ff0cc534bd3277f30a06dbf2587dd" title="Constructs an empty ShapeId object." alt="" coords="443,5,577,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="395,15,431,15,431,21,395,21"/>
 </map>

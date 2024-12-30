@@ -1,6 +1,9 @@
 <map id="ShapeId::isRootShapeId" name="ShapeId::isRootShapeId">
-<area shape="rect" id="node1" title="Returns true if this Shape ID is a root Shape ID, false otherwise." alt="" coords="5,31,180,56"/>
-<area shape="rect" id="node2" href="$classShapeId.html#a6f1fc0aab99d0108fc3f1eeb5a4d2687" title="Returns true if this Shape ID has a non&#45;empty member name, otherwise false otherwise." alt="" coords="228,31,427,56"/>
-<area shape="rect" id="node3" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qstring.html#isEmpty" title=" " alt="" coords="497,5,628,31"/>
-<area shape="rect" id="node4" href="$classShapeId.html#a9b1580e3aa193c99d000aa084def3a70" title="Returns the Shape ID&#39;s member name, if it has one, otherwise a null string." alt="" coords="475,55,651,80"/>
+<area shape="rect" id="Node000001" title="Returns true if this Shape ID is a root Shape ID, false otherwise." alt="" coords="5,5,180,31"/>
+<area shape="rect" id="Node000002" href="$classShapeId.html#a6f1fc0aab99d0108fc3f1eeb5a4d2687" title="Returns true if this Shape ID has a non&#45;empty member name, otherwise false otherwise." alt="" coords="228,5,427,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="180,15,217,15,217,21,180,21"/>
+<area shape="rect" id="Node000003" href="$classShapeId.html#a9b1580e3aa193c99d000aa084def3a70" title="Returns the Shape ID&#39;s member name, if it has one, otherwise a null string." alt="" coords="475,5,651,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="427,15,463,15,463,21,427,21"/>
+<area shape="rect" id="Node000004" href="$classShapeId.html#a5c5ff0cc534bd3277f30a06dbf2587dd" title="Constructs an empty ShapeId object." alt="" coords="699,5,833,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="651,15,687,15,687,21,651,21"/>
 </map>

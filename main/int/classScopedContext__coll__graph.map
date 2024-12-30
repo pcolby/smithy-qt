@@ -1,6 +1,5 @@
 <map id="ScopedContext" name="ScopedContext">
-<area shape="rect" id="node1" title=" " alt="" coords="5,256,125,281"/>
-<area shape="rect" id="node2" href="$classRenderer.html" title=" " alt="" coords="25,168,106,193"/>
-<area shape="rect" id="node3" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qstringlist.html" title=" " alt="" coords="19,80,112,105"/>
-<area shape="rect" id="node4" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qlist.html" title=" " alt="" coords="38,5,93,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,93,125,119"/>
+<area shape="rect" id="Node000002" href="$classRenderer.html" title=" " alt="" coords="25,5,106,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="68,42,68,93,63,93,63,42"/>
 </map>

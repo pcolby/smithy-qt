@@ -1,9 +1,16 @@
 <map id="qtsmithy_global.h" name="qtsmithy_global.h">
-<area shape="rect" id="node1" title="Global QtSmithy library macros." alt="" coords="56,5,195,31"/>
-<area shape="rect" id="node2" href="$shapeid_8h.html" title="Declares the ShapeId class." alt="" coords="83,79,168,104"/>
-<area shape="rect" id="node3" href="$model_8h.html" title="Declares the Model class." alt="" coords="13,225,88,251"/>
-<area shape="rect" id="node5" href="$shape_8h.html" title="Declares the Shape class." alt="" coords="89,152,162,177"/>
-<area shape="rect" id="node7" href="$shapeid_8cpp.html" title="Defines the ShapeId and ShapeIdPrivate classes." alt="" coords="186,152,286,177"/>
-<area shape="rect" id="node4" href="$model_8cpp.html" title="Defines the Model and ModelPrivate classes." alt="" coords="5,299,96,324"/>
-<area shape="rect" id="node6" href="$shape_8cpp.html" title="Defines the Shape and ShapePrivate classes." alt="" coords="112,225,200,251"/>
+<area shape="rect" id="Node000001" title="Global QtSmithy library macros." alt="" coords="56,5,195,31"/>
+<area shape="rect" id="Node000002" href="$shapeid_8h.html" title="Declares the ShapeId class." alt="" coords="83,79,168,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="128,42,128,79,123,79,123,42"/>
+<area shape="rect" id="Node000003" href="$model_8h.html" title="Declares the Model class." alt="" coords="13,225,88,251"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="108,114,80,153,64,192,55,226,50,225,59,191,75,151,104,111"/>
+<area shape="rect" id="Node000005" href="$shape_8h.html" title="Declares the Shape class." alt="" coords="89,152,162,177"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="128,115,128,152,123,152,123,115"/>
+<area shape="rect" id="Node000007" href="$shapeid_8cpp.html" title="Defines the ShapeId and ShapeIdPrivate classes." alt="" coords="186,152,286,177"/>
+<area shape="poly" id="edge7_Node000002_Node000007" title=" " alt="" coords="154,108,219,150,216,154,151,112"/>
+<area shape="rect" id="Node000004" href="$model_8cpp.html" title="Defines the Model and ModelPrivate classes." alt="" coords="5,299,96,324"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="53,262,53,299,48,299,48,262"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="107,187,65,227,61,223,104,183"/>
+<area shape="rect" id="Node000006" href="$shape_8cpp.html" title="Defines the Shape and ShapePrivate classes." alt="" coords="112,225,200,251"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="137,187,153,224,149,226,132,189"/>
 </map>

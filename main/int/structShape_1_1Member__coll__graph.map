@@ -1,8 +1,10 @@
 <map id="Shape::Member" name="Shape::Member">
-<area shape="rect" id="node1" title=" " alt="" coords="217,211,341,236"/>
-<area shape="rect" id="node2" href="$structShape_1_1ShapeReference.html" title=" " alt="" coords="5,123,181,148"/>
-<area shape="rect" id="node3" href="$classShapeId.html" title="The ShapeId class provides a Qt representation of a Smithy Shape ID." alt="" coords="152,5,227,31"/>
-<area shape="rect" id="node4" href="$classShapeIdPrivate.html" title="The ShapeIdPrivate class provides private implementation for ShapeId." alt="" coords="205,123,325,148"/>
-<area shape="rect" id="node5" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qstring.html" title=" " alt="" coords="290,5,361,31"/>
-<area shape="rect" id="node6" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qhash.html" title=" " alt="" coords="350,123,578,148"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="31,168,155,193"/>
+<area shape="rect" id="Node000002" href="$structShape_1_1ShapeReference.html" title=" " alt="" coords="5,93,181,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="96,130,96,168,91,168,91,130"/>
+<area shape="rect" id="Node000003" href="$classShapeId.html" title="The ShapeId class provides a Qt representation of a Smithy Shape ID." alt="" coords="160,5,235,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="167,38,140,57,104,95,100,91,137,53,164,34"/>
+<area shape="rect" id="Node000004" href="$classShapeIdPrivate.html" title="The ShapeIdPrivate class provides private implementation for ShapeId." alt="" coords="205,93,325,119"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="193,42,192,56,196,68,208,81,225,91,222,96,205,86,191,71,186,56,187,42"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="252,85,234,56,210,33,214,29,238,53,257,82"/>
 </map>

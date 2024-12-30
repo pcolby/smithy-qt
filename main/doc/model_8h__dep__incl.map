@@ -1,4 +1,5 @@
 <map id="model.h" name="model.h">
-<area shape="rect" id="node1" title="Declares the Model class." alt="" coords="13,5,88,31"/>
-<area shape="rect" id="node2" href="$model_8cpp.html" title="Defines the Model and ModelPrivate classes." alt="" coords="5,79,96,104"/>
+<area shape="rect" id="Node000001" title="Declares the Model class." alt="" coords="13,5,88,31"/>
+<area shape="rect" id="Node000002" href="$model_8cpp.html" title="Defines the Model and ModelPrivate classes." alt="" coords="5,79,96,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="53,42,53,79,48,79,48,42"/>
 </map>

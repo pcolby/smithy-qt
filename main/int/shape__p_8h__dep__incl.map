@@ -1,4 +1,5 @@
 <map id="shape_p.h" name="shape_p.h">
-<area shape="rect" id="node1" title="Declares the ShapePrivate class." alt="" coords="5,5,93,31"/>
-<area shape="rect" id="node2" href="$shape_8cpp.html" title="Defines the Shape and ShapePrivate classes." alt="" coords="5,79,93,104"/>
+<area shape="rect" id="Node000001" title="Declares the ShapePrivate class." alt="" coords="5,5,93,31"/>
+<area shape="rect" id="Node000002" href="$shape_8cpp.html" title="Defines the Shape and ShapePrivate classes." alt="" coords="5,79,93,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="52,42,52,79,47,79,47,42"/>
 </map>

@@ -1,0 +1,5 @@
+<map id="ShapeId::ShapeId" name="ShapeId::ShapeId">
+<area shape="rect" id="Node000001" title="Constructs a ShapeId object by parsing the Smithy Shape ID given by shapeId." alt="" coords="5,5,140,31"/>
+<area shape="rect" id="Node000002" href="$classShapeId.html#a5c5ff0cc534bd3277f30a06dbf2587dd" title="Constructs an empty ShapeId object." alt="" coords="188,5,323,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="140,15,176,15,176,21,140,21"/>
+</map>

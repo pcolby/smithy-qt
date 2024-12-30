@@ -1,8 +1,6 @@
 <map id="ModelPrivate" name="ModelPrivate">
-<area shape="rect" id="node1" title="The ModelPrivate class provides private implementation for Model." alt="" coords="365,106,473,131"/>
-<area shape="rect" id="node2" href="$classModel.html" title="The Model class provides a Qt representation of a Smithy semantic model." alt="" coords="559,106,621,131"/>
-<area shape="rect" id="node3" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qmultihash.html" title=" " alt="" coords="20,5,185,45"/>
-<area shape="rect" id="node4" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qmultihash.html" title=" " alt="" coords="18,69,187,109"/>
-<area shape="rect" id="node5" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qjsonobject.html" title=" " alt="" coords="52,134,153,159"/>
-<area shape="rect" id="node6" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qhash.html" title=" " alt="" coords="5,183,200,209"/>
+<area shape="rect" id="Node000001" title="The ModelPrivate class provides private implementation for Model." alt="" coords="5,5,113,31"/>
+<area shape="rect" id="Node000002" href="$classModel.html" title="The Model class provides a Qt representation of a Smithy semantic model." alt="" coords="28,93,91,119"/>
+<area shape="poly" id="edge2_Node000002_Node000001" title=" " alt="" coords="36,40,24,56,23,65,27,74,43,91,39,95,22,77,18,66,20,54,31,37"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="61,82,62,55,59,31,64,31,67,55,66,83"/>
 </map>

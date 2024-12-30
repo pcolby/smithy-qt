@@ -9,109 +9,130 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 243)">
 <title>qtsmithy_global.h</title>
 <!-- Node1 -->
-<g id="node1" class="node">
+<g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_node1"><a xlink:title="Global QtSmithy library macros.">
+<g id="a_Node000001"><a xlink:title="Global QtSmithy library macros.">
 <polygon fill="#999999" stroke="#666666" points="142,-239 38,-239 38,-220 142,-220 142,-239"/>
 <text text-anchor="middle" x="90" y="-227" font-family="Helvetica,sans-Serif" font-size="10.00">qtsmithy_global.h</text>
 </a>
 </g>
 </g>
 <!-- Node2 -->
-<g id="node2" class="node">
+<g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="shapeid_8h.html" target="_top" xlink:title="Declares the ShapeId class.">
+<g id="a_Node000002"><a xlink:href="shapeid_8h.html" target="_top" xlink:title="Declares the ShapeId class.">
 <polygon fill="white" stroke="#666666" points="122,-184 58,-184 58,-165 122,-165 122,-184"/>
 <text text-anchor="middle" x="90" y="-172" font-family="Helvetica,sans-Serif" font-size="10.00">shapeid.h</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node2 -->
-<g id="edge1" class="edge">
+<g id="edge1_Node000001_Node000002" class="edge">
 <title>Node1&#45;&gt;Node2</title>
+<g id="a_edge1_Node000001_Node000002"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M90,-211.67C90,-202.5 90,-191.52 90,-184.09"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="90,-219.75 86.4,-211.75 90,-215.75 90,-211.75 90,-211.75 90,-211.75 90,-215.75 93.6,-211.75 90,-219.75 90,-219.75"/>
+</a>
+</g>
 </g>
 <!-- Node3 -->
-<g id="node3" class="node">
+<g id="Node000003" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="model_8h.html" target="_top" xlink:title="Declares the Model class.">
+<g id="a_Node000003"><a xlink:href="model_8h.html" target="_top" xlink:title="Declares the Model class.">
 <polygon fill="white" stroke="#666666" points="62,-74 6,-74 6,-55 62,-55 62,-74"/>
 <text text-anchor="middle" x="34" y="-62" font-family="Helvetica,sans-Serif" font-size="10.00">model.h</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node3 -->
-<g id="edge2" class="edge">
+<g id="edge2_Node000002_Node000003" class="edge">
 <title>Node2&#45;&gt;Node3</title>
+<g id="a_edge2_Node000002_Node000003"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M75.43,-158.44C68.16,-150.27 59.73,-139.67 54,-129 44.16,-110.67 38.27,-86.72 35.64,-74.12"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="81.17,-164.69 73.1,-161.23 78.46,-161.74 75.75,-158.8 75.75,-158.8 75.75,-158.8 78.46,-161.74 78.4,-156.36 81.17,-164.69 81.17,-164.69"/>
+</a>
+</g>
 </g>
 <!-- Node5 -->
-<g id="node5" class="node">
+<g id="Node000005" class="node">
 <title>Node5</title>
-<g id="a_node5"><a xlink:href="shape_8h.html" target="_top" xlink:title="Declares the Shape class.">
+<g id="a_Node000005"><a xlink:href="shape_8h.html" target="_top" xlink:title="Declares the Shape class.">
 <polygon fill="white" stroke="#666666" points="117.5,-129 62.5,-129 62.5,-110 117.5,-110 117.5,-129"/>
 <text text-anchor="middle" x="90" y="-117" font-family="Helvetica,sans-Serif" font-size="10.00">shape.h</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node5 -->
-<g id="edge4" class="edge">
+<g id="edge4_Node000002_Node000005" class="edge">
 <title>Node2&#45;&gt;Node5</title>
+<g id="a_edge4_Node000002_Node000005"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M90,-156.67C90,-147.5 90,-136.52 90,-129.09"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="90,-164.75 86.4,-156.75 90,-160.75 90,-156.75 90,-156.75 90,-156.75 90,-160.75 93.6,-156.75 90,-164.75 90,-164.75"/>
+</a>
+</g>
 </g>
 <!-- Node7 -->
-<g id="node7" class="node">
+<g id="Node000007" class="node">
 <title>Node7</title>
-<g id="a_node7"><a xlink:href="shapeid_8cpp.html" target="_top" xlink:title="Defines the ShapeId and ShapeIdPrivate classes.">
+<g id="a_Node000007"><a xlink:href="shapeid_8cpp.html" target="_top" xlink:title="Defines the ShapeId and ShapeIdPrivate classes.">
 <polygon fill="white" stroke="#666666" points="210.5,-129 135.5,-129 135.5,-110 210.5,-110 210.5,-129"/>
 <text text-anchor="middle" x="173" y="-117" font-family="Helvetica,sans-Serif" font-size="10.00">shapeid.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node7 -->
-<g id="edge7" class="edge">
+<g id="edge7_Node000002_Node000007" class="edge">
 <title>Node2&#45;&gt;Node7</title>
+<g id="a_edge7_Node000002_Node000007"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M110.36,-160.5C125.63,-150.75 146.1,-137.68 159.42,-129.17"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="103.34,-164.98 108.14,-157.64 106.71,-162.83 110.08,-160.68 110.08,-160.68 110.08,-160.68 106.71,-162.83 112.02,-163.71 103.34,-164.98 103.34,-164.98"/>
+</a>
+</g>
 </g>
 <!-- Node4 -->
-<g id="node4" class="node">
+<g id="Node000004" class="node">
 <title>Node4</title>
-<g id="a_node4"><a xlink:href="model_8cpp.html" target="_top" xlink:title="Defines the Model and ModelPrivate classes.">
+<g id="a_Node000004"><a xlink:href="model_8cpp.html" target="_top" xlink:title="Defines the Model and ModelPrivate classes.">
 <polygon fill="white" stroke="#666666" points="68,-19 0,-19 0,0 68,0 68,-19"/>
 <text text-anchor="middle" x="34" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">model.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node3&#45;&gt;Node4 -->
-<g id="edge3" class="edge">
+<g id="edge3_Node000003_Node000004" class="edge">
 <title>Node3&#45;&gt;Node4</title>
+<g id="a_edge3_Node000003_Node000004"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M34,-46.67C34,-37.5 34,-26.52 34,-19.09"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="34,-54.75 30.4,-46.75 34,-50.75 34,-46.75 34,-46.75 34,-46.75 34,-50.75 37.6,-46.75 34,-54.75 34,-54.75"/>
+</a>
+</g>
 </g>
 <!-- Node5&#45;&gt;Node3 -->
-<g id="edge5" class="edge">
+<g id="edge5_Node000005_Node000003" class="edge">
 <title>Node5&#45;&gt;Node3</title>
+<g id="a_edge5_Node000005_Node000003"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M75.13,-104.42C64.97,-94.81 51.82,-82.37 43.16,-74.17"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="81,-109.98 72.72,-107.1 78.1,-107.24 75.19,-104.49 75.19,-104.49 75.19,-104.49 78.1,-107.24 77.67,-101.87 81,-109.98 81,-109.98"/>
+</a>
+</g>
 </g>
 <!-- Node6 -->
-<g id="node6" class="node">
+<g id="Node000006" class="node">
 <title>Node6</title>
-<g id="a_node6"><a xlink:href="shape_8cpp.html" target="_top" xlink:title="Defines the Shape and ShapePrivate classes.">
+<g id="a_Node000006"><a xlink:href="shape_8cpp.html" target="_top" xlink:title="Defines the Shape and ShapePrivate classes.">
 <polygon fill="white" stroke="#666666" points="146,-74 80,-74 80,-55 146,-55 146,-74"/>
 <text text-anchor="middle" x="113" y="-62" font-family="Helvetica,sans-Serif" font-size="10.00">shape.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node5&#45;&gt;Node6 -->
-<g id="edge6" class="edge">
+<g id="edge6_Node000005_Node000006" class="edge">
 <title>Node5&#45;&gt;Node6</title>
+<g id="a_edge6_Node000005_Node000006"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M97.06,-102.24C101.09,-92.95 105.98,-81.68 109.27,-74.09"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="93.8,-109.75 93.68,-100.98 95.39,-106.08 96.98,-102.41 96.98,-102.41 96.98,-102.41 95.39,-106.08 100.29,-103.84 93.8,-109.75 93.8,-109.75"/>
+</a>
+</g>
 </g>
 </g>
 </svg>

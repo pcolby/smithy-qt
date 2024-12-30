@@ -1,13 +1,29 @@
 <map id="shapeid.h" name="shapeid.h">
-<area shape="rect" id="node1" title="Declares the ShapeId class." alt="" coords="296,5,381,31"/>
-<area shape="rect" id="node2" href="$model_8h.html" title="Declares the Model class." alt="" coords="189,152,264,177"/>
-<area shape="rect" id="node6" href="$model__p_8h.html" title="Declares the ModelPrivate class." alt="" coords="5,225,96,251"/>
-<area shape="rect" id="node7" href="$shape_8h.html" title="Declares the Shape class." alt="" coords="265,79,338,104"/>
-<area shape="rect" id="node9" href="$shape__p_8h.html" title="Declares the ShapePrivate class." alt="" coords="339,152,427,177"/>
-<area shape="rect" id="node10" href="$shapeid_8cpp.html" title="Defines the ShapeId and ShapeIdPrivate classes." alt="" coords="458,152,558,177"/>
-<area shape="rect" id="node11" href="$shapeid__p_8h.html" title="Declares the ShapeIdPrivate class." alt="" coords="465,79,565,104"/>
-<area shape="rect" id="node3" href="$generator_8cpp_source.html" title=" " alt="" coords="171,225,282,251"/>
-<area shape="rect" id="node4" href="$main_8cpp_source.html" title=" " alt="" coords="307,225,389,251"/>
-<area shape="rect" id="node5" href="$model_8cpp.html" title="Defines the Model and ModelPrivate classes." alt="" coords="47,299,137,324"/>
-<area shape="rect" id="node8" href="$shape_8cpp.html" title="Defines the Shape and ShapePrivate classes." alt="" coords="413,225,501,251"/>
+<area shape="rect" id="Node000001" title="Declares the ShapeId class." alt="" coords="296,5,381,31"/>
+<area shape="rect" id="Node000002" href="$model_8h.html" title="Declares the Model class." alt="" coords="189,152,264,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="305,38,278,56,254,80,244,98,237,118,230,152,225,151,232,117,239,96,250,77,275,52,302,34"/>
+<area shape="rect" id="Node000006" href="$model__p_8h.html" title="Declares the ModelPrivate class." alt="" coords="5,225,96,251"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="307,38,236,81,135,162,64,227,61,223,131,158,233,76,304,34"/>
+<area shape="rect" id="Node000007" href="$shape_8h.html" title="Declares the Shape class." alt="" coords="265,79,338,104"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="330,42,310,80,305,77,325,39"/>
+<area shape="rect" id="Node000009" href="$shape__p_8h.html" title="Declares the ShapePrivate class." alt="" coords="339,152,427,177"/>
+<area shape="poly" id="edge13_Node000001_Node000009" title=" " alt="" coords="348,41,382,151,377,153,343,42"/>
+<area shape="rect" id="Node000010" href="$shapeid_8cpp.html" title="Defines the ShapeId and ShapeIdPrivate classes." alt="" coords="458,152,558,177"/>
+<area shape="poly" id="edge14_Node000001_Node000010" title=" " alt="" coords="363,36,496,150,493,154,359,40"/>
+<area shape="rect" id="Node000011" href="$shapeid__p_8h.html" title="Declares the ShapeIdPrivate class." alt="" coords="465,79,565,104"/>
+<area shape="poly" id="edge15_Node000001_Node000011" title=" " alt="" coords="378,32,487,76,485,81,376,37"/>
+<area shape="rect" id="Node000003" href="$generator_8cpp_source.html" title=" " alt="" coords="171,225,282,251"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="229,188,229,225,224,225,224,188"/>
+<area shape="rect" id="Node000004" href="$main_8cpp_source.html" title=" " alt="" coords="307,225,389,251"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="257,181,329,223,327,227,254,185"/>
+<area shape="rect" id="Node000005" href="$model_8cpp.html" title="Defines the Model and ModelPrivate classes." alt="" coords="47,299,137,324"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="205,186,161,227,127,266,102,300,98,297,123,263,157,223,202,182"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="189,184,80,228,78,223,187,179"/>
+<area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="65,259,88,297,83,300,61,262"/>
+<area shape="poly" id="edge9_Node000007_Node000002" title=" " alt="" coords="283,113,241,154,237,150,280,109"/>
+<area shape="rect" id="Node000008" href="$shape_8cpp.html" title="Defines the Shape and ShapePrivate classes." alt="" coords="413,225,501,251"/>
+<area shape="poly" id="edge10_Node000007_Node000008" title=" " alt="" coords="306,115,313,146,329,176,347,192,369,206,414,224,412,229,366,211,344,197,325,179,308,148,300,116"/>
+<area shape="poly" id="edge11_Node000007_Node000009" title=" " alt="" coords="324,109,371,150,368,154,321,113"/>
+<area shape="poly" id="edge12_Node000009_Node000008" title=" " alt="" coords="404,183,447,223,443,227,401,187"/>
+<area shape="poly" id="edge16_Node000011_Node000010" title=" " alt="" coords="515,115,512,152,506,152,510,115"/>
 </map>

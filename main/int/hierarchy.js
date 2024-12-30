@@ -3,7 +3,7 @@ var hierarchy =
     [ "Generator", "classGenerator.html", null ],
     [ "Model", "classModel.html", null ],
     [ "ModelPrivate", "classModelPrivate.html", null ],
-    [ "Grantlee::OutputStream", null, [
+    [ "Textlee::OutputStream", null, [
       [ "NoEscapeStream", "classNoEscapeStream.html", null ]
     ] ],
     [ "Renderer", "classRenderer.html", null ],

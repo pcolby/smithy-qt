@@ -1,0 +1,56 @@
+<map id="ShapeId::ShapeId" name="ShapeId::ShapeId">
+<area shape="rect" id="Node000001" title="Constructs an empty ShapeId object." alt="" coords="1343,391,1477,417"/>
+<area shape="rect" id="Node000002" href="$classShapeId.html#a380944df9a71c1108ed5bdb459673a49" title="Returns true if this object represents a valid, non&#45;empty Smithy Shape ID." alt="" coords="164,18,289,43"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1402,381,1391,332,1370,269,1338,202,1317,171,1293,143,1213,74,1177,51,1141,33,1102,21,1059,13,954,8,712,8,478,15,290,28,289,23,478,10,712,3,954,3,1060,8,1103,16,1143,28,1180,46,1217,70,1297,139,1321,168,1343,199,1375,267,1396,331,1407,380"/>
+<area shape="rect" id="Node000004" href="$classShapeId.html#a9b1580e3aa193c99d000aa084def3a70" title="Returns the Shape ID&#39;s member name, if it has one, otherwise a null string." alt="" coords="1109,194,1285,219"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="1398,382,1383,349,1360,308,1330,267,1293,233,1272,222,1275,217,1296,228,1334,264,1365,305,1387,346,1403,380"/>
+<area shape="rect" id="Node000011" href="$classShapeId.html#a0d88184bccd8dc5b22b67800aeccf092" title="Returns the Shape ID&#39;s namespace, if it has one, otherwise a null string." alt="" coords="873,143,1032,169"/>
+<area shape="poly" id="edge13_Node000001_Node000011" title=" " alt="" coords="1402,381,1391,337,1370,282,1338,227,1317,203,1293,184,1261,166,1226,153,1190,145,1153,140,1081,140,1019,146,1018,141,1081,134,1153,135,1191,140,1228,148,1263,161,1296,179,1321,200,1342,224,1375,280,1396,335,1407,380"/>
+<area shape="rect" id="Node000014" href="$classShapeId.html#ad9111c56db13d40785acdb7fb9112ddf" title="Assigns the specified shapeId to this object." alt="" coords="1123,243,1271,269"/>
+<area shape="poly" id="edge21_Node000001_Node000014" title=" " alt="" coords="1393,384,1352,332,1324,305,1293,282,1269,271,1271,266,1296,278,1328,301,1356,329,1397,381"/>
+<area shape="rect" id="Node000015" href="$classShapeId.html#aa29337e49a5c9e562f98a084cdbbc778" title="Moves the specified shapeId to this object." alt="" coords="1123,293,1271,318"/>
+<area shape="poly" id="edge22_Node000001_Node000015" title=" " alt="" coords="1383,387,1342,358,1294,332,1261,321,1263,315,1296,327,1345,354,1386,382"/>
+<area shape="rect" id="Node000016" href="$classShapeId.html#a6a2ff71df1eecb9717df15134d37e2c6" title="Assigns the specified shapeId to this object." alt="" coords="1123,342,1271,367"/>
+<area shape="poly" id="edge23_Node000001_Node000016" title=" " alt="" coords="1343,391,1252,370,1254,365,1345,386"/>
+<area shape="rect" id="Node000017" href="$classShapeId.html#a415ac3b10158b18ab96aef18f8e8f75f" title="Set the Shape ID&#39;s member name to name, which may be an empty or null string." alt="" coords="1100,391,1295,417"/>
+<area shape="poly" id="edge24_Node000001_Node000017" title=" " alt="" coords="1331,407,1295,407,1295,401,1331,401"/>
+<area shape="rect" id="Node000018" href="$classShapeId.html#a99365b20a782913c8e5eed108fe0b72f" title="Set the Shape ID&#39;s namespace to name, which may be an empty or null string." alt="" coords="1107,441,1287,466"/>
+<area shape="poly" id="edge25_Node000001_Node000018" title=" " alt="" coords="1345,422,1254,443,1252,438,1343,417"/>
+<area shape="rect" id="Node000019" href="$classShapeId.html#adbd7ffc43873ec3760d8b3d1f0c02af6" title="Set the Shape ID&#39;s shape name to name." alt="" coords="1107,490,1288,515"/>
+<area shape="poly" id="edge26_Node000001_Node000019" title=" " alt="" coords="1385,425,1345,453,1296,480,1259,492,1258,487,1294,475,1342,449,1382,421"/>
+<area shape="rect" id="Node000020" href="$classShapeId.html#a56f48bf301f1fa4e1e531e7c0727afbb" title="Constructs a ShapeId object by parsing the Smithy Shape ID given by shapeId." alt="" coords="1130,539,1265,565"/>
+<area shape="poly" id="edge27_Node000001_Node000020" title=" " alt="" coords="1396,428,1355,479,1327,506,1296,529,1266,542,1264,537,1293,524,1324,502,1351,475,1392,424"/>
+<area shape="rect" id="Node000021" href="$classShapeId.html#a5f5e09c87aee5ebf482a6b6c12646c87" title="Constructs a ShapeId object by copying other." alt="" coords="1130,589,1265,614"/>
+<area shape="poly" id="edge28_Node000001_Node000021" title=" " alt="" coords="1403,428,1387,462,1365,503,1334,544,1296,580,1266,594,1264,589,1293,575,1330,541,1360,500,1383,459,1398,426"/>
+<area shape="rect" id="Node000022" href="$classShapeId.html#a95f30038d04a5a9492fe87abeced7106" title="Constructs a ShapeId object by moving resources from other." alt="" coords="1130,638,1265,663"/>
+<area shape="poly" id="edge29_Node000001_Node000022" title=" " alt="" coords="1406,429,1393,472,1372,526,1340,581,1320,607,1296,629,1266,644,1264,640,1293,624,1316,603,1336,578,1367,524,1388,470,1401,427"/>
+<area shape="rect" id="Node000023" href="$classShapeId.html#a8aad9a1383c03aee2f33b1568e89f688" title="Returns the Shape ID&#39;s shape name, if it has one, otherwise a null string." alt="" coords="873,505,1033,530"/>
+<area shape="poly" id="edge30_Node000001_Node000023" title=" " alt="" coords="1410,428,1402,482,1384,552,1369,588,1350,622,1326,653,1296,678,1246,704,1223,709,1200,710,1153,700,1099,678,1073,664,1049,647,1009,605,978,563,958,531,963,529,982,560,1013,602,1053,643,1076,660,1101,674,1154,695,1200,704,1222,704,1244,699,1293,674,1322,649,1346,619,1364,585,1379,550,1397,481,1404,427"/>
+<area shape="rect" id="Node000003" href="$classModel.html#a5296da875545acf527ce42c707d1ead1" title="Add the logical content of the JSON AST model file given by ast into this semantic model." alt="" coords="5,94,112,119"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="189,50,89,96,87,91,187,45"/>
+<area shape="rect" id="Node000005" href="$classShapeId.html#a6f1fc0aab99d0108fc3f1eeb5a4d2687" title="Returns true if this Shape ID has a non&#45;empty member name, otherwise false otherwise." alt="" coords="853,219,1052,245"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="1099,220,1052,224,1052,219,1098,214"/>
+<area shape="rect" id="Node000008" href="$classShapeId.html#aad508460b545930c3aeb82021e79de5a" title="Returns this object as a relative Smithy Shape ID, that one without a leading namespace." alt="" coords="621,270,805,295"/>
+<area shape="poly" id="edge12_Node000004_Node000008" title=" " alt="" coords="1126,225,1101,233,1077,246,1053,259,989,273,924,282,806,288,805,283,924,277,988,268,1051,253,1075,242,1099,228,1124,220"/>
+<area shape="rect" id="Node000006" href="$classShapeId.html#a6b207fdb20ccc922e4e2bbbfb9608bbc" title="Returns true if this Shape ID is a root Shape ID, false otherwise." alt="" coords="626,219,801,245"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="842,235,801,235,801,229,842,229"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="881,250,775,273,773,267,880,244"/>
+<area shape="rect" id="Node000007" href="$classShapeId.html#ae7a29dab73bbbfbd0e02bdbdccc748ad" title="Returns true if this Shape ID is a root Shape ID, and has a namespace, false otherwise." alt="" coords="341,195,573,221"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="615,225,573,222,574,216,615,220"/>
+<area shape="rect" id="Node000009" href="$classShapeId.html#a42ae1231e4d242958ab12e61504e33ca" title="Returns this object as an absolute Smithy Shape ID if this object has a namespace,..." alt="" coords="362,245,553,270"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="610,275,553,269,553,264,611,270"/>
+<area shape="rect" id="Node000010" href="$classShapeId.html#a564f14952b394af6b38f748417a7e48a" title="Returns this object as an absolute Smithy Shape ID if this object has a namespace,..." alt="" coords="160,194,293,219"/>
+<area shape="poly" id="edge11_Node000008_Node000010" title=" " alt="" coords="621,299,558,304,487,305,413,299,341,284,310,271,282,255,240,222,243,217,285,250,313,267,342,279,413,294,487,300,558,299,620,294"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="387,245,341,235,284,222,286,217,342,229,388,240"/>
+<area shape="poly" id="edge10_Node000010_Node000003" title=" " alt="" coords="193,191,80,122,83,117,196,186"/>
+<area shape="poly" id="edge14_Node000011_Node000009" title=" " alt="" coords="863,164,747,179,683,192,622,209,598,221,574,234,531,247,530,242,572,230,596,217,620,204,682,187,746,174,862,159"/>
+<area shape="rect" id="Node000012" href="$classShapeId.html#ad0bbf397b25b50a3fc9c145cea67ce11" title="Returns true if this Shape ID has a non&#45;empty namespace, otherwise false otherwise." alt="" coords="622,118,805,143"/>
+<area shape="poly" id="edge15_Node000011_Node000012" title=" " alt="" coords="862,149,805,143,805,138,863,144"/>
+<area shape="poly" id="edge17_Node000012_Node000003" title=" " alt="" coords="611,130,112,111,112,106,611,124"/>
+<area shape="poly" id="edge18_Node000012_Node000007" title=" " alt="" coords="665,149,574,179,507,198,505,193,573,173,663,144"/>
+<area shape="poly" id="edge16_Node000012_Node000009" title=" " alt="" coords="649,150,623,165,608,182,600,199,592,217,575,234,550,247,547,242,572,230,588,214,595,197,603,179,620,161,647,145"/>
+<area shape="poly" id="edge20_Node000012_Node000010" title=" " alt="" coords="611,146,342,185,285,197,284,191,341,180,611,140"/>
+<area shape="rect" id="Node000013" href="$classShapeId.html#af929aaedb6df234458a445eabac27a1a" title="Returns true if this Shape ID is a relative Shape ID, false otherwise." alt="" coords="358,43,557,69"/>
+<area shape="poly" id="edge19_Node000012_Node000013" title=" " alt="" coords="660,117,573,91,505,71,506,66,574,85,662,112"/>
+<area shape="poly" id="edge31_Node000023_Node000008" title=" " alt="" coords="928,498,726,298,730,294,932,494"/>
+</map>

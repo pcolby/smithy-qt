@@ -1,6 +1,8 @@
 <map id="Shape::ShapeReference" name="Shape::ShapeReference">
-<area shape="rect" id="node1" title=" " alt="" coords="5,123,181,148"/>
-<area shape="rect" id="node2" href="$classShapeId.html" title="The ShapeId class provides a Qt representation of a Smithy Shape ID." alt="" coords="145,5,220,31"/>
-<area shape="rect" id="node3" href="$classShapeIdPrivate.html" title="The ShapeIdPrivate class provides private implementation for ShapeId." alt="" coords="205,123,325,148"/>
-<area shape="rect" id="node4" href="/usr/share/qt5/doc/qtcore/qtcore.tags$qstring.html" title=" " alt="" coords="283,5,354,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,93,181,119"/>
+<area shape="rect" id="Node000002" href="$classShapeId.html" title="The ShapeId class provides a Qt representation of a Smithy Shape ID." alt="" coords="160,5,235,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="167,38,140,57,104,95,100,91,137,53,164,34"/>
+<area shape="rect" id="Node000003" href="$classShapeIdPrivate.html" title="The ShapeIdPrivate class provides private implementation for ShapeId." alt="" coords="205,93,325,119"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="193,42,192,56,196,68,208,81,225,91,222,96,205,86,191,71,186,56,187,42"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="252,85,234,56,210,33,214,29,238,53,257,82"/>
 </map>

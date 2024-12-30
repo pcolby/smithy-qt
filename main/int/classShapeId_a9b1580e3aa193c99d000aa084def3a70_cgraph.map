@@ -1,0 +1,5 @@
+<map id="ShapeId::memberName" name="ShapeId::memberName">
+<area shape="rect" id="Node000001" title="Returns the Shape ID&#39;s member name, if it has one, otherwise a null string." alt="" coords="5,5,181,31"/>
+<area shape="rect" id="Node000002" href="$classShapeId.html#a5c5ff0cc534bd3277f30a06dbf2587dd" title="Constructs an empty ShapeId object." alt="" coords="229,5,364,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="182,15,218,15,218,21,182,21"/>
+</map>

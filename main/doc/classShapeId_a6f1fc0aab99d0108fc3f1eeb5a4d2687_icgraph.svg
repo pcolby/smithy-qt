@@ -9,109 +9,130 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 79)">
 <title>ShapeId::hasMemberName</title>
 <!-- Node1 -->
-<g id="node1" class="node">
+<g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_node1"><a xlink:title="Returns true if this Shape ID has a non&#45;empty member name, otherwise false otherwise.">
+<g id="a_Node000001"><a xlink:title="Returns true if this Shape ID has a non&#45;empty member name, otherwise false otherwise.">
 <polygon fill="#999999" stroke="#666666" points="785,-56 636,-56 636,-37 785,-37 785,-56"/>
 <text text-anchor="middle" x="710.5" y="-44" font-family="Helvetica,sans-Serif" font-size="10.00">ShapeId::hasMemberName</text>
 </a>
 </g>
 </g>
 <!-- Node2 -->
-<g id="node2" class="node">
+<g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="classShapeId.html#a6b207fdb20ccc922e4e2bbbfb9608bbc" target="_top" xlink:title="Returns true if this Shape ID is a root Shape ID, false otherwise.">
+<g id="a_Node000002"><a xlink:href="classShapeId.html#a6b207fdb20ccc922e4e2bbbfb9608bbc" target="_top" xlink:title="Returns true if this Shape ID is a root Shape ID, false otherwise.">
 <polygon fill="white" stroke="#666666" points="596.5,-75 465.5,-75 465.5,-56 596.5,-56 596.5,-75"/>
 <text text-anchor="middle" x="531" y="-63" font-family="Helvetica,sans-Serif" font-size="10.00">ShapeId::isRootShapeId</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node2 -->
-<g id="edge1" class="edge">
+<g id="edge1_Node000001_Node000002" class="edge">
 <title>Node1&#45;&gt;Node2</title>
+<g id="a_edge1_Node000001_Node000002"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M627.52,-55.28C617.19,-56.38 606.74,-57.5 596.73,-58.57"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="635.77,-54.39 628.19,-58.82 631.79,-54.82 627.81,-55.24 627.81,-55.24 627.81,-55.24 631.79,-54.82 627.43,-51.66 635.77,-54.39 635.77,-54.39"/>
+</a>
+</g>
 </g>
 <!-- Node4 -->
-<g id="node4" class="node">
+<g id="Node000004" class="node">
 <title>Node4</title>
-<g id="a_node4"><a xlink:href="classShapeId.html#aad508460b545930c3aeb82021e79de5a" target="_top" xlink:title="Returns this object as a relative Smithy Shape ID, that one without a leading namespace.">
+<g id="a_Node000004"><a xlink:href="classShapeId.html#aad508460b545930c3aeb82021e79de5a" target="_top" xlink:title="Returns this object as a relative Smithy Shape ID, that one without a leading namespace.">
 <polygon fill="white" stroke="#666666" points="600,-38 462,-38 462,-19 600,-19 600,-38"/>
 <text text-anchor="middle" x="531" y="-26" font-family="Helvetica,sans-Serif" font-size="10.00">ShapeId::relativeShapeId</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node4 -->
-<g id="edge3" class="edge">
+<g id="edge3_Node000001_Node000004" class="edge">
 <title>Node1&#45;&gt;Node4</title>
+<g id="a_edge3_Node000001_Node000004"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M627.69,-38.2C618.46,-37.27 609.13,-36.32 600.11,-35.41"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="635.77,-39.02 627.44,-41.8 631.79,-38.62 627.81,-38.22 627.81,-38.22 627.81,-38.22 631.79,-38.62 628.17,-34.63 635.77,-39.02 635.77,-39.02"/>
+</a>
+</g>
 </g>
 <!-- Node3 -->
-<g id="node3" class="node">
+<g id="Node000003" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="classShapeId.html#ae7a29dab73bbbfbd0e02bdbdccc748ad" target="_top" xlink:title="Returns true if this Shape ID is a root Shape ID, and has a namespace, false otherwise.">
+<g id="a_Node000003"><a xlink:href="classShapeId.html#ae7a29dab73bbbfbd0e02bdbdccc748ad" target="_top" xlink:title="Returns true if this Shape ID is a root Shape ID, and has a namespace, false otherwise.">
 <polygon fill="white" stroke="#666666" points="426,-75 252,-75 252,-56 426,-56 426,-75"/>
 <text text-anchor="middle" x="339" y="-63" font-family="Helvetica,sans-Serif" font-size="10.00">ShapeId::isAbsoluteRootShapeId</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node3 -->
-<g id="edge2" class="edge">
+<g id="edge2_Node000002_Node000003" class="edge">
 <title>Node2&#45;&gt;Node3</title>
+<g id="a_edge2_Node000002_Node000003"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M457.35,-65.5C447.19,-65.5 436.66,-65.5 426.28,-65.5"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="465.41,-65.5 457.41,-69.1 461.41,-65.5 457.41,-65.5 457.41,-65.5 457.41,-65.5 461.41,-65.5 457.41,-61.9 465.41,-65.5 465.41,-65.5"/>
+</a>
+</g>
 </g>
 <!-- Node5 -->
-<g id="node5" class="node">
+<g id="Node000005" class="node">
 <title>Node5</title>
-<g id="a_node5"><a xlink:href="classShapeId.html#a42ae1231e4d242958ab12e61504e33ca" target="_top" xlink:title="Returns this object as an absolute Smithy Shape ID if this object has a namespace,...">
+<g id="a_Node000005"><a xlink:href="classShapeId.html#a42ae1231e4d242958ab12e61504e33ca" target="_top" xlink:title="Returns this object as an absolute Smithy Shape ID if this object has a namespace,...">
 <polygon fill="white" stroke="#666666" points="410.5,-38 267.5,-38 267.5,-19 410.5,-19 410.5,-38"/>
 <text text-anchor="middle" x="339" y="-26" font-family="Helvetica,sans-Serif" font-size="10.00">ShapeId::absoluteShapeId</text>
 </a>
 </g>
 </g>
 <!-- Node4&#45;&gt;Node5 -->
-<g id="edge4" class="edge">
+<g id="edge4_Node000004_Node000005" class="edge">
 <title>Node4&#45;&gt;Node5</title>
+<g id="a_edge4_Node000004_Node000005"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M453.68,-28.5C439.52,-28.5 424.78,-28.5 410.79,-28.5"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="461.94,-28.5 453.94,-32.1 457.94,-28.5 453.94,-28.5 453.94,-28.5 453.94,-28.5 457.94,-28.5 453.94,-24.9 461.94,-28.5 461.94,-28.5"/>
+</a>
+</g>
 </g>
 <!-- Node6 -->
-<g id="node6" class="node">
+<g id="Node000006" class="node">
 <title>Node6</title>
-<g id="a_node6"><a xlink:href="classShapeId.html#a564f14952b394af6b38f748417a7e48a" target="_top" xlink:title="Returns this object as an absolute Smithy Shape ID if this object has a namespace,...">
+<g id="a_Node000006"><a xlink:href="classShapeId.html#a564f14952b394af6b38f748417a7e48a" target="_top" xlink:title="Returns this object as an absolute Smithy Shape ID if this object has a namespace,...">
 <polygon fill="white" stroke="#666666" points="216,-19 116,-19 116,0 216,0 216,-19"/>
 <text text-anchor="middle" x="166" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">ShapeId::toString</text>
 </a>
 </g>
 </g>
 <!-- Node4&#45;&gt;Node6 -->
-<g id="edge7" class="edge">
+<g id="edge7_Node000004_Node000006" class="edge">
 <title>Node4&#45;&gt;Node6</title>
+<g id="a_edge7_Node000004_Node000006"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M479.6,-17.4C462.66,-14.18 443.59,-11.09 426,-9.5 353.23,-2.91 268.49,-4.68 216.29,-6.86"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="487.73,-18.99 479.19,-20.99 483.81,-18.22 479.88,-17.45 479.88,-17.45 479.88,-17.45 483.81,-18.22 480.57,-13.92 487.73,-18.99 487.73,-18.99"/>
+</a>
+</g>
 </g>
 <!-- Node5&#45;&gt;Node6 -->
-<g id="edge5" class="edge">
+<g id="edge5_Node000005_Node000006" class="edge">
 <title>Node5&#45;&gt;Node6</title>
+<g id="a_edge5_Node000005_Node000006"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M259.35,-19.76C244.67,-18.13 229.72,-16.47 216.25,-14.97"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="267.46,-20.66 259.11,-23.36 263.48,-20.22 259.51,-19.78 259.51,-19.78 259.51,-19.78 263.48,-20.22 259.91,-16.2 267.46,-20.66 267.46,-20.66"/>
+</a>
+</g>
 </g>
 <!-- Node7 -->
-<g id="node7" class="node">
+<g id="Node000007" class="node">
 <title>Node7</title>
-<g id="a_node7"><a xlink:href="classModel.html#a5296da875545acf527ce42c707d1ead1" target="_top" xlink:title="Add the logical content of the JSON AST model file given by ast into this semantic model.">
+<g id="a_Node000007"><a xlink:href="classModel.html#a5296da875545acf527ce42c707d1ead1" target="_top" xlink:title="Add the logical content of the JSON AST model file given by ast into this semantic model.">
 <polygon fill="white" stroke="#666666" points="80,-19 0,-19 0,0 80,0 80,-19"/>
 <text text-anchor="middle" x="40" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">Model::insert</text>
 </a>
 </g>
 </g>
 <!-- Node6&#45;&gt;Node7 -->
-<g id="edge6" class="edge">
+<g id="edge6_Node000006_Node000007" class="edge">
 <title>Node6&#45;&gt;Node7</title>
+<g id="a_edge6_Node000006_Node000007"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M107.81,-9.5C98.44,-9.5 88.91,-9.5 80.11,-9.5"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="115.99,-9.5 107.99,-13.1 111.99,-9.5 107.99,-9.5 107.99,-9.5 107.99,-9.5 111.99,-9.5 107.99,-5.9 115.99,-9.5 115.99,-9.5"/>
+</a>
+</g>
 </g>
 </g>
 </svg>

@@ -1,4 +1,5 @@
 <map id="ShapeId::isValid" name="ShapeId::isValid">
-<area shape="rect" id="node1" title="Returns true if this object represents a valid, non&#45;empty Smithy Shape ID." alt="" coords="160,5,285,31"/>
-<area shape="rect" id="node2" href="$classModel.html#a5296da875545acf527ce42c707d1ead1" title="Add the logical content of the JSON AST model file given by ast into this semantic model." alt="" coords="5,5,112,31"/>
+<area shape="rect" id="Node000001" title="Returns true if this object represents a valid, non&#45;empty Smithy Shape ID." alt="" coords="160,5,285,31"/>
+<area shape="rect" id="Node000002" href="$classModel.html#a5296da875545acf527ce42c707d1ead1" title="Add the logical content of the JSON AST model file given by ast into this semantic model." alt="" coords="5,5,112,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="149,21,112,21,112,15,149,15"/>
 </map>

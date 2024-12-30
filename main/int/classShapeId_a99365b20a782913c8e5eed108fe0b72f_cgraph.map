@@ -1,0 +1,5 @@
+<map id="ShapeId::setNameSpace" name="ShapeId::setNameSpace">
+<area shape="rect" id="Node000001" title="Set the Shape ID&#39;s namespace to name, which may be an empty or null string." alt="" coords="5,5,185,31"/>
+<area shape="rect" id="Node000002" href="$classShapeId.html#a5c5ff0cc534bd3277f30a06dbf2587dd" title="Constructs an empty ShapeId object." alt="" coords="233,5,368,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="186,15,222,15,222,21,186,21"/>
+</map>

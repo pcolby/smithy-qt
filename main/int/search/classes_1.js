@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['data_0',['Data',['https://doc.qt.io/qt-5/qvariant-private-data.html',1,'QVariant::Private']]]
+  ['member_0',['Member',['../structShape_1_1Member.html',1,'Shape']]],
+  ['model_1',['Model',['../classModel.html',1,'']]],
+  ['modelprivate_2',['ModelPrivate',['../classModelPrivate.html',1,'']]]
 ];
