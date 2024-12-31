@@ -14,4 +14,8 @@ namespace Textlee = KTextTemplate;
 #error No valid text templating library configured.
 #endif
 
+#if defined USE_CUTELEE + defined USE_GRANTLEE + defined USE_KTEXTTEMPLATE > 1
+#error More than one text templating library macro defined.
+#endif
+
 #endif // QTSMITHY_TEXTLEE_H
