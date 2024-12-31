@@ -48,15 +48,14 @@ graph LR
 
 ### Text Templates
 
-Smithy Qt uses a text template language that is very similar to [Django templates]. Specfically, `smithy-qt` uses either
-the [Grantlee] or [Cutelee] library (the latter is a Qt6-compatible fork of the former).
+Smithy Qt uses a text template language that is very similar to [Django templates]. Specfically, `smithy-qt` uses one of
+the [Cutelee], [Grantlee] or [KFTextTemplate] libraries.
 
 > [!NOTE]
 > Smithy Qt began using the [Grantlee] library with Qt5. However, the [Grantlee] author has moved the library to [KDE],
 > where it is now known as [KTextTemplate], and the original [Grantlee] library has been retired. Meanwhile, the
-> [Cutelyst] project has forked [Grantlee] to [Cutelee], and ported it to Qt6. Today, Smithy Qt supports both [Grantlee]
-> (with Qt5) and [Cutelee] (with Qt6). Smithy Qt will most likely support [KTextTemplate] too, when that library becomes
-> more readily available.
+> [Cutelyst] project has forked [Grantlee] to [Cutelee], and ported it to Qt6. Today, Smithy Qt supports all three:
+> [Cutelee] with Qt 6, [Grantlee] with Qt5, and [KFTextTemplate] with Qt6.
 
 You can find the template language documention [here](https://pcolby.github.io/cutelee/for_themers.html). You can also
 have a look at some of the [demo](demo) templates.

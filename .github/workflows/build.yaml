@@ -41,6 +41,8 @@ jobs:
           - { qt: 5, cc: gcc,   ttl: Grantlee }
           - { qt: 6, cc: clang, ttl: Cutelee }
           - { qt: 6, cc: gcc,   ttl: Cutelee }
+          # { qt: 6, cc: clang, ttl: KTextTemplate } # \todo Enable when GitHub supplies Ubuntu 24.10+
+          # { qt: 6, cc: gcc,   ttl: KTextTemplate } # \todo Enable when GitHub supplies Ubuntu 24.10+
         exclude:
           - { qt: 5, ttl: None }
           - { qt: 6, ttl: None }
@@ -87,6 +89,9 @@ jobs:
       - name: Install Grantlee
         if: matrix.ttl == 'Grantlee'
         run: sudo apt install libgrantlee5-dev qtdeclarative5-dev-tools
+      - name: Install Grantlee
+        if: matrix.ttl == 'KTextTemplate'
+        run: sudo apt install libkf6texttemplate-dev
       - name: Install linuxdeploy
         uses: pcolby/install-linuxdeploy@v1
         with:

@@ -14,6 +14,9 @@
 #elif defined USE_GRANTLEE
 #include <grantlee/cachingloaderdecorator.h>
 #include <grantlee/templateloader.h>
+#elif defined USE_KTEXTTEMPLATE
+#include <KTextTemplate/CachingLoaderDecorator>
+#include <KTextTemplate/TemplateLoader>
 #endif
 
 #define QSL(str) QStringLiteral(str) // Shorten the QStringLiteral macro for readability.
@@ -31,7 +34,7 @@ bool Renderer::loadTemplates(const QString &dir)
     #if defined USE_CUTELEE
     auto loader = std::make_shared<Textlee::FileSystemTemplateLoader>();
     auto cachedLoader = std::make_shared<Textlee::CachingLoaderDecorator>(loader);
-    #elif defined USE_GRANTLEE
+    #elif defined USE_GRANTLEE or defined USE_KTEXTTEMPLATE
     auto loader = QSharedPointer<Textlee::FileSystemTemplateLoader>::create();
     auto cachedLoader = QSharedPointer<Textlee::CachingLoaderDecorator>::create(loader);
     #endif

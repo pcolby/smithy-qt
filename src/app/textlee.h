@@ -8,6 +8,8 @@
 namespace Textlee = Cutelee;
 #elif defined USE_GRANTLEE
 namespace Textlee = Grantlee;
+#elif defined USE_KTEXTTEMPLATE
+namespace Textlee = KTextTemplate;
 #else
 #error No valid text templating library configured.
 #endif

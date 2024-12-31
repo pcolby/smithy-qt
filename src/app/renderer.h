@@ -5,6 +5,8 @@
 #include <cutelee/engine.h>
 #elif defined USE_GRANTLEE
 #include <grantlee/engine.h>
+#elif defined USE_KTEXTTEMPLATE
+#include <KTextTemplate/Engine>
 #endif
 
 #include "textlee.h"
