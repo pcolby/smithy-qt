@@ -161,7 +161,7 @@ Private Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="renderer_8h_source.html#l00015">15</a> of file <a class="el" href="renderer_8h_source.html">renderer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="renderer_8h_source.html#l00017">17</a> of file <a class="el" href="renderer_8h_source.html">renderer.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a7ebf46f54dab9905f79b80f7fddb76a6" name="a7ebf46f54dab9905f79b80f7fddb76a6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7ebf46f54dab9905f79b80f7fddb76a6">&#9670;&#160;</a></span>Renderer()</h2>
@@ -178,10 +178,10 @@ Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="renderer_8cpp_source.html#l00021">21</a> of file <a class="el" href="renderer_8cpp_source.html">renderer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   22</span>{</div>
-<div class="line"><span class="lineno">   23</span>    engine.setSmartTrimEnabled(<span class="keyword">true</span>);</div>
-<div class="line"><span class="lineno">   24</span>}</div>
+<p class="definition">Definition at line <a class="el" href="renderer_8cpp_source.html#l00024">24</a> of file <a class="el" href="renderer_8cpp_source.html">renderer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   25</span>{</div>
+<div class="line"><span class="lineno">   26</span>    engine.setSmartTrimEnabled(<span class="keyword">true</span>);</div>
+<div class="line"><span class="lineno">   27</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -201,38 +201,38 @@ Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="renderer_8cpp_source.html#l00026">26</a> of file <a class="el" href="renderer_8cpp_source.html">renderer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   27</span>{</div>
-<div class="line"><span class="lineno">   28</span>    qCInfo(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Loading Textlee templates from %1&quot;</span>).arg(dir);</div>
-<div class="line"><span class="lineno">   29</span> </div>
-<div class="line"><span class="lineno">   30</span>    <span class="comment">// Setup the template loader.</span></div>
-<div class="line"><span class="lineno">   31</span><span class="preprocessor">    #if defined USE_CUTELEE</span></div>
-<div class="line"><span class="lineno">   32</span>    <span class="keyword">auto</span> loader = std::make_shared&lt;Textlee::FileSystemTemplateLoader&gt;();</div>
-<div class="line"><span class="lineno">   33</span>    <span class="keyword">auto</span> cachedLoader = std::make_shared&lt;Textlee::CachingLoaderDecorator&gt;(loader);</div>
-<div class="line"><span class="lineno">   34</span><span class="preprocessor">    #elif defined USE_GRANTLEE</span></div>
-<div class="line"><span class="lineno">   35</span>    <span class="keyword">auto</span> loader = QSharedPointer&lt;Textlee::FileSystemTemplateLoader&gt;::create();</div>
-<div class="line"><span class="lineno">   36</span>    <span class="keyword">auto</span> cachedLoader = QSharedPointer&lt;Textlee::CachingLoaderDecorator&gt;::create(loader);</div>
-<div class="line"><span class="lineno">   37</span><span class="preprocessor">    #endif</span></div>
-<div class="line"><span class="lineno">   38</span>    <span class="comment">// Note, {% include &quot;&lt;filename&gt;&quot; %} will look for files relative to templateDirs.</span></div>
-<div class="line"><span class="lineno">   39</span>    loader-&gt;setTemplateDirs(QStringList{dir});</div>
-<div class="line"><span class="lineno">   40</span>    engine.addTemplateLoader(cachedLoader);</div>
-<div class="line"><span class="lineno">   41</span> </div>
-<div class="line"><span class="lineno">   42</span>    <span class="comment">// Load the templates.</span></div>
-<div class="line"><span class="lineno">   43</span>    QDirIterator iter{QDir::cleanPath(dir), QDir::Files, QDirIterator::Subdirectories};</div>
-<div class="line"><span class="lineno">   44</span>    <span class="keywordflow">while</span> (iter.hasNext()) {</div>
-<div class="line"><span class="lineno">   45</span>        <span class="keyword">const</span> QString name = iter.next().mid(iter.path().size()+1);</div>
-<div class="line"><span class="lineno">   46</span>        qCDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Loading template: %1&quot;</span>).arg(name);</div>
-<div class="line"><span class="lineno">   47</span>        <span class="keyword">const</span> Textlee::Template tmplate = engine.loadByName(name);</div>
-<div class="line"><span class="lineno">   48</span>        <span class="keywordflow">if</span> (tmplate-&gt;error()) {</div>
-<div class="line"><span class="lineno">   49</span>            qCritical().noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Error loading template %1: %2&quot;</span>)</div>
-<div class="line"><span class="lineno">   50</span>                .arg(name, tmplate-&gt;errorString());</div>
-<div class="line"><span class="lineno">   51</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">   52</span>        }</div>
-<div class="line"><span class="lineno">   53</span>        templates.append(name);</div>
-<div class="line"><span class="lineno">   54</span>    }</div>
-<div class="line"><span class="lineno">   55</span>    qDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Loaded %n template/s from %1&quot;</span>, <span class="keyword">nullptr</span>, templates.size()).arg(dir);</div>
-<div class="line"><span class="lineno">   56</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">   57</span>}</div>
+<p class="definition">Definition at line <a class="el" href="renderer_8cpp_source.html#l00029">29</a> of file <a class="el" href="renderer_8cpp_source.html">renderer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   30</span>{</div>
+<div class="line"><span class="lineno">   31</span>    qCInfo(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Loading Textlee templates from %1&quot;</span>).arg(dir);</div>
+<div class="line"><span class="lineno">   32</span> </div>
+<div class="line"><span class="lineno">   33</span>    <span class="comment">// Setup the template loader.</span></div>
+<div class="line"><span class="lineno">   34</span><span class="preprocessor">    #if defined USE_CUTELEE</span></div>
+<div class="line"><span class="lineno">   35</span>    <span class="keyword">auto</span> loader = std::make_shared&lt;Textlee::FileSystemTemplateLoader&gt;();</div>
+<div class="line"><span class="lineno">   36</span>    <span class="keyword">auto</span> cachedLoader = std::make_shared&lt;Textlee::CachingLoaderDecorator&gt;(loader);</div>
+<div class="line"><span class="lineno">   37</span><span class="preprocessor">    #elif defined USE_GRANTLEE or defined USE_KTEXTTEMPLATE</span></div>
+<div class="line"><span class="lineno">   38</span>    <span class="keyword">auto</span> loader = QSharedPointer&lt;Textlee::FileSystemTemplateLoader&gt;::create();</div>
+<div class="line"><span class="lineno">   39</span>    <span class="keyword">auto</span> cachedLoader = QSharedPointer&lt;Textlee::CachingLoaderDecorator&gt;::create(loader);</div>
+<div class="line"><span class="lineno">   40</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><span class="lineno">   41</span>    <span class="comment">// Note, {% include &quot;&lt;filename&gt;&quot; %} will look for files relative to templateDirs.</span></div>
+<div class="line"><span class="lineno">   42</span>    loader-&gt;setTemplateDirs(QStringList{dir});</div>
+<div class="line"><span class="lineno">   43</span>    engine.addTemplateLoader(cachedLoader);</div>
+<div class="line"><span class="lineno">   44</span> </div>
+<div class="line"><span class="lineno">   45</span>    <span class="comment">// Load the templates.</span></div>
+<div class="line"><span class="lineno">   46</span>    QDirIterator iter{QDir::cleanPath(dir), QDir::Files, QDirIterator::Subdirectories};</div>
+<div class="line"><span class="lineno">   47</span>    <span class="keywordflow">while</span> (iter.hasNext()) {</div>
+<div class="line"><span class="lineno">   48</span>        <span class="keyword">const</span> QString name = iter.next().mid(iter.path().size()+1);</div>
+<div class="line"><span class="lineno">   49</span>        qCDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Loading template: %1&quot;</span>).arg(name);</div>
+<div class="line"><span class="lineno">   50</span>        <span class="keyword">const</span> Textlee::Template tmplate = engine.loadByName(name);</div>
+<div class="line"><span class="lineno">   51</span>        <span class="keywordflow">if</span> (tmplate-&gt;error()) {</div>
+<div class="line"><span class="lineno">   52</span>            qCritical().noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Error loading template %1: %2&quot;</span>)</div>
+<div class="line"><span class="lineno">   53</span>                .arg(name, tmplate-&gt;errorString());</div>
+<div class="line"><span class="lineno">   54</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">   55</span>        }</div>
+<div class="line"><span class="lineno">   56</span>        templates.append(name);</div>
+<div class="line"><span class="lineno">   57</span>    }</div>
+<div class="line"><span class="lineno">   58</span>    qDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Loaded %n template/s from %1&quot;</span>, <span class="keyword">nullptr</span>, templates.size()).arg(dir);</div>
+<div class="line"><span class="lineno">   59</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">   60</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -251,10 +251,10 @@ Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="renderer_8cpp_source.html#l00092">92</a> of file <a class="el" href="renderer_8cpp_source.html">renderer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   93</span>{</div>
-<div class="line"><span class="lineno">   94</span>    context.pop();</div>
-<div class="line"><span class="lineno">   95</span>}</div>
+<p class="definition">Definition at line <a class="el" href="renderer_8cpp_source.html#l00095">95</a> of file <a class="el" href="renderer_8cpp_source.html">renderer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   96</span>{</div>
+<div class="line"><span class="lineno">   97</span>    context.pop();</div>
+<div class="line"><span class="lineno">   98</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -273,13 +273,13 @@ Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="renderer_8cpp_source.html#l00084">84</a> of file <a class="el" href="renderer_8cpp_source.html">renderer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   85</span>{</div>
-<div class="line"><span class="lineno">   86</span>    this-&gt;context.push();</div>
-<div class="line"><span class="lineno">   87</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> iter = context.constBegin(); iter != context.constEnd(); ++iter) {</div>
-<div class="line"><span class="lineno">   88</span>        this-&gt;context.insert(sanitise(iter.key()), sanitise(iter.value()));</div>
-<div class="line"><span class="lineno">   89</span>    }</div>
-<div class="line"><span class="lineno">   90</span>}</div>
+<p class="definition">Definition at line <a class="el" href="renderer_8cpp_source.html#l00087">87</a> of file <a class="el" href="renderer_8cpp_source.html">renderer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   88</span>{</div>
+<div class="line"><span class="lineno">   89</span>    this-&gt;context.push();</div>
+<div class="line"><span class="lineno">   90</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> iter = context.constBegin(); iter != context.constEnd(); ++iter) {</div>
+<div class="line"><span class="lineno">   91</span>        this-&gt;context.insert(sanitise(iter.key()), sanitise(iter.value()));</div>
+<div class="line"><span class="lineno">   92</span>    }</div>
+<div class="line"><span class="lineno">   93</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -307,45 +307,45 @@ Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="renderer_8cpp_source.html#l00097">97</a> of file <a class="el" href="renderer_8cpp_source.html">renderer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   99</span>{</div>
-<div class="line"><span class="lineno">  100</span>    qCDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Rendering %1 to %2&quot;</span>).arg(templateName, outputPathName);</div>
-<div class="line"><span class="lineno">  101</span>    <span class="keywordflow">if</span> (!templates.contains(templateName)) {</div>
-<div class="line"><span class="lineno">  102</span>        qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Template %1 has not been loaded&quot;</span>).arg(templateName);</div>
-<div class="line"><span class="lineno">  103</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  104</span>    }</div>
-<div class="line"><span class="lineno">  105</span> </div>
-<div class="line"><span class="lineno">  106</span>    <span class="keyword">const</span> QDir dir = QFileInfo(outputPathName).dir();</div>
-<div class="line"><span class="lineno">  107</span>    <span class="keywordflow">if</span> (!dir.mkpath(QSL(<span class="stringliteral">&quot;./&quot;</span>))) {</div>
-<div class="line"><span class="lineno">  108</span>        qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Failed to create directory path %1&quot;</span>).arg(dir.path());</div>
-<div class="line"><span class="lineno">  109</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  110</span>    }</div>
-<div class="line"><span class="lineno">  111</span> </div>
-<div class="line"><span class="lineno">  112</span>    QFile file(outputPathName);</div>
-<div class="line"><span class="lineno">  113</span>    <span class="keywordflow">if</span> (!file.open(QFile::WriteOnly)) {</div>
-<div class="line"><span class="lineno">  114</span>        qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Failed to open %1 for writing: %2&quot;</span>)</div>
-<div class="line"><span class="lineno">  115</span>            .arg(outputPathName, file.errorString());</div>
-<div class="line"><span class="lineno">  116</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  117</span>    }</div>
-<div class="line"><span class="lineno">  118</span> </div>
-<div class="line"><span class="lineno">  119</span>    push(additionalContext);</div>
-<div class="line"><span class="lineno">  120</span>    QTextStream textStream(&amp;file);</div>
-<div class="line"><span class="lineno">  121</span>    NoEscapeStream noEscapeStream(&amp;textStream);</div>
-<div class="line"><span class="lineno">  122</span>    Textlee::Template tmplate = engine.loadByName(templateName);</div>
-<div class="line"><span class="lineno">  123</span>    <span class="keywordflow">if</span> (!tmplate) {</div>
-<div class="line"><span class="lineno">  124</span>        qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Failed to fetch template %1&quot;</span>).arg(outputPathName);</div>
-<div class="line"><span class="lineno">  125</span>        pop();</div>
-<div class="line"><span class="lineno">  126</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  127</span>    }</div>
-<div class="line"><span class="lineno">  128</span>    tmplate-&gt;render(&amp;noEscapeStream, &amp;context);</div>
-<div class="line"><span class="lineno">  129</span>    <span class="keywordflow">if</span> (tmplate-&gt;error()) {</div>
-<div class="line"><span class="lineno">  130</span>        qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Failed to render %1: %2&quot;</span>).arg(outputPathName, tmplate-&gt;errorString());</div>
-<div class="line"><span class="lineno">  131</span>        pop();</div>
-<div class="line"><span class="lineno">  132</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  133</span>    }</div>
-<div class="line"><span class="lineno">  134</span>    pop();</div>
-<div class="line"><span class="lineno">  135</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  136</span>}</div>
+<p class="definition">Definition at line <a class="el" href="renderer_8cpp_source.html#l00100">100</a> of file <a class="el" href="renderer_8cpp_source.html">renderer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  102</span>{</div>
+<div class="line"><span class="lineno">  103</span>    qCDebug(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Rendering %1 to %2&quot;</span>).arg(templateName, outputPathName);</div>
+<div class="line"><span class="lineno">  104</span>    <span class="keywordflow">if</span> (!templates.contains(templateName)) {</div>
+<div class="line"><span class="lineno">  105</span>        qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Template %1 has not been loaded&quot;</span>).arg(templateName);</div>
+<div class="line"><span class="lineno">  106</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  107</span>    }</div>
+<div class="line"><span class="lineno">  108</span> </div>
+<div class="line"><span class="lineno">  109</span>    <span class="keyword">const</span> QDir dir = QFileInfo(outputPathName).dir();</div>
+<div class="line"><span class="lineno">  110</span>    <span class="keywordflow">if</span> (!dir.mkpath(QSL(<span class="stringliteral">&quot;./&quot;</span>))) {</div>
+<div class="line"><span class="lineno">  111</span>        qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Failed to create directory path %1&quot;</span>).arg(dir.path());</div>
+<div class="line"><span class="lineno">  112</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  113</span>    }</div>
+<div class="line"><span class="lineno">  114</span> </div>
+<div class="line"><span class="lineno">  115</span>    QFile file(outputPathName);</div>
+<div class="line"><span class="lineno">  116</span>    <span class="keywordflow">if</span> (!file.open(QFile::WriteOnly)) {</div>
+<div class="line"><span class="lineno">  117</span>        qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Failed to open %1 for writing: %2&quot;</span>)</div>
+<div class="line"><span class="lineno">  118</span>            .arg(outputPathName, file.errorString());</div>
+<div class="line"><span class="lineno">  119</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  120</span>    }</div>
+<div class="line"><span class="lineno">  121</span> </div>
+<div class="line"><span class="lineno">  122</span>    push(additionalContext);</div>
+<div class="line"><span class="lineno">  123</span>    QTextStream textStream(&amp;file);</div>
+<div class="line"><span class="lineno">  124</span>    NoEscapeStream noEscapeStream(&amp;textStream);</div>
+<div class="line"><span class="lineno">  125</span>    Textlee::Template tmplate = engine.loadByName(templateName);</div>
+<div class="line"><span class="lineno">  126</span>    <span class="keywordflow">if</span> (!tmplate) {</div>
+<div class="line"><span class="lineno">  127</span>        qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Failed to fetch template %1&quot;</span>).arg(outputPathName);</div>
+<div class="line"><span class="lineno">  128</span>        pop();</div>
+<div class="line"><span class="lineno">  129</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  130</span>    }</div>
+<div class="line"><span class="lineno">  131</span>    tmplate-&gt;render(&amp;noEscapeStream, &amp;context);</div>
+<div class="line"><span class="lineno">  132</span>    <span class="keywordflow">if</span> (tmplate-&gt;error()) {</div>
+<div class="line"><span class="lineno">  133</span>        qCCritical(lc).noquote() &lt;&lt; tr(<span class="stringliteral">&quot;Failed to render %1: %2&quot;</span>).arg(outputPathName, tmplate-&gt;errorString());</div>
+<div class="line"><span class="lineno">  134</span>        pop();</div>
+<div class="line"><span class="lineno">  135</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  136</span>    }</div>
+<div class="line"><span class="lineno">  137</span>    pop();</div>
+<div class="line"><span class="lineno">  138</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  139</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -372,17 +372,17 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="renderer_8cpp_source.html#l00138">138</a> of file <a class="el" href="renderer_8cpp_source.html">renderer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  139</span>{</div>
-<div class="line"><span class="lineno">  140</span>    QString newKey = key;</div>
-<div class="line"><span class="lineno">  141</span>    <span class="keywordtype">int</span> pos;</div>
-<div class="line"><span class="lineno">  142</span>    <span class="keywordflow">while</span> ((pos = newKey.indexOf(QLatin1Char(<span class="charliteral">&#39;.&#39;</span>))) &gt;= 0) {</div>
-<div class="line"><span class="lineno">  143</span>        newKey = newKey.mid(0, pos) + newKey.mid(pos+1,1).toUpper() + newKey.mid(pos+2);</div>
-<div class="line"><span class="lineno">  144</span>    }</div>
-<div class="line"><span class="lineno">  145</span>    newKey.replace(QRegularExpression{QSL(<span class="stringliteral">&quot;[^a-zA-Z0-9_]&quot;</span>)}, QSL(<span class="stringliteral">&quot;_&quot;</span>));</div>
-<div class="line"><span class="lineno">  146</span>    newKey.replace(QRegularExpression{QSL(<span class="stringliteral">&quot;^[0-9_]&quot;</span>)}, QLatin1String());</div>
-<div class="line"><span class="lineno">  147</span>    <span class="keywordflow">return</span> newKey;</div>
-<div class="line"><span class="lineno">  148</span>}</div>
+<p class="definition">Definition at line <a class="el" href="renderer_8cpp_source.html#l00141">141</a> of file <a class="el" href="renderer_8cpp_source.html">renderer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  142</span>{</div>
+<div class="line"><span class="lineno">  143</span>    QString newKey = key;</div>
+<div class="line"><span class="lineno">  144</span>    <span class="keywordtype">int</span> pos;</div>
+<div class="line"><span class="lineno">  145</span>    <span class="keywordflow">while</span> ((pos = newKey.indexOf(QLatin1Char(<span class="charliteral">&#39;.&#39;</span>))) &gt;= 0) {</div>
+<div class="line"><span class="lineno">  146</span>        newKey = newKey.mid(0, pos) + newKey.mid(pos+1,1).toUpper() + newKey.mid(pos+2);</div>
+<div class="line"><span class="lineno">  147</span>    }</div>
+<div class="line"><span class="lineno">  148</span>    newKey.replace(QRegularExpression{QSL(<span class="stringliteral">&quot;[^a-zA-Z0-9_]&quot;</span>)}, QSL(<span class="stringliteral">&quot;_&quot;</span>));</div>
+<div class="line"><span class="lineno">  149</span>    newKey.replace(QRegularExpression{QSL(<span class="stringliteral">&quot;^[0-9_]&quot;</span>)}, QLatin1String());</div>
+<div class="line"><span class="lineno">  150</span>    <span class="keywordflow">return</span> newKey;</div>
+<div class="line"><span class="lineno">  151</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -409,20 +409,20 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="renderer_8cpp_source.html#l00150">150</a> of file <a class="el" href="renderer_8cpp_source.html">renderer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  151</span>{</div>
-<div class="line"><span class="lineno">  152</span><span class="preprocessor">    #if (QT_VERSION &gt;= QT_VERSION_CHECK(6, 0, 0))</span></div>
-<div class="line"><span class="lineno">  153</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> typeId = variant.typeId();</div>
-<div class="line"><span class="lineno">  154</span><span class="preprocessor">    #else</span></div>
-<div class="line"><span class="lineno">  155</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> typeId = variant.type();</div>
-<div class="line"><span class="lineno">  156</span><span class="preprocessor">    #endif</span></div>
-<div class="line"><span class="lineno">  157</span>    <span class="keywordflow">if</span> (typeId == QMetaType::QVariantHash) {</div>
-<div class="line"><span class="lineno">  158</span>        <span class="keywordflow">return</span> sanitise(variant.toHash());</div>
-<div class="line"><span class="lineno">  159</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (typeId == QMetaType::QVariantMap) {</div>
-<div class="line"><span class="lineno">  160</span>        <span class="keywordflow">return</span> sanitise(variant.toMap());</div>
-<div class="line"><span class="lineno">  161</span>    }</div>
-<div class="line"><span class="lineno">  162</span>    <span class="keywordflow">return</span> variant;</div>
-<div class="line"><span class="lineno">  163</span>}</div>
+<p class="definition">Definition at line <a class="el" href="renderer_8cpp_source.html#l00153">153</a> of file <a class="el" href="renderer_8cpp_source.html">renderer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  154</span>{</div>
+<div class="line"><span class="lineno">  155</span><span class="preprocessor">    #if (QT_VERSION &gt;= QT_VERSION_CHECK(6, 0, 0))</span></div>
+<div class="line"><span class="lineno">  156</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> typeId = variant.typeId();</div>
+<div class="line"><span class="lineno">  157</span><span class="preprocessor">    #else</span></div>
+<div class="line"><span class="lineno">  158</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> typeId = variant.type();</div>
+<div class="line"><span class="lineno">  159</span><span class="preprocessor">    #endif</span></div>
+<div class="line"><span class="lineno">  160</span>    <span class="keywordflow">if</span> (typeId == QMetaType::QVariantHash) {</div>
+<div class="line"><span class="lineno">  161</span>        <span class="keywordflow">return</span> sanitise(variant.toHash());</div>
+<div class="line"><span class="lineno">  162</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (typeId == QMetaType::QVariantMap) {</div>
+<div class="line"><span class="lineno">  163</span>        <span class="keywordflow">return</span> sanitise(variant.toMap());</div>
+<div class="line"><span class="lineno">  164</span>    }</div>
+<div class="line"><span class="lineno">  165</span>    <span class="keywordflow">return</span> variant;</div>
+<div class="line"><span class="lineno">  166</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -449,27 +449,27 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="renderer_8cpp_source.html#l00165">165</a> of file <a class="el" href="renderer_8cpp_source.html">renderer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  166</span>{</div>
-<div class="line"><span class="lineno">  167</span>    QVariantHash newHash;</div>
-<div class="line"><span class="lineno">  168</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> iter = hash.begin(); iter != hash.end(); ++iter) {</div>
-<div class="line"><span class="lineno">  169</span>        <span class="keyword">const</span> QString saneKey = sanitise(iter.key());</div>
-<div class="line"><span class="lineno">  170</span>        QVariant saneValue = iter.value();</div>
-<div class="line"><span class="lineno">  171</span><span class="preprocessor">        #if (QT_VERSION &gt;= QT_VERSION_CHECK(6, 0, 0))</span></div>
-<div class="line"><span class="lineno">  172</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> typeId = iter-&gt;typeId();</div>
-<div class="line"><span class="lineno">  173</span><span class="preprocessor">        #else</span></div>
-<div class="line"><span class="lineno">  174</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> typeId = iter-&gt;type();</div>
-<div class="line"><span class="lineno">  175</span><span class="preprocessor">        #endif</span></div>
-<div class="line"><span class="lineno">  176</span>        <span class="keywordflow">if</span> (typeId == QMetaType::QVariantHash) {</div>
-<div class="line"><span class="lineno">  177</span>            saneValue = sanitise(iter-&gt;toHash());</div>
-<div class="line"><span class="lineno">  178</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (typeId == QMetaType::QVariantMap) {</div>
-<div class="line"><span class="lineno">  179</span>            saneValue = sanitise(iter-&gt;toMap());</div>
-<div class="line"><span class="lineno">  180</span>        }</div>
-<div class="line"><span class="lineno">  181</span>        newHash.insert(saneKey, saneValue);</div>
-<div class="line"><span class="lineno">  182</span>    }</div>
-<div class="line"><span class="lineno">  183</span>    Q_ASSERT(hash.size() == newHash.size());</div>
-<div class="line"><span class="lineno">  184</span>    <span class="keywordflow">return</span> newHash;</div>
-<div class="line"><span class="lineno">  185</span>}</div>
+<p class="definition">Definition at line <a class="el" href="renderer_8cpp_source.html#l00168">168</a> of file <a class="el" href="renderer_8cpp_source.html">renderer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  169</span>{</div>
+<div class="line"><span class="lineno">  170</span>    QVariantHash newHash;</div>
+<div class="line"><span class="lineno">  171</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> iter = hash.begin(); iter != hash.end(); ++iter) {</div>
+<div class="line"><span class="lineno">  172</span>        <span class="keyword">const</span> QString saneKey = sanitise(iter.key());</div>
+<div class="line"><span class="lineno">  173</span>        QVariant saneValue = iter.value();</div>
+<div class="line"><span class="lineno">  174</span><span class="preprocessor">        #if (QT_VERSION &gt;= QT_VERSION_CHECK(6, 0, 0))</span></div>
+<div class="line"><span class="lineno">  175</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> typeId = iter-&gt;typeId();</div>
+<div class="line"><span class="lineno">  176</span><span class="preprocessor">        #else</span></div>
+<div class="line"><span class="lineno">  177</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> typeId = iter-&gt;type();</div>
+<div class="line"><span class="lineno">  178</span><span class="preprocessor">        #endif</span></div>
+<div class="line"><span class="lineno">  179</span>        <span class="keywordflow">if</span> (typeId == QMetaType::QVariantHash) {</div>
+<div class="line"><span class="lineno">  180</span>            saneValue = sanitise(iter-&gt;toHash());</div>
+<div class="line"><span class="lineno">  181</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (typeId == QMetaType::QVariantMap) {</div>
+<div class="line"><span class="lineno">  182</span>            saneValue = sanitise(iter-&gt;toMap());</div>
+<div class="line"><span class="lineno">  183</span>        }</div>
+<div class="line"><span class="lineno">  184</span>        newHash.insert(saneKey, saneValue);</div>
+<div class="line"><span class="lineno">  185</span>    }</div>
+<div class="line"><span class="lineno">  186</span>    Q_ASSERT(hash.size() == newHash.size());</div>
+<div class="line"><span class="lineno">  187</span>    <span class="keywordflow">return</span> newHash;</div>
+<div class="line"><span class="lineno">  188</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -496,27 +496,27 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="renderer_8cpp_source.html#l00187">187</a> of file <a class="el" href="renderer_8cpp_source.html">renderer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  188</span>{</div>
-<div class="line"><span class="lineno">  189</span>    QVariantMap newMap;</div>
-<div class="line"><span class="lineno">  190</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> iter = map.begin(); iter != map.end(); ++iter) {</div>
-<div class="line"><span class="lineno">  191</span>        <span class="keyword">const</span> QString saneKey = sanitise(iter.key());</div>
-<div class="line"><span class="lineno">  192</span>        QVariant saneValue = iter.value();</div>
-<div class="line"><span class="lineno">  193</span><span class="preprocessor">        #if (QT_VERSION &gt;= QT_VERSION_CHECK(6, 0, 0))</span></div>
-<div class="line"><span class="lineno">  194</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> typeId = iter-&gt;typeId();</div>
-<div class="line"><span class="lineno">  195</span><span class="preprocessor">        #else</span></div>
-<div class="line"><span class="lineno">  196</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> typeId = iter-&gt;type();</div>
-<div class="line"><span class="lineno">  197</span><span class="preprocessor">        #endif</span></div>
-<div class="line"><span class="lineno">  198</span>        <span class="keywordflow">if</span> (typeId == QMetaType::QVariantHash) {</div>
-<div class="line"><span class="lineno">  199</span>            saneValue = sanitise(iter-&gt;toHash());</div>
-<div class="line"><span class="lineno">  200</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (typeId == QMetaType::QVariantMap) {</div>
-<div class="line"><span class="lineno">  201</span>            saneValue = sanitise(iter-&gt;toMap());</div>
-<div class="line"><span class="lineno">  202</span>        }</div>
-<div class="line"><span class="lineno">  203</span>        newMap.insert(saneKey, saneValue);</div>
-<div class="line"><span class="lineno">  204</span>    }</div>
-<div class="line"><span class="lineno">  205</span>    Q_ASSERT(map.size() == newMap.size());</div>
-<div class="line"><span class="lineno">  206</span>    <span class="keywordflow">return</span> newMap;</div>
-<div class="line"><span class="lineno">  207</span>}</div>
+<p class="definition">Definition at line <a class="el" href="renderer_8cpp_source.html#l00190">190</a> of file <a class="el" href="renderer_8cpp_source.html">renderer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  191</span>{</div>
+<div class="line"><span class="lineno">  192</span>    QVariantMap newMap;</div>
+<div class="line"><span class="lineno">  193</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> iter = map.begin(); iter != map.end(); ++iter) {</div>
+<div class="line"><span class="lineno">  194</span>        <span class="keyword">const</span> QString saneKey = sanitise(iter.key());</div>
+<div class="line"><span class="lineno">  195</span>        QVariant saneValue = iter.value();</div>
+<div class="line"><span class="lineno">  196</span><span class="preprocessor">        #if (QT_VERSION &gt;= QT_VERSION_CHECK(6, 0, 0))</span></div>
+<div class="line"><span class="lineno">  197</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> typeId = iter-&gt;typeId();</div>
+<div class="line"><span class="lineno">  198</span><span class="preprocessor">        #else</span></div>
+<div class="line"><span class="lineno">  199</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> typeId = iter-&gt;type();</div>
+<div class="line"><span class="lineno">  200</span><span class="preprocessor">        #endif</span></div>
+<div class="line"><span class="lineno">  201</span>        <span class="keywordflow">if</span> (typeId == QMetaType::QVariantHash) {</div>
+<div class="line"><span class="lineno">  202</span>            saneValue = sanitise(iter-&gt;toHash());</div>
+<div class="line"><span class="lineno">  203</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (typeId == QMetaType::QVariantMap) {</div>
+<div class="line"><span class="lineno">  204</span>            saneValue = sanitise(iter-&gt;toMap());</div>
+<div class="line"><span class="lineno">  205</span>        }</div>
+<div class="line"><span class="lineno">  206</span>        newMap.insert(saneKey, saneValue);</div>
+<div class="line"><span class="lineno">  207</span>    }</div>
+<div class="line"><span class="lineno">  208</span>    Q_ASSERT(map.size() == newMap.size());</div>
+<div class="line"><span class="lineno">  209</span>    <span class="keywordflow">return</span> newMap;</div>
+<div class="line"><span class="lineno">  210</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -535,10 +535,10 @@ Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="renderer_8cpp_source.html#l00059">59</a> of file <a class="el" href="renderer_8cpp_source.html">renderer.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   60</span>{</div>
-<div class="line"><span class="lineno">   61</span>    <span class="keywordflow">return</span> templates;</div>
-<div class="line"><span class="lineno">   62</span>}</div>
+<p class="definition">Definition at line <a class="el" href="renderer_8cpp_source.html#l00062">62</a> of file <a class="el" href="renderer_8cpp_source.html">renderer.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   63</span>{</div>
+<div class="line"><span class="lineno">   64</span>    <span class="keywordflow">return</span> templates;</div>
+<div class="line"><span class="lineno">   65</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -563,7 +563,7 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="renderer_8h_source.html#l00038">38</a> of file <a class="el" href="renderer_8h_source.html">renderer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="renderer_8h_source.html#l00040">40</a> of file <a class="el" href="renderer_8h_source.html">renderer.h</a>.</p>
 
 </div>
 </div>
@@ -587,7 +587,7 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="renderer_8h_source.html#l00039">39</a> of file <a class="el" href="renderer_8h_source.html">renderer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="renderer_8h_source.html#l00041">41</a> of file <a class="el" href="renderer_8h_source.html">renderer.h</a>.</p>
 
 </div>
 </div>
@@ -611,7 +611,7 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="renderer_8h_source.html#l00040">40</a> of file <a class="el" href="renderer_8h_source.html">renderer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="renderer_8h_source.html#l00042">42</a> of file <a class="el" href="renderer_8h_source.html">renderer.h</a>.</p>
 
 </div>
 </div>
