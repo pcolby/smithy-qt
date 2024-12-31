@@ -6,6 +6,14 @@
 
 #include <qtsmithy/model.h>
 
+#if defined USE_CUTELEE
+#include <cutelee/cutelee_version.h>
+#elif defined USE_GRANTLEE
+#include <grantlee/grantlee_version.h>
+#elif defined USE_KTEXTTEMPLATE
+#include <ktexttemplate_version.h>
+#endif
+
 #include <QCommandLineParser>
 #include <QCoreApplication>
 #include <QDebug>
@@ -233,6 +241,17 @@ int main(int argc, char *argv[])
     QCommandLineParser parser;
     parseCommandLineOptions(app, parser);
     configureLogging(parser);
+    qCDebug(lc).noquote() << QCoreApplication::applicationName() << QCoreApplication::applicationVersion();
+    qCDebug(lc).noquote() << "Qt " QT_VERSION_STR " compile-time";
+    qCDebug(lc).noquote() << "Qt" << qVersion() << "runtime";
+    #if defined USE_CUTELEE
+    qCDebug(lc).noquote() << "Cutelee " CUTELEE_VERSION_STRING " compile-time";
+    #elif defined USE_GRANTLEE
+    qCDebug(lc).noquote() << "Grantlee " GRANTLEE_VERSION_STRING " compile-time";
+    #elif defined USE_KTEXTTEMPLATE
+    qCDebug(lc).noquote() << "KTextTemplate " KTEXTTEMPLATE_VERSION_STRING " compile-time";
+    #endif
+
     if (!checkRequiredOptions(parser)) return 1;
     if (!checkRequiredDirs(parser))    return 2;
 
