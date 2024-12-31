@@ -1,10 +1,18 @@
-// SPDX-FileCopyrightText: 2013-2022 Paul Colby <git@colby.id.au>
+// SPDX-FileCopyrightText: 2013-2024 Paul Colby <git@colby.id.au>
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
 #include "generator.h"
 #include "renderer.h"
 
 #include <qtsmithy/model.h>
+
+#if defined USE_CUTELEE
+#include <cutelee/cutelee_version.h>
+#elif defined USE_GRANTLEE
+#include <grantlee/grantlee_version.h>
+#elif defined USE_KTEXTTEMPLATE
+#include <ktexttemplate_version.h>
+#endif
 
 #include <QCommandLineParser>
 #include <QCoreApplication>
@@ -69,7 +77,7 @@ void parseCommandLineOptions(QCoreApplication &app, QCommandLineParser &parser)
           QCoreApplication::translate("main", "Read Smithy models from dir"),
           QStringLiteral("dir")},
         {{QStringLiteral("t"), QStringLiteral("templates")},
-          QCoreApplication::translate("main", "Read Grantlee templates from dir"),
+          QCoreApplication::translate("main", "Read text templates from dir"),
           QStringLiteral("dir")},
         {{QStringLiteral("o"), QStringLiteral("output")},
           QCoreApplication::translate("main", "Write output files to dir"), QStringLiteral("dir")},
@@ -169,7 +177,11 @@ int loadModels(const QString &dir, smithy::Model &model)
         QFile file{iter.next()};
         qCDebug(lc).noquote() << QCoreApplication::translate("loadModels", "Loading Smithy JSON: %1")
                                  .arg(file.fileName());
-        file.open(QFile::ReadOnly);
+        if (!file.open(QFile::ReadOnly)) {
+            qCCritical(lc).noquote() << QCoreApplication::translate("loadModels",
+                "Failed to open JSON file: %1").arg(file.fileName());
+            return -count;
+        }
         QJsonParseError error{};
         QJsonDocument json = QJsonDocument::fromJson(file.readAll(), &error);
         if (error.error != QJsonParseError::NoError) {
@@ -229,6 +241,17 @@ int main(int argc, char *argv[])
     QCommandLineParser parser;
     parseCommandLineOptions(app, parser);
     configureLogging(parser);
+    qCDebug(lc).noquote() << QCoreApplication::applicationName() << QCoreApplication::applicationVersion();
+    qCDebug(lc).noquote() << "Qt " QT_VERSION_STR " compile-time";
+    qCDebug(lc).noquote() << "Qt" << qVersion() << "runtime";
+    #if defined USE_CUTELEE
+    qCDebug(lc).noquote() << "Cutelee " CUTELEE_VERSION_STRING " compile-time";
+    #elif defined USE_GRANTLEE
+    qCDebug(lc).noquote() << "Grantlee " GRANTLEE_VERSION_STRING " compile-time";
+    #elif defined USE_KTEXTTEMPLATE
+    qCDebug(lc).noquote() << "KTextTemplate " KTEXTTEMPLATE_VERSION_STRING " compile-time";
+    #endif
+
     if (!checkRequiredOptions(parser)) return 1;
     if (!checkRequiredDirs(parser))    return 2;
 
@@ -251,19 +274,21 @@ int main(int argc, char *argv[])
     // Setup the generator.
     const QString outputDir = QDir(parser.value(QStringLiteral("output"))).absolutePath();
     Generator generator(&model, &renderer);
-    qCWarning(lc).noquote() << QCoreApplication::translate("main", "About to generate approximately"
-        " %n file/s in %2", nullptr, generator.expectedFileCount()).arg(outputDir);
     if (!parser.isSet(QStringLiteral("force"))) {
+        qCWarning(lc).noquote() << QCoreApplication::translate("main", "About to generate approximately"
+            " %n file/s in %2", nullptr, generator.expectedFileCount()).arg(outputDir);
         qCInfo(lc).noquote() << QCoreApplication::translate("main", "Press Enter to contine");
         QTextStream stream(stdin);
         stream.readLine();
     }
-    const int count = generator.generate(outputDir, parser.isSet(QStringLiteral("force"))
-            ? Generator::ClobberMode::Overwrite : Generator::ClobberMode::Prompt);
-    if (count < 0) {
+    qCInfo(lc).noquote() << QCoreApplication::translate("main", "Rendering approximately"
+        " %n file/s in %2", nullptr, generator.expectedFileCount()).arg(outputDir);
+    if (!generator.generate(outputDir, parser.isSet(QStringLiteral("force"))
+            ? Generator::ClobberMode::Overwrite : Generator::ClobberMode::Prompt)) {
         return 6;
     }
     qCInfo(lc).noquote() << QCoreApplication::translate("main",
-        "Rendered %n file/s in %2", nullptr, count).arg(outputDir);
+        "Rendered %n file/s (and skipped %1) in %2", nullptr, generator.renderedFiles().count())
+        .arg(generator.skippedFiles().size()).arg(outputDir);
     return 0;
 }

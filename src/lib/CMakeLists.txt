@@ -1,7 +1,5 @@
-# SPDX-FileCopyrightText: 2013-2022 Paul Colby <git@colby.id.au>
+# SPDX-FileCopyrightText: 2013-2024 Paul Colby <git@colby.id.au>
 # SPDX-License-Identifier: LGPL-3.0-or-later
-
-cmake_minimum_required(VERSION 3.0)
 
 add_library(
   QtSmithy SHARED
@@ -17,10 +15,12 @@ add_library(
   shapeid_p.h
 )
 
+# \todo Include localisations.
+
 target_include_directories(QtSmithy PUBLIC ${CMAKE_SOURCE_DIR}/include)
 
 target_link_libraries(
   QtSmithy
   PRIVATE Qt${QT_VERSION_MAJOR}::Core)
 
-target_compile_definitions(QtSmithy PRIVATE QTSMITHY_LIBRARY)
+target_compile_definitions(QtSmithy PRIVATE QTSMITHY_LIBRARY QT_NO_KEYWORDS)

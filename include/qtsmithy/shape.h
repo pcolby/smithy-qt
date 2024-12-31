@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2013-2022 Paul Colby <git@colby.id.au>
+// SPDX-FileCopyrightText: 2013-2024 Paul Colby <git@colby.id.au>
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
 /*!
@@ -122,7 +122,7 @@ public:
 
     // Resource shape https://awslabs.github.io/smithy/2.0/spec/json-ast.html#resource-shape
     StringShapeRefMap identifiers() const;
-    StringShapeIdMap properties() const;
+    StringShapeRefMap properties() const;
     ShapeReference create() const;
     ShapeReference put() const;
     ShapeReference read() const;

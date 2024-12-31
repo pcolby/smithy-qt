@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2013-2022 Paul Colby <git@colby.id.au>
+// SPDX-FileCopyrightText: 2013-2024 Paul Colby <git@colby.id.au>
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
 /*!
@@ -71,7 +71,6 @@ QTSMITHY_EXPORT size_t qHash(const ShapeId &key, size_t seed = 0);
 #endif
 
 typedef QHash<ShapeId, QString> ShapeIdStringMap;
-typedef QHash<QString, ShapeId> StringShapeIdMap;
 
 QTSMITHY_END_NAMESPACE
 

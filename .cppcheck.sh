@@ -1,15 +1,19 @@
 #!/usr/bin/env bash
-# SPDX-FileCopyrightText: 2013-2022 Paul Colby <git@colby.id.au>
+# SPDX-FileCopyrightText: 2013-2024 Paul Colby <git@colby.id.au>
 # SPDX-License-Identifier: LGPL-3.0-or-later
 
 cppcheck --version
-for platform in native unix32 unix64 win32A win32W win64 unspecified; do
-  for defines in -{D,U}QTSMITHY_LIBRARY\ -{DPROJECT_PRE_RELEASE=pre,UPROJECT_PRE_RELEASE}; do
+RC=0
+for platform in native unix{32,64} win{32{A,W},64} unspecified; do
+  for defines in -{D,U}QTSMITHY_LIBRARY' '-{DQTSMITHY_NAMESPACE=smithy,UQTSMITHY_NAMESPACE}' '-{DPROJECT_BUILD_ID=\"1234\",UPROJECT_BUILD_ID}' '-{DPROJECT_PRE_RELEASE=pre,UPROJECT_PRE_RELEASE}; do
     echo "$platform $defines"
-    cppcheck $defines --enable=all --error-exitcode=1 --force \
-      --language=c++ --platform=$platform --std=c++{03,11,14,17,20} \
-      --suppress={missingInclude,unknownMacro}  \
-      --suppress=unusedFunction:test/unit/*.cpp \
-      --quiet "$@" src test
+    read -a definesArray -r <<< "$defines"
+    cppcheck -UQ_DECLARE_PRIVATE "${definesArray[@]}" \
+      --enable=all --error-exitcode=1 -Isrc \
+      --language=c++ --platform="$platform" --std=c++{17,20} \
+      --suppress={missingInclude,missingIncludeSystem,unknownMacro} \
+      --quiet "$@" src test | grep -Eve '^Checking' | uniq --skip-fields=1
+    RC=$((RC+$?))
   done
 done
+exit $RC

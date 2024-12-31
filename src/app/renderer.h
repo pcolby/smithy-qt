@@ -1,8 +1,15 @@
-// SPDX-FileCopyrightText: 2013-2022 Paul Colby <git@colby.id.au>
+// SPDX-FileCopyrightText: 2013-2024 Paul Colby <git@colby.id.au>
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
-
+#if defined USE_CUTELEE
+#include <cutelee/engine.h>
+#elif defined USE_GRANTLEE
 #include <grantlee/engine.h>
+#elif defined USE_KTEXTTEMPLATE
+#include <KTextTemplate/Engine>
+#endif
+
+#include "textlee.h"
 
 #include <QCoreApplication>
 #include <QLoggingCategory>
@@ -18,12 +25,20 @@ public:
 
     QStringList templatesNames() const;
 
+    void push(const QVariantHash &context);
+    void pop();
+
     bool render(const QString &templateName, const QString &outputPathName,
-                const QVariantMap &additionalContext = QVariantMap{}) const;
+                const QVariantHash &additionalContext = QVariantHash{});
+
+    static QString sanitise(const QString &key);
+    static QVariant sanitise(const QVariant &variant);
+    static QVariantHash sanitise(const QVariantHash &hash);
+    static QVariantMap sanitise(const QVariantMap &map);
 
 protected:
-    Grantlee::Context context;
-    Grantlee::Engine engine;
+    Textlee::Context context;
+    Textlee::Engine engine;
     QStringList templates;
 
     static Q_LOGGING_CATEGORY(lc, "smithy.Renderer", QtInfoMsg); ///< Logging category for Renderer.

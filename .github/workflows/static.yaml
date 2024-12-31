@@ -1,44 +1,73 @@
-# SPDX-FileCopyrightText: 2013-2022 Paul Colby <git@colby.id.au>
+# SPDX-FileCopyrightText: 2013-2024 Paul Colby <git@colby.id.au>
 # SPDX-License-Identifier: LGPL-3.0-or-later
 
 name: Static Analysis
 
-on: [push, pull_request]
+on: [ push, pull_request ]
+
+permissions:
+  contents: read
 
 jobs:
   CodeQL:
-    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    if: github.actor != 'dependabot[bot]'
+    runs-on: ubuntu-24.04
     steps:
-    - uses: actions/checkout@v3
-    - name: Install Qt
-      run: sudo apt update && sudo apt upgrade && sudo apt install libgrantlee5-dev qtbase5-dev
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
-      with:
-        languages: cpp
-    - name: Build
-      run: |
-        cmake -S "$GITHUB_WORKSPACE" -B "$RUNNER_TEMP"
-        cmake --build "$RUNNER_TEMP"
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
+      - uses: actions/checkout@v4
+      - name: Install Qt
+        run: |
+          sudo apt-mark hold firefox grub-efi-amd64-signed
+          sudo apt update
+          sudo apt upgrade
+          sudo apt install graphviz qt6-base{,-doc}-dev
+      - name: Install Cutelee
+        env:
+          BASE_URL: https://github.com/cutelyst/cutelee/releases/download
+          CUTELEE_VERSION: 6.1.0
+        run: |
+          curl --location --output-dir "$RUNNER_TEMP" --remote-name --silent \
+            "${BASE_URL}/v${CUTELEE_VERSION}/cutelee6-qt6_${CUTELEE_VERSION}_amd64.deb"
+          sudo dpkg --install "$RUNNER_TEMP/cutelee6-qt6_${CUTELEE_VERSION}_amd64.deb"
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: cpp
+      - name: Build
+        run: |
+          cmake -S "$GITHUB_WORKSPACE" -B "$RUNNER_TEMP"
+          cmake --build "$RUNNER_TEMP"
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
 
   Cppcheck:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
-    - name: Install Cppcheck
-      run: sudo apt update && sudo apt upgrade && sudo apt install cppcheck
-    - uses: actions/checkout@v3
-    - name: Perform Cppcheck Analysis
-      run: ./.cppcheck.sh --xml --xml-version=2 2> "$RUNNER_TEMP/cppcheck.xml"
-    - name: Generate Report
-      if: ${{ failure() }}
-      run: |
-        cppcheck-htmlreport --title='Smithy Qt' --file="$RUNNER_TEMP/cppcheck.xml" \
-          --report-dir="$RUNNER_TEMP/report" --source-dir="$GITHUB_WORKSPACE"
-    - name: Upload Report
-      if: ${{ failure() }}
-      uses: actions/upload-artifact@v3
-      with:
-        name: Cppcheck HTML Report
-        path: "${{ runner.temp }}/report"
+      - name: Install Cppcheck
+        run: |
+          sudo apt-mark hold firefox grub-efi-amd64-signed
+          sudo apt update
+          sudo apt upgrade
+          sudo apt install cppcheck
+      - uses: actions/checkout@v4
+      - name: Perform Cppcheck Analysis
+        run: ./.cppcheck.sh --xml --xml-version=2 2> "$RUNNER_TEMP/cppcheck.xml"
+      - name: Generate Report
+        if: ${{ failure() }}
+        run: |
+          cppcheck-htmlreport --title='Smithy Qt' --file="$RUNNER_TEMP/cppcheck.xml" \
+            --report-dir="$RUNNER_TEMP/report" --source-dir="$GITHUB_WORKSPACE"
+      - name: Upload Report
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: Cppcheck HTML Report
+          path: "${{ runner.temp }}/report"
+
+  yamllint:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: yamllint .

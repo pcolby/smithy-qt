@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2013-2022 Paul Colby <git@colby.id.au>
+# SPDX-FileCopyrightText: 2013-2024 Paul Colby <git@colby.id.au>
 # SPDX-License-Identifier: LGPL-3.0-or-later
 
 # Include Qt doc tagfiles, if provided.
