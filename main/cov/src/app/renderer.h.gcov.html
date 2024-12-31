@@ -67,42 +67,44 @@
 <span id="L5"><span class="lineNum">       5</span>              : #include &lt;cutelee/engine.h&gt;</span>
 <span id="L6"><span class="lineNum">       6</span>              : #elif defined USE_GRANTLEE</span>
 <span id="L7"><span class="lineNum">       7</span>              : #include &lt;grantlee/engine.h&gt;</span>
-<span id="L8"><span class="lineNum">       8</span>              : #endif</span>
-<span id="L9"><span class="lineNum">       9</span>              : </span>
-<span id="L10"><span class="lineNum">      10</span>              : #include &quot;textlee.h&quot;</span>
+<span id="L8"><span class="lineNum">       8</span>              : #elif defined USE_KTEXTTEMPLATE</span>
+<span id="L9"><span class="lineNum">       9</span>              : #include &lt;KTextTemplate/Engine&gt;</span>
+<span id="L10"><span class="lineNum">      10</span>              : #endif</span>
 <span id="L11"><span class="lineNum">      11</span>              : </span>
-<span id="L12"><span class="lineNum">      12</span>              : #include &lt;QCoreApplication&gt;</span>
-<span id="L13"><span class="lineNum">      13</span>              : #include &lt;QLoggingCategory&gt;</span>
-<span id="L14"><span class="lineNum">      14</span>              : </span>
-<span id="L15"><span class="lineNum">      15</span>              : class Renderer</span>
-<span id="L16"><span class="lineNum">      16</span>              : {</span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaUNC">           0 : Q_DECLARE_TR_FUNCTIONS(Renderer);</span></span>
-<span id="L18"><span class="lineNum">      18</span>              : </span>
-<span id="L19"><span class="lineNum">      19</span>              : public:</span>
-<span id="L20"><span class="lineNum">      20</span>              :     Renderer();</span>
-<span id="L21"><span class="lineNum">      21</span>              : </span>
-<span id="L22"><span class="lineNum">      22</span>              :     bool loadTemplates(const QString &amp;dirPath);</span>
+<span id="L12"><span class="lineNum">      12</span>              : #include &quot;textlee.h&quot;</span>
+<span id="L13"><span class="lineNum">      13</span>              : </span>
+<span id="L14"><span class="lineNum">      14</span>              : #include &lt;QCoreApplication&gt;</span>
+<span id="L15"><span class="lineNum">      15</span>              : #include &lt;QLoggingCategory&gt;</span>
+<span id="L16"><span class="lineNum">      16</span>              : </span>
+<span id="L17"><span class="lineNum">      17</span>              : class Renderer</span>
+<span id="L18"><span class="lineNum">      18</span>              : {</span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaUNC">           0 : Q_DECLARE_TR_FUNCTIONS(Renderer);</span></span>
+<span id="L20"><span class="lineNum">      20</span>              : </span>
+<span id="L21"><span class="lineNum">      21</span>              : public:</span>
+<span id="L22"><span class="lineNum">      22</span>              :     Renderer();</span>
 <span id="L23"><span class="lineNum">      23</span>              : </span>
-<span id="L24"><span class="lineNum">      24</span>              :     QStringList templatesNames() const;</span>
+<span id="L24"><span class="lineNum">      24</span>              :     bool loadTemplates(const QString &amp;dirPath);</span>
 <span id="L25"><span class="lineNum">      25</span>              : </span>
-<span id="L26"><span class="lineNum">      26</span>              :     void push(const QVariantHash &amp;context);</span>
-<span id="L27"><span class="lineNum">      27</span>              :     void pop();</span>
-<span id="L28"><span class="lineNum">      28</span>              : </span>
-<span id="L29"><span class="lineNum">      29</span>              :     bool render(const QString &amp;templateName, const QString &amp;outputPathName,</span>
-<span id="L30"><span class="lineNum">      30</span>              :                 const QVariantHash &amp;additionalContext = QVariantHash{});</span>
-<span id="L31"><span class="lineNum">      31</span>              : </span>
-<span id="L32"><span class="lineNum">      32</span>              :     static QString sanitise(const QString &amp;key);</span>
-<span id="L33"><span class="lineNum">      33</span>              :     static QVariant sanitise(const QVariant &amp;variant);</span>
-<span id="L34"><span class="lineNum">      34</span>              :     static QVariantHash sanitise(const QVariantHash &amp;hash);</span>
-<span id="L35"><span class="lineNum">      35</span>              :     static QVariantMap sanitise(const QVariantMap &amp;map);</span>
-<span id="L36"><span class="lineNum">      36</span>              : </span>
-<span id="L37"><span class="lineNum">      37</span>              : protected:</span>
-<span id="L38"><span class="lineNum">      38</span>              :     Textlee::Context context;</span>
-<span id="L39"><span class="lineNum">      39</span>              :     Textlee::Engine engine;</span>
-<span id="L40"><span class="lineNum">      40</span>              :     QStringList templates;</span>
-<span id="L41"><span class="lineNum">      41</span>              : </span>
-<span id="L42"><span class="lineNum">      42</span> <span class="tlaUNC">           0 :     static Q_LOGGING_CATEGORY(lc, &quot;smithy.Renderer&quot;, QtInfoMsg); ///&lt; Logging category for Renderer.</span></span>
-<span id="L43"><span class="lineNum">      43</span>              : };</span>
+<span id="L26"><span class="lineNum">      26</span>              :     QStringList templatesNames() const;</span>
+<span id="L27"><span class="lineNum">      27</span>              : </span>
+<span id="L28"><span class="lineNum">      28</span>              :     void push(const QVariantHash &amp;context);</span>
+<span id="L29"><span class="lineNum">      29</span>              :     void pop();</span>
+<span id="L30"><span class="lineNum">      30</span>              : </span>
+<span id="L31"><span class="lineNum">      31</span>              :     bool render(const QString &amp;templateName, const QString &amp;outputPathName,</span>
+<span id="L32"><span class="lineNum">      32</span>              :                 const QVariantHash &amp;additionalContext = QVariantHash{});</span>
+<span id="L33"><span class="lineNum">      33</span>              : </span>
+<span id="L34"><span class="lineNum">      34</span>              :     static QString sanitise(const QString &amp;key);</span>
+<span id="L35"><span class="lineNum">      35</span>              :     static QVariant sanitise(const QVariant &amp;variant);</span>
+<span id="L36"><span class="lineNum">      36</span>              :     static QVariantHash sanitise(const QVariantHash &amp;hash);</span>
+<span id="L37"><span class="lineNum">      37</span>              :     static QVariantMap sanitise(const QVariantMap &amp;map);</span>
+<span id="L38"><span class="lineNum">      38</span>              : </span>
+<span id="L39"><span class="lineNum">      39</span>              : protected:</span>
+<span id="L40"><span class="lineNum">      40</span>              :     Textlee::Context context;</span>
+<span id="L41"><span class="lineNum">      41</span>              :     Textlee::Engine engine;</span>
+<span id="L42"><span class="lineNum">      42</span>              :     QStringList templates;</span>
+<span id="L43"><span class="lineNum">      43</span>              : </span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaUNC">           0 :     static Q_LOGGING_CATEGORY(lc, &quot;smithy.Renderer&quot;, QtInfoMsg); ///&lt; Logging category for Renderer.</span></span>
+<span id="L45"><span class="lineNum">      45</span>              : };</span>
         </pre>
               </td>
             </tr>
