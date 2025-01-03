@@ -9,11 +9,11 @@
 #ifndef QTSMITHY_SHAPE_H
 #define QTSMITHY_SHAPE_H
 
+#include "shapeid.h"
+
 #include <QCoreApplication>
 #include <QJsonObject>
 #include <QJsonValue>
-
-#include "shapeid.h"
 
 QTSMITHY_DECLARE_TEST(Shape)
 

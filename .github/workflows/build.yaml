@@ -24,6 +24,8 @@ jobs:
           - 5.14.2
           - 5.15.2
           - 6
+          - 6.0.4
+          - 6.1.3
           - 6.2.4
           - 6.3.2
           - 6.4.3
@@ -192,6 +194,8 @@ jobs:
           - 5.13.2
           - 5.14.2
           - 5.15.2
+          - 6.0.4
+          - 6.1.3
           - 6.2.4
           - 6.3.2
           - 6.4.3
@@ -209,7 +213,7 @@ jobs:
           - gcc
         exclude:
           # GitHub's macOS 14+ gcc can only target arm64, but Qt didn't add Apple arm64 support until Qt 6.2, so:
-          # Exclude Qt 5.x (and 6.0, 6.1) with GCC on macOS 14+. Also see the `arch` step below for more details.
+          # Exclude Qt 5.x, 6.0, and 6.1 with GCC on macOS 14+. Also see the `arch` step below for more details.
           - { qt: '5.9.9',   os: macos-14, cc: gcc }
           - { qt: '5.9.9',   os: macos-15, cc: gcc }
           - { qt: '5.10.1',  os: macos-14, cc: gcc }
@@ -224,6 +228,10 @@ jobs:
           - { qt: '5.14.2',  os: macos-15, cc: gcc }
           - { qt: '5.15.2',  os: macos-14, cc: gcc }
           - { qt: '5.15.2',  os: macos-15, cc: gcc }
+          - { qt: '6.0.4',   os: macos-14, cc: gcc }
+          - { qt: '6.0.4',   os: macos-15, cc: gcc }
+          - { qt: '6.1.3',   os: macos-14, cc: gcc }
+          - { qt: '6.1.3',   os: macos-15, cc: gcc }
           # Exclude Qt 5.10 with GCC on macOS. See https://bugreports.qt.io/browse/QTBUG-66585
           - { qt: '5.10.1', cc: gcc }
           # Exclude Qt 6.x with GCC on macOS for now. See https://bugreports.qt.io/browse/QTBUG-107050
@@ -379,6 +387,8 @@ jobs:
           - 5.13.2
           - 5.14.2
           - 5.15.2
+          - 6.0.4
+          - 6.1.3
           - 6.2.4
           - 6.3.2
           - 6.4.3
@@ -399,6 +409,8 @@ jobs:
           - { arch: arm64, qt: '5.13.2' }
           - { arch: arm64, qt: '5.14.2' }
           - { arch: arm64, qt: '5.15.2' }
+          - { arch: arm64, qt: '6.0.4' }
+          - { arch: arm64, qt: '6.1.3' }
           # Also exclude arm64 for Qt 6.8+ for now, as Qt 6.8 is moving to native-only (not cross-compiling) arm64 on
           # Windows (https://www.qt.io/blog/qt-for-windows-on-arm-may21-update) and there are not compatible runners.
           - { arch: arm64, qt: '6.8.1' } # \todo Qt 6.8.1 might have restored cross-compilation.
@@ -411,6 +423,8 @@ jobs:
           # Exclude x86 (32-bit) builds for Qt 5.10.1 with MSVC. See https://bugreports.qt.io/browse/QTBUG-67259
           - { arch: x86, qt: '5.10.1', toolchain: msvc }
           # Exclude x86 (32-bit) builds for Qt 6.x, since the Qt online installer dropped those.
+          - { arch: x86, qt: '6.0.4' }
+          - { arch: x86, qt: '6.1.3' }
           - { arch: x86, qt: '6.2.4' }
           - { arch: x86, qt: '6.3.2' }
           - { arch: x86, qt: '6.4.3' }
@@ -435,6 +449,8 @@ jobs:
           - { toolchain: llvm, qt: '5.13.2' }
           - { toolchain: llvm, qt: '5.14.2' }
           - { toolchain: llvm, qt: '5.15.2' }
+          - { toolchain: llvm, qt: '6.0.4' }
+          - { toolchain: llvm, qt: '6.1.3' }
           - { toolchain: llvm, qt: '6.2.4' }
           - { toolchain: llvm, qt: '6.3.2' }
           - { toolchain: llvm, qt: '6.4.3' }
@@ -480,6 +496,10 @@ jobs:
           - { qt: '5.15.2',  toolchain: msvc,  arch: x86,    aqtArch: win32_msvc2019 }
           - { qt: '5.15.2',  toolchain: msvc,  arch: x86-64, aqtArch: win64_msvc2015_64 }
           - { qt: '5.15.2',  toolchain: msvc,  arch: x86-64, aqtArch: win64_msvc2019_64 }
+          - { qt: '6.0.4',   toolchain: mingw, arch: x86-64, aqtArch: win64_mingw81 }
+          - { qt: '6.0.4',   toolchain: msvc,  arch: x86-64, aqtArch: win64_msvc2019_64 }
+          - { qt: '6.1.3',   toolchain: mingw, arch: x86-64, aqtArch: win64_mingw81 }
+          - { qt: '6.1.3',   toolchain: msvc,  arch: x86-64, aqtArch: win64_msvc2019_64 }
           - { qt: '6.2.4',   toolchain: mingw, arch: x86-64, aqtArch: win64_mingw }
           - { qt: '6.2.4',   toolchain: msvc,  arch: arm64,  aqtArch: win64_msvc2019_arm64 }
           - { qt: '6.2.4',   toolchain: msvc,  arch: x86-64, aqtArch: win64_msvc2019_64 }

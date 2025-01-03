@@ -9,13 +9,12 @@
 #ifndef QTSMITHY_MODEL_H
 #define QTSMITHY_MODEL_H
 
+#include "shape.h"
+#include "shapeid.h"
+
 #include <QCoreApplication>
 #include <QHash>
 #include <QJsonObject>
-#include <QObject>
-
-#include "shape.h"
-#include "shapeid.h"
 
 QTSMITHY_DECLARE_TEST(Model)
 

@@ -11,6 +11,11 @@
 
 #include "qtsmithy_global.h"
 
+#include <QtGlobal> // \todo Remove if/when dropping support for Qt 6.0.x.
+#if (QT_VERSION_CHECK(6, 0, 0) <= QT_VERSION) && (QT_VERSION < QT_VERSION_CHECK(6, 1, 0))
+#include <limits> // https://bugreports.qt.io/browse/QTBUG-89977
+#endif
+
 #include <QCoreApplication>
 #include <QHash>
 
