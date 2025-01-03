@@ -1,24 +1,25 @@
 <map id="shape.cpp" name="shape.cpp">
-<area shape="rect" id="Node000001" title="Defines the Shape and ShapePrivate classes." alt="" coords="233,5,321,31"/>
-<area shape="rect" id="Node000002" href="$shape_8h.html" title="Declares the Shape class." alt="" coords="73,79,208,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="256,33,174,76,171,71,254,28"/>
-<area shape="rect" id="Node000010" title=" " alt="" coords="233,79,321,104"/>
-<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="279,31,279,68,274,68,274,31"/>
-<area shape="rect" id="Node000011" title=" " alt="" coords="345,79,440,104"/>
-<area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="297,28,366,71,363,75,294,33"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="5,225,140,251"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="88,107,49,124,32,137,19,153,15,170,21,186,33,202,49,217,45,221,29,206,16,189,10,170,14,151,29,133,47,120,86,102"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="29,152,130,177"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="133,106,98,146,94,142,129,103"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="155,152,249,177"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="153,103,187,142,183,146,149,106"/>
-<area shape="rect" id="Node000006" href="$shapeid_8h.html" title="Declares the ShapeId class." alt="" coords="274,152,359,177"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="170,102,279,145,277,150,168,106"/>
-<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="278,180,124,225,122,220,277,175"/>
-<area shape="rect" id="Node000007" href="$qtsmithy__global_8h.html" title="Global QtSmithy library macros." alt="" coords="183,225,322,251"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="308,179,272,219,268,215,304,176"/>
-<area shape="rect" id="Node000009" title=" " alt="" coords="347,225,412,251"/>
-<area shape="poly" id="edge9_Node000006_Node000009" title=" " alt="" coords="329,176,364,215,360,219,325,179"/>
-<area shape="rect" id="Node000008" title=" " alt="" coords="213,299,292,324"/>
-<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="255,251,255,288,250,288,250,251"/>
+<area shape="rect" id="Node000001" title="Defines the Shape and ShapePrivate classes." alt="" coords="489,5,577,31"/>
+<area shape="rect" id="Node000002" href="$shape_8h.html" title="Declares the Shape class." alt="" coords="330,79,465,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="513,33,430,76,428,71,510,28"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="489,79,577,104"/>
+<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="536,31,536,68,531,68,531,31"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="602,79,697,104"/>
+<area shape="poly" id="edge12_Node000001_Node000011" title=" " alt="" coords="553,28,622,71,620,75,551,33"/>
+<area shape="rect" id="Node000003" href="$shapeid_8h.html" title="Declares the ShapeId class." alt="" coords="209,152,295,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="375,106,287,149,284,145,373,102"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="309,225,443,251"/>
+<area shape="poly" id="edge8_Node000002_Node000006" title=" " alt="" coords="395,105,381,152,378,214,372,214,376,152,390,104"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="391,152,492,177"/>
+<area shape="poly" id="edge9_Node000002_Node000008" title=" " alt="" coords="407,103,431,141,426,144,402,106"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="517,152,611,177"/>
+<area shape="poly" id="edge10_Node000002_Node000009" title=" " alt="" coords="425,102,528,145,526,150,423,106"/>
+<area shape="rect" id="Node000004" href="$qtsmithy__global_8h.html" title="Global QtSmithy library macros." alt="" coords="5,225,144,251"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="224,180,115,223,113,219,223,175"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="89,299,167,324"/>
+<area shape="poly" id="edge5_Node000003_Node000005" title=" " alt="" coords="244,180,147,292,143,289,240,176"/>
+<area shape="poly" id="edge6_Node000003_Node000006" title=" " alt="" coords="273,175,348,217,345,222,271,180"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="219,225,285,251"/>
+<area shape="poly" id="edge7_Node000003_Node000007" title=" " alt="" coords="255,178,255,214,249,214,249,178"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="86,249,115,288,111,291,81,253"/>
 </map>
