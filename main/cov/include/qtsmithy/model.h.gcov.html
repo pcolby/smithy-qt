@@ -71,66 +71,65 @@
 <span id="L9"><span class="lineNum">       9</span>              : #ifndef QTSMITHY_MODEL_H</span>
 <span id="L10"><span class="lineNum">      10</span>              : #define QTSMITHY_MODEL_H</span>
 <span id="L11"><span class="lineNum">      11</span>              : </span>
-<span id="L12"><span class="lineNum">      12</span>              : #include &lt;QCoreApplication&gt;</span>
-<span id="L13"><span class="lineNum">      13</span>              : #include &lt;QHash&gt;</span>
-<span id="L14"><span class="lineNum">      14</span>              : #include &lt;QJsonObject&gt;</span>
-<span id="L15"><span class="lineNum">      15</span>              : #include &lt;QObject&gt;</span>
-<span id="L16"><span class="lineNum">      16</span>              : </span>
-<span id="L17"><span class="lineNum">      17</span>              : #include &quot;shape.h&quot;</span>
-<span id="L18"><span class="lineNum">      18</span>              : #include &quot;shapeid.h&quot;</span>
-<span id="L19"><span class="lineNum">      19</span>              : </span>
-<span id="L20"><span class="lineNum">      20</span>              : QTSMITHY_DECLARE_TEST(Model)</span>
-<span id="L21"><span class="lineNum">      21</span>              : </span>
-<span id="L22"><span class="lineNum">      22</span>              : QTSMITHY_BEGIN_NAMESPACE</span>
-<span id="L23"><span class="lineNum">      23</span>              : </span>
-<span id="L24"><span class="lineNum">      24</span>              : class ModelPrivate;</span>
-<span id="L25"><span class="lineNum">      25</span>              : </span>
-<span id="L26"><span class="lineNum">      26</span>              : class QTSMITHY_EXPORT Model</span>
-<span id="L27"><span class="lineNum">      27</span>              : {</span>
-<span id="L28"><span class="lineNum">      28</span> <span class="tlaUNC">           0 : Q_DECLARE_TR_FUNCTIONS(Model);</span></span>
-<span id="L29"><span class="lineNum">      29</span>              : </span>
-<span id="L30"><span class="lineNum">      30</span>              : public:</span>
-<span id="L31"><span class="lineNum">      31</span>              :     enum class Error {</span>
-<span id="L32"><span class="lineNum">      32</span>              :         NoError             = 0,</span>
-<span id="L33"><span class="lineNum">      33</span>              :         NoData              = 1,</span>
-<span id="L34"><span class="lineNum">      34</span>              :         InvalidMetadata     = 2,</span>
-<span id="L35"><span class="lineNum">      35</span>              :         InvalidShapes       = 3,</span>
-<span id="L36"><span class="lineNum">      36</span>              :         InvalidShapeId      = 4,</span>
-<span id="L37"><span class="lineNum">      37</span>              :         InvalidShape        = 5,</span>
-<span id="L38"><span class="lineNum">      38</span>              :         ConflictingMetadata = 6,</span>
-<span id="L39"><span class="lineNum">      39</span>              :     };</span>
-<span id="L40"><span class="lineNum">      40</span>              : </span>
-<span id="L41"><span class="lineNum">      41</span>              :     Model();</span>
-<span id="L42"><span class="lineNum">      42</span>              :     Model(Model &amp;&amp;other);</span>
-<span id="L43"><span class="lineNum">      43</span>              :     Model(const Model &amp;other);</span>
-<span id="L44"><span class="lineNum">      44</span>              :     Model&amp; operator=(const Model &amp;model);</span>
-<span id="L45"><span class="lineNum">      45</span>              :     Model&amp; operator=(const Model &amp;&amp;model);</span>
-<span id="L46"><span class="lineNum">      46</span>              :     ~Model();</span>
-<span id="L47"><span class="lineNum">      47</span>              : </span>
-<span id="L48"><span class="lineNum">      48</span>              :     void clear();</span>
-<span id="L49"><span class="lineNum">      49</span>              :     bool insert(const QJsonObject &amp;ast);</span>
-<span id="L50"><span class="lineNum">      50</span>              :     bool finish();</span>
-<span id="L51"><span class="lineNum">      51</span>              : </span>
-<span id="L52"><span class="lineNum">      52</span>              :     Error error() const;</span>
-<span id="L53"><span class="lineNum">      53</span>              :     bool isValid() const;</span>
-<span id="L54"><span class="lineNum">      54</span>              : </span>
-<span id="L55"><span class="lineNum">      55</span>              :     QJsonObject metadata() const;</span>
-<span id="L56"><span class="lineNum">      56</span>              :     Shape shape(const ShapeId &amp;shapeId) const;</span>
-<span id="L57"><span class="lineNum">      57</span>              :     QHash&lt;ShapeId, Shape&gt; shapes(const Shape::Type &amp;type = Shape::Type::Undefined) const;</span>
-<span id="L58"><span class="lineNum">      58</span>              : </span>
-<span id="L59"><span class="lineNum">      59</span>              : protected:</span>
-<span id="L60"><span class="lineNum">      60</span>              :     /// \cond internal</span>
-<span id="L61"><span class="lineNum">      61</span>              :     ModelPrivate * d_ptr; ///&lt; Internal d-pointer.</span>
-<span id="L62"><span class="lineNum">      62</span>              :     /// \endcond</span>
-<span id="L63"><span class="lineNum">      63</span>              : </span>
-<span id="L64"><span class="lineNum">      64</span>              : private:</span>
-<span id="L65"><span class="lineNum">      65</span> <span class="tlaUNC">           0 :     Q_DECLARE_PRIVATE(Model)</span></span>
-<span id="L66"><span class="lineNum">      66</span>              :     QTSMITHY_BEFRIEND_TEST(Model)</span>
-<span id="L67"><span class="lineNum">      67</span>              : };</span>
-<span id="L68"><span class="lineNum">      68</span>              : </span>
-<span id="L69"><span class="lineNum">      69</span>              : QTSMITHY_END_NAMESPACE</span>
-<span id="L70"><span class="lineNum">      70</span>              : </span>
-<span id="L71"><span class="lineNum">      71</span>              : #endif // QTSMITHY_MODEL_H</span>
+<span id="L12"><span class="lineNum">      12</span>              : #include &quot;shape.h&quot;</span>
+<span id="L13"><span class="lineNum">      13</span>              : #include &quot;shapeid.h&quot;</span>
+<span id="L14"><span class="lineNum">      14</span>              : </span>
+<span id="L15"><span class="lineNum">      15</span>              : #include &lt;QCoreApplication&gt;</span>
+<span id="L16"><span class="lineNum">      16</span>              : #include &lt;QHash&gt;</span>
+<span id="L17"><span class="lineNum">      17</span>              : #include &lt;QJsonObject&gt;</span>
+<span id="L18"><span class="lineNum">      18</span>              : </span>
+<span id="L19"><span class="lineNum">      19</span>              : QTSMITHY_DECLARE_TEST(Model)</span>
+<span id="L20"><span class="lineNum">      20</span>              : </span>
+<span id="L21"><span class="lineNum">      21</span>              : QTSMITHY_BEGIN_NAMESPACE</span>
+<span id="L22"><span class="lineNum">      22</span>              : </span>
+<span id="L23"><span class="lineNum">      23</span>              : class ModelPrivate;</span>
+<span id="L24"><span class="lineNum">      24</span>              : </span>
+<span id="L25"><span class="lineNum">      25</span>              : class QTSMITHY_EXPORT Model</span>
+<span id="L26"><span class="lineNum">      26</span>              : {</span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaUNC">           0 : Q_DECLARE_TR_FUNCTIONS(Model);</span></span>
+<span id="L28"><span class="lineNum">      28</span>              : </span>
+<span id="L29"><span class="lineNum">      29</span>              : public:</span>
+<span id="L30"><span class="lineNum">      30</span>              :     enum class Error {</span>
+<span id="L31"><span class="lineNum">      31</span>              :         NoError             = 0,</span>
+<span id="L32"><span class="lineNum">      32</span>              :         NoData              = 1,</span>
+<span id="L33"><span class="lineNum">      33</span>              :         InvalidMetadata     = 2,</span>
+<span id="L34"><span class="lineNum">      34</span>              :         InvalidShapes       = 3,</span>
+<span id="L35"><span class="lineNum">      35</span>              :         InvalidShapeId      = 4,</span>
+<span id="L36"><span class="lineNum">      36</span>              :         InvalidShape        = 5,</span>
+<span id="L37"><span class="lineNum">      37</span>              :         ConflictingMetadata = 6,</span>
+<span id="L38"><span class="lineNum">      38</span>              :     };</span>
+<span id="L39"><span class="lineNum">      39</span>              : </span>
+<span id="L40"><span class="lineNum">      40</span>              :     Model();</span>
+<span id="L41"><span class="lineNum">      41</span>              :     Model(Model &amp;&amp;other);</span>
+<span id="L42"><span class="lineNum">      42</span>              :     Model(const Model &amp;other);</span>
+<span id="L43"><span class="lineNum">      43</span>              :     Model&amp; operator=(const Model &amp;model);</span>
+<span id="L44"><span class="lineNum">      44</span>              :     Model&amp; operator=(const Model &amp;&amp;model);</span>
+<span id="L45"><span class="lineNum">      45</span>              :     ~Model();</span>
+<span id="L46"><span class="lineNum">      46</span>              : </span>
+<span id="L47"><span class="lineNum">      47</span>              :     void clear();</span>
+<span id="L48"><span class="lineNum">      48</span>              :     bool insert(const QJsonObject &amp;ast);</span>
+<span id="L49"><span class="lineNum">      49</span>              :     bool finish();</span>
+<span id="L50"><span class="lineNum">      50</span>              : </span>
+<span id="L51"><span class="lineNum">      51</span>              :     Error error() const;</span>
+<span id="L52"><span class="lineNum">      52</span>              :     bool isValid() const;</span>
+<span id="L53"><span class="lineNum">      53</span>              : </span>
+<span id="L54"><span class="lineNum">      54</span>              :     QJsonObject metadata() const;</span>
+<span id="L55"><span class="lineNum">      55</span>              :     Shape shape(const ShapeId &amp;shapeId) const;</span>
+<span id="L56"><span class="lineNum">      56</span>              :     QHash&lt;ShapeId, Shape&gt; shapes(const Shape::Type &amp;type = Shape::Type::Undefined) const;</span>
+<span id="L57"><span class="lineNum">      57</span>              : </span>
+<span id="L58"><span class="lineNum">      58</span>              : protected:</span>
+<span id="L59"><span class="lineNum">      59</span>              :     /// \cond internal</span>
+<span id="L60"><span class="lineNum">      60</span>              :     ModelPrivate * d_ptr; ///&lt; Internal d-pointer.</span>
+<span id="L61"><span class="lineNum">      61</span>              :     /// \endcond</span>
+<span id="L62"><span class="lineNum">      62</span>              : </span>
+<span id="L63"><span class="lineNum">      63</span>              : private:</span>
+<span id="L64"><span class="lineNum">      64</span> <span class="tlaUNC">           0 :     Q_DECLARE_PRIVATE(Model)</span></span>
+<span id="L65"><span class="lineNum">      65</span>              :     QTSMITHY_BEFRIEND_TEST(Model)</span>
+<span id="L66"><span class="lineNum">      66</span>              : };</span>
+<span id="L67"><span class="lineNum">      67</span>              : </span>
+<span id="L68"><span class="lineNum">      68</span>              : QTSMITHY_END_NAMESPACE</span>
+<span id="L69"><span class="lineNum">      69</span>              : </span>
+<span id="L70"><span class="lineNum">      70</span>              : #endif // QTSMITHY_MODEL_H</span>
         </pre>
               </td>
             </tr>
