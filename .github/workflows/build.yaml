@@ -91,7 +91,7 @@ jobs:
         run: sudo apt install qt6-{base-{dev{,-tools},doc-dev},l10n-tools,tools-dev{,-tools}}
       - name: Install online Qt version
         if: contains(matrix.qt, '.') && matrix.arch == 'arm64' # ie if not using Ubuntu's Qt5/Qt6.
-        uses: jdpurcell/install-qt-action@b45c67aaa9e0ea77e59a7031ec14a12d5ddf4b35
+        uses: jdpurcell/install-qt-action@2f115872f83e98e8eafb284d799fbe328f52dbe3
         with:
           version: ${{ matrix.qt }}
           setup-python: false
