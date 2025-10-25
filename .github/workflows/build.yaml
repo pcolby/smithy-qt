@@ -111,7 +111,7 @@ jobs:
           aqtversion: '>=3.2.0' # 3.2.0+ required for Qt 6.8+ support; https://github.com/miurahr/aqtinstall/issues/843
       - name: Upload aqtinstall log file
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: aqtinstall-log-linux-${{ matrix.cc }}-${{ matrix.qt }}
           path: aqtinstall.log
@@ -168,7 +168,7 @@ jobs:
           ctest --output-on-failure --test-dir "$RUNNER_TEMP/release" --verbose
           cmake --build "$RUNNER_TEMP/coverage" --target coverage
       - name: Upload test results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: test-results-${{ steps.build.outputs.projectVersion }}
           path: |
@@ -199,7 +199,7 @@ jobs:
         if: matrix.ttl != 'None'
         run: cmake --build "$RUNNER_TEMP/release" --target appimage
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: smithy-qt-${{ steps.build.outputs.projectVersion }}
           path: |
@@ -208,7 +208,7 @@ jobs:
           if-no-files-found: error
       - name: Upload AppImage
         if: matrix.ttl != 'None'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: smithy-qt-${{ steps.build.outputs.projectVersion }}.AppImage
           path: ${{ runner.temp }}/release/smithy-qt-${{ steps.build.outputs.projectVersion }}.AppImage
@@ -295,7 +295,7 @@ jobs:
           aqtversion: '>=3.2.0' # 3.2.0+ required for Qt 6.8+ support; https://github.com/miurahr/aqtinstall/issues/843
       - name: Upload aqtinstall log file
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: aqtinstall-log-${{ matrix.os }}-${{ matrix.cc }}-${{ matrix.qt }}
           path: aqtinstall.log
@@ -366,7 +366,7 @@ jobs:
         run: cmake --build "$RUNNER_TEMP/coverage" --target coverage
       - name: Upload test results
         if: matrix.os != 'macos-13' || fromJSON(steps.build.outputs.tap)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: test-results-${{ steps.build.outputs.projectVersion }}
           path: |
@@ -399,7 +399,7 @@ jobs:
         run: macdeployqt "$RUNNER_TEMP/release/src/app/smithy-qt.app" -dmg -verbose=2
       - name: Upload artifacts
         if: matrix.qt == '6'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: smithy-qt-${{ steps.build.outputs.projectVersion }}
           path: ${{ runner.temp }}/release/src/cli/*.app
@@ -598,7 +598,7 @@ jobs:
           aqtversion: '>=3.2.0' # 3.2.0+ required for Qt 6.8+ support; https://github.com/miurahr/aqtinstall/issues/843
       - name: Upload aqtinstall log file
         if: matrix.arch == 'arm64' && failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: aqtinstall-log-win-${{ matrix.arch }}-${{ matrix.toolchain }}-${{ matrix.qt }}-cross
           path: aqtinstall.log
@@ -616,7 +616,7 @@ jobs:
           aqtversion: '>=3.2.0' # 3.2.0+ required for Qt 6.8+ support; https://github.com/miurahr/aqtinstall/issues/843
       - name: Upload aqtinstall log file
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: aqtinstall-log-win-${{ matrix.arch }}-${{ matrix.toolchain }}-${{ matrix.qt }}
           path: aqtinstall.log
@@ -687,7 +687,7 @@ jobs:
         run: cmake --build "%RUNNER_TEMP%/coverage" --target coverage --verbose
       - name: Upload test results
         if: matrix.arch != 'arm64' && ( matrix.toolchain != 'msvc' || fromJSON(steps.post-build.outputs.tap) )
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: test-results-${{ steps.post-build.outputs.projectVersion }}
           path: |
@@ -697,7 +697,7 @@ jobs:
             ${{ runner.temp }}/release/test/**/*.tap
           if-no-files-found: error
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: smithy-qt-${{ steps.post-build.outputs.projectVersion }}
           path: ${{ runner.temp }}/release/src/lib/${{ matrix.dll }}
@@ -750,7 +750,7 @@ jobs:
             coverage/**/*.html
         working-directory: ${{ runner.temp }}
       - name: Upload HTML coverage report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: coverage-report
           path: "${{ runner.temp }}/coverage/coverage"
@@ -778,7 +778,7 @@ jobs:
       - name: Clear previous coverage report
         run: rm -rf main/cov
       - name: Download HTML report
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           name: coverage-report
           path: main/cov
