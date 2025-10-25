@@ -19,7 +19,7 @@ jobs:
     if: github.actor != 'dependabot[bot]'
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Install Qt
         run: |
           sudo apt-mark hold firefox grub-efi-amd64-signed
@@ -35,7 +35,7 @@ jobs:
             "${BASE_URL}/v${CUTELEE_VERSION}/cutelee6-qt6_${CUTELEE_VERSION}_amd64.deb"
           sudo dpkg --install "$RUNNER_TEMP/cutelee6-qt6_${CUTELEE_VERSION}_amd64.deb"
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3
+        uses: github/codeql-action/init@v4
         with:
           languages: cpp
       - name: Build
@@ -43,7 +43,7 @@ jobs:
           cmake -S "$GITHUB_WORKSPACE" -B "$RUNNER_TEMP"
           cmake --build "$RUNNER_TEMP"
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v3
+        uses: github/codeql-action/analyze@v4
 
   Cppcheck:
     runs-on: ubuntu-24.04
@@ -54,7 +54,7 @@ jobs:
           sudo apt update
           sudo apt upgrade
           sudo apt install cppcheck
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Perform Cppcheck Analysis
         run: ./.cppcheck.sh --xml --xml-version=2 2> "$RUNNER_TEMP/cppcheck.xml"
       - name: Generate Report
@@ -72,5 +72,5 @@ jobs:
   yamllint:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - run: yamllint .
