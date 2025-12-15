@@ -36,13 +36,13 @@ jobs:
             -D TEXT_TEMPLATE_LIBRARY=None -S "$GITHUB_WORKSPACE" -B "$RUNNER_TEMP"
           cmake --build "$RUNNER_TEMP" --target doc doc-internal
       - name: Upload public docs
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: public-docs
           path: "${{ runner.temp }}/doc/public"
           if-no-files-found: error
       - name: Upload internal docs
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: internal-docs
           path: "${{ runner.temp }}/doc/internal"
